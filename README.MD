@@ -13,6 +13,8 @@ After installing the Lombok plugin, it needs to be enabled as an annotation proc
 
 **Usage:**
 -
-It has a sample test method inside the test package - com/training/sample/tests/SampleTest.java. All the tests needs to be inside this package based on web. mobile and services.
-It has a sample page class inside main package - com/training/sample/pages/SamplePage.java. All the pages/screen classes needs to inside this package.
-Everything related to data/drivers needs to be inside - test/resources
+It has a sample test method inside the test package - `com/training/sample/tests/SampleTest.java`. All the tests needs to be inside this package based on web. mobile and services.
+
+It has a sample page class inside main package - `com/training/sample/pages/SamplePage.java`. All the pages/screen classes needs to inside this package.
+
+Everything related to data/drivers needs to be inside - `test/resources`
