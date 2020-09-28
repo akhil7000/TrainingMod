@@ -1,5 +1,4 @@
 **Purpose:**
-
 -
 The purpose of this repo is to have a basic training template. 
 
