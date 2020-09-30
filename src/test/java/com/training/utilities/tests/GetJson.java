@@ -1,17 +1,16 @@
-package com.training.sample.tests;
+package com.training.utilities.tests;
 
-import com.training.sample.pages.SamplePage;
+import com.training.utilities.SamplePage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-public class SampleGetJson {
+public class GetJson {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     String getURl;
+
     @BeforeEach
     public void sampleTest(){
         SamplePage samplePage=new SamplePage();
