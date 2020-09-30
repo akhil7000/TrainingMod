@@ -1,6 +1,6 @@
 package com.training.utilities.tests;
 
-import com.training.utilities.SamplePage;
+import com.training.utilities.GetJsonValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -9,15 +9,15 @@ import org.slf4j.LoggerFactory;
 public class GetJson {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    String getURl;
+    String getValue;
 
     @BeforeEach
     public void sampleTest(){
-        SamplePage samplePage=new SamplePage();
-       getURl = samplePage.getUrl();
+        GetJsonValue samplePage=new GetJsonValue();
+        getValue = samplePage.getValue("product");
     }
     @Test
     public void getUrl(){
-        logger.info("URL = "+getURl);
+        logger.info("Value = "+getValue);
     }
 }

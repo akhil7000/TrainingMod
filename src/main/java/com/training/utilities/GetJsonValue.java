@@ -10,11 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
-public class SamplePage {
-    public String getUrl()  {
-         Logger logger = LoggerFactory.getLogger(this.getClass());
+public class GetJsonValue {
+    public String getValue(String key)  {
+
         Map<?, ?> map;
-        String getURl = null;
         Gson gson = new Gson();
 
         // create a reader
@@ -30,8 +29,9 @@ public class SamplePage {
 
         // print map entries
         for (Map.Entry<?, ?> entry : map.entrySet()) {
-            getURl = (String) entry.getValue();
+            if(key.equalsIgnoreCase((String) entry.getKey()))
+            return (String) entry.getValue();
         }
-        return getURl;
+        return null;
     }
 }
