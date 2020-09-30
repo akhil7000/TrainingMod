@@ -1,8 +1,7 @@
-package com.training.sample.tests;
+package web.tests;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.training.sample.pages.SamplePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,5 +60,4 @@ ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
         //return a3.equals(a4);
 
 }
-
 }
