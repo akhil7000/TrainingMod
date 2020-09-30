@@ -1,23 +1,15 @@
 package com.training.utilities.tests;
 
-import com.training.utilities.GetJsonValue;
-import org.junit.jupiter.api.BeforeEach;
+import com.training.base.Base;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Map;
 
-public class GetJson {
+public class GetJson extends Base {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    String getValue;
-
-    @BeforeEach
-    public void sampleTest(){
-        GetJsonValue samplePage=new GetJsonValue();
-        getValue = samplePage.getValue("product");
-    }
     @Test
     public void getUrl(){
-        logger.info("Value = "+getValue);
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            System.out.println((String)entry.getValue());
+        }
     }
 }
