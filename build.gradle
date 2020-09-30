@@ -18,10 +18,10 @@ dependencies {
     implementation "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_engine_version}"
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: "${logback_version}"
     implementation group: 'com.codeborne', name: 'selenide' , version : "${selenide_version}"
+    implementation "com.google.code.gson:gson:${gson_version}"
 }
 
 test{
     systemProperties System.getProperties()
     useJUnitPlatform()
 }
-
