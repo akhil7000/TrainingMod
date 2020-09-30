@@ -12,7 +12,6 @@ public class SamplePage {
 
     public void samplePageMethod(){
         logger.info("This is a method in Sample Page");
-
     }
 
 
