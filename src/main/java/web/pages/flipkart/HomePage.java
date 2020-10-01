@@ -1,12 +1,9 @@
 package web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Iterator;
-import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage {
@@ -23,31 +20,8 @@ public class HomePage {
         setShoes.sendKeys(product);
         return this;
     }
-    public HomePage searchShoes(){
+    public SearchPage searchShoes(){
         searchShoes.shouldBe(Condition.visible).click();
-        return this;
-    }
-    public SearchPage sortShoes(String filter) {
-       $x("//div[contains(text(),'Newest First')]").shouldBe(Condition.visible);
-        ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
-        Iterator<SelenideElement> itTotal = sortingfilter.iterator();
-        int count = 0;
-        int position = 0;
-        while (itTotal.hasNext()) {
-            count++;
-            String temp = itTotal.next().getText();
-            temp = temp.trim();
-            if (filter.contains(temp)) {
-                position = count;
-                $x("//div[@class='_3ywJNQ']/div[" + position + "]").click();
-            }
-            logger.info("temp = " + temp);
-        }
-        logger.info("position = " + position);
-        logger.info(filter);
         return new SearchPage();
     }
-
-
-
 }

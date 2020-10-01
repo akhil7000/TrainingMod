@@ -21,7 +21,12 @@ public class SearchPage {
         return this;
     }
 
+    /**
+     * countingPagePrices: performing pagination
+     * @return All prices of page1 & page2
+     */
     public SearchPage countingPagePrices() {
+        $x("//div[@class='_1vC4OE']").shouldBe(Condition.visible);
         ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
         Iterator<SelenideElement> iterate_priceList = priceList.iterator();
         while(iterate_priceList.hasNext()){
@@ -37,5 +42,31 @@ public class SearchPage {
         logger.info("Size of A1 = "+a1.size());
         logger.info("Size of A2 = "+a2.size());
         return  new SearchPage();
+    }
+
+    /**
+     *
+     * @param filter :price filter
+     * @return selecting low to high option shoes
+     */
+    public SearchPage sortShoes(String filter) {
+        $x("//div[contains(text(),'Newest First')]").shouldBe(Condition.visible);
+        ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
+        Iterator<SelenideElement> itTotal = sortingfilter.iterator();
+        int count = 0;
+        int position = 0;
+        while (itTotal.hasNext()) {
+            count++;
+            String temp = itTotal.next().getText();
+            temp = temp.trim();
+            if (filter.contains(temp)) {
+                position = count;
+                $x("//div[@class='_3ywJNQ']/div[" + position + "]").click();
+            }
+            logger.info("temp = " + temp);
+        }
+        logger.info("position = " + position);
+        logger.info(filter);
+        return new SearchPage();
     }
 }
