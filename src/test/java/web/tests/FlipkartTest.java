@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import web.pages.flipkart.HomePage;
 
 public class FlipkartTest {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @BeforeEach
     public void testSetUp(){
         Configuration.timeout=5000;
