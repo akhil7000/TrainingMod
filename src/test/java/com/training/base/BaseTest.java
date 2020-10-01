@@ -8,7 +8,7 @@ public class BaseTest {
 
     public Map<String, String> map;
     @BeforeEach
-    public void setup(){
+    public void testSetup(){
         map = (Map) new GetJsonValue().getValue();
     }
 }
