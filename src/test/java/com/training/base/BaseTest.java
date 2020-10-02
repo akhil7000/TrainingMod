@@ -7,6 +7,10 @@ import java.util.Map;
 public class BaseTest {
 
     public Map<String, String> map;
+
+    /**
+     * Getting json data and storing it in map variable
+     */
     @BeforeEach
     public void testSetup(){
         map = (Map) new GetJsonValue().getValue();
