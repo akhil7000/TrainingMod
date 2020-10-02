@@ -12,27 +12,29 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class SearchPage {
+    public SelenideElement counting_page_wait=$x("//div[@class='_1vC4OE']");
+    ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
+    public SelenideElement sort_shoes_wait=$x("//div[contains(text(),'Newest First')]");
+    ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
+    String pageNoElement="//a[@class='_2Xp0TH'][contains(text(),'%s')]";
+    String sortShoeElement="//div[@class='_3ywJNQ']/div['%s']";
     ArrayList a1 = new ArrayList();
     ArrayList a2 = new ArrayList();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public SearchPage selectPageNumber(int no) {
-        $x("//a[@class='_2Xp0TH'][contains(text(),'"+no+"')]").shouldBe(Condition.visible).click();
-        logger.info("second page price selected");
-        return this;
+    public  SearchPage selectPageNumber(int no) {
+      $x(String.format(pageNoElement,no)).shouldHave(Condition.visible).click();
+        return new SearchPage();
     }
 
     /**
      * countingPagePrices: performing pagination
-     * @return All prices of page1 & page2
+     * @return SearchPage
      */
-    public SearchPage countingPagePrices() {
-        $x("//div[@class='_1vC4OE']").shouldBe(Condition.visible);
-        ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
+    public Boolean countingPagePrices() {
+       counting_page_wait.shouldBe(Condition.visible);
         Iterator<SelenideElement> iterate_priceList = priceList.iterator();
         while(iterate_priceList.hasNext()){
-            SelenideElement tempPriceList = iterate_priceList.next();
-            String singlePriceList = tempPriceList.getText();
-            String price_without_rupees = singlePriceList.split("\u20B9")[1];
+            String price_without_rupees = iterate_priceList.next().getText().split("\u20B9")[1];
             a1.add(price_without_rupees);
         }
         a2=(ArrayList) a1.clone();
@@ -41,29 +43,25 @@ public class SearchPage {
         logger.info("a2 = "+a2);
         logger.info("Size of A1 = "+a1.size());
         logger.info("Size of A2 = "+a2.size());
-        return  new SearchPage();
+        return  a1.equals(a2);
     }
 
     /**
      *
      * @param filter :price filter
-     * @return selecting low to high option shoes
+     * @return  SearchPage
      */
     public SearchPage sortShoes(String filter) {
-        $x("//div[contains(text(),'Newest First')]").shouldBe(Condition.visible);
-        ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
+        sort_shoes_wait.shouldBe(Condition.visible);
         Iterator<SelenideElement> itTotal = sortingfilter.iterator();
         int count = 0;
         int position = 0;
         while (itTotal.hasNext()) {
             count++;
-            String temp = itTotal.next().getText();
-            temp = temp.trim();
-            if (filter.contains(temp)) {
+            if (filter.contains(itTotal.next().getText().trim())) {
                 position = count;
-                $x("//div[@class='_3ywJNQ']/div[" + position + "]").click();
+                $x(String.format(sortShoeElement,position)).shouldHave(Condition.visible).click();
             }
-            logger.info("temp = " + temp);
         }
         logger.info("position = " + position);
         logger.info(filter);
