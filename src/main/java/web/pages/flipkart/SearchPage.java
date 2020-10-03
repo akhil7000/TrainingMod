@@ -17,7 +17,7 @@ public class SearchPage {
     public SelenideElement sort_shoes_wait=$x("//div[contains(text(),'Newest First')]");
     ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
     String pageNoElement="//a[@class='_2Xp0TH'][contains(text(),'%s')]";
-    String sortShoeElement="//div[@class='_3ywJNQ']/div['%s']";
+    String sortShoeElement="//div[@class='_3ywJNQ']/div[%s]";
     ArrayList a1 = new ArrayList();
     ArrayList a2 = new ArrayList();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
