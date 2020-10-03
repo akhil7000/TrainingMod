@@ -19,6 +19,7 @@ dependencies {
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: "${logback_version}"
     implementation group: 'com.codeborne', name: 'selenide' , version : "${selenide_version}"
     implementation "com.google.code.gson:gson:${gson_version}"
+    testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
 }
 
 test{
