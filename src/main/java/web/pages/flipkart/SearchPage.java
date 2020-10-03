@@ -3,21 +3,28 @@ package web.pages.flipkart;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.google.gson.Gson;
+import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+import java.util.Map;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class SearchPage {
-    public SelenideElement counting_page_wait=$x("//div[@class='_1vC4OE']");
+//    public SelenideElement counting_page_wait=$x("//div[@class='_1vC4OE']");
+public SelenideElement counting_page_wait=$("._2zN0mv");
     ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
     public SelenideElement sort_shoes_wait=$x("//div[contains(text(),'Newest First')]");
     ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
     String pageNoElement="//a[@class='_2Xp0TH'][contains(text(),'%s')]";
-    String sortShoeElement="//div[@class='_3ywJNQ']/div['%s']";
+    String sortShoeElement="//div[@class='_3ywJNQ']/div[%s]";
     ArrayList a1 = new ArrayList();
     ArrayList a2 = new ArrayList();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,10 +38,10 @@ public class SearchPage {
      * @return SearchPage
      */
     public Boolean countingPagePrices() {
-       counting_page_wait.shouldBe(Condition.visible);
-        Iterator<SelenideElement> iterate_priceList = priceList.iterator();
+       counting_page_wait.shouldHave(Condition.disappear);
+       Iterator<SelenideElement> iterate_priceList = priceList.iterator();
         while(iterate_priceList.hasNext()){
-            String price_without_rupees = iterate_priceList.next().getText().split("\u20B9")[1];
+            String price_without_rupees = iterate_priceList.next().shouldHave(Condition.visible).getText().split("\u20B9")[1];
             a1.add(price_without_rupees);
         }
         a2=(ArrayList) a1.clone();
@@ -60,7 +67,9 @@ public class SearchPage {
             count++;
             if (filter.contains(itTotal.next().getText().trim())) {
                 position = count;
-                $x(String.format(sortShoeElement,position)).shouldHave(Condition.visible).click();
+                System.out.println(position);
+               $x(String.format(sortShoeElement,position)).shouldHave(Condition.visible).click();
+               break;
             }
         }
         logger.info("position = " + position);
@@ -68,3 +77,4 @@ public class SearchPage {
         return new SearchPage();
     }
 }
+

@@ -13,7 +13,10 @@ public class HomePage {
     public static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
 
     public HomePage popUpCancel(){
-        popUpCross.shouldBe(Condition.visible).click();
+        if(popUpCross.isDisplayed()) {
+            popUpCross.shouldBe(Condition.visible).click();
+
+        }
         return this;
     }
     public HomePage setShoes(String product){
