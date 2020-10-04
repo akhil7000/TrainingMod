@@ -18,8 +18,7 @@ import java.util.Map;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SearchPage {
-//    public SelenideElement counting_page_wait=$x("//div[@class='_1vC4OE']");
-public SelenideElement counting_page_wait=$("._2zN0mv");
+    public SelenideElement counting_page_wait=$("._2zN0mv");
     ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
     public SelenideElement sort_shoes_wait=$x("//div[contains(text(),'Newest First')]");
     ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");

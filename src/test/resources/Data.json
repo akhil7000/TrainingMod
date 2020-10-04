@@ -1,5 +1,5 @@
-{
-  "url": "https://www.flipkart.com/",
-  "product1": "shoes",
-  "filter1": "Price -- Low to High"
-}
+
+    {
+      "product1" : "shoes","pagelimit1" : "1",
+      "product1" : "socks","pagelimit1" : "3"
+    }
