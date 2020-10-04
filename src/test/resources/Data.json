@@ -1,5 +1,4 @@
-
-    {
-      "product1" : "shoes","pagelimit1" : "1",
-      "product1" : "socks","pagelimit1" : "3"
-    }
+{
+  "product1": "shoes",
+  "pagelimit1": "1"
+}

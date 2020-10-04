@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class BaseTest {
 
-    public Map<String, String> map;
+    public static Map<String, String> map;
 
     /**
      * Getting json data and storing it in map variable
@@ -14,6 +14,7 @@ public class BaseTest {
     @BeforeEach
     public void testSetup(){
 
-        map = (Map) new GetJsonValue().getValue();
+      map = (Map) new GetJsonValue().getValue();
+
     }
 }
