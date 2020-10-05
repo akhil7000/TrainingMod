@@ -1,23 +1,17 @@
 package web.pages.flipkart;
 
+import BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.google.gson.Gson;
-import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Map;
-
 import static com.codeborne.selenide.Selenide.*;
 
-public class SearchPage {
+public class SearchPage extends BasePage{
     public SelenideElement counting_page_wait=$("._2zN0mv");
     ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
     public SelenideElement sort_shoes_wait=$x("//div[contains(text(),'Newest First')]");
@@ -37,10 +31,10 @@ public class SearchPage {
      * @return SearchPage
      */
     public Boolean countingPagePrices() {
-       counting_page_wait.shouldHave(Condition.disappear);
+      counting_page_wait.waitUntil(Condition.disappear,4000);
        Iterator<SelenideElement> iterate_priceList = priceList.iterator();
         while(iterate_priceList.hasNext()){
-            String price_without_rupees = iterate_priceList.next().shouldHave(Condition.visible).getText().split("\u20B9")[1];
+            String price_without_rupees = iterate_priceList.next().waitUntil(Condition.visible,4000).getText().split("\u20B9")[1];
             a1.add(price_without_rupees);
         }
         a2=(ArrayList) a1.clone();

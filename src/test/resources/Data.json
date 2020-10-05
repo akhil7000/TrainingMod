@@ -1,4 +1,5 @@
 {
-  "product1": "shoes",
-  "pagelimit1": "1"
+  "url": "https://www.flipkart.com",
+  "product1": "shoes,socks",
+  "pagelimit1": "1,2"
 }
