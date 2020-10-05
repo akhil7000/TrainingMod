@@ -20,7 +20,8 @@ public class SearchPage{
     ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
     String pageNoElement="//a[@class='_2Xp0TH'][contains(text(),'%s')]";
     String sortShoeElement="//div[@class='_3ywJNQ']/div[%s]";
-
+    ArrayList a1 = new ArrayList();
+    ArrayList a2 = new ArrayList();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     public  SearchPage selectPageNumber(int no) {
       $x(String.format(pageNoElement,no)).shouldHave(Condition.visible).click();
