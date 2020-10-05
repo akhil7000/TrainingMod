@@ -1,6 +1,5 @@
 package web.pages.flipkart;
 
-import BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -34,10 +33,10 @@ public class SearchPage{
     public Boolean countingPagePrices() {
         a1 = new ArrayList<>();
         a2 = new ArrayList<>();
-      counting_page_wait.waitUntil(Condition.disappear,4000);
+        counting_page_wait.shouldHave(Condition.disappear);
        Iterator<SelenideElement> iterate_priceList = priceList.iterator();
         while(iterate_priceList.hasNext()){
-            String price_without_rupees = iterate_priceList.next().waitUntil(Condition.visible,4000).getText().split("\u20B9")[1];
+            String price_without_rupees = iterate_priceList.next().shouldHave(Condition.visible).getText().split("\u20B9")[1];
             a1.add(Integer.parseInt(price_without_rupees.trim()));
         }
         a2=(ArrayList) a1.clone();
@@ -63,7 +62,7 @@ public class SearchPage{
             count++;
             if (filter.contains(itTotal.next().getText().trim())) {
                 position = count;
-                System.out.println(position);
+                logger.info("position");
                $x(String.format(sortShoeElement,position)).shouldHave(Condition.visible).click();
                break;
             }

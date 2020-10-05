@@ -15,13 +15,13 @@ public class BaseTest {
      * Getting json data and storing it in map variable
      */
     @BeforeEach
-    public  void testSetup(){
+    public  void setUp(){
         Configuration.timeout = 6000;
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
         options.addArguments("start-maximized");
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
-      map = (Map) new GetJsonValue().getValue();
+        map = (Map) new GetJsonValue().getValue();
     }
     @AfterEach
     public void tearDown(){

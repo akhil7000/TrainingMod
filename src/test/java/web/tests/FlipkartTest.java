@@ -24,10 +24,10 @@ public class FlipkartTest extends BaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/Flipkart.csv")
     public void testGetDetails(String product, String pagelimit) {
-        int pagelimit2 = Integer.parseInt(pagelimit);
+        int max_page_limit= Integer.parseInt(pagelimit);
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
                 sortShoes("Price -- Low to High");
-        for (int page = 1; page <= pagelimit2; page++) {
+        for (int page = 1; page <= max_page_limit; page++) {
             if (page != 1) {
                 searchPage.selectPageNumber(page);
             }
