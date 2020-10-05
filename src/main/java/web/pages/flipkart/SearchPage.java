@@ -11,15 +11,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import static com.codeborne.selenide.Selenide.*;
 
-public class SearchPage extends BasePage{
+public class SearchPage{
+    ArrayList<Integer> a1;
+    ArrayList<Integer> a2;
     public SelenideElement counting_page_wait=$("._2zN0mv");
     ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
     public SelenideElement sort_shoes_wait=$x("//div[contains(text(),'Newest First')]");
     ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
     String pageNoElement="//a[@class='_2Xp0TH'][contains(text(),'%s')]";
     String sortShoeElement="//div[@class='_3ywJNQ']/div[%s]";
-    ArrayList a1 = new ArrayList();
-    ArrayList a2 = new ArrayList();
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     public  SearchPage selectPageNumber(int no) {
       $x(String.format(pageNoElement,no)).shouldHave(Condition.visible).click();
@@ -31,11 +32,13 @@ public class SearchPage extends BasePage{
      * @return SearchPage
      */
     public Boolean countingPagePrices() {
+        a1 = new ArrayList<>();
+        a2 = new ArrayList<>();
       counting_page_wait.waitUntil(Condition.disappear,4000);
        Iterator<SelenideElement> iterate_priceList = priceList.iterator();
         while(iterate_priceList.hasNext()){
             String price_without_rupees = iterate_priceList.next().waitUntil(Condition.visible,4000).getText().split("\u20B9")[1];
-            a1.add(price_without_rupees);
+            a1.add(Integer.parseInt(price_without_rupees.trim()));
         }
         a2=(ArrayList) a1.clone();
         Collections.sort(a2);

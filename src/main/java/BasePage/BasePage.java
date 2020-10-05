@@ -6,7 +6,6 @@ import com.codeborne.selenide.ex.ElementNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//com.codeborne.selenide.ex.
 public class BasePage {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     public Boolean isDisplayedWait(SelenideElement element) {
