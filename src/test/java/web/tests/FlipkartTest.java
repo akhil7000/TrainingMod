@@ -6,15 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import web.pages.flipkart.HomePage;
 import web.pages.flipkart.SearchPage;
 
 public class FlipkartTest extends BaseTest {
-    private  Logger logger = LoggerFactory.getLogger(this.getClass());
     @BeforeEach
-    public void testSetUp() {
+    public void setUp() {
         Selenide.open(map.get("url"));
     }
 
