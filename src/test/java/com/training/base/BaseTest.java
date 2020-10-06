@@ -31,6 +31,4 @@ public class BaseTest {
         Selenide.closeWebDriver();
         softAssert.assertAll();
     }
-
-
 }

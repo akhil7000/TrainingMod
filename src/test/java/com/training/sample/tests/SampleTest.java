@@ -14,7 +14,6 @@ public class SampleTest {
 
     @Test
     public void sampleTest(){
-
         logger.info("Sample test");
         SamplePage samplePage=new SamplePage();
         samplePage.samplePageMethod();
