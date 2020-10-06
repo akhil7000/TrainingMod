@@ -18,6 +18,7 @@ public class BaseTest {
      */
     @BeforeEach
     public  void setUp(){
+        softAssert=new SoftAssertions();
         Configuration.timeout = 6000;
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
