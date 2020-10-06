@@ -1,8 +1,10 @@
 package web.tests;
 
+import assertpage.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
@@ -15,6 +17,15 @@ public class FlipkartTest extends BaseTest {
     @BeforeEach
     public void testSetUp() {
         Selenide.open(map.get("url"));
+    }
+    @Test
+    public void testCurrentPage(){
+        PaymentPage paymentPage=new HomePage().popUpCancel().paymentPage();
+        String current_page_text=paymentPage.currentPageCheck();
+        logger.info(current_page_text);
+        softAssert.assertThat(current_page_text.equalsIgnoreCase("Payments"));
+        int counting_questions= paymentPage.countingQuestions();
+        logger.info(String.valueOf(counting_questions));
     }
 
     /**

@@ -1,6 +1,7 @@
 package web.pages.flipkart;
 
 import BasePage.BasePage;
+import assertpage.PaymentPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ public class HomePage extends BasePage {
     public SelenideElement popUpCross = $x("//div[@class='mCRfo9']/div/div/button");
     public static SelenideElement setShoes = $x("//form/div/div/input");
     public static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
-
+    public SelenideElement payment_page = $x("//a[contains(text(),'Payments')]");
     public HomePage popUpCancel(){
         if(isDisplayedWait(popUpCross)){
             popUpCross.shouldBe(Condition.visible).click();
@@ -23,8 +24,13 @@ public class HomePage extends BasePage {
         setShoes.sendKeys(product);
         return this;
     }
+
     public SearchPage searchShoes(){
         searchShoes.shouldBe(Condition.visible).click();
         return new SearchPage();
+    }
+    public PaymentPage paymentPage(){
+        payment_page.shouldBe(Condition.visible).click();
+        return new PaymentPage();
     }
 }
