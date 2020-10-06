@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import web.pages.flipkart.HomePage;
 import web.pages.flipkart.SearchPage;
 
+import static com.codeborne.selenide.Selenide.$x;
+
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @BeforeEach
@@ -27,6 +29,24 @@ public class FlipkartTest extends BaseTest {
         int counting_questions= paymentPage.countingQuestions();
         logger.info(String.valueOf(counting_questions));
     }
+             String beforeXpath="//table[3]/tbody/tr[";
+            String afterXpath= "]/td[1]";
+
+    @Test
+    public FlipkartTest testTotalBanks() {
+        for(int i=1;i<=9;i++){
+            String actualXpath=beforeXpath+i+afterXpath;
+            SelenideElement element = $x(actualXpath);
+            logger.info("banks======"+element.getText());
+            if(element.getText().equals("SBI")){
+                logger.info("Bank name:"+element.getText()+"is found");
+                break;
+            }
+        }
+        return  this;
+    }
+
+
 
     /**
      * testSortFilter :In this method shoes selection operation performed by using low to high filter
