@@ -29,7 +29,7 @@ public class FlipkartTest extends BaseTest {
             if (page != 1) {
                 searchPage.selectPageNumber(page);
             }
-           softAssert.assertThat(searchPage.countingPagePrices()).isTrue();
+           softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
         }
       logger.info("Assertion working");
     }
