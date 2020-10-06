@@ -3,6 +3,7 @@ package web.tests;
 import assertpage.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,6 +27,7 @@ public class FlipkartTest extends BaseTest {
         softAssert.assertThat(current_page_text.equalsIgnoreCase("Payments"));
         int counting_questions= paymentPage.countingQuestions();
         logger.info(String.valueOf(counting_questions));
+        Assertions.assertEquals(14,counting_questions);
     }
 
     /**
