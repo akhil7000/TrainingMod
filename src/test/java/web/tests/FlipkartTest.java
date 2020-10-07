@@ -1,8 +1,11 @@
 package web.tests;
 
+import assertpage.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
@@ -15,6 +18,16 @@ public class FlipkartTest extends BaseTest {
     @BeforeEach
     public void testSetUp() {
         Selenide.open(map.get("url"));
+    }
+
+    /**
+     * testQuestionsOnPaymentPage:selecting payment page and counting number of questions available on page.
+     */
+    @Test
+    public void testQuestionsOnPaymentPage(){
+        PaymentPage paymentPage=new HomePage().popUpCancel().goToPaymentPage();
+        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"Payment header not matching");
+        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),paymentPage.getQuestionsCount(),"questions count mismatch");
     }
 
     /**
