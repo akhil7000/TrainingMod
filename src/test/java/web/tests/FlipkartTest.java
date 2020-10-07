@@ -1,9 +1,8 @@
 package web.tests;
 
-import assertpage.PaymentPage;
+import paymentpage.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
-import emipage.EmiPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,11 +30,14 @@ public class FlipkartTest extends BaseTest {
         Assertions.assertEquals(14,counting_questions);
             }
 
-    @Test
-    public void testTotalBanks() throws Exception {
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testEmiOptions.csv")
+    public void testEmiOptions(String bankName,String tenure) throws Exception {
         PaymentPage paymentPage= new HomePage().popUpCancel().paymentPage();
-        EmiPage emiPage=new EmiPage();
-        emiPage.getBankDetails();
+        int emiRow=paymentPage.getEmiRow(bankName);
+        logger.info(String.valueOf(emiRow));
+        paymentPage.getEmiTenure(emiRow);
+        Assertions.assertTrue(paymentPage.getEmiTenure(emiRow).equals(tenure));
     }
 
     /**

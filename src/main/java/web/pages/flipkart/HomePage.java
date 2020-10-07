@@ -1,7 +1,7 @@
 package web.pages.flipkart;
 
 import BasePage.BasePage;
-import assertpage.PaymentPage;
+import paymentpage.PaymentPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.slf4j.Logger;
@@ -31,6 +31,7 @@ public class HomePage extends BasePage {
     }
     public PaymentPage paymentPage(){
         payment_page.shouldBe(Condition.visible).click();
+        System.out.println("payment page*****");
         return new PaymentPage();
     }
 }
