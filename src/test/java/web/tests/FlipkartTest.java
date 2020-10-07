@@ -30,6 +30,13 @@ public class FlipkartTest extends BaseTest {
         Assertions.assertEquals(14,counting_questions);
             }
 
+    /**
+     *
+     * @param bankName:inserting bank name from json to check tenure facility available or not
+     * @param tenure:inserting tenure facility available ie YES or No
+     * @throws Exception :Base exception to hanle exception at runtime
+     * @testEmiOptions:Method to check banks tenure facilities
+     */
     @ParameterizedTest
     @CsvFileSource(resources = "/testEmiOptions.csv")
     public void testEmiOptions(String bankName,String tenure) throws Exception {

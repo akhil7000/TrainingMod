@@ -18,9 +18,11 @@ public class PaymentPage {
     public String currentPageCheck() {
         return current_page_check.shouldBe(Condition.visible).getText();
     }
+
     public int countingQuestions() {
         return questions.size();
     }
+
     public int getEmiRow(String bankName) throws Exception {
         int i;
         for (i = 1; i <= 9; i++) {
