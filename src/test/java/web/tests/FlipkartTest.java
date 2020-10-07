@@ -19,6 +19,10 @@ public class FlipkartTest extends BaseTest {
     public void testSetUp() {
         Selenide.open(map.get("url"));
     }
+
+    /**
+     * testCurrentPage:selecting payment page and counting number of questions available on page.
+     */
     @Test
     public void testCurrentPage(){
         PaymentPage paymentPage=new HomePage().popUpCancel().paymentPage();
