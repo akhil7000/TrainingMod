@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
-public  class  GetJsonValue {
+public class GetJsonValue {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
