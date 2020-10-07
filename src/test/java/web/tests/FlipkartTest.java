@@ -21,17 +21,13 @@ public class FlipkartTest extends BaseTest {
     }
 
     /**
-     * testCurrentPage:selecting payment page and counting number of questions available on page.
+     * testQuestionsOnPaymentPage:selecting payment page and counting number of questions available on page.
      */
     @Test
-    public void testCurrentPage(){
-        PaymentPage paymentPage=new HomePage().popUpCancel().paymentPage();
-        String current_page_text=paymentPage.currentPageCheck();
-        logger.info(current_page_text);
-        softAssert.assertThat(current_page_text.equalsIgnoreCase("Payments"));
-        int counting_questions= paymentPage.countingQuestions();
-        logger.info(String.valueOf(counting_questions));
-        Assertions.assertEquals(14,counting_questions);
+    public void testQuestionsOnPaymentPage(){
+        PaymentPage paymentPage=new HomePage().popUpCancel().goToPaymentPage();
+        softAssert.assertThat(paymentPage.currentPageHeader().equalsIgnoreCase(map.get("paymentPageHeader")));
+        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),paymentPage.getQuestionsCount());
     }
 
     /**

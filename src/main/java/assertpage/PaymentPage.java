@@ -7,12 +7,14 @@ import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class PaymentPage {
-    public SelenideElement current_page_check = $x("//h2[@id='payments']");
+    public SelenideElement paymentHeader = $x("//h2[@id='payments']");
     ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
-    public String currentPageCheck(){
-        return current_page_check.shouldBe(Condition.visible).getText();
+
+    public String currentPageHeader(){
+        return paymentHeader.shouldBe(Condition.visible).getText();
     }
-    public int countingQuestions() {
+
+    public int getQuestionsCount() {
         return  questions.size();
     }
 }
