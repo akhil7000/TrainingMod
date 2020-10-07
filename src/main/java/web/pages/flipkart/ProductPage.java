@@ -1,7 +1,6 @@
 package web.pages.flipkart;
 
 import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ProductPage {
@@ -13,8 +12,9 @@ public class ProductPage {
         clickShoeSize.click();
         return this;
     }
-    public ProductPage addToCartShoe(){
+
+    public CartPage addToCartShoe(){
         addToCart.click();
-        return this;
+        return new CartPage();
     }
 }

@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @BeforeEach
     public void testSetUp() {
         Selenide.open(map.get("url"));
@@ -30,112 +31,110 @@ public class FlipkartTest extends BaseTest {
     public void testSortFilter(String product, String pagelimit) {
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
                 sortShoes("Price -- Low to High");
-        for (int page = 1; page <=Integer.parseInt(pagelimit); page++) {
+        for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {
             if (page != 1) {
                 searchPage.selectPageNumber(page);
             }
-           softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
+            softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
         }
-      logger.info("Assertion working");
+        logger.info("Assertion working");
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/addToCartFunctionality.csv")
     public void addToCartFunctionality(String product) {
 
-
-        String shoenoInString[]= map.get("select_shoe").split(",");
+        String shoenoInString[] = map.get("select_shoe").split(",");
         int[] shoeno = Arrays.asList(shoenoInString).stream().mapToInt(Integer::parseInt).toArray();
-
-
-        SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
-                sortShoes("Price -- Low to High");
-
         String[][] productNameAndPrice = new String[shoeno.length][shoeno.length];
 
-/**
- * Getting the product name and price of shoe and storing in array
- */
-        for(int row=0;row<shoeno.length;row++){
-            for(int col=0;col<2;col++) {
+        SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().sortShoes("Price -- Low to High");
+
+        /**
+         * Getting the product name and price of shoe and storing in array
+         */
+        for (int row = 0; row < shoeno.length; row++) {
+            for (int col = 0; col < 2; col++) {
                 productNameAndPrice[row][col] = searchPage.getProductName(shoeno[row]);
-                col = col+1;
-                productNameAndPrice[row][col] =  searchPage.getProductPrice(shoeno[row]);
+                col = col + 1;
+                productNameAndPrice[row][col] = searchPage.getProductPrice(shoeno[row]);
             }
         }
 
-/**
- * Just printing product Name And Price array
- */
-        for(int row=0;row<shoeno.length;row++){
-            for(int col=0;col<2;col++) {
-                System.out.println("****productNameAndPrice = *** = "+productNameAndPrice[row][col]);
+        /**
+         * Just printing product Name And Price array
+         */
+        for (int row = 0; row < shoeno.length; row++) {
+            for (int col = 0; col < 2; col++) {
+                logger.info("****productNameAndPrice = *** = " + productNameAndPrice[row][col]);
             }
         }
 
-/**
- * Selecting shoe 1 and adding in cart , same procedure for other shoes
- */
-        for(int index=0;index<shoeno.length;index++){
-            searchPage.OpenProductPage(shoeno[index]).clickShoeSize().addToCartShoe();
+        /**
+         * Selecting shoe 1 and adding in cart , same procedure for other shoes
+         */
+        CartPage cartPage = null;
+        for (int index = 0; index < shoeno.length; index++) {
+            cartPage = searchPage.OpenProductPage(shoeno[index]).clickShoeSize().addToCartShoe();
             /**
              * If you are selecting last shoe than below if statement will not run, it will not switch to parent window
              */
-            if(!((shoeno.length-1)==index)) {
+            if (!((shoeno.length - 1) == index)) {
                 switchParentWindow();
             }
         }
-/**
- * getting ProductName And Price From AddtoCart
- */
+
+        /**
+         * getting ProductName And Price From AddtoCart
+         */
         String[][] getProductNameAndPriceFromAddtoCart = new String[shoeno.length][shoeno.length];
-        CartPage cartPage = new CartPage();
-        for(int row=0;row<shoeno.length;row++){
-            for(int col=0;col<2;col++) {
-                int z=row+1;
-                int c=z+1;
-                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductName(z);
-                col = col+1;
-                getProductNameAndPriceFromAddtoCart[row][col] =  cartPage.getProductPrice(c);
+        for (int row = 0; row < shoeno.length; row++) {
+            for (int col = 0; col < 2; col++) {
+                int positionOfProductName = row + 1;
+                int positionOfPrice = positionOfProductName + 1;
+                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductName(positionOfProductName);
+                col = col + 1;
+                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductPrice(positionOfPrice);
             }
         }
 
-/**
- * Just printing the array and seeing the value
- */
-        for(int row=0;row<getProductNameAndPriceFromAddtoCart.length;row++){
-            for(int col=0;col<2;col++) {
-                System.out.println("****getProductNameAndPriceFromAddtoCart = *** = "+getProductNameAndPriceFromAddtoCart[row][col]);
+        /**
+         * Just printing the array and seeing the value
+         */
+        for (int row = 0; row < getProductNameAndPriceFromAddtoCart.length; row++) {
+            for (int col = 0; col < 2; col++) {
+                logger.info("****getProductNameAndPriceFromAddtoCart = *** = " + getProductNameAndPriceFromAddtoCart[row][col]);
             }
         }
 
-/**
- * Now comparing 2 array product shoes, not price
- */
+        /**
+         * Now comparing 2 array product shoes, not price
+         */
+        for (int row = 0; row < productNameAndPrice.length; row++) {
 
-        for(int row=0;row<productNameAndPrice.length;row++){
-
-            String singelProductNameAndPriceFromList =   productNameAndPrice[row][0];
+            String singelProductNameAndPriceFromList = productNameAndPrice[row][0];
             int counter = 0;
 
-            for(int rowToCheckProductInAddToCart=0;rowToCheckProductInAddToCart<getProductNameAndPriceFromAddtoCart.length;counter=rowToCheckProductInAddToCart++) {
+            for (int rowToCheckProductInAddToCart = 0; rowToCheckProductInAddToCart < getProductNameAndPriceFromAddtoCart.length; counter = rowToCheckProductInAddToCart++) {
 
-                if(getProductNameAndPriceFromAddtoCart[rowToCheckProductInAddToCart][0].contains(singelProductNameAndPriceFromList)){
+                if (getProductNameAndPriceFromAddtoCart[rowToCheckProductInAddToCart][0].contains(singelProductNameAndPriceFromList)) {
                     break;
                 }
 
             }
-            Assertions.assertFalse(counter==3,"Shoe which was selected from list not found in the cart");
+            /**
+             * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the assert will fail
+             */
+            Assertions.assertFalse(counter == getProductNameAndPriceFromAddtoCart.length, "Shoe which was selected from list not found in the cart");
         }
 
-
-/**
- * Now checking the total price of selected shoe from list
- */
-        int totalPriceOfShoeSelectedFromList=0;
-        for(int row=0;row<productNameAndPrice.length;row++){
-            totalPriceOfShoeSelectedFromList=totalPriceOfShoeSelectedFromList+Integer.parseInt(productNameAndPrice[row][1]);
+        /**
+         * Now checking the total price of selected shoe from list
+         */
+        int totalPriceOfShoeSelectedFromList = 0;
+        for (int row = 0; row < productNameAndPrice.length; row++) {
+            totalPriceOfShoeSelectedFromList = totalPriceOfShoeSelectedFromList + Integer.parseInt(productNameAndPrice[row][1]);
         }
-        softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart())==totalPriceOfShoeSelectedFromList).isTrue();
+        softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
     }
 }
