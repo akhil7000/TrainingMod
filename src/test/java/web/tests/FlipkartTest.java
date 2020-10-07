@@ -36,7 +36,6 @@ public class FlipkartTest extends BaseTest {
         PaymentPage paymentPage= new HomePage().popUpCancel().paymentPage();
         int emiRow=paymentPage.getEmiRow(bankName);
         logger.info(String.valueOf(emiRow));
-        paymentPage.getEmiTenure(emiRow);
         Assertions.assertTrue(paymentPage.getEmiTenure(emiRow).equals(tenure));
     }
 

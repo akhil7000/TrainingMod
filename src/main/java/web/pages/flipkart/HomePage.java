@@ -31,7 +31,6 @@ public class HomePage extends BasePage {
     }
     public PaymentPage paymentPage(){
         payment_page.shouldBe(Condition.visible).click();
-        System.out.println("payment page*****");
         return new PaymentPage();
     }
 }
