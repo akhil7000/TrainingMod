@@ -15,51 +15,57 @@ import web.pages.flipkart.SearchPage;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @BeforeEach
     public void testSetUp() {
         Selenide.open(map.get("url"));
     }
-    @Test
-    public void testCurrentPage(){
-        PaymentPage paymentPage=new HomePage().popUpCancel().paymentPage();
-        String current_page_text=paymentPage.currentPageCheck();
-        logger.info(current_page_text);
-        softAssert.assertThat(current_page_text.equalsIgnoreCase("Payments"));
-        int counting_questions= paymentPage.countingQuestions();
-        logger.info(String.valueOf(counting_questions));
-        Assertions.assertEquals(14,counting_questions);
-            }
 
     /**
-     *
+     * testQuestionsOnPaymentPage:selecting payment page and counting number of questions available on page.
+     */
+    @Test
+    public void testCurrentPage() {
+        PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"payment header mismatch");
+        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),paymentPage.getQuestionsCount(),"questions count mismatch");
+    }
+
+    /**
      * @param bankName:inserting bank name from json to check tenure facility available or not
-     * @param tenure:inserting tenure facility available ie YES or No
+     * @param tenure:inserting   tenure facility available ie YES or No
      * @throws Exception :Base exception to hanle exception at runtime
      * @testEmiOptions:Method to check banks tenure facilities
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testEmiOptions.csv")
-    public void testEmiOptions(String bankName,String tenure) throws Exception {
-        PaymentPage paymentPage= new HomePage().popUpCancel().paymentPage();
-        int emiRow=paymentPage.getEmiRow(bankName);
+    public void testEmiOptions(String bankName, String tenure) throws Exception {
+        PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+        int emiRow = paymentPage.getEmiRow(bankName);
         logger.info(String.valueOf(emiRow));
         Assertions.assertTrue(paymentPage.getEmiTenure(emiRow).equals(tenure));
     }
-
-    /**
-     * testSortFilter :In this method shoes selection operation performed by using low to high filter
-     */
-    @ParameterizedTest
-    @CsvFileSource(resources = "/testSortFilter.csv")
-    public void testSortFilter(String product, String pagelimit) {
-        SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
-                sortShoes("Price -- Low to High");
-        for (int page = 1; page <=Integer.parseInt(pagelimit); page++) {
-            if (page != 1) {
-                searchPage.selectPageNumber(page);
-            }
-           softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
+        @Test
+        public void testQuestionsOnPaymentPage () {
+            PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+            Assertions.assertEquals(paymentPage.getCurrentPageHeader(), map.get("paymentPageHeader"),"Payment header not matching");
+            Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")), paymentPage.getQuestionsCount(),"questions count mismatch");
         }
-      logger.info("Assertion working");
+
+        /**
+         * testSortFilter :In this method shoes selection operation performed by using low to high filter
+         */
+        @ParameterizedTest
+        @CsvFileSource(resources = "/testSortFilter.csv")
+        public void testSortFilter(String product, String pagelimit){
+            SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
+                    sortShoes("Price -- Low to High");
+            for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {
+                if (page != 1) {
+                    searchPage.selectPageNumber(page);
+                }
+                softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
+            }
+            logger.info("Assertion working");
+        }
     }
-}

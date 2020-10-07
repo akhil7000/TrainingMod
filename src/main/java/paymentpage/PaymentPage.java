@@ -10,17 +10,17 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class PaymentPage {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public SelenideElement current_page_check = $x("//h2[@id='payments']");
+    public SelenideElement paymentHeader = $x("//h2[@id='payments']");
     ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
     String bank_xpath = "//table[3]/tbody/tr[%s]/td[1]";
     String tenure_xpath = "//table[3]/tbody/tr[%s]/td[2]";
 
-    public String currentPageCheck() {
-        return current_page_check.shouldBe(Condition.visible).getText();
+    public String getCurrentPageHeader(){
+        return paymentHeader.shouldBe(Condition.visible).getText();
     }
 
-    public int countingQuestions() {
-        return questions.size();
+    public int getQuestionsCount() {
+        return  questions.size();
     }
 
     public int getEmiRow(String bankName) throws Exception {
@@ -38,8 +38,8 @@ public class PaymentPage {
     }
 
     public String getEmiTenure(int emiRow) {
-            String tenure_element = $x(String.format(tenure_xpath, emiRow)).getText();
-            logger.info("tenure=="+tenure_element);
+        String tenure_element = $x(String.format(tenure_xpath, emiRow)).getText();
+        logger.info("tenure=="+tenure_element);
         return tenure_element;
     }
 }

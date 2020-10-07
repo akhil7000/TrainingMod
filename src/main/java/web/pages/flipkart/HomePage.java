@@ -13,7 +13,8 @@ public class HomePage extends BasePage {
     public SelenideElement popUpCross = $x("//div[@class='mCRfo9']/div/div/button");
     public static SelenideElement setShoes = $x("//form/div/div/input");
     public static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
-    public SelenideElement payment_page = $x("//a[contains(text(),'Payments')]");
+    public SelenideElement paymentLink = $x("//a[contains(text(),'Payments')]");
+
     public HomePage popUpCancel(){
         if(isDisplayedWait(popUpCross)){
             popUpCross.shouldBe(Condition.visible).click();
@@ -29,8 +30,8 @@ public class HomePage extends BasePage {
         searchShoes.shouldBe(Condition.visible).click();
         return new SearchPage();
     }
-    public PaymentPage paymentPage(){
-        payment_page.shouldBe(Condition.visible).click();
+    public PaymentPage goToPaymentPage(){
+        paymentLink.shouldBe(Condition.visible).click();
         return new PaymentPage();
     }
 }
