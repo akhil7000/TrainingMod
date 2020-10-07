@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -26,9 +27,6 @@ public class SearchPage{
     String  getTextFirstShoe= "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
     String  clickShoeFromList= "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
     String getPriceOfshoeFromList= "//div/div/div/div/div/div[2]/div[1]/div[%s]/div[1]/div[1]/a[2]/div[1]/div[1]";
-
-    public SelenideElement clickShoeSize = $x("//li[@id='swatch-0-size']/a");
-    public SelenideElement  addToCart = $x("//div[@class='_1k1QCg']/ul/li/button");
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     public  SearchPage selectPageNumber(int no) {
@@ -89,21 +87,18 @@ public class SearchPage{
         return ($x(String.format(getPriceOfshoeFromList,position)).shouldHave(Condition.visible).getText()).split("\u20B9")[1];
     }
 
-    public SearchPage OpenProductPage(int position){
+    public ProductPage OpenProductPage(int position){
          $x(String.format(clickShoeFromList,position)).shouldHave(Condition.visible).click();
-         return this;
-    }
-
-    public CartPage addToCart(){
+        /**
+         * Below window handel will switch to child window
+         */
         Set<String>  handles = getWebDriver().getWindowHandles();
         Iterator<String> multilpleWindow = handles.iterator();
         String childWindow = null;
         while(multilpleWindow.hasNext()) {
             childWindow = multilpleWindow.next();
         }
-        Selenide.switchTo().window(childWindow);
-        clickShoeSize.click();
-        addToCart.click();
-        return new CartPage();
+            Selenide.switchTo().window(childWindow);
+         return new ProductPage();
     }
 }

@@ -18,7 +18,7 @@ public class CartPage {
         return $x(String.format(addToCartShoePrice,position)).shouldHave(Condition.visible).getText().split("\u20B9")[1];
     }
 
-    public String checkShoePriceTotalInCart() {
+    public String getShoePriceTotalInCart() {
        return addToCartTotalPrice.getText().split("\u20B9")[1];
     }
 }
