@@ -3,6 +3,8 @@ package web.tests;
 import assertpage.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
+import emipage.EmiPage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,8 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import web.pages.flipkart.HomePage;
 import web.pages.flipkart.SearchPage;
-
-import static com.codeborne.selenide.Selenide.$x;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -28,25 +28,15 @@ public class FlipkartTest extends BaseTest {
         softAssert.assertThat(current_page_text.equalsIgnoreCase("Payments"));
         int counting_questions= paymentPage.countingQuestions();
         logger.info(String.valueOf(counting_questions));
-    }
-             String beforeXpath="//table[3]/tbody/tr[";
-            String afterXpath= "]/td[1]";
+        Assertions.assertEquals(14,counting_questions);
+            }
 
     @Test
-    public FlipkartTest testTotalBanks() {
-        for(int i=1;i<=9;i++){
-            String actualXpath=beforeXpath+i+afterXpath;
-            SelenideElement element = $x(actualXpath);
-            logger.info("banks======"+element.getText());
-            if(element.getText().equals("SBI")){
-                logger.info("Bank name:"+element.getText()+"is found");
-                break;
-            }
-        }
-        return  this;
+    public void testTotalBanks() throws Exception {
+        PaymentPage paymentPage= new HomePage().popUpCancel().paymentPage();
+        EmiPage emiPage=new EmiPage();
+        emiPage.getBankDetails();
     }
-
-
 
     /**
      * testSortFilter :In this method shoes selection operation performed by using low to high filter
