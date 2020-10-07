@@ -26,7 +26,7 @@ public class FlipkartTest extends BaseTest {
     @Test
     public void testQuestionsOnPaymentPage(){
         PaymentPage paymentPage=new HomePage().popUpCancel().goToPaymentPage();
-        softAssert.assertThat(paymentPage.currentPageHeader().equalsIgnoreCase(map.get("paymentPageHeader")));
+        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"));
         Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),paymentPage.getQuestionsCount());
     }
 

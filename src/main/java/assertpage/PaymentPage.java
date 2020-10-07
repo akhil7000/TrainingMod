@@ -10,7 +10,7 @@ public class PaymentPage {
     public SelenideElement paymentHeader = $x("//h2[@id='payments']");
     ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
 
-    public String currentPageHeader(){
+    public String getCurrentPageHeader(){
         return paymentHeader.shouldBe(Condition.visible).getText();
     }
 
