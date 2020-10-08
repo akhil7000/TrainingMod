@@ -2,7 +2,6 @@ package web.tests;
 
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,12 +11,10 @@ import org.slf4j.LoggerFactory;
 import web.pages.flipkart.CartPage;
 import web.pages.flipkart.HomePage;
 import web.pages.flipkart.SearchPage;
-
 import java.util.Arrays;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @BeforeEach
     public void testSetUp() {
         Selenide.open(map.get("url"));
