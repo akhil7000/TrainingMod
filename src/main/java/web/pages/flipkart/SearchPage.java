@@ -42,7 +42,6 @@ public class SearchPage {
      *
      * @return SearchPage
      */
-
     public Boolean countingPagePrices() {
         a1 = new ArrayList<>();
         a2 = new ArrayList<>();
@@ -65,8 +64,6 @@ public class SearchPage {
      * @param filter :price filter
      * @return SearchPage
      */
-
-
     public SearchPage sortShoes(String filter) {
         sort_shoes_wait.shouldBe(Condition.visible);
         Iterator<SelenideElement> itTotal = sortingfilter.iterator();
@@ -94,12 +91,13 @@ public class SearchPage {
         return ($x(String.format(getPriceOfshoeFromList, position)).shouldHave(Condition.visible).getText()).split("\u20B9")[1];
     }
 
+    /**
+     *  Below window handel will switch to child window
+     * @param position
+     * @return ProductPage Object
+     */
     public ProductPage OpenProductPage(int position) {
         $x(String.format(clickShoeFromList, position)).shouldHave(Condition.visible).click();
-
-        /**
-         * Below window handel will switch to child window
-         */
         Set<String> handles = getWebDriver().getWindowHandles();
         Iterator<String> multilpleWindow = handles.iterator();
         String childWindow = null;

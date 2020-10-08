@@ -10,6 +10,7 @@ public class CartPage {
     String addToCartShoeText= "(//div[@class='_3vIvU_']/div/child::a)[%s]";
     String addToCartShoePrice ="//div/div/div/div/div/div/div[%s]/div[1]/div[1]/div[1]/span[1]";
     public SelenideElement addToCartTotalPrice = $x("(//div[@class='hJYgKM']/span)[1]");
+
     public String getProductName(int position){
         return $x(String.format(addToCartShoeText,position)).shouldHave(Condition.visible).getText();
     }

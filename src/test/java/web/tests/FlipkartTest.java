@@ -40,9 +40,13 @@ public class FlipkartTest extends BaseTest {
         logger.info("Assertion working");
     }
 
+    /**
+     * testAddToCartFunctionality() : In this we are checking add to cart functionality, checking the shoe selected from list is present in cart, also checking price
+     * @param product
+     */
     @ParameterizedTest
-    @CsvFileSource(resources = "/addToCartFunctionality.csv")
-    public void addToCartFunctionality(String product) {
+    @CsvFileSource(resources = "/testAddToCartFunctionality.csv")
+    public void testAddToCartFunctionality(String product) {
 
         String shoenoInString[] = map.get("select_shoe").split(",");
         int[] shoeno = Arrays.asList(shoenoInString).stream().mapToInt(Integer::parseInt).toArray();
@@ -115,17 +119,17 @@ public class FlipkartTest extends BaseTest {
             String singelProductNameAndPriceFromList = productNameAndPrice[row][0];
             int counter = 0;
 
-            for (int rowToCheckProductInAddToCart = 0; rowToCheckProductInAddToCart < getProductNameAndPriceFromAddtoCart.length; counter = rowToCheckProductInAddToCart++) {
+            for (int rowToCheckProduct = 0; rowToCheckProduct < getProductNameAndPriceFromAddtoCart.length; counter = rowToCheckProduct++) {
 
-                if (getProductNameAndPriceFromAddtoCart[rowToCheckProductInAddToCart][0].contains(singelProductNameAndPriceFromList)) {
+                if (getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0].contains(singelProductNameAndPriceFromList)) {
                     break;
                 }
 
             }
             /**
-             * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the assert will fail
+             * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the softAssert will fail
              */
-            Assertions.assertFalse(counter == getProductNameAndPriceFromAddtoCart.length, "Shoe which was selected from list not found in the cart");
+            softAssert.assertThat(counter == getProductNameAndPriceFromAddtoCart.length).isTrue();
         }
 
         /**
