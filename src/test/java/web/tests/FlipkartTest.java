@@ -1,6 +1,6 @@
 package web.tests;
 
-import assertpage.PaymentPage;
+import web.pages.flipkart.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
 import org.junit.jupiter.api.Assertions;
@@ -17,19 +17,10 @@ import java.util.Arrays;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @BeforeEach
     public void testSetUp() {
         Selenide.open(map.get("url"));
-    }
-
-    /**
-     * testQuestionsOnPaymentPage:selecting payment page and counting number of questions available on page.
-     */
-    @Test
-    public void testQuestionsOnPaymentPage(){
-        PaymentPage paymentPage=new HomePage().popUpCancel().goToPaymentPage();
-        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"Payment header not matching");
-        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),paymentPage.getQuestionsCount(),"questions count mismatch");
     }
 
     /**
@@ -37,7 +28,7 @@ public class FlipkartTest extends BaseTest {
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testSortFilter.csv")
-    public void testSortFilter(String product, String pagelimit) {
+    public void testSortFilter(String product,String pagelimit){
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
                 sortShoes("Price -- Low to High");
         for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {
@@ -50,17 +41,41 @@ public class FlipkartTest extends BaseTest {
     }
 
     /**
+     * @param bankName:inserting bank name from json to check tenure facility available or not
+     * @param tenure:inserting   tenure facility available ie YES or No
+     * @throws Exception :Base exception to hanle exception at runtime
+     * @testEmiOptions:Method to check banks tenure facilities
+     */
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testEmiOptions.csv")
+    public void testEmiOptions(String bankName, String tenure) throws Exception {
+        PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+        String emiRow = paymentPage.getEmiRow(bankName);
+        logger.info(emiRow);
+        Assertions.assertTrue(paymentPage.getEmiTenure(Integer.parseInt(emiRow)).equals(tenure));
+    }
+
+    /**
+     * testQuestionsOnPaymentPage:count number of questions available on payment page
+     */
+    @Test
+    public void testQuestionsOnPaymentPage () {
+        PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+        Assertions.assertEquals(paymentPage.getCurrentPageHeader(), map.get("paymentPageHeader"),
+                "Payment header not matching");
+        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),
+                paymentPage.getQuestionsCount(), "questions count mismatch");
+    }
+    /**
      * testAddToCartFunctionality() : In this we are checking add to cart functionality, checking the shoe selected from list is present in cart, also checking price
      * @param product
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testAddToCartFunctionality.csv")
     public void testAddToCartFunctionality(String product) {
-
         String shoenoInString[] = map.get("select_shoe").split(",");
         int[] shoeno = Arrays.asList(shoenoInString).stream().mapToInt(Integer::parseInt).toArray();
         String[][] productNameAndPrice = new String[shoeno.length][2];
-
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().sortShoes("Price -- Low to High");
 
         /**
@@ -133,8 +148,8 @@ public class FlipkartTest extends BaseTest {
                 if (getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0].contains(singelProductNameAndPriceFromList)) {
                     break;
                 }
-
             }
+
             /**
              * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the softAssert will fail
              */
