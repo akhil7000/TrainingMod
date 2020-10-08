@@ -1,7 +1,6 @@
 package web.pages.flipkart;
 
 import BasePage.BasePage;
-import paymentpage.PaymentPage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.slf4j.Logger;

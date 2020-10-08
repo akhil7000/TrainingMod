@@ -1,6 +1,6 @@
 package web.tests;
 
-import paymentpage.PaymentPage;
+import web.pages.flipkart.PaymentPage;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
 import org.junit.jupiter.api.Assertions;
@@ -45,11 +45,15 @@ public class FlipkartTest extends BaseTest {
         logger.info(String.valueOf(emiRow));
         Assertions.assertTrue(paymentPage.getEmiTenure(emiRow).equals(tenure));
     }
-        @Test
-        public void testQuestionsOnPaymentPage () {
-            PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
-            Assertions.assertEquals(paymentPage.getCurrentPageHeader(), map.get("paymentPageHeader"),"Payment header not matching");
-            Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")), paymentPage.getQuestionsCount(),"questions count mismatch");
+
+    /**
+     * testQuestionsOnPaymentPage:count number of questions available on payment page
+     */
+    @Test
+    public void testQuestionsOnPaymentPage () {
+        PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"Payment header not matching");
+        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")), paymentPage.getQuestionsCount(),"questions count mismatch");
         }
 
         /**
@@ -57,7 +61,7 @@ public class FlipkartTest extends BaseTest {
          */
         @ParameterizedTest
         @CsvFileSource(resources = "/testSortFilter.csv")
-        public void testSortFilter(String product, String pagelimit){
+        public void testSortFilter(String product,String pagelimit){
             SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
                     sortShoes("Price -- Low to High");
             for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {

@@ -1,4 +1,4 @@
-package paymentpage;
+package web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -31,7 +31,7 @@ public class PaymentPage {
             if (row_bank_element.getText().equals(bankName)) {
                 logger.info("Bank name:" + row_bank_element.getText() + "is found");
                 logger.info("position of bank is " + i);
-                break;
+                return i;
             }
         }
         return i;
