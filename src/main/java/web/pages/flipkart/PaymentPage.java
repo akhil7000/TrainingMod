@@ -23,23 +23,20 @@ public class PaymentPage {
         return  questions.size();
     }
 
-    public int getEmiRow(String bankName) throws Exception {
-        int i;
-        for (i = 1; i <= 9; i++) {
-            SelenideElement row_bank_element = $x(String.format(bank_xpath, i));
+    public String getEmiRow(String bankName) throws Exception {
+        for (int countRow = 1; countRow <= 9; countRow++) {
+            SelenideElement row_bank_element = $x(String.format(bank_xpath,countRow));
             logger.info("banks=" + row_bank_element.getText());
             if (row_bank_element.getText().equals(bankName)) {
                 logger.info("Bank name:" + row_bank_element.getText() + "is found");
-                logger.info("position of bank is " + i);
-                return i;
+                logger.info("position of bank is " + countRow);
+                return String.valueOf(countRow);
             }
         }
-        return i;
+        return null;
     }
 
     public String getEmiTenure(int emiRow) {
-        String tenure_element = $x(String.format(tenure_xpath, emiRow)).getText();
-        logger.info("tenure=="+tenure_element);
-        return tenure_element;
+        return $x(String.format(tenure_xpath, emiRow)).getText();
     }
 }
