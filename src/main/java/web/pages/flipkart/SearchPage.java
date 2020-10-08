@@ -28,9 +28,7 @@ public class SearchPage {
     String getTextFirstShoe = "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
     String clickShoeFromList = "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
     String getPriceOfshoeFromList = "//div/div/div/div/div/div[2]/div[1]/div[%s]/div[1]/div[1]/a[2]/div[1]/div[1]";
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     public SearchPage selectPageNumber(int no) {
         $x(String.format(pageNoElement, no)).shouldHave(Condition.visible).click();
         return new SearchPage();
