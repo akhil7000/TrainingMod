@@ -50,7 +50,7 @@ public class FlipkartTest extends BaseTest {
 
         String shoenoInString[] = map.get("select_shoe").split(",");
         int[] shoeno = Arrays.asList(shoenoInString).stream().mapToInt(Integer::parseInt).toArray();
-        String[][] productNameAndPrice = new String[shoeno.length][shoeno.length];
+        String[][] productNameAndPrice = new String[shoeno.length][2];
 
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().sortShoes("Price -- Low to High");
 
@@ -91,7 +91,7 @@ public class FlipkartTest extends BaseTest {
         /**
          * getting ProductName And Price From AddtoCart
          */
-        String[][] getProductNameAndPriceFromAddtoCart = new String[shoeno.length][shoeno.length];
+        String[][] getProductNameAndPriceFromAddtoCart = new String[shoeno.length][2];
         for (int row = 0; row < shoeno.length; row++) {
             for (int col = 0; col < 2; col++) {
                 int positionOfProductName = row + 1;
@@ -117,10 +117,10 @@ public class FlipkartTest extends BaseTest {
         for (int row = 0; row < productNameAndPrice.length; row++) {
 
             String singelProductNameAndPriceFromList = productNameAndPrice[row][0];
-            int counter = 0;
-
-            for (int rowToCheckProduct = 0; rowToCheckProduct < getProductNameAndPriceFromAddtoCart.length; counter = rowToCheckProduct++) {
-
+            int rowToCheckProduct;
+            logger.info("singelProductNameAndPriceFromListtttt = "+singelProductNameAndPriceFromList);
+            for (rowToCheckProduct = 0; rowToCheckProduct < getProductNameAndPriceFromAddtoCart.length; rowToCheckProduct++) {
+                logger.info("getProductNameAndPriceFromAddtoCarttttt[rowToCheckProduct][0] = "+getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0]);
                 if (getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0].contains(singelProductNameAndPriceFromList)) {
                     break;
                 }
@@ -129,7 +129,8 @@ public class FlipkartTest extends BaseTest {
             /**
              * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the softAssert will fail
              */
-            softAssert.assertThat(counter == getProductNameAndPriceFromAddtoCart.length).isTrue();
+            logger.info("counterrr = "+rowToCheckProduct);
+            softAssert.assertThat(rowToCheckProduct != getProductNameAndPriceFromAddtoCart.length).isTrue();
         }
 
         /**

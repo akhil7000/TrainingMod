@@ -32,14 +32,12 @@ public class SearchPage {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public SearchPage selectPageNumber(int no) {
-
         $x(String.format(pageNoElement, no)).shouldHave(Condition.visible).click();
         return new SearchPage();
     }
 
     /**
      * countingPagePrices: performing pagination
-     *
      * @return SearchPage
      */
     public Boolean countingPagePrices() {
@@ -61,8 +59,9 @@ public class SearchPage {
     }
 
     /**
+     *
      * @param filter :price filter
-     * @return SearchPage
+     * @return  SearchPage
      */
     public SearchPage sortShoes(String filter) {
         sort_shoes_wait.shouldBe(Condition.visible);
