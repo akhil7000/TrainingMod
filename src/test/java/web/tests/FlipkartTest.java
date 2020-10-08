@@ -59,7 +59,9 @@ public class FlipkartTest extends BaseTest {
     @Test
     public void testQuestionsOnPaymentPage () {
         PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
-        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"Payment header not matching");
-        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")), paymentPage.getQuestionsCount(),"questions count mismatch");
+        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),
+                "Payment header not matching");
+        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),
+                paymentPage.getQuestionsCount(),"questions count mismatch");
     }
 }
