@@ -22,6 +22,23 @@ public class FlipkartTest extends BaseTest {
     }
 
     /**
+     * testSortFilter :In this method shoes selection operation performed by using low to high filter
+     */
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testSortFilter.csv")
+    public void testSortFilter(String product,String pagelimit){
+        SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
+                sortShoes("Price -- Low to High");
+        for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {
+            if (page != 1) {
+                searchPage.selectPageNumber(page);
+            }
+            softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
+        }
+        logger.info("Assertion working");
+    }
+
+    /**
      * @param bankName:inserting bank name from json to check tenure facility available or not
      * @param tenure:inserting   tenure facility available ie YES or No
      * @throws Exception :Base exception to hanle exception at runtime
@@ -44,22 +61,5 @@ public class FlipkartTest extends BaseTest {
         PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
         Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"Payment header not matching");
         Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")), paymentPage.getQuestionsCount(),"questions count mismatch");
-        }
-
-        /**
-         * testSortFilter :In this method shoes selection operation performed by using low to high filter
-         */
-        @ParameterizedTest
-        @CsvFileSource(resources = "/testSortFilter.csv")
-        public void testSortFilter(String product,String pagelimit){
-            SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
-                    sortShoes("Price -- Low to High");
-            for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {
-                if (page != 1) {
-                    searchPage.selectPageNumber(page);
-                }
-                softAssert.assertThat(searchPage.countingPagePrices()).as("prices list not matching").isTrue();
-            }
-            logger.info("Assertion working");
-        }
     }
+}
