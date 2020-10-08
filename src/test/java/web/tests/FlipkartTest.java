@@ -22,16 +22,6 @@ public class FlipkartTest extends BaseTest {
     }
 
     /**
-     * testQuestionsOnPaymentPage:selecting payment page and counting number of questions available on page.
-     */
-    @Test
-    public void testCurrentPage() {
-        PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
-        Assertions.assertEquals(paymentPage.getCurrentPageHeader(),map.get("paymentPageHeader"),"payment header mismatch");
-        Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),paymentPage.getQuestionsCount(),"questions count mismatch");
-    }
-
-    /**
      * @param bankName:inserting bank name from json to check tenure facility available or not
      * @param tenure:inserting   tenure facility available ie YES or No
      * @throws Exception :Base exception to hanle exception at runtime
