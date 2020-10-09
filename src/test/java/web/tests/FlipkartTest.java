@@ -1,6 +1,6 @@
 package web.tests;
 
-import web.pages.flipkart.PaymentPage;
+import web.pages.flipkart.*;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
 import org.junit.jupiter.api.Assertions;
@@ -10,10 +10,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import web.pages.flipkart.CartPage;
-import web.pages.flipkart.HomePage;
-import web.pages.flipkart.SearchPage;
+
+import java.security.Policy;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.ListIterator;
+
+import static com.codeborne.selenide.Selenide.closeWindow;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -28,7 +32,7 @@ public class FlipkartTest extends BaseTest {
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testSortFilter.csv")
-    public void testSortFilter(String product,String pagelimit){
+    public void testSortFilter(String product, String pagelimit) {
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().
                 sortShoes("Price -- Low to High");
         for (int page = 1; page <= Integer.parseInt(pagelimit); page++) {
@@ -59,15 +63,17 @@ public class FlipkartTest extends BaseTest {
      * testQuestionsOnPaymentPage:count number of questions available on payment page
      */
     @Test
-    public void testQuestionsOnPaymentPage () {
+    public void testQuestionsOnPaymentPage() {
         PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
         Assertions.assertEquals(paymentPage.getCurrentPageHeader(), map.get("paymentPageHeader"),
                 "Payment header not matching");
         Assertions.assertEquals(Integer.parseInt(map.get("expectedQuestionsOnPaymentPage")),
                 paymentPage.getQuestionsCount(), "questions count mismatch");
     }
+
     /**
      * testAddToCartFunctionality() : In this we are checking add to cart functionality, checking the shoe selected from list is present in cart, also checking price
+     *
      * @param product
      */
     @ParameterizedTest
@@ -142,9 +148,9 @@ public class FlipkartTest extends BaseTest {
 
             String singelProductNameAndPriceFromList = productNameAndPrice[row][0];
             int rowToCheckProduct;
-            logger.info("singelProductNameAndPriceFromListtttt = "+singelProductNameAndPriceFromList);
+            logger.info("singelProductNameAndPriceFromListtttt = " + singelProductNameAndPriceFromList);
             for (rowToCheckProduct = 0; rowToCheckProduct < getProductNameAndPriceFromAddtoCart.length; rowToCheckProduct++) {
-                logger.info("getProductNameAndPriceFromAddtoCarttttt[rowToCheckProduct][0] = "+getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0]);
+                logger.info("getProductNameAndPriceFromAddtoCarttttt[rowToCheckProduct][0] = " + getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0]);
                 if (getProductNameAndPriceFromAddtoCart[rowToCheckProduct][0].contains(singelProductNameAndPriceFromList)) {
                     break;
                 }
@@ -153,7 +159,7 @@ public class FlipkartTest extends BaseTest {
             /**
              * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the softAssert will fail
              */
-            logger.info("counterrr = "+rowToCheckProduct);
+            logger.info("counterrr = " + rowToCheckProduct);
             softAssert.assertThat(rowToCheckProduct != getProductNameAndPriceFromAddtoCart.length).isTrue();
         }
 
@@ -165,5 +171,29 @@ public class FlipkartTest extends BaseTest {
             totalPriceOfShoeSelectedFromList = totalPriceOfShoeSelectedFromList + Integer.parseInt(productNameAndPrice[row][1]);
         }
         softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
+    }
+
+    @Test
+    public void testPolicyBackToTop() {
+
+        String policyElementsWhichNeedToClick[] = map.get("policyElementsWhichNeedToClick").split(",");
+        String policyHeaders[] = {"Returns Policy", "Flipkart Terms of Use", "Safe and Secure Shopping", "Privacy Policy", "Sitemap", "FLIPKART INDIA PRIVATE LIMITED E-WASTE RECYCLING POLICY"};
+
+        HomePage homePage = new HomePage().popUpCancel();
+
+        for (int i = 0; i < policyHeaders.length; i++) {
+
+            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick[i]).switchToChildWindow();
+            Assertions.assertTrue(policySubPage.isHeaderDisplayed(policyHeaders[i]),"Header Not Displayed in = "+policyHeaders[i]);
+            Assertions.assertTrue(policySubPage.verifyBackToTop(),"Back To Top button not present in Header =  "+policyHeaders[i]);
+            Assertions.assertTrue(policySubPage.isHeaderDisplayed(policyHeaders[i]),"After clicking back to top button, Header Not Displayed in = "+policyHeaders[i]);
+            closeWindow();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            switchParentWindow();
+        }
     }
 }

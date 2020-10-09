@@ -2,6 +2,7 @@
   "url": "https://www.flipkart.com",
   "select_shoe": "2,3,4",
   "paymentPageHeader":"Payments",
-  "expectedQuestionsOnPaymentPage":"14"
+  "expectedQuestionsOnPaymentPage":"14",
+  "policyElementsWhichNeedToClick": "Return Policy,Terms Of Use,Security,Privacy,Sitemap,EPR Compliance"
 }
 
