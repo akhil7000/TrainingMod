@@ -173,43 +173,36 @@ public class FlipkartTest extends BaseTest {
         softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
     }
 
-
     /**
      * Below testcase is clicking policies and checking the header and back to top button
      */
     @Test
     public void testPolicyBackToTop() {
 
-        String policyElementsWhichNeedToClick[] = map.get("policyElementsWhichNeedToClick").split(",");
-        String policyHeaders[] = map.get("policyHeaders").split(",");
+        ArrayList<String> policyElementsWhichNeedToClick = new ArrayList<>(Arrays.asList(map.get("policyElementsWhichNeedToClick").split(",")));
+        ArrayList<String> policyHeaders = new ArrayList<>(Arrays.asList(map.get("policyElementsWhichNeedToClick").split(",")));
+        ArrayList<String> y_Axis_Value = new ArrayList<>(Arrays.asList(map.get("y_axis").split(",")));
+
         HomePage homePage = new HomePage().popUpCancel();
 
-        for (int i = 0; i < policyHeaders.length; i++) {
+        for (int i = 0; i < policyHeaders.size(); i++) {
 
-            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick[i]);
-            Assertions.assertTrue(policySubPage.isHeaderDisplayed(policyHeaders[i]), "Header Not Displayed in = " + policyHeaders[i]);
+            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(i));
+
+            Assertions.assertTrue(policySubPage.isHeaderDisplayed(policyHeaders.get(i)), "Header Not Displayed in = " + policyHeaders.get(i));
 
             /**
              * If Back to top button is not visible then, it will not do futher operation, will go to next policy
              */
-            if (policySubPage.verifyBackToTop()) {
-//                Assertions.assertTrue(policySubPage.verifyBackToTop(),"Back To Top button not present in Header =  "+policyHeaders[i]);
+            if (policySubPage.verifyBackToTop(policyHeaders.get(i),y_Axis_Value.get(0))) {
 
                 /**
                  * Below code checks after clicking BackToTop Button, If the page scroll to top
                  */
-
-                Assertions.assertTrue(policySubPage.verifyPageGoesUp(), "Page = " + policyHeaders[i] + " doesnt scrolled up");
-
-
-                Assertions.assertTrue(policySubPage.isHeaderDisplayed(policyHeaders[i]), "After clicking back to top button, Header Not Displayed in = " + policyHeaders[i]);
+                Assertions.assertTrue(policySubPage.verifyPageGoesUp(y_Axis_Value.get(1)), "Page = " + policyHeaders.get(i) + " doesnt scrolled up");
+                Assertions.assertTrue(policySubPage.isHeaderDisplayed(policyHeaders.get(i)), "After clicking back to top button, Header Not Displayed in = " + policyHeaders.get(i));
             }
             closeWindow();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             switchParentWindow();
         }
     }

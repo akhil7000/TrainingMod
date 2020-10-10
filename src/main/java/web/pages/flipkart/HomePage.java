@@ -44,9 +44,7 @@ public class HomePage extends BasePage {
     public PolicySubPage clickPolicySingleElement(String policyElementText){
         String toOpenInNewTab = Keys.chord(Keys.CONTROL, Keys.ENTER);
          $x(String.format(clickHomePagePolicy, policyElementText)).sendKeys(toOpenInNewTab);
-
-        Set<String> handles = getWebDriver().getWindowHandles();
-        Iterator<String> multilpleWindow = handles.iterator();
+         Iterator<String> multilpleWindow = getWebDriver().getWindowHandles().iterator();
         String childWindow = null;
         while (multilpleWindow.hasNext()) {
             childWindow = multilpleWindow.next();

@@ -43,8 +43,7 @@ public class BaseTest {
      * Switching to parent window, if there are N numbers of shoes  which need to be selected then this below function is call, And if there is only one shoe which needs to be selected then this function we wont call
      */
     public void switchParentWindow() {
-        Set<String> handles = getWebDriver().getWindowHandles();
-        Iterator<String> multilpleWindow = handles.iterator();
+        Iterator<String> multilpleWindow = getWebDriver().getWindowHandles().iterator();
         while (multilpleWindow.hasNext()) {
             Selenide.switchTo().window(multilpleWindow.next());
             break;
