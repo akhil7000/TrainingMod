@@ -41,12 +41,10 @@ public class HomePage extends BasePage {
         paymentLink.shouldBe(Condition.visible).click();
         return new PaymentPage();
     }
-    public HomePage clickPolicySingleElement(String policyElementText){
+    public PolicySubPage clickPolicySingleElement(String policyElementText){
         String toOpenInNewTab = Keys.chord(Keys.CONTROL, Keys.ENTER);
          $x(String.format(clickHomePagePolicy, policyElementText)).sendKeys(toOpenInNewTab);
-        return this;
-    }
-    public PolicySubPage switchToChildWindow() {
+
         Set<String> handles = getWebDriver().getWindowHandles();
         Iterator<String> multilpleWindow = handles.iterator();
         String childWindow = null;
@@ -59,7 +57,6 @@ public class HomePage extends BasePage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         return new PolicySubPage();
     }
 }
