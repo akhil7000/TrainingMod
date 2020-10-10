@@ -1,5 +1,6 @@
 package web.tests;
 
+import org.openqa.selenium.interactions.Action;
 import web.pages.flipkart.*;
 import com.codeborne.selenide.*;
 import com.training.base.BaseTest;
@@ -14,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -178,10 +182,12 @@ public class FlipkartTest extends BaseTest {
     @CsvFileSource(resources = "/validatePageHeaders.csv")
     public void testPageHeaders(String item,int position) throws InterruptedException {
         ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes().OpenProductPage(position);
+      productPage.verifyBackToTop();
         String[] headersText = map.get("headers").split(",");
 
         for (int row = 0; row < headersText.length; row++) {
-            System.out.println("uuuuuuuuuuuuuuuuuu= "+headersText[row]);
+            System.out.println("Insidefor= "+headersText[row]);
+
             Assertions.assertTrue(productPage.isSelectionDisplayed(headersText[row]));
         }
     }
