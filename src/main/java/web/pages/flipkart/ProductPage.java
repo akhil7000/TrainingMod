@@ -11,7 +11,7 @@ public class ProductPage extends BasePage{
     public SelenideElement clickShoeSize = $x("//li[@id='swatch-0-size']/a");
     public SelenideElement  addToCart = $x("//div[@class='_1k1QCg']/ul/li/button");
     String headersXpath="//*[@id='container']/descendant::div[text()='%s']";
-    public SelenideElement scrollToLoadBottomElement =$x("//span[text()='Flipkart.com']");
+    public SelenideElement bottomElement =$x("//span[text()='Flipkart.com']");
 
     public ProductPage clickShoeSize(){
         clickShoeSize.click();
@@ -24,7 +24,7 @@ public class ProductPage extends BasePage{
     }
 
     public void scrollToBottom(){
-        scrollToLoadBottomElement.scrollIntoView(false);
+        bottomElement.scrollIntoView(false);
     }
 
     public boolean isSelectionDisplayed(String headersInSelectionPage){

@@ -175,13 +175,12 @@ public class FlipkartTest extends BaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/testProductPageDesign.csv")
     public void testProductPageDesign(String item,int position){
-        ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes()
-                .OpenProductPage(position);
+        ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes().OpenProductPage(position);
         productPage.scrollToBottom();
-        ArrayList<String> headersInSelectionPage  = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
-        for (int row = 0; row < headersInSelectionPage.size(); row++) {
-            softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage.get(row))).
-                    as("Json selected Headers matched with selection page Headers").isTrue();
+        ArrayList<String> headers  = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
+        for(String headersInSelectionPage:headers){
+            softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage)).
+                    as("Json selected Headers is Not matching with selection page Headers").isTrue();
         }
     }
 }
