@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FlipkartTest extends BaseTest {
@@ -176,10 +177,11 @@ public class FlipkartTest extends BaseTest {
     public void testProductPageDesign(String item,int position){
         ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes()
                 .OpenProductPage(position);
-        productPage.verifyBackToTop();
-        String[] headersInSelectionPage = map.get("headers").split(",");
-        for (int row = 0; row < headersInSelectionPage.length; row++) {
-            Assertions.assertTrue(productPage.isSelectionDisplayed(headersInSelectionPage[row]));
+        productPage.scrollToBottom();
+        ArrayList<String> headersInSelectionPage  = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
+        for (int row = 0; row < headersInSelectionPage.size(); row++) {
+            softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage.get(row))).
+                    as("Json selected Headers matched with selection page Headers").isTrue();
         }
     }
 }
