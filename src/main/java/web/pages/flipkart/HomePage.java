@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -41,20 +40,16 @@ public class HomePage extends BasePage {
         paymentLink.shouldBe(Condition.visible).click();
         return new PaymentPage();
     }
-    public PolicySubPage clickPolicySingleElement(String policyElementText){
+
+    public PolicySubPage clickPolicySingleElement(String policyElementText) {
         String toOpenInNewTab = Keys.chord(Keys.CONTROL, Keys.ENTER);
-         $x(String.format(clickHomePagePolicy, policyElementText)).sendKeys(toOpenInNewTab);
-         Iterator<String> multilpleWindow = getWebDriver().getWindowHandles().iterator();
+        $x(String.format(clickHomePagePolicy, policyElementText)).sendKeys(toOpenInNewTab);
+        Iterator<String> multilpleWindow = getWebDriver().getWindowHandles().iterator();
         String childWindow = null;
         while (multilpleWindow.hasNext()) {
             childWindow = multilpleWindow.next();
         }
         Selenide.switchTo().window(childWindow);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return new PolicySubPage();
     }
 }
