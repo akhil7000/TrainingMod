@@ -16,7 +16,6 @@ public class ProductPage extends BasePage{
     String headersXpath="//*[@id='container']/descendant::div[text()='%s']";
     public SelenideElement bottomElement =$x("//span[text()='Flipkart.com']");
 
-
     public ProductPage clickShoeSize(){
         clickShoeSize.click();
         return this;

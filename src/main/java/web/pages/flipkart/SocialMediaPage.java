@@ -4,7 +4,8 @@ import com.codeborne.selenide.WebDriverRunner;
 
 public class SocialMediaPage {
 
-    public  String getSocialMediaUrl(){
+    public String getSocialMediaUrl(){
+
         return WebDriverRunner.webdriverContainer.getCurrentUrl();
     }
 }

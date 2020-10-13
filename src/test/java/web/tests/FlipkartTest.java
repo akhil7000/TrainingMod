@@ -188,17 +188,14 @@ public class FlipkartTest extends BaseTest {
     @Test
     public void flipkartSocialMedia() {
         HomePage homePage = new HomePage().popUpCancel();
+        SocialMediaPage socialMediaPage=null;
         ArrayList<String> socialMediaLinks = new ArrayList<>(Arrays.asList(map.get("links")
                 .split(",")));
         for (int i = 0; i < socialMediaLinks.size(); i++) {
-            SocialMediaPage socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
-            sleep(4000);
+            socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
             String url = socialMediaPage.getSocialMediaUrl();
             logger.info(url);
-            if (!url.contains(socialMediaLinks.get(i).toLowerCase())) {
-                softAssert.assertThat((socialMediaLinks.get(i))).
-                        as(" Json selected Links contents is Not matching with socialMedia page url");
-            }
+            softAssert.assertThat(url.contains(socialMediaLinks.get(i).toLowerCase())).as("links of social media are not matching");
             Selenide.back();
         }
     }
