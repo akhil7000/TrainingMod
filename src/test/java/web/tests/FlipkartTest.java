@@ -141,7 +141,6 @@ public class FlipkartTest extends BaseTest {
          * Now comparing 2 array product shoes, not price
          */
         for (int row = 0; row < productNameAndPrice.length; row++) {
-
             String singelProductNameAndPriceFromList = productNameAndPrice[row][0];
             int rowToCheckProduct;
             logger.info("singelProductNameAndPriceFromListtttt = " + singelProductNameAndPriceFromList);
