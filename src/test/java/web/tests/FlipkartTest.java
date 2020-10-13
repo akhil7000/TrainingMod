@@ -195,7 +195,8 @@ public class FlipkartTest extends BaseTest {
             socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
             String url = socialMediaPage.getSocialMediaUrl();
             logger.info(url);
-            softAssert.assertThat(url.contains(socialMediaLinks.get(i).toLowerCase())).as("links of social media are not matching");
+            softAssert.assertThat(url.contains(socialMediaLinks.get(i).toLowerCase())).
+                    as("links of social media are not matching with the contents in url");
             Selenide.back();
         }
     }
