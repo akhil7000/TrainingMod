@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.sleep;
 
 public class FlipkartTest extends BaseTest {
@@ -191,24 +192,18 @@ public class FlipkartTest extends BaseTest {
         SocialMediaPage socialMediaPage=null;
         ArrayList<String> socialMediaLinks = new ArrayList<>(Arrays.asList(map.get("links")
                 .split(",")));
+        ArrayList<String> placeholdersOfSocialSites= new ArrayList<>(Arrays.asList(map.get("placeholders")
+                .split(",")));
         for (int i = 0; i < socialMediaLinks.size(); i++) {
-            System.out.println("*****links*****"+socialMediaLinks.get(i));
-            socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
-            if(socialMediaLinks.get(i).equals("Facebook")) {
-                socialMediaPage.checkFacebookElementVisible();
-            }
-            if(socialMediaLinks.get(i).equals("Twitter")) {
-                socialMediaPage.checkTwitterElementVisible();
-            }
-            if(socialMediaLinks.get(i).equals("YouTube")) {
-                socialMediaPage.checkYoutubeElementVisible();
-            }
+            logger.info("*****links*****"+socialMediaLinks.get(i));
+            logger.info("*****placeholders*****"+placeholdersOfSocialSites.get(i));
+            socialMediaPage =homePage.clickLink(socialMediaLinks.get(i)).checkPlaceholders(placeholdersOfSocialSites.get(i));
             String url = socialMediaPage.getSocialMediaUrl();
-                logger.info("********" + url);
-                logger.info("********" + socialMediaLinks.get(i).toLowerCase());
-                softAssert.assertThat(url.contains(socialMediaLinks.get(i).toLowerCase())).
-                        as("links of social media are not matching with the contents in url").isTrue();
-                Selenide.back();
+            logger.info("********" + url);
+            logger.info("********" + socialMediaLinks.get(i).toLowerCase());
+            softAssert.assertThat(url).contains(socialMediaLinks.get(i).toLowerCase()).
+                    as("links of social media are not matching with the contents in url");
+            Selenide.back();
         }
     }
 }

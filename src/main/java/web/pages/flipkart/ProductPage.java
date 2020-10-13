@@ -24,7 +24,6 @@ public class ProductPage extends BasePage{
     }
 
     public void scrollToBottom(){
-
         bottomElement.scrollIntoView(false);
     }
 

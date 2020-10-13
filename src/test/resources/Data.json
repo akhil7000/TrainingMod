@@ -4,5 +4,6 @@
   "paymentPageHeader":"Payments",
   "expectedQuestionsOnPaymentPage":"14",
   "headers": "Product Details,Ratings & Reviews,Questions and Answers,You might be interested in,Bought Together,Similar Products",
-  "links": "Facebook,Twitter,YouTube"
+  "links": "Facebook,Twitter,YouTube",
+  "placeholders": "Search Facebook,f,Search"
 }
