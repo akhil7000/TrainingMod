@@ -5,8 +5,7 @@
   "expectedQuestionsOnPaymentPage":"14",
   "headers": "Product Details,Ratings & Reviews,Questions and Answers,You might be interested in,Bought Together,Similar Products",
   "links": "Facebook,Twitter,YouTube",
-  "placeholders": "Search Facebook,f,Search"
+  "placeholders": "Search Facebook,f,Search",
   "policyElementsWhichNeedToClick": "Return Policy,Terms Of Use,Security,Privacy,Sitemap,EPR Compliance",
-  "policyHeaders": "Returns Policy,Flipkart Terms of Use,Safe and Secure Shopping,Privacy Policy,Sitemap,FLIPKART INDIA PRIVATE LIMITED E-WASTE RECYCLING POLICY",
-  "headers": "Product Details,Ratings & Reviews,Questions and Answers,You might be interested in,Bought Together,Similar Products"
+  "policyHeaders": "Returns Policy,Flipkart Terms of Use,Safe and Secure Shopping,Privacy Policy,Sitemap,FLIPKART INDIA PRIVATE LIMITED E-WASTE RECYCLING POLICY"
 }

@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.Selenide.*;
-
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -171,8 +168,9 @@ public class FlipkartTest extends BaseTest {
         softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
     }
 
+
     /**
-     * @param item     :accepting shoes from json
+     * @param :accepting shoes from json
      * Below testcase is clicking policies and checking the header and back to top button
      */
     @Test
@@ -232,6 +230,7 @@ public class FlipkartTest extends BaseTest {
     /**
      * flipkartSocialMedia(): Clicking the social media links and checking the new tab url and comparing it with links present in json
      */
+
     @Test
     public void flipkartSocialMedia(){
         HomePage homePage = new HomePage().popUpCancel();
