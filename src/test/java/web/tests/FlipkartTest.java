@@ -194,6 +194,7 @@ public class FlipkartTest extends BaseTest {
             SocialMediaPage socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
             sleep(4000);
             String url = socialMediaPage.getSocialMediaUrl();
+            logger.info(url);
             if (!url.contains(socialMediaLinks.get(i).toLowerCase())) {
                 softAssert.assertThat((socialMediaLinks.get(i))).
                         as(" Json selected Links contents is Not matching with socialMedia page url");
