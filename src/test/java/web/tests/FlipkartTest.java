@@ -210,7 +210,7 @@ public class FlipkartTest extends BaseTest {
         }
     }
 
-     /*
+    /*
      * @param item :accepting shoes from json
      * @param position :accepting position i.e to select 2nd position shoes
      */
@@ -233,22 +233,24 @@ public class FlipkartTest extends BaseTest {
 
     @Test
     public void flipkartSocialMedia(){
+        int counter=0;
         HomePage homePage = new HomePage().popUpCancel();
         SocialMediaPage socialMediaPage=null;
-        ArrayList<String> socialMediaLinks = new ArrayList<>(Arrays.asList(map.get("links")
+        ArrayList<String> socialMediaLinksArray = new ArrayList<>(Arrays.asList(map.get("links")
                 .split(",")));
         ArrayList<String> placeholdersOfSocialSites= new ArrayList<>(Arrays.asList(map.get("placeholders")
                 .split(",")));
-        for (int i = 0; i < socialMediaLinks.size(); i++) {
-            logger.info("*****links*****"+socialMediaLinks.get(i));
-            logger.info("*****placeholders*****"+placeholdersOfSocialSites.get(i));
-            socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
-            String url = socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(i));
+        for (String socialMediaLinks:socialMediaLinksArray) {
+            logger.info("*****links*****"+socialMediaLinks);
+            logger.info("*****placeholders*****"+placeholdersOfSocialSites);
+            socialMediaPage =homePage.clickLink(socialMediaLinks);
+            String url = socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(counter));
             logger.info("********" + url);
-            logger.info("********" + socialMediaLinks.get(i).toLowerCase());
-            softAssert.assertThat(url).contains(socialMediaLinks.get(i).toLowerCase()).
+            logger.info("********" + socialMediaLinks.toLowerCase());
+            softAssert.assertThat(url).contains(socialMediaLinks.toLowerCase()).
                     as("links of social media are not matching with the contents in url");
             Selenide.back();
+            counter=counter+1;
         }
     }
 }
