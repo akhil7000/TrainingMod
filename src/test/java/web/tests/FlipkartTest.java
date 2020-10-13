@@ -194,18 +194,16 @@ public class FlipkartTest extends BaseTest {
         for (int i = 0; i < socialMediaLinks.size(); i++) {
             System.out.println("*****links*****"+socialMediaLinks.get(i));
             socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
-            sleep(2000);
-
-                String url = socialMediaPage.getSocialMediaUrl();
-            if(socialMediaLinks.get(i)=="Facebook") {
+            if(socialMediaLinks.get(i).equals("Facebook")) {
                 socialMediaPage.checkFacebookElementVisible();
             }
-            if(socialMediaLinks.get(i)=="Twitter") {
+            if(socialMediaLinks.get(i).equals("Twitter")) {
                 socialMediaPage.checkTwitterElementVisible();
             }
-            if(socialMediaLinks.get(i)=="YouTube") {
+            if(socialMediaLinks.get(i).equals("YouTube")) {
                 socialMediaPage.checkYoutubeElementVisible();
             }
+            String url = socialMediaPage.getSocialMediaUrl();
                 logger.info("********" + url);
                 logger.info("********" + socialMediaLinks.get(i).toLowerCase());
                 softAssert.assertThat(url.contains(socialMediaLinks.get(i).toLowerCase())).

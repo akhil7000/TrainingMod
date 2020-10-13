@@ -14,6 +14,7 @@ public class HomePage extends BasePage {
     public static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
     public SelenideElement paymentLink = $x("//a[contains(text(),'Payments')]");
     String socialLinkXpath="//div[text()='SOCIAL']/following-sibling::a[text()='%s']";
+    public SelenideElement youtubeLinkXpath=$x("//a[contains(text(),'YouTube')]");
 
     public HomePage popUpCancel(){
         if(isDisplayedWait(popUpCross)){

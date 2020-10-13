@@ -1,7 +1,6 @@
 package web.pages.flipkart;
 
 import BasePage.BasePage;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.WebDriverRunner.*;
@@ -16,16 +15,13 @@ public class SocialMediaPage extends BasePage {
     }
     public void checkFacebookElementVisible(){
         isDisplayedWait(facebookElementVisible);
-        //facebookElementVisible.shouldHave(Condition.visible);
     }
 
     public void checkTwitterElementVisible(){
         isDisplayedWait(twitterElementVisible);
-        //twitterElementVisible.shouldHave(Condition.visible);
     }
 
     public void checkYoutubeElementVisible(){
         isDisplayedWait(youtubeElementVisible);
-        //youtubeElementVisible.shouldHave(Condition.visible);
     }
 }
