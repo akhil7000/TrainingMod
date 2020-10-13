@@ -7,12 +7,8 @@ import static com.codeborne.selenide.WebDriverRunner.*;
 public class SocialMediaPage extends BasePage {
     String placeholdersXpath="//input[@placeholder='%s']";
 
-    public String getSocialMediaUrl() {
-        return webdriverContainer.getCurrentUrl();
-    }
-
-    public SocialMediaPage checkPlaceholders(String placeholdersOfSocialSites){
+    public String getSocialMediaUrl(String placeholdersOfSocialSites) {
         isDisplayedWait($x(String.format(placeholdersXpath,placeholdersOfSocialSites)));
-        return this;
+        return webdriverContainer.getCurrentUrl();
     }
 }

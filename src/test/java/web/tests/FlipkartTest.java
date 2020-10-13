@@ -186,6 +186,9 @@ public class FlipkartTest extends BaseTest {
         }
     }
 
+    /**
+     * flipkartSocialMedia(): Clicking the social media links and checking the new tab url and comparing it with links present in json
+     */
     @Test
     public void flipkartSocialMedia(){
         HomePage homePage = new HomePage().popUpCancel();
@@ -197,8 +200,8 @@ public class FlipkartTest extends BaseTest {
         for (int i = 0; i < socialMediaLinks.size(); i++) {
             logger.info("*****links*****"+socialMediaLinks.get(i));
             logger.info("*****placeholders*****"+placeholdersOfSocialSites.get(i));
-            socialMediaPage =homePage.clickLink(socialMediaLinks.get(i)).checkPlaceholders(placeholdersOfSocialSites.get(i));
-            String url = socialMediaPage.getSocialMediaUrl();
+            socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
+            String url = socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(i));
             logger.info("********" + url);
             logger.info("********" + socialMediaLinks.get(i).toLowerCase());
             softAssert.assertThat(url).contains(socialMediaLinks.get(i).toLowerCase()).
