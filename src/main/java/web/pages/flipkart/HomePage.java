@@ -13,6 +13,7 @@ public class HomePage extends BasePage {
     public static SelenideElement setShoes = $x("//form/div/div/input");
     public static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
     public SelenideElement paymentLink = $x("//a[contains(text(),'Payments')]");
+    String socialLinkXpath="//div[text()='SOCIAL']/following-sibling::a[text()='%s']";
 
     public HomePage popUpCancel(){
         if(isDisplayedWait(popUpCross)){
@@ -32,5 +33,9 @@ public class HomePage extends BasePage {
     public PaymentPage goToPaymentPage(){
         paymentLink.shouldBe(Condition.visible).click();
         return new PaymentPage();
+    }
+    public SocialMediaPage clickLink(String socialMediaLinks){
+        $x(String.format(socialLinkXpath,socialMediaLinks)).shouldBe(Condition.visible).click();
+        return  new SocialMediaPage();
     }
 }

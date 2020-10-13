@@ -3,5 +3,6 @@
   "select_shoe": "2,3,4",
   "paymentPageHeader":"Payments",
   "expectedQuestionsOnPaymentPage":"14",
-  "headers": "Product Details,Ratings & Reviews,Questions and Answers,You might be interested in,Bought Together,Similar Products"
+  "headers": "Product Details,Ratings & Reviews,Questions and Answers,You might be interested in,Bought Together,Similar Products",
+  "links": "Facebook,Twitter,YouTube"
 }
