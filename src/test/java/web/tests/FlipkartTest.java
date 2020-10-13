@@ -10,12 +10,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -178,22 +178,37 @@ public class FlipkartTest extends BaseTest {
     public void testPolicyBackToTop() {
         ArrayList<String> policyElementsWhichNeedToClick = new ArrayList<>(Arrays.asList(map.get("policyElementsWhichNeedToClick").split(",")));
         ArrayList<String> policyHeaders = new ArrayList<>(Arrays.asList(map.get("policyHeaders").split(",")));
+        int counter = 0;
 
         HomePage homePage = new HomePage().popUpCancel();
 
-        for (int i = 0; i < policyHeaders.size(); i++) {
-            System.out.println("policyElementsWhichNeedToClick = " + policyElementsWhichNeedToClick.get(i));
-            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(i));
+        for (String policyHeader : policyHeaders) {
+            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(counter));
 
-            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(i))).as("Header Not Displayed in = " + policyHeaders.get(i)).isTrue();
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeader))
+                    .as("Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
 
-            softAssert.assertThat(policySubPage.verifyBackToTopIsDisplayedAndClickButton(policyElementsWhichNeedToClick.get(i))).as("verify back To top is not displayed = " + policyElementsWhichNeedToClick.get(i)).isTrue();
-            softAssert.assertThat(policySubPage.checkIfBackToTopButtonIsDisapper(policyElementsWhichNeedToClick.get(i))).as("Back to top button is not disappered after clicking in " + policyHeaders.get(i)).isFalse();
+            softAssert.assertThat(policySubPage.scrollPageToFooter())
+                    .as("Footer is not displayed = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
 
-            softAssert.assertThat(policySubPage.verifyPageGoesUp(policyElementsWhichNeedToClick.get(i))).as("Page = " + policyHeaders.get(i) + " doesnt scrolled up").isTrue();
-            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(i))).as("After clicking back to top button, Header Not Displayed in = " + policyHeaders.get(i)).isTrue();
+            softAssert.assertThat(policySubPage.clickBackToTopButton(policyElementsWhichNeedToClick.get(counter)))
+                    .as("Back to top button is not displayed = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.checkIfBackToTopButtonIsDisapperAndverifyPageGoesUp(policyElementsWhichNeedToClick.get(counter)))
+                    .as("Page = " + policyElementsWhichNeedToClick.get(counter) + " doesnt scrolled up or back to top button is disappear")
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(counter)))
+                    .as("After clicking back to top button, Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            counter = counter + 1;
             closeWindow();
             switchParentWindow();
+
         }
     }
 }
