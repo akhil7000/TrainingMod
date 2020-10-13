@@ -10,10 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static com.codeborne.selenide.Selenide.*;
 
 public class FlipkartTest extends BaseTest {
@@ -170,7 +168,9 @@ public class FlipkartTest extends BaseTest {
         softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
     }
 
+
     /**
+     * @param :accepting shoes from json
      * Below testcase is clicking policies and checking the header and back to top button
      */
     @Test
@@ -210,20 +210,47 @@ public class FlipkartTest extends BaseTest {
         }
     }
 
-     /*
+    /*
      * @param item :accepting shoes from json
      * @param position :accepting position i.e to select 2nd position shoes
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testProductPageDesign.csv")
-    public void testProductPageDesign(String item,int position){
+    public void testProductPageDesign(String item, int position) {
         ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes().OpenProductPage(position);
         productPage.scrollToBottom();
-        ArrayList<String> headers  = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
-        for(String headersInSelectionPage:headers){
+        ArrayList<String> headers = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
+        for (String headersInSelectionPage : headers) {
             softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage)).
                     as("Json selected Headers is Not matching with selection page Headers").isTrue();
 
+        }
+    }
+
+    /**
+     * flipkartSocialMedia(): Clicking the social media links and checking the new tab url and comparing it with links present in json
+     */
+
+    @Test
+    public void flipkartSocialMedia(){
+        int counter=0;
+        HomePage homePage = new HomePage().popUpCancel();
+        SocialMediaPage socialMediaPage=null;
+        ArrayList<String> socialMediaLinksArray = new ArrayList<>(Arrays.asList(map.get("links")
+                .split(",")));
+        ArrayList<String> placeholdersOfSocialSites= new ArrayList<>(Arrays.asList(map.get("placeholders")
+                .split(",")));
+        for (String socialMediaLinks:socialMediaLinksArray) {
+            logger.info("*****links*****"+socialMediaLinks);
+            logger.info("*****placeholders*****"+placeholdersOfSocialSites);
+            socialMediaPage =homePage.clickLink(socialMediaLinks);
+            String url = socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(counter));
+            logger.info("********" + url);
+            logger.info("********" + socialMediaLinks.toLowerCase());
+            softAssert.assertThat(url).contains(socialMediaLinks.toLowerCase()).
+                    as("links of social media are not matching with the contents in url");
+            Selenide.back();
+            counter=counter+1;
         }
     }
 }
