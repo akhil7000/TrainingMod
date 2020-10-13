@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 import static com.codeborne.selenide.Selenide.*;
 
 public class FlipkartTest extends BaseTest {
@@ -208,6 +207,22 @@ public class FlipkartTest extends BaseTest {
             counter = counter + 1;
             closeWindow();
             switchParentWindow();
+        }
+    }
+
+     /*
+     * @param item :accepting shoes from json
+     * @param position :accepting position i.e to select 2nd position shoes
+     */
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testProductPageDesign.csv")
+    public void testProductPageDesign(String item,int position){
+        ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes().OpenProductPage(position);
+        productPage.scrollToBottom();
+        ArrayList<String> headers  = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
+        for(String headersInSelectionPage:headers){
+            softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage)).
+                    as("Json selected Headers is Not matching with selection page Headers").isTrue();
 
         }
     }
