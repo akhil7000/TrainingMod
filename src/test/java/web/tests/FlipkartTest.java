@@ -10,8 +10,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.codeborne.selenide.Selenide.*;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -168,7 +171,46 @@ public class FlipkartTest extends BaseTest {
     }
 
     /**
-     *
+     * Below testcase is clicking policies and checking the header and back to top button
+     */
+    @Test
+    public void testPolicyBackToTop() {
+        ArrayList<String> policyElementsWhichNeedToClick = new ArrayList<>(Arrays.asList(map.get("policyElementsWhichNeedToClick").split(",")));
+        ArrayList<String> policyHeaders = new ArrayList<>(Arrays.asList(map.get("policyHeaders").split(",")));
+        int counter = 0;
+
+        HomePage homePage = new HomePage().popUpCancel();
+
+        for (String policyHeader : policyHeaders) {
+            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(counter));
+
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeader))
+                    .as("Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.scrollPageToFooter())
+                    .as("Footer is not displayed = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.clickBackToTopButton(policyElementsWhichNeedToClick.get(counter)))
+                    .as("Back to top button is not displayed = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.checkIfBackToTopButtonIsDisapperAndverifyPageGoesUp(policyElementsWhichNeedToClick.get(counter)))
+                    .as("Page = " + policyElementsWhichNeedToClick.get(counter) + " doesnt scrolled up or back to top button is disappear")
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(counter)))
+                    .as("After clicking back to top button, Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            counter = counter + 1;
+            closeWindow();
+            switchParentWindow();
+        }
+    }
+
+     /*
      * @param item :accepting shoes from json
      * @param position :accepting position i.e to select 2nd position shoes
      */
@@ -181,6 +223,7 @@ public class FlipkartTest extends BaseTest {
         for(String headersInSelectionPage:headers){
             softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage)).
                     as("Json selected Headers is Not matching with selection page Headers").isTrue();
+
         }
     }
 }
