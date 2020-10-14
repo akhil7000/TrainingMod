@@ -253,4 +253,51 @@ public class FlipkartTest extends BaseTest {
             counter=counter+1;
         }
     }
+
+    /**
+     * Checking the main page mail us, register office address with Corporate Address and Postal Address are same or not.
+     */
+    @Test
+    public void contactUsPostalAddress() {
+        HomePage homePage = new HomePage().popUpCancel();
+
+        String mailUsAddress = (homePage.getMailUsAddress())
+                .replaceAll("[&']", " ")
+                .replaceAll("[,']", " ")
+                .replaceAll("\\s{2,}", " ");
+
+        String registeredOfficeAddress = (homePage.getRegisteredOfficeAddress())
+                .replaceAll("[&']", " ")
+                .replaceAll("[,']", " ")
+                .replaceAll("\\s{2,}", " ");
+
+        ContactPage cotactPage = homePage.clickContactUS().clickPostalAddress();
+
+
+        String CorporateAddress = cotactPage.getCorporateAddress()
+                .replaceAll("[&']", " ")
+                .replaceAll("[,']", " ")
+                .replaceAll("\\s{2,}", " ");
+
+        String postalAddress = cotactPage.getPostalAddress()
+                .replaceAll("[&']", " ")
+                .replaceAll("[,']", " ")
+                .replaceAll("\\s{2,}", " ");
+
+        logger.info("mailUsAddress ============== " + mailUsAddress);
+        logger.info("Next page CorporateAddress = " + CorporateAddress);
+        logger.info("registeredOfficeAddress ==== " + registeredOfficeAddress);
+        logger.info("Next page postalAddress ==== " + postalAddress);
+
+        /**
+         * Now will compare
+         */
+        softAssert.assertThat(mailUsAddress.equalsIgnoreCase(CorporateAddress))
+                .as("Mail Us address of home Page, Corporate Address of contact us page is not same")
+                .isTrue();
+
+        softAssert.assertThat(registeredOfficeAddress.equals(postalAddress))
+                .as("Registered Office Address of home Page, postal Address of contact us page is not same")
+                .isTrue();
+    }
 }
