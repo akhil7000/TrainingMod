@@ -253,4 +253,29 @@ public class FlipkartTest extends BaseTest {
             counter=counter+1;
         }
     }
+
+    /**
+     * Checking the main page mail us, register office address, Corporate Address, Postal Address match the given regex.
+     */
+    @Test
+    public void testContactUsPostalAddress() {
+        HomePage homePage = new HomePage().popUpCancel();
+        ContactPage cotactPage = homePage.clickContactUS().clickPostalAddress();
+
+        softAssert.assertThat(homePage.getMailUsAddress())
+                .as("Mail Us Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
+
+        softAssert.assertThat(homePage.getRegisteredOfficeAddress())
+                .as("Registered Office Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
+
+        softAssert.assertThat(cotactPage.getCorporateAddress())
+                .as("Corporate Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
+
+        softAssert.assertThat(cotactPage.getPostalAddress())
+                .as("Registered Office Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
+    }
 }
