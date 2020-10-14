@@ -255,49 +255,27 @@ public class FlipkartTest extends BaseTest {
     }
 
     /**
-     * Checking the main page mail us, register office address with Corporate Address and Postal Address are same or not.
+     * Checking the main page mail us, register office address, Corporate Address, Postal Address match the given regex.
      */
     @Test
-    public void contactUsPostalAddress() {
+    public void testContactUsPostalAddress() {
         HomePage homePage = new HomePage().popUpCancel();
-
-        String mailUsAddress = (homePage.getMailUsAddress())
-                .replaceAll("[&']", " ")
-                .replaceAll("[,']", " ")
-                .replaceAll("\\s{2,}", " ");
-
-        String registeredOfficeAddress = (homePage.getRegisteredOfficeAddress())
-                .replaceAll("[&']", " ")
-                .replaceAll("[,']", " ")
-                .replaceAll("\\s{2,}", " ");
-
         ContactPage cotactPage = homePage.clickContactUS().clickPostalAddress();
 
+        softAssert.assertThat(homePage.getMailUsAddress())
+                .as("Mail Us Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
 
-        String CorporateAddress = cotactPage.getCorporateAddress()
-                .replaceAll("[&']", " ")
-                .replaceAll("[,']", " ")
-                .replaceAll("\\s{2,}", " ");
+        softAssert.assertThat(homePage.getRegisteredOfficeAddress())
+                .as("Registered Office Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
 
-        String postalAddress = cotactPage.getPostalAddress()
-                .replaceAll("[&']", " ")
-                .replaceAll("[,']", " ")
-                .replaceAll("\\s{2,}", " ");
+        softAssert.assertThat(cotactPage.getCorporateAddress())
+                .as("Corporate Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
 
-        logger.info("mailUsAddress ============== " + mailUsAddress);
-        logger.info("Next page CorporateAddress = " + CorporateAddress);
-        logger.info("registeredOfficeAddress ==== " + registeredOfficeAddress);
-        logger.info("Next page postalAddress ==== " + postalAddress);
-
-        /**
-         * Now will compare
-         */
-        softAssert.assertThat(mailUsAddress.equalsIgnoreCase(CorporateAddress))
-                .as("Mail Us address of home Page, Corporate Address of contact us page is not same")
-                .isTrue();
-
-        softAssert.assertThat(registeredOfficeAddress.equals(postalAddress))
-                .as("Registered Office Address of home Page, postal Address of contact us page is not same")
-                .isTrue();
+        softAssert.assertThat(cotactPage.getPostalAddress())
+                .as("Registered Office Address doesnt match given regex")
+                .matches("^[a-zA-Z0-9 &:,]*$");
     }
 }

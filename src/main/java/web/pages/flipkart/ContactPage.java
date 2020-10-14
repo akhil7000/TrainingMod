@@ -13,14 +13,13 @@ public class ContactPage {
     public ContactPage clickPostalAddress() {
         postalAddressLink.click();
         return this;
-
     }
 
     public String getCorporateAddress() {
-        return corporateAddress.getText();
+        return (corporateAddress.getText());
     }
 
     public String getPostalAddress() {
-        return postalAddress.getText();
+        return (postalAddress.getText());
     }
 }

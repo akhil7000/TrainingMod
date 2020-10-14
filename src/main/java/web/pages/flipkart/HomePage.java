@@ -8,6 +8,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.Iterator;
 
 import static com.codeborne.selenide.Selenide.$$x;
@@ -22,10 +23,9 @@ public class HomePage extends BasePage {
     public SelenideElement paymentLink = $x("//a[contains(text(),'Payments')]");
     String socialLinkXpath = "//div[text()='SOCIAL']/following-sibling::a[text()='%s']";
     String clickHomePagePolicy = "(//div[@class='_3qd5C5'])[3]/a[text()='%s']";
-    ElementsCollection mailUsAddress=$$x("//div[@class='_38DIp6']//p");
-    ElementsCollection registeredOfficeAddress=$$x("//div[@class='m6ABEi']//p");
+    ElementsCollection mailUsAddress = $$x("//div[@class='_38DIp6']//p");
+    ElementsCollection registeredOfficeAddress = $$x("//div[@class='m6ABEi']//p");
     public SelenideElement contactUs = $x("//a[contains(normalize-space(),'Contact Us')]");
-
 
 
     public HomePage popUpCancel() {
@@ -69,11 +69,10 @@ public class HomePage extends BasePage {
 
     public String getMailUsAddress() {
         StringBuffer takeMailUsAddress = new StringBuffer();
-        System.out.println("mailUsAddress size = " + mailUsAddress.size());
         for (int i = 0; i < mailUsAddress.size(); i++) {
             takeMailUsAddress.append(mailUsAddress.get(i).getText());
         }
-        return takeMailUsAddress.toString();
+        return (takeMailUsAddress.toString());
     }
 
     public String getRegisteredOfficeAddress() {
@@ -87,6 +86,5 @@ public class HomePage extends BasePage {
     public ContactPage clickContactUS() {
         contactUs.click();
         return new ContactPage();
-
     }
 }
