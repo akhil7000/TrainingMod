@@ -1,13 +1,10 @@
 package web.pages.flipkart;
 
 import BasePage.BasePage;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.WebDriverRunner.webdriverContainer;
 
 public class ProductPage extends BasePage{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -15,7 +12,6 @@ public class ProductPage extends BasePage{
     public SelenideElement  addToCart = $x("//div[@class='_1k1QCg']/ul/li/button");
     String headersXpath="//*[@id='container']/descendant::div[text()='%s']";
     public SelenideElement bottomElement =$x("//span[text()='Flipkart.com']");
-
 
     public ProductPage clickShoeSize(){
         clickShoeSize.click();

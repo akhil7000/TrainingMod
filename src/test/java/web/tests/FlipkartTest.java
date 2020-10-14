@@ -12,8 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -168,8 +167,50 @@ public class FlipkartTest extends BaseTest {
         softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
     }
 
+
     /**
-     * @param item     :accepting shoes from json
+     * @param :accepting shoes from json
+     * Below testcase is clicking policies and checking the header and back to top button
+     */
+    @Test
+    public void testPolicyBackToTop() {
+        ArrayList<String> policyElementsWhichNeedToClick = new ArrayList<>(Arrays.asList(map.get("policyElementsWhichNeedToClick").split(",")));
+        ArrayList<String> policyHeaders = new ArrayList<>(Arrays.asList(map.get("policyHeaders").split(",")));
+        int counter = 0;
+
+        HomePage homePage = new HomePage().popUpCancel();
+
+        for (String policyHeader : policyHeaders) {
+            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(counter));
+
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeader))
+                    .as("Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.scrollPageToFooter())
+                    .as("Footer is not displayed = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.clickBackToTopButton(policyElementsWhichNeedToClick.get(counter)))
+                    .as("Back to top button is not displayed = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.checkIfBackToTopButtonIsDisapperAndverifyPageGoesUp(policyElementsWhichNeedToClick.get(counter)))
+                    .as("Page = " + policyElementsWhichNeedToClick.get(counter) + " doesnt scrolled up or back to top button is disappear")
+                    .isTrue();
+
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(counter)))
+                    .as("After clicking back to top button, Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter))
+                    .isTrue();
+
+            counter = counter + 1;
+            closeWindow();
+            switchParentWindow();
+        }
+    }
+
+    /*
+     * @param item :accepting shoes from json
      * @param position :accepting position i.e to select 2nd position shoes
      */
     @ParameterizedTest
@@ -181,24 +222,34 @@ public class FlipkartTest extends BaseTest {
         for (String headersInSelectionPage : headers) {
             softAssert.assertThat(productPage.isSelectionDisplayed(headersInSelectionPage)).
                     as("Json selected Headers is Not matching with selection page Headers").isTrue();
+
         }
     }
 
+    /**
+     * flipkartSocialMedia(): Clicking the social media links and checking the new tab url and comparing it with links present in json
+     */
+
     @Test
-    public void flipkartSocialMedia() {
+    public void flipkartSocialMedia(){
+        int counter=0;
         HomePage homePage = new HomePage().popUpCancel();
-        ArrayList<String> socialMediaLinks = new ArrayList<>(Arrays.asList(map.get("links")
+        SocialMediaPage socialMediaPage=null;
+        ArrayList<String> socialMediaLinksArray = new ArrayList<>(Arrays.asList(map.get("links")
                 .split(",")));
-        for (int i = 0; i < socialMediaLinks.size(); i++) {
-            SocialMediaPage socialMediaPage =homePage.clickLink(socialMediaLinks.get(i));
-            sleep(4000);
-            String url = socialMediaPage.getSocialMediaUrl();
-            logger.info(url);
-            if (!url.contains(socialMediaLinks.get(i).toLowerCase())) {
-                softAssert.assertThat((socialMediaLinks.get(i))).
-                        as(" Json selected Links contents is Not matching with socialMedia page url");
-            }
+        ArrayList<String> placeholdersOfSocialSites= new ArrayList<>(Arrays.asList(map.get("placeholders")
+                .split(",")));
+        for (String socialMediaLinks:socialMediaLinksArray) {
+            logger.info("*****links*****"+socialMediaLinks);
+            logger.info("*****placeholders*****"+placeholdersOfSocialSites);
+            socialMediaPage =homePage.clickLink(socialMediaLinks);
+            String url = socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(counter));
+            logger.info("********" + url);
+            logger.info("********" + socialMediaLinks.toLowerCase());
+            softAssert.assertThat(url).contains(socialMediaLinks.toLowerCase()).
+                    as("links of social media are not matching with the contents in url");
             Selenide.back();
+            counter=counter+1;
         }
     }
 }

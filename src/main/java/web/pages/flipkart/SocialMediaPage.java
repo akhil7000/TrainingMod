@@ -1,11 +1,14 @@
 package web.pages.flipkart;
 
-import com.codeborne.selenide.WebDriverRunner;
+import BasePage.BasePage;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.WebDriverRunner.*;
 
-public class SocialMediaPage {
+public class SocialMediaPage extends BasePage {
+    String placeholdersXpath="//input[@placeholder='%s']";
 
-    public  String getSocialMediaUrl(){
-        return WebDriverRunner.webdriverContainer.getCurrentUrl();
+    public String getSocialMediaUrl(String placeholdersOfSocialSites) {
+        isDisplayedWait($x(String.format(placeholdersXpath,placeholdersOfSocialSites)));
+        return webdriverContainer.getCurrentUrl();
     }
 }
-
