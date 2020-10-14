@@ -14,6 +14,8 @@ public class PaymentPage {
     ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
     String bank_xpath = "//table[3]/tbody/tr[%s]/td[1]";
     String tenure_xpath = "//table[3]/tbody/tr[%s]/td[2]";
+    public SelenideElement  columnNameBanksForAddingDelay=$x("//th/child::strong[text()='Banks']");
+    ElementsCollection Rows=$$x("//table[3]/tbody/tr");
 
     public String getCurrentPageHeader(){
         return paymentHeader.shouldBe(Condition.visible).getText();
@@ -23,8 +25,10 @@ public class PaymentPage {
         return  questions.size();
     }
 
-    public String getEmiRow(String bankName) throws Exception {
-        for (int countRow = 1; countRow <= 9; countRow++) {
+    public String getEmiRow(String bankName){
+        logger.info(bankName);
+        columnNameBanksForAddingDelay.shouldHave(Condition.visible);
+        for (int countRow = 1; countRow <= Rows.size(); countRow++) {
             SelenideElement row_bank_element = $x(String.format(bank_xpath,countRow));
             logger.info("banks=" + row_bank_element.getText());
             if (row_bank_element.getText().equals(bankName)) {

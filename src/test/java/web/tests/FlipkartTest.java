@@ -47,8 +47,9 @@ public class FlipkartTest extends BaseTest {
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testEmiOptions.csv")
-    public void testEmiOptions(String bankName, String tenure) throws Exception {
+    public void testEmiOptions(String bankName, String tenure){
         PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
+        logger.info("testemi**********");
         String emiRow = paymentPage.getEmiRow(bankName);
         logger.info(emiRow);
         Assertions.assertTrue(paymentPage.getEmiTenure(Integer.parseInt(emiRow)).equals(tenure));
@@ -140,7 +141,6 @@ public class FlipkartTest extends BaseTest {
          * Now comparing 2 array product shoes, not price
          */
         for (int row = 0; row < productNameAndPrice.length; row++) {
-
             String singelProductNameAndPriceFromList = productNameAndPrice[row][0];
             int rowToCheckProduct;
             logger.info("singelProductNameAndPriceFromListtttt = " + singelProductNameAndPriceFromList);
