@@ -47,7 +47,7 @@ public class FlipkartTest extends BaseTest {
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/testEmiOptions.csv")
-    public void testEmiOptions(String bankName, String tenure) throws Exception {
+    public void testEmiOptions(String bankName, String tenure){
         PaymentPage paymentPage = new HomePage().popUpCancel().goToPaymentPage();
         logger.info("testemi**********");
         String emiRow = paymentPage.getEmiRow(bankName);

@@ -1,6 +1,5 @@
 package web.pages.flipkart;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -15,7 +14,8 @@ public class PaymentPage {
     ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
     String bank_xpath = "//table[3]/tbody/tr[%s]/td[1]";
     String tenure_xpath = "//table[3]/tbody/tr[%s]/td[2]";
-    ElementsCollection Rows=$$x("//table[3]/tbody/tr").shouldHave(CollectionCondition.size(9));
+    public SelenideElement  elementForAddingDelay=$x("//th/child::strong[text()='Banks']");
+    ElementsCollection Rows=$$x("//table[3]/tbody/tr");
 
     public String getCurrentPageHeader(){
         return paymentHeader.shouldBe(Condition.visible).getText();
@@ -27,6 +27,7 @@ public class PaymentPage {
 
     public String getEmiRow(String bankName){
         logger.info(bankName);
+        elementForAddingDelay.shouldHave(Condition.visible);
         for (int countRow = 1; countRow <= Rows.size(); countRow++) {
             SelenideElement row_bank_element = $x(String.format(bank_xpath,countRow));
             logger.info("banks=" + row_bank_element.getText());
