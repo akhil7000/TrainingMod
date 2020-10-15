@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import services.ga.AuthenticationResponse;
 import static io.restassured.RestAssured.given;
 
-public class GuestAccountAuthenticateTest extends BaseTest{
+public class GAAccountTest extends BaseTest{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
