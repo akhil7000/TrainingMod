@@ -18,14 +18,15 @@ public class GuestAccountAuthenticateTest extends BaseTest{
     @Test
     public void  testGuestAuthenticate(){
         RestAssured.baseURI = map.get("URI");
-        Response response = given().
+        AuthenticationResponse authenticationResponse = given().
                 header(map.get("AppKeyHeader"), (map.get("AppKeyValue"))).
                 header(map.get("ContentTypeHeader"), (map.get("ContentTypeValue")))
                 .body("{\n" +
                         " \"uid\": \"testShrikant@api.com\",\n" +
                         " \"password\": \"Password1\"\n" +
-                        "}").post("/authentication/login").then().extract().response();
-        AuthenticationResponse authenticationResponse =response.as(AuthenticationResponse.class);
+                        "}").post("/authentication/login")
+                .then().extract().response()
+                .as(AuthenticationResponse.class);
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("errors"+authenticationResponse.getErrors());
         logger.info("uid"+authenticationResponse.getPayload().getUid());
