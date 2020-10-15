@@ -8,8 +8,8 @@
   "placeholders": "Search Facebook,f,Search",
   "policyElementsWhichNeedToClick": "Return Policy,Terms Of Use,Security,Privacy,Sitemap,EPR Compliance",
   "policyHeaders": "Returns Policy,Flipkart Terms of Use,Safe and Secure Shopping,Privacy Policy,Sitemap,FLIPKART INDIA PRIVATE LIMITED E-WASTE RECYCLING POLICY",
-  "Headerkey1": "AppKey",
-  "Headerkey2": "Content-Type",
-  "HeaderValue1": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
-  "HeaderValue2": "application/json"
+  "AppKeyHeader": "AppKey",
+  "AppKeyValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
+  "ContentTypeHeader": "Content-Type",
+  "ContentTypeValue": "application/json"
 }

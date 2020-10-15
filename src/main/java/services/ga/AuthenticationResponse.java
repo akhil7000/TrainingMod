@@ -1,4 +1,4 @@
-package services.GA;
+package services.ga;
 
 public class AuthenticationResponse {
     String status;

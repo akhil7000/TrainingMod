@@ -1,4 +1,4 @@
-package services.GA;
+package services.ga;
 
 public class AuthenticationPayload {
     String accessToken;
@@ -10,6 +10,7 @@ public class AuthenticationPayload {
     String  refreshToken;
     int tokenExpiration;
     String uid;
+
     public String getAccessToken() {
         return accessToken;
     }
