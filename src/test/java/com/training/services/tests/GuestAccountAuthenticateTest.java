@@ -17,22 +17,15 @@ public class GuestAccountAuthenticateTest extends BaseTest{
 
     @Test
     public void  testGuestAuthenticate(){
-        RestAssured.baseURI="https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts";
-        RequestSpecification request= given();
-        request.header(map.get("AppKeyHeader"),(map.get("AppKeyValue")));
-        request.header(map.get("ContentTypeHeader"),(map.get("ContentTypeValue")));
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("uid", "testShrikant@api.com");
-        requestParams.put("password", "Password1");
-        request.body(requestParams.toString());
-        Response response = request.post("/authentication/login");
+        RestAssured.baseURI = map.get("URI");
+        Response response = given().
+                header(map.get("AppKeyHeader"), (map.get("AppKeyValue"))).
+                header(map.get("ContentTypeHeader"), (map.get("ContentTypeValue")))
+                .body("{\n" +
+                        " \"uid\": \"testShrikant@api.com\",\n" +
+                        " \"password\": \"Password1\"\n" +
+                        "}").post("/authentication/login").then().extract().response();
         AuthenticationResponse authenticationResponse =response.as(AuthenticationResponse.class);
-        authenticationResponse.getStatus();
-        authenticationResponse.getErrors();
-        authenticationResponse.getPayload().getAccessToken();
-        authenticationResponse.getPayload().getAccountId();
-        authenticationResponse.getPayload().getFirstName();
-        authenticationResponse.getPayload().getUid();
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("errors"+authenticationResponse.getErrors());
         logger.info("uid"+authenticationResponse.getPayload().getUid());

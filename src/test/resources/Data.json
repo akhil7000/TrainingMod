@@ -11,5 +11,6 @@
   "AppKeyHeader": "AppKey",
   "AppKeyValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
   "ContentTypeHeader": "Content-Type",
-  "ContentTypeValue": "application/json"
+  "ContentTypeValue": "application/json",
+  "URI":"https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts"
 }
