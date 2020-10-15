@@ -1,7 +1,5 @@
 package com.training.services.ga;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 public class GAValidationResponse {
     int status;
     Object error;
