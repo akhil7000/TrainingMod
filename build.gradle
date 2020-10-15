@@ -12,10 +12,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'io.rest-assured:rest-assured:4.3.1'
-    testImplementation 'io.rest-assured:json-path:4.3.1'
-    testImplementation 'io.rest-assured:xml-path:4.3.1'
-    testImplementation 'io.rest-assured:json-schema-validator:4.3.1'
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: "${junit_jupiter_version}"
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${junit_jupiter_api_version}"
     implementation "org.junit.jupiter:junit-jupiter-params:${junit_jupiter_params_version}"
@@ -24,6 +20,9 @@ dependencies {
     implementation group: 'com.codeborne', name: 'selenide' , version : "${selenide_version}"
     implementation "com.google.code.gson:gson:${gson_version}"
     testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version:"${rest_assured_version}"
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version:"${json_simple_version}"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jackson_annotations_version}"
 }
 
 test{
