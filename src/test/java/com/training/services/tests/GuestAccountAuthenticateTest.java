@@ -2,9 +2,6 @@ package com.training.services.tests;
 
 import com.training.base.BaseTest;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -25,7 +22,9 @@ public class GuestAccountAuthenticateTest extends BaseTest{
                         " \"uid\": \"testShrikant@api.com\",\n" +
                         " \"password\": \"Password1\"\n" +
                         "}").post("/authentication/login")
-                .then().extract().response()
+                .then()
+                .extract()
+                .response()
                 .as(AuthenticationResponse.class);
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("errors"+authenticationResponse.getErrors());
