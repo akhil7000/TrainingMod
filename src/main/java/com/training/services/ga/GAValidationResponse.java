@@ -2,7 +2,6 @@ package com.training.services.ga;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class GAValidationResponse {
     int status;
     Object error;

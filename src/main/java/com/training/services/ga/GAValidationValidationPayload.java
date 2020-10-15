@@ -2,7 +2,7 @@ package com.training.services.ga;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GAValidationValidationPayload {
     String accountStatus;
     boolean isUid;
