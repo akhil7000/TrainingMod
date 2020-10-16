@@ -1,7 +1,9 @@
 package services.ga.authenticate;
 
-import java.util.List;
+import lombok.Getter;
 
+import java.util.List;
+@Getter
 public class Response {
     String status;
     List<Errors> errors;
