@@ -144,7 +144,6 @@ public class GAAccountTest extends BaseTest {
                         "header is required and the API key provided should be valid.")
                 .isEqualTo("The API key header is required and the API key provided should be valid.");
 
-
         softAssert.assertThat(gaValidationNegativeResponse.getErrors().get(0).getInternalMessage())
                 .as("Inside errors JSON, message is not equals to" +
                         "The API key header is required and should be valid.")
@@ -173,7 +172,7 @@ public class GAAccountTest extends BaseTest {
 
         softAssert.assertThat(gaValidationResponse.getPayload().getIsUid())
                 .as("Inside payload JSON, is uid should be false")
-                .isEqualTo(false);
+                .isFalse();
     }
 
     /**
