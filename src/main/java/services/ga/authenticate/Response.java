@@ -1,8 +1,8 @@
 package services.ga.authenticate;
 
 import lombok.Getter;
-
 import java.util.List;
+
 @Getter
 public class Response {
     String status;
