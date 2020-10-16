@@ -1,4 +1,4 @@
-package web.pages.flipkart;
+package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;

@@ -1,4 +1,4 @@
-package web.pages.flipkart;
+package com.training.web.pages.flipkart;
 
 import BasePage.BasePage;
 import static com.codeborne.selenide.Selenide.$x;
