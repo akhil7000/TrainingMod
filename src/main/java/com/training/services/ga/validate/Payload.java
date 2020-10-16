@@ -1,6 +1,6 @@
 package com.training.services.ga.validate;
 
-public class GAValidationValidationPayload {
+public class Payload {
     String accountStatus;
     boolean isUid;
 

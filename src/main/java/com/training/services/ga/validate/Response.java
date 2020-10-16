@@ -1,9 +1,9 @@
 package com.training.services.ga.validate;
 
-public class GAValidationResponse {
+public class Response {
     int status;
     Object errors;
-    GAValidationValidationPayload payload;
+    Payload payload;
 
     public Object getErrors() {
         return errors;
@@ -13,7 +13,7 @@ public class GAValidationResponse {
         return status;
     }
 
-    public GAValidationValidationPayload getPayload() {
+    public Payload getPayload() {
         return payload;
     }
 }
