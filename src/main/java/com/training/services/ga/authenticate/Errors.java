@@ -1,4 +1,4 @@
-package com.training.services.ga.validate;
+package com.training.services.ga.authenticate;
 
 public class Errors {
     String internalMessage;
@@ -16,5 +16,4 @@ public class Errors {
     public String getId() {
         return id;
     }
-
 }
