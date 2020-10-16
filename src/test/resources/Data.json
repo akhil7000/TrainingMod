@@ -9,6 +9,8 @@
   "policyElementsWhichNeedToClick": "Return Policy,Terms Of Use,Security,Privacy,Sitemap,EPR Compliance",
   "policyHeaders": "Returns Policy,Flipkart Terms of Use,Safe and Secure Shopping,Privacy Policy,Sitemap,FLIPKART INDIA PRIVATE LIMITED E-WASTE RECYCLING POLICY",
   "AppKeyHeader": "AppKey",
+  "WrongAppKeyValue":"qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj777",
+  "base_url": "https://aws-stg1.api.rccl.com/en/al/web/v3/guestAccounts",
   "AppKeyValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
   "AppKeyWrongValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj78",
   "ContentTypeHeader": "Content-Type",

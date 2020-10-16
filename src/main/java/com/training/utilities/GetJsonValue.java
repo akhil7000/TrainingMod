@@ -3,6 +3,8 @@ package com.training.utilities;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,7 +18,7 @@ public class GetJsonValue {
      * @return Object (key and value)
      */
     public Object getValue()  {
-        Reader reader = null;
+        BufferedReader reader = null;
         try {
             reader = Files.newBufferedReader(Paths.get(System.getProperty("user.dir")+"\\src\\test\\resources\\Data.json"));
         } catch (Exception e) {

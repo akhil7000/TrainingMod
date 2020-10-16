@@ -17,14 +17,15 @@ dependencies {
     implementation "org.junit.jupiter:junit-jupiter-params:${junit_jupiter_params_version}"
     implementation "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_engine_version}"
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: "${logback_version}"
-    implementation group: 'com.codeborne', name: 'selenide' , version : "${selenide_version}"
+    implementation group: 'com.codeborne', name: 'selenide', version: "${selenide_version}"
     implementation "com.google.code.gson:gson:${gson_version}"
     testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
-    testCompile group: 'io.rest-assured', name: 'rest-assured', version:"${rest_assured_version}"
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version:"${json_simple_version}"
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: "${rest_assured_version}"
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: "${json_simple_version}"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jackson_annotations_version}"
 }
 
-test{
+test {
     systemProperties System.getProperties()
     useJUnitPlatform()
 }

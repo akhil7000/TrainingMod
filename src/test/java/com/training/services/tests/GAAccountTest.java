@@ -1,12 +1,16 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
+import com.training.utilities.RestEngine;
 import com.training.services.ga.authenticate.Response;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 
 public class GAAccountTest extends BaseTest{
@@ -81,5 +85,31 @@ public class GAAccountTest extends BaseTest{
         softAssert.assertThat(authenticationResponse.getErrors().get(0).getErrorCode()).isEqualTo("GA-0201");
         softAssert.assertThat(authenticationResponse.getErrors().get(0).getInternalMessage())
                 .isEqualTo("The credentials provided are not able to be authenticated.");
+    }
+
+    /**
+     * Positive validation, putting all valid details and checking response
+     */
+    @Test
+    public void testGuestAccountValidation() {
+        Map<String, Object> headerMap = new HashMap();
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
+        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+
+        com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
+                .getResponsePost(map.get("base_url") + "/validation"
+                        , headerMap
+                        , "{\"email\": \"testPranav@api.com\"}")
+                .as(com.training.services.ga.validate.Response.class);
+
+        Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
+
+        softAssert.assertThat(gaValidationResponse.getPayload().getAccountStatus())
+                .as("Inside payload JSON, accountStatus is not equals to EXISTS")
+                .isEqualTo("EXISTS");
+
+        softAssert.assertThat(gaValidationResponse.getPayload().getIsUid())
+                .as("Inside payload JSON, isUid should be true")
+                .isEqualTo(true);
     }
 }
