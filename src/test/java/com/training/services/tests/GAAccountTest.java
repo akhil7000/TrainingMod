@@ -21,7 +21,6 @@ public class GAAccountTest extends BaseTest {
     Map<String, Object> headerMap = new HashMap();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
     @Test
     public void  testGuestAuthenticate(){
         String uid="testShrikant@api.com";
