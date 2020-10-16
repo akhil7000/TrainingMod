@@ -2,15 +2,20 @@ package com.training.services.ga;
 
 public class GAValidationResponse {
     int status;
-    Object error;
+    Errors errors[];
+    Error error;
     GAValidationValidationPayload payload;
+
+    public Error getError() {
+        return error;
+    }
 
     public int getStatus() {
         return status;
     }
 
-    public Object getError() {
-        return error;
+    public Errors getErrors() {
+        return errors[0];
     }
 
     public GAValidationValidationPayload getPayload() {

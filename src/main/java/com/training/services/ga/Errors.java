@@ -1,8 +1,9 @@
 package com.training.services.ga;
 
-public class GAValidationResponseNegativeErrors {
+public class Errors {
     String errorCode;
-    String message;
+    String internalMessage;
+    String time;
     String developerMessage;
 
     public String getDeveloperMessage() {
@@ -13,7 +14,11 @@ public class GAValidationResponseNegativeErrors {
         return errorCode;
     }
 
-    public String getMessage() {
-        return message;
+    public String getInternalMessage() {
+        return internalMessage;
+    }
+
+    public String getTime() {
+        return time;
     }
 }
