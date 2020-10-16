@@ -2,18 +2,23 @@ package services.ga;
 
 public class AuthenticationResponse {
     String status;
-    Object errors;
+    AuthenticateErrors errors[];
     AuthenticationPayload payload;
+    AuthenticateError error;
+
+    public AuthenticateErrors getErrors() {
+        return errors[0];
+    }
+
+    public AuthenticateError getError() {
+        return error;
+    }
 
     public String getStatus() {
         return status;
     }
 
-    public Object getErrors() {
-        return errors;
-    }
-
-    public AuthenticationPayload getPayload() {
+    public AuthenticationPayload getPayload () {
         return payload;
     }
 }

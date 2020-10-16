@@ -1,6 +1,6 @@
 package services.ga;
 
-public class AuthenticateWrongUsername {
+public class AuthenticateErrors {
     String internalMessage;
     String  errorCode;
     String id;
