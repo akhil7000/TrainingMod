@@ -1,12 +1,12 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
+import com.training.services.ga.authenticate.Response;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import services.ga.authenticate.Response;
 import static io.restassured.RestAssured.given;
 
 public class GAAccountTest extends BaseTest{

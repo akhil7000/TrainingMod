@@ -1,4 +1,4 @@
-package services.ga.authenticate;
+package com.training.services.ga.authenticate;
 
 import java.util.List;
 
