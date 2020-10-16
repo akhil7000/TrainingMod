@@ -1,7 +1,6 @@
-package web.tests;
+package com.training.web.tests;
 
-import web.pages.flipkart.*;
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.Selenide;
 import com.training.base.BaseTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +9,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import web.pages.flipkart.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import static com.codeborne.selenide.Selenide.*;
+
+import static com.codeborne.selenide.Selenide.closeWindow;
 
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
