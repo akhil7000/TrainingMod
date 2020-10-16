@@ -26,15 +26,15 @@ public class GAAccountTest extends BaseTest{
                 .extract()
                 .response()
                 .as(Response.class);
-            String email="testShrikant@api.com";
+        String uid="testShrikant@api.com";
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("uid"+authenticationResponse.getPayload().getAccountId());
         logger.info("error"+authenticationResponse.getErrors());
         Assertions.assertEquals(authenticationResponse.getStatus(),"200");
-        softAssert.assertThat(authenticationResponse.getErrors().size()==0).isTrue();
+        softAssert.assertThat(authenticationResponse.getErrors().size()).isEqualTo(0);
         softAssert.assertThat(authenticationResponse.getPayload().getAccountId()).isEqualTo("54d7543e-45f1-4b7b-b83c-fa107f44809b");
         softAssert.assertThat(authenticationResponse.getPayload().getLoginStatus()).isEqualTo("AUTHENTICATED");
-        softAssert.assertThat(authenticationResponse.getPayload().getUid()).isEqualTo(email);
+        softAssert.assertThat(authenticationResponse.getPayload().getUid()).isEqualTo(uid);
     }
 
     @Test

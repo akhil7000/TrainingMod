@@ -12,7 +12,6 @@ public class Response {
         return errors;
     }
 
-
     public Error getError() {
         return error;
     }
@@ -21,7 +20,7 @@ public class Response {
         return status;
     }
 
-        public Payload getPayload () {
-            return payload;
-        }
+    public Payload getPayload () {
+        return payload;
     }
+}
