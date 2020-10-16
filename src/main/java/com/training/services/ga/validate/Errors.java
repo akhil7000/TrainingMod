@@ -1,4 +1,4 @@
-package com.training.services.ga;
+package com.training.services.ga.validate;
 
 public class Errors {
     String errorCode;
