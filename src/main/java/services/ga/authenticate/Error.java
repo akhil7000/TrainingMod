@@ -1,6 +1,6 @@
-package services.ga;
+package services.ga.authenticate;
 
-public class AuthenticateError {
+public class Error {
     String errorCode;
     String message;
     String time;

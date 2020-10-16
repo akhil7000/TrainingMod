@@ -1,8 +1,8 @@
-package services.ga;
+package services.ga.authenticate;
 
-public class AuthenticateErrors {
+public class Errors {
     String internalMessage;
-    String  errorCode;
+    String errorCode;
     String id;
 
     public String getInternalMessage() {

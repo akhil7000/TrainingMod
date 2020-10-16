@@ -1,6 +1,6 @@
-package services.ga;
+package services.ga.authenticate;
 
-public class AuthenticationPayload {
+public class Payload {
     String accessToken;
     String accountId;
     String firstName;
