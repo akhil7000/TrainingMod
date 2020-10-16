@@ -1,4 +1,4 @@
-package services.ga.authenticate;
+package com.training.services.ga.authenticate;
 
 public class Errors {
     String internalMessage;
