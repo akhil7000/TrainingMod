@@ -7,11 +7,9 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
-import web.pages.flipkart.SearchPage;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
