@@ -1,16 +1,23 @@
 package com.training.services.ga.validate;
 
+import java.util.List;
+
 public class Response {
     int status;
-    Object errors;
+    List<Errors> errors;
+    Error error;
     Payload payload;
 
-    public Object getErrors() {
-        return errors;
+    public Error getError() {
+        return error;
     }
 
     public int getStatus() {
         return status;
+    }
+
+    public List<Errors> getErrors() {
+        return errors;
     }
 
     public Payload getPayload() {
