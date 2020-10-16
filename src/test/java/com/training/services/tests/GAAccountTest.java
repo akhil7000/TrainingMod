@@ -5,15 +5,11 @@ import com.training.services.ga.authenticate.Response;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.Map;
-
-
 import io.restassured.RestAssured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import static io.restassured.RestAssured.given;
 
 
