@@ -14,19 +14,19 @@ public class GAAccountTest extends BaseTest{
 
     @Test
     public void  testGuestAuthenticate(){
+        String uid="testShrikant@api.com";
         RestAssured.baseURI = map.get("URI");
         Response authenticationResponse = given().
                 header(map.get("AppKeyHeader"), (map.get("AppKeyValue"))).
                 header(map.get("ContentTypeHeader"), (map.get("ContentTypeValue")))
                 .body("{\n" +
-                        " \"uid\": \"testShrikant@api.com\",\n" +
+                        " \"uid\": \""+uid+"\",\n" +
                         " \"password\": \"Password1\"\n" +
                         "}").post("/authentication/login")
                 .then()
                 .extract()
                 .response()
                 .as(Response.class);
-        String uid="testShrikant@api.com";
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("uid"+authenticationResponse.getPayload().getAccountId());
         logger.info("error"+authenticationResponse.getErrors());
