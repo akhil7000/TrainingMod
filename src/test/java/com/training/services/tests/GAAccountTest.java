@@ -1,45 +1,54 @@
 package com.training.services.tests;
 
+
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.Response;
+import com.training.utilities.GetJsonValue;
 import com.training.utilities.RestEngine;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GAAccountTest extends BaseTest {
-    Map<String, Object> headerMap = new HashMap();
+    Map<String, Object> headerMap;
+    String email="testShrikant@api.com";
+    String password="Password1";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+   @BeforeAll
+    public void setUp1() {
+       map = (Map) new GetJsonValue().getValue();
+       headerMap = new HashMap();
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
+        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+    }
 
     /**
      * testGuestAuthenticate():post requested with body to get the +ve response and parameters passed through Json
      */
     @Test
     public void  testGuestAuthenticate(){
-        String uid="testShrikant@api.com";
-        Map<String, Object> headerMap = new HashMap();
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap
                         , "{\n" +
-                                " \"uid\": \""+uid+"\",\n" +
-                                " \"password\": \"Password1\"\n" +
+                                " \"uid\": \""+email+"\",\n" +
+                                " \"password\": \""+password+"\"\n" +
                                 "}")
                         .as(Response.class);
         logger.info("status"+authenticationResponse.getStatus());
-        logger.info("uid"+authenticationResponse.getPayload().getAccountId());
+        logger.info("Accout id"+authenticationResponse.getPayload().getAccountId());
         logger.info("error"+authenticationResponse.getErrors());
         Assertions.assertEquals(authenticationResponse.getStatus(),"200");
         softAssert.assertThat(authenticationResponse.getErrors().size()).isEqualTo(0);
         softAssert.assertThat(authenticationResponse.getPayload().getAccountId()).
                 isEqualTo("54d7543e-45f1-4b7b-b83c-fa107f44809b");
         softAssert.assertThat(authenticationResponse.getPayload().getLoginStatus()).isEqualTo("AUTHENTICATED");
-        softAssert.assertThat(authenticationResponse.getPayload().getUid()).isEqualTo(uid);
+        softAssert.assertThat(authenticationResponse.getPayload().getUid()).isEqualTo(email);
     }
 
     /**
@@ -48,15 +57,13 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongAppKey() {
-        Map<String, Object> headerMap = new HashMap();
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+    headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyWrongValue"));
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap
                         , "{\n" +
-                                " \"uid\": \"testShrikant@api.com\",\n" +
-                                " \"password\": \"Password1\"\n" +
+                                " \"uid\": \""+email+"\",\n" +
+                                " \"password\": \""+password+"\"\n" +
                                 "}")
                         .as(Response.class);
         logger.info("status code="+authenticationResponse.getError().getErrorCode());
@@ -74,15 +81,12 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongUsername() {
-        Map<String, Object> headerMap = new HashMap();
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap
                         , "{\n" +
                                 " \"uid\": \"testShri@api.com\",\n" +
-                                " \"password\": \"Password1\"\n" +
+                                " \"password\": \""+password+"\"\n" +
                                 "}")
                         .as(Response.class);
         logger.info("status="+authenticationResponse.getStatus());

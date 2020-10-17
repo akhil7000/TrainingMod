@@ -2,15 +2,12 @@ package com.training.base;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.training.utilities.GetJsonValue;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import java.util.Iterator;
 import java.util.Map;
-
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest {
@@ -28,7 +25,7 @@ public class BaseTest {
         options.addArguments("--incognito");
         options.addArguments("start-maximized");
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        map = (Map) new GetJsonValue().getValue();
+
     }
 
     @AfterEach
