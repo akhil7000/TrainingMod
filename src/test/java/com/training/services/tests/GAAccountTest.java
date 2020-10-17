@@ -109,7 +109,7 @@ public class GAAccountTest extends BaseTest {
                 .as("Inside payload JSON, accountStatus is not equals to EXISTS")
                 .isEqualTo("EXISTS");
 
-        softAssert.assertThat(gaValidationResponse.getPayload().getIsUid())
+        softAssert.assertThat(gaValidationResponse.getPayload().isUid())
                 .as("Inside payload JSON, isUid should be true")
                 .isEqualTo(true);
     }
@@ -166,7 +166,7 @@ public class GAAccountTest extends BaseTest {
                 .as("Inside payload JSON, account status is not equals to DOES_NOT_EXIST")
                 .isEqualTo("DOES_NOT_EXIST");
 
-        softAssert.assertThat(gaValidationResponse.getPayload().getIsUid())
+        softAssert.assertThat(gaValidationResponse.getPayload().isUid())
                 .as("Inside payload JSON, is uid should be false")
                 .isFalse();
     }
