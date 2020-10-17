@@ -9,20 +9,4 @@ public class Response {
     List<Errors> errors;
     Payload payload;
     Error error;
-
-    public List<Errors> getErrors() {
-        return errors;
-    }
-
-    public Error getError() {
-        return error;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Payload getPayload () {
-        return payload;
-    }
 }

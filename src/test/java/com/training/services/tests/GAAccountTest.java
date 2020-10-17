@@ -7,55 +7,58 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
-import io.restassured.RestAssured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static io.restassured.RestAssured.given;
-
 
 public class GAAccountTest extends BaseTest {
     Map<String, Object> headerMap = new HashMap();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * testGuestAuthenticate():post requested with body to get the +ve response and parameters passed through Json
+     */
     @Test
     public void  testGuestAuthenticate(){
         String uid="testShrikant@api.com";
-        RestAssured.baseURI = map.get("URI");
-        Response authenticationResponse = given().
-                header(map.get("AppKeyHeader"), (map.get("AppKeyValue"))).
-                header(map.get("ContentTypeHeader"), (map.get("ContentTypeValue")))
-                .body("{\n" +
-                        " \"uid\": \""+uid+"\",\n" +
-                        " \"password\": \"Password1\"\n" +
-                        "}").post("/authentication/login")
-                .then()
-                .extract()
-                .response()
-                .as(Response.class);
+        Map<String, Object> headerMap = new HashMap();
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
+        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+        Response authenticationResponse =
+                new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
+                        , headerMap
+                        , "{\n" +
+                                " \"uid\": \""+uid+"\",\n" +
+                                " \"password\": \"Password1\"\n" +
+                                "}")
+                        .as(Response.class);
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("uid"+authenticationResponse.getPayload().getAccountId());
         logger.info("error"+authenticationResponse.getErrors());
         Assertions.assertEquals(authenticationResponse.getStatus(),"200");
         softAssert.assertThat(authenticationResponse.getErrors().size()).isEqualTo(0);
-        softAssert.assertThat(authenticationResponse.getPayload().getAccountId()).isEqualTo("54d7543e-45f1-4b7b-b83c-fa107f44809b");
+        softAssert.assertThat(authenticationResponse.getPayload().getAccountId()).
+                isEqualTo("54d7543e-45f1-4b7b-b83c-fa107f44809b");
         softAssert.assertThat(authenticationResponse.getPayload().getLoginStatus()).isEqualTo("AUTHENTICATED");
         softAssert.assertThat(authenticationResponse.getPayload().getUid()).isEqualTo(uid);
     }
 
+    /**
+     * testAuthenticateWrongAppKey():post requested with wrong appkey and checked the negative response,
+     * parameters values passed through Json
+     */
     @Test
     public void testAuthenticateWrongAppKey() {
-        RestAssured.baseURI = map.get("URI");
-        Response authenticationResponse= given().
-                header(map.get("AppKeyHeader"), (map.get("AppKeyWrongValue"))).
-                header(map.get("ContentTypeHeader"), (map.get("ContentTypeValue")))
-                .body("{\n" +
-                        " \"uid\": \"testShrikant@api.com\",\n" +
-                        " \"password\": \"Password1\"\n" +
-                        "}").post("/authentication/login")
-                .then()
-                .extract()
-                .response()
-                .as(Response.class);
+        Map<String, Object> headerMap = new HashMap();
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
+        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+        Response authenticationResponse =
+                new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
+                        , headerMap
+                        , "{\n" +
+                                " \"uid\": \"testShrikant@api.com\",\n" +
+                                " \"password\": \"Password1\"\n" +
+                                "}")
+                        .as(Response.class);
         logger.info("status code="+authenticationResponse.getError().getErrorCode());
         logger.info("Error code is="+authenticationResponse.getError().getMessage());
         logger.info("Time="+authenticationResponse.getError().getTime());
@@ -65,20 +68,23 @@ public class GAAccountTest extends BaseTest {
                 isEqualTo("The API key header is required and the API key provided should be valid.");
     }
 
+    /**
+     * testAuthenticateWrongUsername():post requested with wrong Username and checked the negative response,
+     * parameters values passed through Json
+     */
     @Test
     public void testAuthenticateWrongUsername() {
-        RestAssured.baseURI = map.get("URI");
-        Response authenticationResponse = given().
-                header(map.get("AppKeyHeader"), (map.get("AppKeyValue"))).
-                header(map.get("ContentTypeHeader"), (map.get("ContentTypeValue")))
-                .body("{\n" +
-                        " \"uid\": \"testShri@api.com\",\n" +
-                        " \"password\": \"Password1\"\n" +
-                        "}").post("/authentication/login")
-                .then()
-                .extract()
-                .response()
-                .as(Response.class);
+        Map<String, Object> headerMap = new HashMap();
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
+        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+        Response authenticationResponse =
+                new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
+                        , headerMap
+                        , "{\n" +
+                                " \"uid\": \"testShri@api.com\",\n" +
+                                " \"password\": \"Password1\"\n" +
+                                "}")
+                        .as(Response.class);
         logger.info("status="+authenticationResponse.getStatus());
         logger.info("InternalMessage="+authenticationResponse.getErrors().get(0).getInternalMessage());
         logger.info("Id="+authenticationResponse.getErrors().get(0).getId());
