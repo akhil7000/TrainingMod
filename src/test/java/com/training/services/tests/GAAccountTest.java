@@ -1,12 +1,9 @@
 package com.training.services.tests;
 
-
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.Response;
-import com.training.utilities.GetJsonValue;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.*;
-
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -19,10 +16,9 @@ public class GAAccountTest extends BaseTest {
     String password="Password1";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-   @BeforeAll
-    public void setUp1() {
-       map = (Map) new GetJsonValue().getValue();
-       headerMap = new HashMap();
+    @BeforeAll
+    public void setData() {
+        headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
     }
@@ -57,7 +53,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongAppKey() {
-    headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyWrongValue"));
+        headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyWrongValue"));
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap

@@ -2,8 +2,10 @@ package com.training.base;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.training.utilities.GetJsonValue;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.Iterator;
@@ -14,6 +16,10 @@ public class BaseTest {
     public Map<String, String> map;
     public SoftAssertions softAssert;
 
+    @BeforeAll
+    public void setValue(){
+        map = (Map) new GetJsonValue().getValue();
+    }
     /**
      * Getting json data and storing it in map variable
      */
