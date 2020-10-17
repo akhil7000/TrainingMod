@@ -2,7 +2,7 @@ package com.training.services.tests;
 
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.Response;
-import com.training.utilities.RequestBody;
+import com.training.services.ga.validate.RequestBody;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -94,14 +94,17 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountValidation() {
-        Map<String, Object> headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+
+        RequestBody requestBody = new RequestBody();
+        requestBody.setEmailKey("email");
+        requestBody.setEmailValue("testPranav@api.com");
 
         com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
                 .getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , new RequestBody().getGuestAccountValidationBody())
+                        , "{\"" + requestBody.getEmailKey() + "\": \"" + requestBody.getEmailValue() + "\"}")
                 .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
@@ -123,10 +126,14 @@ public class GAAccountTest extends BaseTest {
         headerMap.put(map.get("AppKeyHeader"), map.get("WrongAppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
 
+        RequestBody requestBody = new RequestBody();
+        requestBody.setEmailKey("email");
+        requestBody.setEmailValue("testPranav@api.com");
+
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , new RequestBody().getGuestAccountWrongAppKeyBody())
+                        , "{\"" + requestBody.getEmailKey() + "\": \"" + requestBody.getEmailValue() + "\"}")
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationNegativeResponse.getStatus(), 401
@@ -155,10 +162,14 @@ public class GAAccountTest extends BaseTest {
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
 
+        RequestBody requestBody = new RequestBody();
+        requestBody.setEmailKey("email");
+        requestBody.setEmailValue("assignment70test@api.com");
+
         com.training.services.ga.validate.Response gaValidationResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , new RequestBody().getGuestAccountWrongEmailBody())
+                        , "{\"" + requestBody.getEmailKey() + "\": \"" + requestBody.getEmailValue() + "\"}")
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
@@ -180,10 +191,14 @@ public class GAAccountTest extends BaseTest {
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
 
+        RequestBody requestBody = new RequestBody();
+        requestBody.setEmailKey("email");
+        requestBody.setEmailValue("testPranav@@api.com");
+
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , new RequestBody().getGuestAccountInvalidEmailBody())
+                        , "{\"" + requestBody.getEmailKey() + "\": \"" + requestBody.getEmailValue() + "\"}")
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationNegativeResponse.getStatus(), 422
