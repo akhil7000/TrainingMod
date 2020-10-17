@@ -2,6 +2,7 @@ package com.training.services.tests;
 
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.Response;
+import com.training.utilities.RequestBody;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -100,7 +101,7 @@ public class GAAccountTest extends BaseTest {
         com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
                 .getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"testPranav@api.com\"}")
+                        , new RequestBody().getGuestAccountValidationBody())
                 .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
@@ -125,7 +126,7 @@ public class GAAccountTest extends BaseTest {
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"testPranav@api.com\"}")
+                        , new RequestBody().getGuestAccountWrongAppKeyBody())
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationNegativeResponse.getStatus(), 401
@@ -157,7 +158,7 @@ public class GAAccountTest extends BaseTest {
         com.training.services.ga.validate.Response gaValidationResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"assignment70test@api.com\"}")
+                        , new RequestBody().getGuestAccountWrongEmailBody())
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
@@ -182,7 +183,7 @@ public class GAAccountTest extends BaseTest {
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"testPranav@@api.com\"}")
+                        , new RequestBody().getGuestAccountInvalidEmailBody())
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationNegativeResponse.getStatus(), 422
