@@ -20,6 +20,7 @@ public class BaseTest {
     public void setValue(){
         map = (Map) new GetJsonValue().getValue();
     }
+
     /**
      * Getting json data and storing it in map variable
      */
@@ -31,7 +32,6 @@ public class BaseTest {
         options.addArguments("--incognito");
         options.addArguments("start-maximized");
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
-
     }
 
     @AfterEach
