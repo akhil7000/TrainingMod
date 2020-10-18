@@ -100,7 +100,6 @@ public class GAAccountTest extends BaseTest {
 
         RequestBody requestBody = new RequestBody();
         requestBody.setEmail("testPranav@api.com");
-        requestBody.setPassword("Password1");
 
         com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
                 .getResponsePost(map.get("base_url") + "/validation"
@@ -128,7 +127,6 @@ public class GAAccountTest extends BaseTest {
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
 
         RequestBody requestBody = new RequestBody();
-
         requestBody.setEmail("testPranav@api.com");
 
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
@@ -165,7 +163,6 @@ public class GAAccountTest extends BaseTest {
 
         RequestBody requestBody = new RequestBody();
         requestBody.setEmail("testPr@api.com");
-        requestBody.setPassword("Password1");
 
         com.training.services.ga.validate.Response gaValidationResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"

@@ -5,5 +5,4 @@ import lombok.Setter;
 @Setter
 public class RequestBody {
     String email;
-    String password;
 }
