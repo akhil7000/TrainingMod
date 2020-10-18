@@ -2,7 +2,7 @@ package com.training.services.tests;
 
 import com.google.gson.Gson;
 import com.training.base.BaseTest;
-import com.training.services.ga.authenticate.PostBodyPojo;
+import com.training.services.ga.authenticate.RequestBody;
 import com.training.services.ga.authenticate.Response;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.*;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GAAccountTest extends BaseTest {
     Map<String, Object> headerMap;
-    PostBodyPojo postBodyPojo;
+    RequestBody postBodyPojo;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll
@@ -29,7 +29,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void  testGuestAuthenticate(){
-        postBodyPojo=new PostBodyPojo();
+        postBodyPojo=new RequestBody();
         postBodyPojo.setUid("testShrikant@api.com");
         postBodyPojo.setPassword("Password1");
         Response authenticationResponse =
@@ -53,7 +53,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongAppKey() {
-        postBodyPojo=new PostBodyPojo();
+        postBodyPojo=new RequestBody();
         postBodyPojo.setUid("testShrikant@api.com");
         postBodyPojo.setPassword("Password1");
         headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyWrongValue"));
@@ -77,7 +77,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongUsername() {
-        postBodyPojo=new PostBodyPojo();
+        postBodyPojo=new RequestBody();
         postBodyPojo.setUid("testShri@api.com");
         postBodyPojo.setPassword("Password1");
         Response authenticationResponse =
