@@ -20,6 +20,7 @@ public class BaseTest {
     public void setValue(){
         map = (Map) new GetJsonValue().getValue();
     }
+
     /**
      * Getting json data and storing it in map variable
      */
