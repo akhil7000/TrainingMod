@@ -1,9 +1,9 @@
 package com.training.services.ga.validate;
 
-import lombok.Data;
+import lombok.Setter;
 
-@Data
+@Setter
 public class RequestBody {
-    String emailKey;
-    String emailValue;
+    String email;
+    String password;
 }
