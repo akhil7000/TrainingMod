@@ -32,7 +32,6 @@ public class BaseTest {
         options.addArguments("--incognito");
         options.addArguments("start-maximized");
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
-
     }
 
     @AfterEach

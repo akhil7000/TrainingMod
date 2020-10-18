@@ -4,6 +4,6 @@ import lombok.Setter;
 
 @Setter
 public class PostBodyPojo{
-    String email;
+    String uid;
     String password;
 }
