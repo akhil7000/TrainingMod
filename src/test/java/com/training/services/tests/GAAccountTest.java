@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GAAccountTest extends BaseTest {
     Map<String, Object> headerMap;
-    RequestBody postBodyPojo;
+    RequestBody requestBodyAuthenticate;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll
@@ -29,13 +29,13 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void  testGuestAuthenticate(){
-        postBodyPojo=new RequestBody();
-        postBodyPojo.setUid("testShrikant@api.com");
-        postBodyPojo.setPassword("Password1");
+        requestBodyAuthenticate=new RequestBody();
+        requestBodyAuthenticate.setUid("testShrikant@api.com");
+        requestBodyAuthenticate.setPassword("Password1");
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap
-                        ,new Gson().toJson(postBodyPojo))
+                        ,new Gson().toJson(requestBodyAuthenticate))
                         .as(Response.class);
         logger.info("status"+authenticationResponse.getStatus());
         logger.info("Account id"+authenticationResponse.getPayload().getAccountId());
@@ -53,14 +53,14 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongAppKey() {
-        postBodyPojo=new RequestBody();
-        postBodyPojo.setUid("testShrikant@api.com");
-        postBodyPojo.setPassword("Password1");
+        requestBodyAuthenticate=new RequestBody();
+        requestBodyAuthenticate.setUid("testShrikant@api.com");
+        requestBodyAuthenticate.setPassword("Password1");
         headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyWrongValue"));
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap
-                        ,new Gson().toJson(postBodyPojo))
+                        ,new Gson().toJson(requestBodyAuthenticate))
                         .as(Response.class);
         logger.info("status code="+authenticationResponse.getError().getErrorCode());
         logger.info("Error code is="+authenticationResponse.getError().getMessage());
@@ -77,13 +77,13 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testAuthenticateWrongUsername() {
-        postBodyPojo=new RequestBody();
-        postBodyPojo.setUid("testShri@api.com");
-        postBodyPojo.setPassword("Password1");
+        requestBodyAuthenticate=new RequestBody();
+        requestBodyAuthenticate.setUid("testShri@api.com");
+        requestBodyAuthenticate.setPassword("Password1");
         Response authenticationResponse =
                 new RestEngine().getResponsePost(map.get("URI") + "/authentication/login"
                         , headerMap
-                        ,new Gson().toJson(postBodyPojo))
+                        ,new Gson().toJson(requestBodyAuthenticate))
                         .as(Response.class);
         logger.info("status="+authenticationResponse.getStatus());
         logger.info("InternalMessage="+authenticationResponse.getErrors().get(0).getInternalMessage());
