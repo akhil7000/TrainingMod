@@ -101,9 +101,6 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountValidation() {
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
-
         RequestBody requestBody = new RequestBody();
         requestBody.setEmail("testPranav@api.com");
 
@@ -130,7 +127,6 @@ public class GAAccountTest extends BaseTest {
     @Test
     public void testGuestAccountWrongAppKey() {
         headerMap.put(map.get("AppKeyHeader"), map.get("WrongAppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
 
         RequestBody requestBody = new RequestBody();
         requestBody.setEmail("testPranav@api.com");
@@ -164,9 +160,6 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountWrongEmail() {
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
-
         RequestBody requestBody = new RequestBody();
         requestBody.setEmail("testPr@api.com");
 
@@ -192,9 +185,6 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountInvalidEmail() {
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
-
         RequestBody requestBody = new RequestBody();
         requestBody.setEmail("testPranav@@api.com");
 
