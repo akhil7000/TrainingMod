@@ -1,9 +1,10 @@
-package com.training.services.ga.authenticate;
+package com.training.services.ga.create;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
+@Getter
 @Setter
 public class RequestBodyCreate {
     String birthdate;

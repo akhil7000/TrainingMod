@@ -3,6 +3,10 @@ package com.training.services.tests;
 import com.google.gson.Gson;
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.*;
+import com.training.services.ga.create.PrivacyPolicyAgreement;
+import com.training.services.ga.create.RequestBodyCreate;
+import com.training.services.ga.create.SecurityQuestions;
+import com.training.services.ga.create.TermsAndConditionsAgreement;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,18 +35,26 @@ public class GACreateTest extends BaseTest {
     @Test
     public void  testGuestCreation(){
         requestBodyCreate=new RequestBodyCreate();
-        requestBodyCreate.setBirthdate("19620802");
-        requestBodyCreate.setEmail("testShrikant18809@api.com");
+        requestBodyCreate.setBirthdate("196208082");
+        requestBodyCreate.setEmail("testShrikant1888845@api.com");
         requestBodyCreate.setFirstName("Audrey");
         requestBodyCreate.setLastName("Poole");
         requestBodyCreate.setMarketingCountry("USA");
         requestBodyCreate.setPassword("Password1");
+
+        requestBodyCreate.getPrivacyPolicyAgreement().setAcceptDateTime("20190524T090712GMT");
+        //System.out.print(requestBodyCreate.getPrivacyPolicyAgreement().getAcceptDateTime());
+       requestBodyCreate.getPrivacyPolicyAgreement().setVersion("1.11");
+        //System.out.print(requestBodyCreate.getPrivacyPolicyAgreement().getVersion());
         ///curly braces only need to create class and pass the object to response object
+
         PrivacyPolicyAgreement privacyPolicyAgreement=new PrivacyPolicyAgreement();
         privacyPolicyAgreement.setAcceptDateTime("20190524T090712GMT");
         privacyPolicyAgreement.setVersion("1.11");
         requestBodyCreate.setPrivacyPolicyAgreement(privacyPolicyAgreement);
+
         //securityQuestions as list
+
         SecurityQuestions questions=new SecurityQuestions();
         questions.setAnswer("Answer1");
         questions.setQuestion("What was the first concert you attended?");
@@ -50,7 +62,9 @@ public class GACreateTest extends BaseTest {
         List<SecurityQuestions> securityQuestions = new ArrayList<SecurityQuestions>();
         securityQuestions.add(questions);
         requestBodyCreate.setSecurityQuestions(securityQuestions);// array[{}]
-        ///curly braces only need to create class and pass the object to response object
+//        ///curly braces only need to create class and pass the object to response object
+//        requestBodyCreate.getTermsAndConditionsAgreement().setAcceptDateTime("20190524T090712GMT");
+//        requestBodyCreate.getTermsAndConditionsAgreement().setVersion("1.8");
         TermsAndConditionsAgreement termsAndConditionsAgreement=new TermsAndConditionsAgreement();
         termsAndConditionsAgreement.setAcceptDateTime("20190524T090712GMT");
         termsAndConditionsAgreement.setVersion("1.8");
