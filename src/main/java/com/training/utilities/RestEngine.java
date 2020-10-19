@@ -26,4 +26,15 @@ public class RestEngine {
                 .extract()
                 .response();
     }
+
+    public Response getResponsePutLoyality(String base_url, Map headerMap, String jsonBody) {
+        return given()
+                .headers(headerMap)
+                .body(jsonBody)
+                .when()
+                .put(base_url)
+                .then()
+                .extract()
+                .response();
+    }
 }
