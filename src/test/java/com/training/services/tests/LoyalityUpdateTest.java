@@ -1,16 +1,11 @@
 package com.training.services.tests;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.RequestBody;
 import com.training.services.ga.authenticate.Response;
-import com.training.services.ga.validate.Header;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
-import org.json.simple.JSONObject;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -27,17 +22,19 @@ public class LoyalityUpdateTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll
-    public  void setData() {
+    public void setData() {
         headerMap = new HashMap();
-        headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyValue"));
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
     }
 
-
+    /**
+     * Loyality test, checking the response, loyalty tier value is Diamond and relationship points is 83
+     */
     @Test
-    public void  testLoyalityIssue() {
+    public void testLoyality() {
         /**
-         * Shri code, to get access token and account ID
+         * Getting access token and account ID
          */
         requestBodyAuthenticate = new RequestBody();
         requestBodyAuthenticate.setUid("testShrikant@api.com");
@@ -49,34 +46,32 @@ public class LoyalityUpdateTest extends BaseTest {
                         .as(Response.class);
 
         /**
-         * My code
+         * Getting response
          */
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
 
         com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
 
-        Header header = new Header();
-        header.setBrand("R");
-        header.setChannel("web");
-        
-        requestBody.setHeader(header);
+        requestBody.setBrand("R");
+        requestBody.setChannel("web");
         requestBody.setVdsId(authenticationResponse.getPayload().getAccountId());
         requestBody.setLastName("Poole");
         requestBody.setLoyaltyId("137529822");
         requestBody.setBirthdate("19620802");
 
         com.training.services.ga.validate.Response authenticationResponse2 =
-                new RestEngine().getResponsePutLoyality(map.get("url_loyality")
+                new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty"
                         , headerMap
                         , new Gson().toJson(requestBody))
                         .as(com.training.services.ga.validate.Response.class);
 
-        Assertions.assertThat(authenticationResponse2.getStatus()==200);
+        Assertions.assertThat(authenticationResponse2.getStatus()).isEqualTo(200)
+                .as("Json response is not 200");
 
         softAssert.assertThat(authenticationResponse2.getPayload().getLoyaltyTier()).isEqualTo("Diamond")
-               .as("Guest loyalty tier is not diamond");
+                .as("Guest loyalty tier is not diamond");
 
         softAssert.assertThat(authenticationResponse2.getPayload().getRelationshipPoints()).isEqualTo("83")
-        .as("Relationship points is not equal to 83");
+                .as("Relationship points is not equal to 83");
     }
 }
