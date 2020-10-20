@@ -72,6 +72,9 @@ public class LoyalityUpdateTest extends BaseTest {
                 .as("Relationship points is not equal to 83");
     }
 
+    /**
+     * Putting wrong app key, In loyality API, and checking if we are getting correct response from sever
+     */
     @Test
     public void testLoyalityGANegativeWrongAppKey() {
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
@@ -102,6 +105,9 @@ public class LoyalityUpdateTest extends BaseTest {
                 .as("The internal message is not equal to, The API key header is required and should be valid.");
     }
 
+    /**
+     * Putting wrong vds id, In loyality API, and checking if we are getting correct response from sever
+     */
     @Test
     public void testLoyalityGANegativeWrongVdsId() {
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
@@ -132,7 +138,9 @@ public class LoyalityUpdateTest extends BaseTest {
                 .as("The internal message is not equal to, The user session appears to be invalid or has expired.");
     }
 
-
+    /**
+     * Putting wrong access key, In loyality API, and checking if we are getting correct response from sever
+     */
     @Test
     public void testLoyalityGANegativeWrongAccessKey() {
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken() + "7777");
@@ -163,7 +171,9 @@ public class LoyalityUpdateTest extends BaseTest {
                 .as("The internal message is not equal to, The user session appears to be invalid or has expired.");
     }
 
-
+    /**
+     * Putting loyalty id, In loyality API (13752982299), and checking if we are getting correct response from sever
+     */
     @Test
     public void testLoyalityGANegativeWrongLoyaltyId() {
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
