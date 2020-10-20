@@ -45,12 +45,9 @@ public class LoyalityUpdateTest extends BaseTest {
                         , new Gson().toJson(requestBodyAuthenticate))
                         .as(Response.class);
 
-        /**
-         * Getting response
-         */
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
 
-        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
+        com.training.services.ga.loyalty.RequestBody requestBody = new com.training.services.ga.loyalty.RequestBody();
 
         requestBody.setBrand("R");
         requestBody.setChannel("web");
@@ -59,11 +56,9 @@ public class LoyalityUpdateTest extends BaseTest {
         requestBody.setLoyaltyId("137529822");
         requestBody.setBirthdate("19620802");
 
-        com.training.services.ga.validate.Response authenticationResponse2 =
-                new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty"
-                        , headerMap
-                        , new Gson().toJson(requestBody))
-                        .as(com.training.services.ga.validate.Response.class);
+        com.training.services.ga.loyalty.Response authenticationResponse2
+                = new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty",
+                headerMap, new Gson().toJson(requestBody)).as(com.training.services.ga.loyalty.Response.class);
 
         Assertions.assertThat(authenticationResponse2.getStatus()).isEqualTo(200)
                 .as("Json response is not 200");

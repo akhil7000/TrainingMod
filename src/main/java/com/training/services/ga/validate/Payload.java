@@ -6,6 +6,4 @@ import lombok.Getter;
 public class Payload {
     String accountStatus;
     boolean isUid;
-    String loyaltyTier;
-    String relationshipPoints;
 }

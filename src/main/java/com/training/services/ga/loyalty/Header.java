@@ -1,4 +1,4 @@
-package com.training.services.ga.validate;
+package com.training.services.ga.loyalty;
 
 import lombok.Setter;
 
