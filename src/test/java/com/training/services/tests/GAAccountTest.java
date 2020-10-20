@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.RequestBody;
 import com.training.services.ga.authenticate.Response;
-import com.training.services.ga.validate.RequestBody;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.*;
 import java.util.HashMap;
@@ -100,7 +99,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountValidation() {
-        RequestBody requestBody = new RequestBody();
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
         requestBody.setEmail("testPranav@api.com");
 
         com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
@@ -127,7 +126,7 @@ public class GAAccountTest extends BaseTest {
     public void testGuestAccountWrongAppKey() {
         headerMap.put(map.get("AppKeyHeader"), map.get("WrongAppKeyValue"));
 
-        RequestBody requestBody = new RequestBody();
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
         requestBody.setEmail("testPranav@api.com");
 
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
@@ -159,7 +158,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountWrongEmail() {
-        RequestBody requestBody = new RequestBody();
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
         requestBody.setEmail("testPr@api.com");
 
         com.training.services.ga.validate.Response gaValidationResponse =
@@ -184,7 +183,7 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountInvalidEmail() {
-        RequestBody requestBody = new RequestBody();
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
         requestBody.setEmail("testPranav@@api.com");
 
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
