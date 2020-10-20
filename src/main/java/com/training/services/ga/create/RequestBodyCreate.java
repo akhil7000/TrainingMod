@@ -13,14 +13,16 @@ public class RequestBodyCreate {
     String marketingCountry;
     String password;
     PrivacyPolicyAgreement privacyPolicyAgreement;
-    List<SecurityQuestions> securityQuestions;
+    List<SecurityQuestions>  securityQuestions;
+    SecurityQuestions questions;
     TermsAndConditionsAgreement termsAndConditionsAgreement;
     String uidType;
 
     public RequestBodyCreate(){
         privacyPolicyAgreement=new PrivacyPolicyAgreement();
         termsAndConditionsAgreement=new TermsAndConditionsAgreement();
-        securityQuestions=new ArrayList<>();
+        securityQuestions=new ArrayList<SecurityQuestions>();
+        securityQuestions.add(new SecurityQuestions());
     }
     public void setAcceptDateTime(String acceptDateTime) {
         privacyPolicyAgreement.setAcceptDateTime(acceptDateTime);
@@ -33,24 +35,15 @@ public class RequestBodyCreate {
     }
 
 
-    public SecurityQuestions setAnswer(String answer) {
-      securityQuestions.add(0,setAnswer(answer));
-        return null;
+    public void setAnswer(String answer) {
+      securityQuestions.get(0).setAnswer(answer);
     }
 
-
-    public SecurityQuestions setQuestion(String question) {
-    securityQuestions.add(0,setQuestion(question));
-    return null;
+    public void setQuestion(String question) {
+        securityQuestions.get(0).setQuestion(question);
     }
 
-
-    public SecurityQuestions setQuestionKey(String questionKey) {
-        securityQuestions.add(0,setQuestionKey(questionKey));
-        return null;
+    public void setQuestionKey(String questionKey) {
+        securityQuestions.get(0).setQuestionKey(questionKey);
     }
-
-//    public void setQuestionKey(String questionKey) {
-//        securityQuestions.get(1).setQuestionKey(questionKey);
-//    }
 }

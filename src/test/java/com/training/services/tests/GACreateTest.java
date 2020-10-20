@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.*;
 import com.training.services.ga.create.RequestBodyCreate;
-import com.training.services.ga.create.SecurityQuestions;
 import com.training.utilities.GetUniqueMailId;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
@@ -13,9 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,6 +22,7 @@ public class GACreateTest extends BaseTest {
     GetUniqueMailId mail=new GetUniqueMailId();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
     @BeforeAll
     public  void setData() {
         headerMap = new HashMap();
@@ -33,15 +31,14 @@ public class GACreateTest extends BaseTest {
     }
 
     /**
-     * testGuestCreation():
+     * testGuestCreation():request body implemented using POJO concept to get the +ve reponse ie 200
      */
     @Test
     public void  testGuestCreation(){
         requestBodyCreate=new RequestBodyCreate();
         requestBodyCreate.setBirthdate("19620802");
         String uniqueMailId=mail.getUniqueMailId();
-       // requestBodyCreate.setEmail("testShrikant"+uniqueId+"@api.com");
-        System.out.print(uniqueMailId+"******");
+        logger.info(uniqueMailId+"******");
         requestBodyCreate.setEmail(uniqueMailId);
         requestBodyCreate.setFirstName("Audrey");
         requestBodyCreate.setLastName("Poole");
@@ -50,26 +47,11 @@ public class GACreateTest extends BaseTest {
         //privacypolicyagreement obj
         requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
         requestBodyCreate.setVersion("1.11");
-
-//        SecurityQuestions questions=new SecurityQuestions();
-//        questions.setAnswer("Answer1");
-//        questions.setQuestion("What was the first concert you attended?");
-//        questions.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOU_ATTENDED");
-//        List<SecurityQuestions> securityQuestions = new ArrayList<SecurityQuestions>();
-//        securityQuestions.add(questions);
-//        requestBodyCreate.setSecurityQuestions(securityQuestions);
-
+        //securityQuestions obj
         requestBodyCreate.setAnswer("Answer1");
         requestBodyCreate.setQuestion("What was the first concert you attended?");
-        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOU_ATTENDED");
-
-
-//        List<SecurityQuestions> securityQuestions = new ArrayList<SecurityQuestions>();
-//        securityQuestions.add(questions);
-//        requestBodyCreate.setSecurityQuestions(securityQuestions);
-
-
-       //terms and condition object
+        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
+        //termsAndCondition object
         requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
         requestBodyCreate.setVersion("1.8");
         requestBodyCreate.setUidType("EMAIL");
