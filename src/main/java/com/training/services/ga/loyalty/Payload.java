@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Payload {
+    String loyaltyId;
     String loyaltyTier;
     String relationshipPoints;
 }

@@ -63,6 +63,9 @@ public class LoyalityUpdateTest extends BaseTest {
         Assertions.assertThat(authenticationResponse2.getStatus()).isEqualTo(200)
                 .as("Json response is not 200");
 
+        softAssert.assertThat(authenticationResponse2.getPayload().getLoyaltyId()).isEqualTo("137529822")
+                .as("Loyalty id is not matching");
+
         softAssert.assertThat(authenticationResponse2.getPayload().getLoyaltyTier()).isEqualTo("Diamond")
                 .as("Guest loyalty tier is not diamond");
 
