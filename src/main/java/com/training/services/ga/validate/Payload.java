@@ -5,7 +5,6 @@ public class Payload {
     boolean isUid;
 
     public String getAccountStatus() {
-
         return accountStatus;
     }
 

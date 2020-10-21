@@ -24,6 +24,7 @@ public class RequestBodyCreate {
         securityQuestions=new ArrayList<SecurityQuestions>();
         securityQuestions.add(new SecurityQuestions());
     }
+
     public void setAcceptDateTime(String acceptDateTime) {
         privacyPolicyAgreement.setAcceptDateTime(acceptDateTime);
         termsAndConditionsAgreement.setAcceptDateTime(acceptDateTime);
@@ -33,7 +34,6 @@ public class RequestBodyCreate {
         privacyPolicyAgreement.setVersion(version);
         termsAndConditionsAgreement.setVersion(version);
     }
-
 
     public void setAnswer(String answer) {
       securityQuestions.get(0).setAnswer(answer);

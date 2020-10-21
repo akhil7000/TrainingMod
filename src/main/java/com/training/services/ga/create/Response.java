@@ -1,5 +1,4 @@
-package com.training.services.ga.authenticate;
-
+package com.training.services.ga.create;
 
 import lombok.Getter;
 import java.util.List;
@@ -9,5 +8,4 @@ public class Response {
     String status;
     List<Errors> errors;
     Payload payload;
-    Error error;
 }

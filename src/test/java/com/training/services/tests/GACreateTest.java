@@ -2,8 +2,8 @@ package com.training.services.tests;
 
 import com.google.gson.Gson;
 import com.training.base.BaseTest;
-import com.training.services.ga.authenticate.*;
 import com.training.services.ga.create.RequestBodyCreate;
+import com.training.services.ga.create.Response;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,12 +33,14 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testGuestCreation(){
+        String firstName="Audrey";
+        String lastName="Poole";
         requestBodyCreate=new RequestBodyCreate();
         requestBodyCreate.setBirthdate("19620802");
         String uid=getUniqueMailId();
-        requestBodyCreate.setEmail(getUniqueMailId());
-        requestBodyCreate.setFirstName("Audrey");
-        requestBodyCreate.setLastName("Poole");
+        requestBodyCreate.setEmail(uid);
+        requestBodyCreate.setFirstName(firstName);
+        requestBodyCreate.setLastName(lastName);
         requestBodyCreate.setMarketingCountry("USA");
         requestBodyCreate.setPassword("Password1");
         //privacypolicyagreement obj
@@ -62,8 +64,8 @@ public class GACreateTest extends BaseTest {
         logger.info("loginstatus"+responseGACreate.getPayload().getLoginStatus());
         Assertions.assertEquals(responseGACreate.getStatus(),"200");
         softAssert.assertThat(responseGACreate.getErrors().size()).isEqualTo(0);
-        softAssert.assertThat(responseGACreate.getPayload().getFirstName()).isEqualTo("Audrey");
-        softAssert.assertThat(responseGACreate.getPayload().getLastName()).isEqualTo("Poole");
+        softAssert.assertThat(responseGACreate.getPayload().getFirstName()).isEqualTo(firstName);
+        softAssert.assertThat(responseGACreate.getPayload().getLastName()).isEqualTo(lastName);
         softAssert.assertThat(responseGACreate.getPayload().getLoginStatus()).isEqualTo("AUTHENTICATED");
         softAssert.assertThat(responseGACreate.getPayload().getAccessToken()).isNotEmpty();
         softAssert.assertThat(responseGACreate.getPayload().getOpenIdToken()).isNotEmpty();
