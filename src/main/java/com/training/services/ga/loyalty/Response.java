@@ -1,4 +1,4 @@
-package com.training.services.ga.validate;
+package com.training.services.ga.loyalty;
 
 import lombok.Getter;
 
@@ -9,5 +9,5 @@ public class Response {
     int status;
     List<Errors> errors;
     Error error;
-    Payload payload;
+    com.training.services.ga.loyalty.Payload payload;
 }
