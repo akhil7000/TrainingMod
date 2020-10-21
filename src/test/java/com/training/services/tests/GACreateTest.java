@@ -71,4 +71,49 @@ public class GACreateTest extends BaseTest {
         softAssert.assertThat(responseGACreate.getPayload().getRefreshToken()).isNotEmpty();
         softAssert.assertThat(responseGACreate.getPayload().getUid()).isEqualTo(uid);
     }
+    /**
+     * testWrongMailGuestCreation():passing wrong mail in reqest body using POJO to get response status 422
+     */
+    @Test
+    public void  testWrongMailGuestCreation(){
+        String firstName="Audrey";
+        String lastName="Poole";
+        requestBodyCreate=new RequestBodyCreate();
+        requestBodyCreate.setBirthdate("19620802");
+        String uid="testShrikant12345555.com";
+        requestBodyCreate.setEmail(uid);
+        requestBodyCreate.setFirstName(firstName);
+        requestBodyCreate.setLastName(lastName);
+        requestBodyCreate.setMarketingCountry("USA");
+        requestBodyCreate.setPassword("Password1");
+        //privacypolicyagreement obj
+        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
+        requestBodyCreate.setVersion("1.11");
+        //securityQuestions obj
+        requestBodyCreate.setAnswer("Answer1");
+        requestBodyCreate.setQuestion("What was the first concert you attended?");
+        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
+        //termsAndCondition object
+        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
+        requestBodyCreate.setVersion("1.8");
+        requestBodyCreate.setUidType("EMAIL");
+        Response responseGACreate  =
+                new RestEngine().getResponsePost(map.get("URI")
+                        , headerMap
+                        ,new Gson().toJson(requestBodyCreate)).as(Response.class);
+        logger.info("status->"+responseGACreate.getStatus());
+        logger.info("errors->"+responseGACreate.getErrors().get(0).getInternalMessage());
+        logger.info("errors->"+responseGACreate.getErrors().get(0).getErrorCode());
+        logger.info("error->validatinErrors-->"+responseGACreate.getErrors().get(0).getValidationErrors()
+                .get(0).getElement());
+        logger.info("error->validatinErrors-->"+responseGACreate.getErrors().get(0).getValidationErrors()
+                .get(0).getInvalidValue());
+        Assertions.assertEquals(responseGACreate.getStatus(),"422");
+        softAssert.assertThat(responseGACreate.getErrors().get(0).getErrorCode()).isEqualTo("GA-0103");
+        softAssert.assertThat(responseGACreate.getErrors().get(0).getValidationErrors().get(0)
+                .getError()).isEqualTo("The email is invalidly formatted.");
+        softAssert.assertThat(responseGACreate.getErrors().get(0).getValidationErrors().get(0)
+                .getInvalidValue()).isEqualTo(uid);
+    }
+
 }
