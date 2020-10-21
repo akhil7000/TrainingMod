@@ -8,6 +8,9 @@ import java.util.List;
 public class Errors {
     String internalMessage;
     String errorCode;
+    String time;
     String id;
+    String userMessage;
     List<ValidationErrors> validationErrors;
+    String developerMessage;
 }
