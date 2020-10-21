@@ -99,14 +99,13 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountValidation() {
-        Map<String, Object> headerMap = new HashMap();
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
+        requestBody.setEmail("testPranav@api.com");
 
         com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
                 .getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"testPranav@api.com\"}")
+                        , new Gson().toJson(requestBody))
                 .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
@@ -115,7 +114,7 @@ public class GAAccountTest extends BaseTest {
                 .as("Inside payload JSON, accountStatus is not equals to EXISTS")
                 .isEqualTo("EXISTS");
 
-        softAssert.assertThat(gaValidationResponse.getPayload().getIsUid())
+        softAssert.assertThat(gaValidationResponse.getPayload().isUid())
                 .as("Inside payload JSON, isUid should be true")
                 .isEqualTo(true);
     }
@@ -126,12 +125,14 @@ public class GAAccountTest extends BaseTest {
     @Test
     public void testGuestAccountWrongAppKey() {
         headerMap.put(map.get("AppKeyHeader"), map.get("WrongAppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
+        requestBody.setEmail("testPranav@api.com");
 
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"testPranav@api.com\"}")
+                        , new Gson().toJson(requestBody))
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationNegativeResponse.getStatus(), 401
@@ -157,13 +158,13 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountWrongEmail() {
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
+        requestBody.setEmail("testPr@api.com");
 
         com.training.services.ga.validate.Response gaValidationResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"assignment70test@api.com\"}")
+                        , new Gson().toJson(requestBody))
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationResponse.getStatus(), 200, "Json response is not 200");
@@ -172,7 +173,7 @@ public class GAAccountTest extends BaseTest {
                 .as("Inside payload JSON, account status is not equals to DOES_NOT_EXIST")
                 .isEqualTo("DOES_NOT_EXIST");
 
-        softAssert.assertThat(gaValidationResponse.getPayload().getIsUid())
+        softAssert.assertThat(gaValidationResponse.getPayload().isUid())
                 .as("Inside payload JSON, is uid should be false")
                 .isFalse();
     }
@@ -182,13 +183,13 @@ public class GAAccountTest extends BaseTest {
      */
     @Test
     public void testGuestAccountInvalidEmail() {
-        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
-        headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+        com.training.services.ga.validate.RequestBody requestBody = new com.training.services.ga.validate.RequestBody();
+        requestBody.setEmail("testPranav@@api.com");
 
         com.training.services.ga.validate.Response gaValidationNegativeResponse =
                 new RestEngine().getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , "{\"email\": \"testPranav@@api.com\"}")
+                        , new Gson().toJson(requestBody))
                         .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertEquals(gaValidationNegativeResponse.getStatus(), 422
