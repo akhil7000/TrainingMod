@@ -1,6 +1,5 @@
 package com.training.services.ga.authenticate;
 
-
 import lombok.Getter;
 import java.util.List;
 
