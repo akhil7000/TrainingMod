@@ -7,4 +7,5 @@ public class Payload {
     String accountId;
     String loginStatus;
     String uid;
+    String accessToken;
 }
