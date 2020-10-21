@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.*;
 import com.training.services.ga.create.RequestBodyCreate;
-import com.training.utilities.GetUniqueMailId;
 import com.training.utilities.RestEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,14 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
+import static com.training.utilities.UniqueMailId.getUniqueMailId;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GACreateTest extends BaseTest {
     RequestBodyCreate requestBodyCreate;
     Map<String, Object> headerMap;
-    GetUniqueMailId mail=new GetUniqueMailId();
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
     @BeforeAll
     public  void setData() {
@@ -37,9 +35,9 @@ public class GACreateTest extends BaseTest {
     public void  testGuestCreation(){
         requestBodyCreate=new RequestBodyCreate();
         requestBodyCreate.setBirthdate("19620802");
-        String uniqueMailId=mail.getUniqueMailId();
-        logger.info(uniqueMailId+"******");
-        requestBodyCreate.setEmail(uniqueMailId);
+        String uid=getUniqueMailId();
+        logger.info(uid+"***uid***");
+        requestBodyCreate.setEmail(getUniqueMailId());
         requestBodyCreate.setFirstName("Audrey");
         requestBodyCreate.setLastName("Poole");
         requestBodyCreate.setMarketingCountry("USA");
@@ -55,14 +53,22 @@ public class GACreateTest extends BaseTest {
         requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
         requestBodyCreate.setVersion("1.8");
         requestBodyCreate.setUidType("EMAIL");
-        Response responseCreation  =
+        Response responseGACreate  =
                 new RestEngine().getResponsePost(map.get("URI")
                         , headerMap
                         ,new Gson().toJson(requestBodyCreate)).as(Response.class);
-        logger.info("status"+responseCreation.getStatus());
-        logger.info("Account id"+responseCreation.getPayload().getAccountId());
-        logger.info("error"+responseCreation.getErrors());
-        logger.info("loginstatus"+responseCreation.getPayload().getLoginStatus());
-        Assertions.assertEquals(responseCreation.getStatus(),"200");
+        logger.info("status"+responseGACreate.getStatus());
+        logger.info("Account id"+responseGACreate.getPayload().getAccountId());
+        logger.info("error"+responseGACreate.getErrors());
+        logger.info("loginstatus"+responseGACreate.getPayload().getLoginStatus());
+        Assertions.assertEquals(responseGACreate.getStatus(),"200");
+        softAssert.assertThat(responseGACreate.getErrors().size()).isEqualTo(0);
+        softAssert.assertThat(responseGACreate.getPayload().getFirstName()).isEqualTo("Audrey");
+        softAssert.assertThat(responseGACreate.getPayload().getLastName()).isEqualTo("Poole");
+        softAssert.assertThat(responseGACreate.getPayload().getLoginStatus()).isEqualTo("AUTHENTICATED");
+        softAssert.assertThat(responseGACreate.getPayload().getAccessToken()).isNotEmpty();
+        softAssert.assertThat(responseGACreate.getPayload().getOpenIdToken()).isNotEmpty();
+        softAssert.assertThat(responseGACreate.getPayload().getRefreshToken()).isNotEmpty();
+        softAssert.assertThat(responseGACreate.getPayload().getUid()).isEqualTo(uid);
     }
 }
