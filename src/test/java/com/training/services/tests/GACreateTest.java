@@ -59,7 +59,6 @@ public class GACreateTest extends BaseTest {
                         , headerMap
                         ,new Gson().toJson(requestBodyCreate)).as(Response.class);
         logger.info("status"+responseGACreate.getStatus());
-        logger.info("Account id"+responseGACreate.getPayload().getAccountId());
         logger.info("error"+responseGACreate.getErrors());
         logger.info("loginstatus"+responseGACreate.getPayload().getLoginStatus());
         Assertions.assertEquals(responseGACreate.getStatus(),"200");
