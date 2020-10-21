@@ -18,9 +18,12 @@ public class LoyalityUpdateTest extends BaseTest {
     Map<String, String> headerMap;
     RequestBody requestBodyAuthenticate;
     Response authenticationResponse;
+    String loyaltyId;
+    com.training.services.ga.loyalty.RequestBody requestBody;
 
     @BeforeAll
     public void setData() {
+        loyaltyId = "137529822";
         headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
@@ -36,6 +39,19 @@ public class LoyalityUpdateTest extends BaseTest {
                         , headerMap
                         , new Gson().toJson(requestBodyAuthenticate))
                         .as(Response.class);
+
+        /**
+         * putting access token and account ID, and getting response
+         */
+        headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
+
+        requestBody = new com.training.services.ga.loyalty.RequestBody();
+        requestBody.setBrand("R");
+        requestBody.setChannel("web");
+        requestBody.setVdsId(authenticationResponse.getPayload().getAccountId());
+        requestBody.setLastName("Poole");
+        requestBody.setLoyaltyId(loyaltyId);
+        requestBody.setBirthdate("19620802");
     }
 
     /**
@@ -43,18 +59,6 @@ public class LoyalityUpdateTest extends BaseTest {
      */
     @Test
     public void testLoyality() {
-        String loyaltyId = "137529822";
-        headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
-
-        com.training.services.ga.loyalty.RequestBody requestBody = new com.training.services.ga.loyalty.RequestBody();
-
-        requestBody.setBrand("R");
-        requestBody.setChannel("web");
-        requestBody.setVdsId(authenticationResponse.getPayload().getAccountId());
-        requestBody.setLastName("Poole");
-        requestBody.setLoyaltyId(loyaltyId);
-        requestBody.setBirthdate("19620802");
-
         com.training.services.ga.loyalty.Response loyaltyResponse
                 = new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty",
                 headerMap, new Gson().toJson(requestBody)).as(com.training.services.ga.loyalty.Response.class);
@@ -77,17 +81,7 @@ public class LoyalityUpdateTest extends BaseTest {
      */
     @Test
     public void testLoyalityGANegativeWrongAppKey() {
-        headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
-
-        com.training.services.ga.loyalty.RequestBody requestBody = new com.training.services.ga.loyalty.RequestBody();
-
-        requestBody.setBrand("R");
-        requestBody.setChannel("web");
-        requestBody.setVdsId(authenticationResponse.getPayload().getAccountId());
-        requestBody.setLastName("Poole");
-        requestBody.setLoyaltyId("137529822");
-        requestBody.setBirthdate("19620802");
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
                 = new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty",
@@ -110,16 +104,7 @@ public class LoyalityUpdateTest extends BaseTest {
      */
     @Test
     public void testLoyalityGANegativeWrongVdsId() {
-        headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
-
-        com.training.services.ga.loyalty.RequestBody requestBody = new com.training.services.ga.loyalty.RequestBody();
-
-        requestBody.setBrand("R");
-        requestBody.setChannel("web");
         requestBody.setVdsId(authenticationResponse.getPayload().getAccountId() + "777");
-        requestBody.setLastName("Poole");
-        requestBody.setLoyaltyId("137529822");
-        requestBody.setBirthdate("19620802");
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
                 = new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty",
@@ -145,15 +130,6 @@ public class LoyalityUpdateTest extends BaseTest {
     public void testLoyalityGANegativeWrongAccessKey() {
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken() + "7777");
 
-        com.training.services.ga.loyalty.RequestBody requestBody = new com.training.services.ga.loyalty.RequestBody();
-
-        requestBody.setBrand("R");
-        requestBody.setChannel("web");
-        requestBody.setVdsId(authenticationResponse.getPayload().getAccountId());
-        requestBody.setLastName("Poole");
-        requestBody.setLoyaltyId("137529822");
-        requestBody.setBirthdate("19620802");
-
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
                 = new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty",
                 headerMap, new Gson().toJson(requestBody))
@@ -176,16 +152,7 @@ public class LoyalityUpdateTest extends BaseTest {
      */
     @Test
     public void testLoyalityGANegativeWrongLoyaltyId() {
-        headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
-
-        com.training.services.ga.loyalty.RequestBody requestBody = new com.training.services.ga.loyalty.RequestBody();
-
-        requestBody.setBrand("R");
-        requestBody.setChannel("web");
-        requestBody.setVdsId(authenticationResponse.getPayload().getAccountId());
-        requestBody.setLastName("Poole");
-        requestBody.setLoyaltyId("13752982299");
-        requestBody.setBirthdate("19620802");
+          requestBody.setLoyaltyId("13752982299");
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
                 = new RestEngine().getResponsePut(map.get("url_base") + "/v1/guestAccounts/loyalty",
