@@ -20,10 +20,11 @@ public class LoyalityUpdateTest extends BaseTest {
     Response authenticationResponse;
     String loyaltyId;
     com.training.services.ga.loyalty.RequestBody requestBody;
-
+    String globalUrl;
     @BeforeAll
     public void setData() {
         loyaltyId = "137529822";
+        globalUrl = map.get("url_base")+"/v1/guestAccounts/loyalty";
         headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
@@ -60,7 +61,7 @@ public class LoyalityUpdateTest extends BaseTest {
     @Test
     public void testLoyality() {
         com.training.services.ga.loyalty.Response loyaltyResponse
-                = new RestEngine().getResponsePut(map.get("url_base"),
+                = new RestEngine().getResponsePut(globalUrl,
                 headerMap, new Gson().toJson(requestBody)).as(com.training.services.ga.loyalty.Response.class);
 
         Assertions.assertThat(loyaltyResponse.getStatus()).isEqualTo(200)
@@ -84,7 +85,7 @@ public class LoyalityUpdateTest extends BaseTest {
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
-                = new RestEngine().getResponsePut(map.get("url_base"),
+                = new RestEngine().getResponsePut(globalUrl,
                 headerMap, new Gson().toJson(requestBody))
                 .as(com.training.services.ga.loyalty.Response.class);
 
@@ -107,7 +108,7 @@ public class LoyalityUpdateTest extends BaseTest {
         requestBody.setVdsId(map.get("AppKeyWrongValue"));
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
-                = new RestEngine().getResponsePut(map.get("url_base"),
+                = new RestEngine().getResponsePut(globalUrl,
                 headerMap, new Gson().toJson(requestBody))
                 .as(com.training.services.ga.loyalty.Response.class);
 
@@ -131,7 +132,7 @@ public class LoyalityUpdateTest extends BaseTest {
         headerMap.put(map.get("accessToken"), map.get("AppKeyWrongValue"));
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
-                = new RestEngine().getResponsePut(map.get("url_base"),
+                = new RestEngine().getResponsePut(globalUrl,
                 headerMap, new Gson().toJson(requestBody))
                 .as(com.training.services.ga.loyalty.Response.class);
 
@@ -155,7 +156,7 @@ public class LoyalityUpdateTest extends BaseTest {
         requestBody.setLoyaltyId("13752982299");
 
         com.training.services.ga.loyalty.Response loyaltyNegativeResponse
-                = new RestEngine().getResponsePut(map.get("url_base"),
+                = new RestEngine().getResponsePut(globalUrl,
                 headerMap, new Gson().toJson(requestBody))
                 .as(com.training.services.ga.loyalty.Response.class);
 

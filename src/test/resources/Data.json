@@ -17,5 +17,5 @@
   "ContentTypeValue": "application/json",
   "URI": "https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts",
   "accessToken": "Access-Token",
-  "url_base": "https://aws-stg1.api.rccl.com/v1/guestAccounts/loyalty"
+  "url_base": "https://aws-stg1.api.rccl.com"
 }
