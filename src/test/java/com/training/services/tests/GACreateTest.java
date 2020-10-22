@@ -115,7 +115,6 @@ public class GACreateTest extends BaseTest {
         softAssert.assertThat(responseGACreate.getError().getErrorCode()).isEqualTo("COMMONS-0001");
         softAssert.assertThat(responseGACreate.getError().getMessage()).
                 isEqualTo("The API key header is required and the API key provided should be valid.");
-        responseGACreate.getErrors().get(0).getErrorCode();
         softAssert.assertThat(responseGACreate.getErrors().get(0).getErrorCode()).isEqualTo("COMMONS-0001");
         softAssert.assertThat(responseGACreate.getErrors().get(0).getInternalMessage()).
                 isEqualTo("The API key header is required and should be valid.");
