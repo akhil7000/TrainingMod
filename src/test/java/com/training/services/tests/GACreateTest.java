@@ -23,7 +23,6 @@ public class GACreateTest extends BaseTest {
     String uid=getUniqueMailId();
     String firstName="Audrey";
     String lastName="Poole";
-    Response responseGACreate;
 
     @BeforeAll
     public  void setData() {
@@ -51,11 +50,10 @@ public class GACreateTest extends BaseTest {
 
     }
 
-    public void getResponse(){
-        responseGACreate  =
-                new RestEngine().getResponsePost(map.get("URI")
-                        , headerMap
-                        ,new Gson().toJson(requestBodyCreate)).as(Response.class);
+    public Response getResponse(RequestBodyCreate requestBodyCreate){
+        return  new RestEngine().getResponsePost(map.get("URI")
+                , headerMap
+                ,new Gson().toJson(requestBodyCreate)).as(Response.class);
     }
 
     /**
@@ -63,7 +61,8 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testGuestCreation(){
-        getResponse();
+        Response responseGACreate;
+        responseGACreate= getResponse(requestBodyCreate);
         logger.info("status"+responseGACreate.getStatus());
         logger.info("error"+responseGACreate.getErrors());
         logger.info("loginstatus"+responseGACreate.getPayload().getLoginStatus());
@@ -84,8 +83,9 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testWrongMailGuestCreation(){
+        Response responseGACreate;
         requestBodyCreate.setEmail(uid+"@@@api.net");
-        getResponse();
+        responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->"+responseGACreate.getStatus());
         logger.info("errors->"+responseGACreate.getErrors().get(0).getInternalMessage());
         logger.info("errors->"+responseGACreate.getErrors().get(0).getErrorCode());
@@ -107,8 +107,9 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testWrongAppKeyGuestCreation() {
+        Response responseGACreate;
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
-        getResponse();
+        responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->" +responseGACreate.getStatus());
         logger.info("error code->"+responseGACreate.getErrors().get(0).getErrorCode());
         logger.info("IntegerMessage"+responseGACreate.getErrors().get(0).getInternalMessage());
@@ -129,8 +130,9 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testWrongPasswordGuestCreation() {
+        Response responseGACreate;
         requestBodyCreate.setPassword("Pass");
-        getResponse();
+        responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->" + responseGACreate.getStatus());
         logger.info("errorcode"+responseGACreate.getErrors().get(0).getErrorCode());
         logger.info("userrMessage"+responseGACreate.getErrors().get(0).getUserMessage());
@@ -153,8 +155,9 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testExistingMailGuestCreation(){
+        Response responseGACreate;
         requestBodyCreate.setEmail("testShrikant56789888668@api.com");
-        getResponse();
+        responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->"+responseGACreate.getStatus());
         logger.info("DeveloperMessage->errors->"+responseGACreate.getErrors().get(0).getDeveloperMessage());
         logger.info("errors->"+responseGACreate.getErrors().get(0).getErrorCode());
