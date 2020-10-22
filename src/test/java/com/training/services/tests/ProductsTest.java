@@ -1,6 +1,7 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
+import com.training.services.products.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ public class ProductsTest extends BaseTest {
     Map<String, Object> headerMap;
     Map<String, Object> queryParam;
     String baseURL;
-    com.training.services.products.Response response;
+    Response response;
 
     @BeforeEach
     public void setData() {
@@ -36,7 +37,7 @@ public class ProductsTest extends BaseTest {
     @Test
     public void testShorexTotalHitsValidate() {
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
-                .as(com.training.services.products.Response.class);
+                .as(Response.class);
 
         Assertions.assertThat(response.getStatus()).isEqualTo(200)
                 .as("Json response status is not 200");
