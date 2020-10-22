@@ -7,6 +7,7 @@ import com.training.services.ga.authenticate.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -21,7 +22,8 @@ public class LoyalityUpdateTest extends BaseTest {
     String loyaltyId;
     com.training.services.ga.loyalty.RequestBody requestBody;
     String globalUrl;
-    @BeforeAll
+
+    @BeforeEach
     public void setData() {
         loyaltyId = "137529822";
         globalUrl = map.get("url_base")+"/v1/guestAccounts/loyalty";

@@ -17,7 +17,7 @@ public class GAAccountTest extends BaseTest {
     RequestBody requestBodyAuthenticate;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @BeforeAll
+    @BeforeEach
     public  void setData() {
         headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyValue"));
