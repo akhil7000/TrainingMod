@@ -62,7 +62,7 @@ public class ProductsTest extends BaseTest {
             softAssert.assertThat(
                     response.getPayload().getProducts().get(i).getProductType().getProductType()
                             .equalsIgnoreCase("SHOREX"))
-                    .as("For product id : getProducts().get(" + i + ").getProductid() is not SHOREX")
+                    .as("Product id " + response.getPayload().getProducts().get(i).getProductID() +" is not SHOREX")
                     .isTrue();
         }
     }
