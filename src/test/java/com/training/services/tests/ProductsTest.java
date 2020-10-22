@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -45,5 +46,30 @@ public class ProductsTest extends BaseTest {
         softAssert.assertThat(response.getPayload().getSummary().getTotalHits())
                 .isEqualTo("52")
                 .as("Inside Summary, Total hit is not 52");
+    }
+
+    /**
+     * Checking if total number of shorex is 52 or not.
+     */
+    @Test
+    public void testShorexProductTypeValidate() {
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
+                .as(Response.class);
+
+        int counter = 0;
+
+        for (int i = 0; i < response.getPayload().getProducts().size(); i++) {
+            if (response.getPayload().getProducts().get(i).getProductType().getProductType()
+                    .equalsIgnoreCase("SHOREX")) {
+                counter = counter + 1;
+            }
+        }
+
+        Assertions.assertThat(response.getStatus()).isEqualTo(200)
+                .as("Json response status is not 200");
+
+        softAssert.assertThat(counter == 52)
+                .as("Total number of SHOREX is not 52")
+                .isTrue();
     }
 }
