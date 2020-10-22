@@ -20,24 +20,17 @@ public class GACreateTest extends BaseTest {
     RequestBodyCreate requestBodyCreate;
     Map<String, Object> headerMap;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    String uid=getUniqueMailId();
+    String firstName="Audrey";
+    String lastName="Poole";
 
     @BeforeAll
     public  void setData() {
         headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
-    }
-
-    /**
-     * testGuestCreation():request body implemented using POJO concept to get the +ve reponse ie 200
-     */
-    @Test
-    public void  testGuestCreation(){
-        String firstName="Audrey";
-        String lastName="Poole";
         requestBodyCreate=new RequestBodyCreate();
         requestBodyCreate.setBirthdate("19620802");
-        String uid=getUniqueMailId();
         requestBodyCreate.setEmail(uid);
         requestBodyCreate.setFirstName(firstName);
         requestBodyCreate.setLastName(lastName);
@@ -54,6 +47,13 @@ public class GACreateTest extends BaseTest {
         requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
         requestBodyCreate.setVersion("1.8");
         requestBodyCreate.setUidType("EMAIL");
+    }
+
+    /**
+     * testGuestCreation():request body implemented using POJO concept to get the +ve reponse ie 200
+     */
+    @Test
+    public void  testGuestCreation(){
         Response responseGACreate  =
                 new RestEngine().getResponsePost(map.get("URI")
                         , headerMap
@@ -73,31 +73,13 @@ public class GACreateTest extends BaseTest {
     }
 
     /**
-     * testWrongMailGuestCreation():passing wrong mail in reqest body using POJO to get response status 422
+     * testWrongMailGuestCreation():passing wrong mail in reqest body using POJO
+     * to get response status 422
      */
     @Test
     public void  testWrongMailGuestCreation(){
-        String firstName="Audrey";
-        String lastName="Poole";
-        requestBodyCreate=new RequestBodyCreate();
-        requestBodyCreate.setBirthdate("19620802");
-        String uid="testShrikant12345555.com";
-        requestBodyCreate.setEmail(uid);
-        requestBodyCreate.setFirstName(firstName);
-        requestBodyCreate.setLastName(lastName);
-        requestBodyCreate.setMarketingCountry("USA");
-        requestBodyCreate.setPassword("Password1");
-        //privacypolicyagreement obj
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.11");
-        //securityQuestions obj
-        requestBodyCreate.setAnswer("Answer1");
-        requestBodyCreate.setQuestion("What was the first concert you attended?");
-        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
-        //termsAndCondition object
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.8");
-        requestBodyCreate.setUidType("EMAIL");
+        String wrongUid=uid+"@@@api.net";
+        requestBodyCreate.setEmail(wrongUid);
         Response responseGACreate  =
                 new RestEngine().getResponsePost(map.get("URI")
                         , headerMap
@@ -114,36 +96,16 @@ public class GACreateTest extends BaseTest {
         softAssert.assertThat(responseGACreate.getErrors().get(0).getValidationErrors().get(0)
                 .getError()).isEqualTo("The email is invalidly formatted.");
         softAssert.assertThat(responseGACreate.getErrors().get(0).getValidationErrors().get(0)
-                .getInvalidValue()).isEqualTo(uid);
+                .getInvalidValue()).isEqualTo(wrongUid);
     }
 
     /**
-     * testWrongAppKeyGuestCreation():passing wrong Appkey in request body using POJO to get response status 401
+     * testWrongAppKeyGuestCreation():passing wrong Appkey in request body using POJO
+     * to get response status 401
      */
     @Test
     public void  testWrongAppKeyGuestCreation() {
-        String firstName = "Audrey";
-        String lastName = "Poole";
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
-        requestBodyCreate = new RequestBodyCreate();
-        requestBodyCreate.setBirthdate("19620802");
-        String uid = getUniqueMailId();
-        requestBodyCreate.setEmail(uid);
-        requestBodyCreate.setFirstName(firstName);
-        requestBodyCreate.setLastName(lastName);
-        requestBodyCreate.setMarketingCountry("USA");
-        requestBodyCreate.setPassword("Password1");
-        //privacypolicyagreement obj
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.11");
-        //securityQuestions obj
-        requestBodyCreate.setAnswer("Answer1");
-        requestBodyCreate.setQuestion("What was the first concert you attended?");
-        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
-        //termsAndCondition object
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.8");
-        requestBodyCreate.setUidType("EMAIL");
         Response responseGACreate =
                 new RestEngine().getResponsePost(map.get("URI")
                         , headerMap
@@ -168,28 +130,8 @@ public class GACreateTest extends BaseTest {
      */
     @Test
     public void  testWrongPasswordGuestCreation() {
-        String firstName = "Audrey";
-        String lastName = "Poole";
         String password = "Pass";
-        requestBodyCreate = new RequestBodyCreate();
-        requestBodyCreate.setBirthdate("19620802");
-        String uid = getUniqueMailId();
-        requestBodyCreate.setEmail(uid);
-        requestBodyCreate.setFirstName(firstName);
-        requestBodyCreate.setLastName(lastName);
-        requestBodyCreate.setMarketingCountry("USA");
         requestBodyCreate.setPassword(password);
-        //privacypolicyagreement obj
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.11");
-        //securityQuestions obj
-        requestBodyCreate.setAnswer("Answer1");
-        requestBodyCreate.setQuestion("What was the first concert you attended?");
-        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
-        //termsAndCondition object
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.8");
-        requestBodyCreate.setUidType("EMAIL");
         Response responseGACreate =
                 new RestEngine().getResponsePost(map.get("URI")
                         , headerMap
@@ -211,31 +153,13 @@ public class GACreateTest extends BaseTest {
     }
 
     /**
-     * testExistingMailGuestCreation():passing Existing mail in reqest body using POJO to get response status 400
+     * testExistingMailGuestCreation():passing Existing mail in reqest body using POJO to get
+     * response status 400
      */
     @Test
     public void  testExistingMailGuestCreation(){
-        String firstName="Audrey";
-        String lastName="Poole";
-        requestBodyCreate=new RequestBodyCreate();
-        requestBodyCreate.setBirthdate("19620802");
         String uid="testShrikant56789888668@api.com";
         requestBodyCreate.setEmail(uid);
-        requestBodyCreate.setFirstName(firstName);
-        requestBodyCreate.setLastName(lastName);
-        requestBodyCreate.setMarketingCountry("USA");
-        requestBodyCreate.setPassword("Password1");
-        //privacypolicyagreement obj
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.11");
-        //securityQuestions obj
-        requestBodyCreate.setAnswer("Answer1");
-        requestBodyCreate.setQuestion("What was the first concert you attended?");
-        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
-        //termsAndCondition object
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.8");
-        requestBodyCreate.setUidType("EMAIL");
         Response responseGACreate  =
                 new RestEngine().getResponsePost(map.get("URI")
                         , headerMap
