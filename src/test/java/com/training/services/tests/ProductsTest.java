@@ -56,20 +56,15 @@ public class ProductsTest extends BaseTest {
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
                 .as(Response.class);
 
-        int counter = 0;
-
-        for (int i = 0; i < response.getPayload().getProducts().size(); i++) {
-            if (response.getPayload().getProducts().get(i).getProductType().getProductType()
-                    .equalsIgnoreCase("SHOREX")) {
-                counter = counter + 1;
-            }
-        }
-
         Assertions.assertThat(response.getStatus()).isEqualTo(200)
                 .as("Json response status is not 200");
 
-        softAssert.assertThat(counter == 52)
-                .as("Total number of SHOREX is not 52")
-                .isTrue();
+        for (int i = 0; i < response.getPayload().getProducts().size(); i++) {
+            softAssert.assertThat(
+                    response.getPayload().getProducts().get(i).getProductType().getProductType()
+                            .equalsIgnoreCase("SHOREX"))
+                    .as("For product id : getProducts().get(" + i + ").getProductid() is not SHOREX")
+                    .isTrue();
+        }
     }
 }
