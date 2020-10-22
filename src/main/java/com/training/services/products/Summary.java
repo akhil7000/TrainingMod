@@ -1,4 +1,4 @@
-package com.training.services.ga.products;
+package com.training.services.products;
 
 import lombok.Getter;
 

@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ShorexTest extends BaseTest {
+public class ProductsTest extends BaseTest {
     Map<String, Object> headerMap;
     Map<String, Object> queryParam;
     String baseURL;
-    com.training.services.ga.products.Response response;
+    com.training.services.products.Response response;
 
     @BeforeEach
     public void setData() {
@@ -36,7 +36,7 @@ public class ShorexTest extends BaseTest {
     @Test
     public void testShorexTotalHitsValidate() {
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
-                .as(com.training.services.ga.products.Response.class);
+                .as(com.training.services.products.Response.class);
 
         Assertions.assertThat(response.getStatus()).isEqualTo(200)
                 .as("Json response status is not 200");
