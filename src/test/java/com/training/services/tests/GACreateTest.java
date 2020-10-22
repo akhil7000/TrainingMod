@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import static com.training.utilities.UniqueMailId.getUniqueMailId;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GACreateTest extends BaseTest {
     RequestBodyCreate requestBodyCreate;
@@ -45,9 +44,13 @@ public class GACreateTest extends BaseTest {
         requestBodyCreate.setAcceptDateTime("20190524T090712GMT", 2);
         requestBodyCreate.setVersion("1.8", 2);
         requestBodyCreate.setUidType("EMAIL");
-        System.out.print(new Gson().toJson(requestBodyCreate));
     }
 
+    /**
+     *
+     * @param requestBodyCreate:accept request in pojo format
+     * @return :response
+     */
     public Response getResponse(RequestBodyCreate requestBodyCreate){
         return  new RestEngine().getResponsePost(map.get("URI")
                 , headerMap
@@ -58,10 +61,8 @@ public class GACreateTest extends BaseTest {
      * testGuestCreation():request body implemented using POJO concept to get the +ve reponse ie 200
      */
     @Test
-    @Order(1)
     public void  testGuestCreation(){
-        Response responseGACreate;
-        responseGACreate= getResponse(requestBodyCreate);
+        Response responseGACreate= getResponse(requestBodyCreate);
         logger.info("status"+responseGACreate.getStatus());
         logger.info("error"+responseGACreate.getErrors());
         logger.info("loginstatus"+responseGACreate.getPayload().getLoginStatus());
@@ -81,11 +82,9 @@ public class GACreateTest extends BaseTest {
      * to get response status 422
      */
     @Test
-    @Order(2)
     public void  testWrongMailGuestCreation(){
-        Response responseGACreate;
         requestBodyCreate.setEmail(uid+"@@@api.net");
-        responseGACreate= getResponse(requestBodyCreate);
+        Response  responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->"+responseGACreate.getStatus());
         logger.info("errors->"+responseGACreate.getErrors().get(0).getInternalMessage());
         logger.info("errors->"+responseGACreate.getErrors().get(0).getErrorCode());
@@ -106,11 +105,9 @@ public class GACreateTest extends BaseTest {
      * to get response status 401
      */
     @Test
-    @Order(3)
     public void  testWrongAppKeyGuestCreation() {
-        Response responseGACreate;
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
-        responseGACreate= getResponse(requestBodyCreate);
+        Response responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->" +responseGACreate.getStatus());
         logger.info("error code->"+responseGACreate.getErrors().get(0).getErrorCode());
         logger.info("IntegerMessage"+responseGACreate.getErrors().get(0).getInternalMessage());
@@ -122,7 +119,6 @@ public class GACreateTest extends BaseTest {
         softAssert.assertThat(responseGACreate.getErrors().get(0).getErrorCode()).isEqualTo("COMMONS-0001");
         softAssert.assertThat(responseGACreate.getErrors().get(0).getInternalMessage()).
                 isEqualTo("The API key header is required and should be valid.");
-        responseGACreate.getErrors().get(0).getErrorCode();
     }
 
     /**
@@ -130,11 +126,9 @@ public class GACreateTest extends BaseTest {
      * POJO to get response status 422
      */
     @Test
-    @Order(4)
     public void  testWrongPasswordGuestCreation() {
-        Response responseGACreate;
         requestBodyCreate.setPassword("Pass");
-        responseGACreate= getResponse(requestBodyCreate);
+        Response responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->" + responseGACreate.getStatus());
         logger.info("errorcode"+responseGACreate.getErrors().get(0).getErrorCode());
         logger.info("userrMessage"+responseGACreate.getErrors().get(0).getUserMessage());
@@ -148,7 +142,8 @@ public class GACreateTest extends BaseTest {
         softAssert.assertThat(responseGACreate.getErrors().get(0).getErrorCode()).isEqualTo("GA-0103");
         softAssert.assertThat(responseGACreate.getErrors().get(0).getUserMessage()).
                 isEqualTo("Your request is invalid.");
-        softAssert.assertThat(responseGACreate.getErrors().get(0).getValidationErrors().get(0).getError());
+        softAssert.assertThat(responseGACreate.getErrors().get(0).getValidationErrors().get(0).getError())
+                .contains("The password must be between [8] and [32] characters, inclusive, with at least [1] letters and [1] numbers.");
     }
 
     /**
@@ -156,11 +151,9 @@ public class GACreateTest extends BaseTest {
      * response status 400
      */
     @Test
-    @Order(5)
     public void  testExistingMailGuestCreation(){
-        Response responseGACreate;
         requestBodyCreate.setEmail("testShrikant56789888668@api.com");
-        responseGACreate= getResponse(requestBodyCreate);
+        Response responseGACreate= getResponse(requestBodyCreate);
         logger.info("status->"+responseGACreate.getStatus());
         logger.info("DeveloperMessage->errors->"+responseGACreate.getErrors().get(0).getDeveloperMessage());
         logger.info("errors->"+responseGACreate.getErrors().get(0).getErrorCode());
