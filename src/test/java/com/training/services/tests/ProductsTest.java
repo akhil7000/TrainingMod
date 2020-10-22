@@ -46,4 +46,24 @@ public class ProductsTest extends BaseTest {
                 .isEqualTo("52")
                 .as("Inside Summary, Total hit is not 52");
     }
+
+    /**
+     * Checking if total number of shorex is 52 or not.
+     */
+    @Test
+    public void testShorexProductTypeValidate() {
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
+                .as(Response.class);
+
+        Assertions.assertThat(response.getStatus()).isEqualTo(200)
+                .as("Json response status is not 200");
+
+        for (int i = 0; i < response.getPayload().getProducts().size(); i++) {
+            softAssert.assertThat(
+                    response.getPayload().getProducts().get(i).getProductType().getProductType()
+                            .equalsIgnoreCase("SHOREX"))
+                    .as("Product id " + response.getPayload().getProducts().get(i).getProductID() +" is not SHOREX")
+                    .isTrue();
+        }
+    }
 }
