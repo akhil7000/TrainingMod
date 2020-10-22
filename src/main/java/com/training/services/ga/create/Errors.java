@@ -1,7 +1,6 @@
 package com.training.services.ga.create;
 
 import lombok.Getter;
-
 import java.util.List;
 
 @Getter

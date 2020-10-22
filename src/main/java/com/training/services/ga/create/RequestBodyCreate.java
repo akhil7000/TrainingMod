@@ -25,18 +25,22 @@ public class RequestBodyCreate {
         securityQuestions.add(new SecurityQuestions());
     }
 
-    public void setAcceptDateTime(String acceptDateTime) {
-        privacyPolicyAgreement.setAcceptDateTime(acceptDateTime);
+    public void setAcceptDateTime(String acceptDateTime, int i) {
+        if(i==1){
+            privacyPolicyAgreement.setAcceptDateTime(acceptDateTime);
+        }
         termsAndConditionsAgreement.setAcceptDateTime(acceptDateTime);
     }
 
-    public void setVersion(String version) {
-        privacyPolicyAgreement.setVersion(version);
+    public void setVersion(String version, int i) {
+        if(i==1){
+            privacyPolicyAgreement.setVersion(version);
+        }
         termsAndConditionsAgreement.setVersion(version);
     }
 
     public void setAnswer(String answer) {
-      securityQuestions.get(0).setAnswer(answer);
+        securityQuestions.get(0).setAnswer(answer);
     }
 
     public void setQuestion(String question) {

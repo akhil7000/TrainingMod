@@ -5,16 +5,14 @@ import com.training.base.BaseTest;
 import com.training.services.ga.create.RequestBodyCreate;
 import com.training.services.ga.create.Response;
 import com.training.utilities.RestEngine;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import static com.training.utilities.UniqueMailId.getUniqueMailId;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GACreateTest extends BaseTest {
     RequestBodyCreate requestBodyCreate;
@@ -24,7 +22,7 @@ public class GACreateTest extends BaseTest {
     String firstName="Audrey";
     String lastName="Poole";
 
-    @BeforeAll
+    @BeforeEach
     public  void setData() {
         headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyValue"));
@@ -37,17 +35,17 @@ public class GACreateTest extends BaseTest {
         requestBodyCreate.setMarketingCountry("USA");
         requestBodyCreate.setPassword("Password1");
         //privacypolicyagreement obj
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.11");
+        requestBodyCreate.setAcceptDateTime("20190524T090712GMT",1);
+        requestBodyCreate.setVersion("1.11",1);
         //securityQuestions obj
         requestBodyCreate.setAnswer("Answer1");
         requestBodyCreate.setQuestion("What was the first concert you attended?");
-        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOUq_ATTENDED");
+        requestBodyCreate.setQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOU_ATTENDED");
         //termsAndCondition object
-        requestBodyCreate.setAcceptDateTime("20190524T090712GMT");
-        requestBodyCreate.setVersion("1.8");
+        requestBodyCreate.setAcceptDateTime("20190524T090712GMT", 2);
+        requestBodyCreate.setVersion("1.8", 2);
         requestBodyCreate.setUidType("EMAIL");
-
+        System.out.print(new Gson().toJson(requestBodyCreate));
     }
 
     public Response getResponse(RequestBodyCreate requestBodyCreate){
@@ -60,6 +58,7 @@ public class GACreateTest extends BaseTest {
      * testGuestCreation():request body implemented using POJO concept to get the +ve reponse ie 200
      */
     @Test
+    @Order(1)
     public void  testGuestCreation(){
         Response responseGACreate;
         responseGACreate= getResponse(requestBodyCreate);
@@ -82,6 +81,7 @@ public class GACreateTest extends BaseTest {
      * to get response status 422
      */
     @Test
+    @Order(2)
     public void  testWrongMailGuestCreation(){
         Response responseGACreate;
         requestBodyCreate.setEmail(uid+"@@@api.net");
@@ -106,6 +106,7 @@ public class GACreateTest extends BaseTest {
      * to get response status 401
      */
     @Test
+    @Order(3)
     public void  testWrongAppKeyGuestCreation() {
         Response responseGACreate;
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyWrongValue"));
@@ -129,6 +130,7 @@ public class GACreateTest extends BaseTest {
      * POJO to get response status 422
      */
     @Test
+    @Order(4)
     public void  testWrongPasswordGuestCreation() {
         Response responseGACreate;
         requestBodyCreate.setPassword("Pass");
@@ -154,6 +156,7 @@ public class GACreateTest extends BaseTest {
      * response status 400
      */
     @Test
+    @Order(5)
     public void  testExistingMailGuestCreation(){
         Response responseGACreate;
         requestBodyCreate.setEmail("testShrikant56789888668@api.com");
