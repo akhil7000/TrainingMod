@@ -1,7 +1,6 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
-
 import com.training.services.voyage.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
@@ -31,16 +30,11 @@ public class VoyageCurrentSailValidateTest extends BaseTest {
                 new RestEngine().getResponseGet(map.get("url_voyage"),headerMap)
                         .as(Response.class);
         logger.info("status->"+voyageResponse.getStatus());
-        logger.info("currentsailDate->"+voyageResponse.getPayload().getCurrentSailDate());
-        logger.info("size of voyages"+voyageResponse.getPayload().getVoyages().size());
+        logger.info("currentsailDate->"+voyageResponse.getPayload().getCurrentSailDate().substring(0,4));
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
-        for (int i = 0; i < voyageResponse.getPayload().getVoyages().size(); i++) {
-            String Year2020 = voyageResponse.getPayload().getVoyages().get(i).getSailDate().substring(0,4);
-            logger.info(Year2020+"***"+i);
-            softAssert.assertThat(
-                    Year2020.equals("2020"))
-                    .as("sailDate " + i  +" "+ voyageResponse.getPayload().getCurrentSailDate() +" is not 2020").isTrue();
-        }
+        softAssert.assertThat(voyageResponse.getPayload().getCurrentSailDate().substring(0,4)).
+                isEqualTo("2020").as("is not in  the year 2020");
     }
 }
