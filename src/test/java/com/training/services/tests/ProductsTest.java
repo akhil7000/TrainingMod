@@ -81,29 +81,31 @@ public class ProductsTest extends BaseTest {
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
                 .as(Response.class);
 
-        String actualDateFromLink = "20200809";
-        int day_Month_daysInMonthFromLink[] = getDay_Month_daysInMonth(actualDateFromLink);
+        Map<String, Integer> day_Month_daysInMonthFromLink = getDay_Month_daysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
 
         for (int index = 0; index < response.getPayload().getProducts().size(); index++) {
             for (int getDateOffering = 0; getDateOffering < response.getPayload().getProducts().get(index).getOffering().size(); getDateOffering++) {
-                int day_Month_daysInMonth[] = getDay_Month_daysInMonth(response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
+
+                Map<String, Integer> day_Month_daysInMonth = getDay_Month_daysInMonth(response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
 
                 /**
                  * If query paramter link date and offeringDate are from same month
                  */
-                if (day_Month_daysInMonthFromLink[1] == day_Month_daysInMonth[1]) {
-                    if (!((day_Month_daysInMonth[0] - day_Month_daysInMonthFromLink[0]) <= 10)) {
-                        softAssert.fail("Product ID = " + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
+                if (day_Month_daysInMonthFromLink.get("month") == day_Month_daysInMonth.get("month")) {
+                    if (!((day_Month_daysInMonth.get("day") - day_Month_daysInMonthFromLink.get("day")) <= 10)) {
+                        softAssert.fail("Product ID = " + response.getPayload().getProducts()
+                                .get(index).getOffering().get(getDateOffering)
                                 .getProductID() + " offering date is greater than 10 days = "
                                 + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
                     }
                 } else {
                     softAssert.assertThat(
-                            (day_Month_daysInMonthFromLink[2] - day_Month_daysInMonthFromLink[0]) + day_Month_daysInMonth[0] <= 10)
+                            (day_Month_daysInMonthFromLink.get("daysInMonth") - day_Month_daysInMonthFromLink.get("day")) + day_Month_daysInMonth.get("day") <= 10)
                             .as("Product ID = "
                                     + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
                                     .getProductID() + " offeringDate is greater than 10 days = "
-                                    + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate())
+                                    + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
+                                    .getOfferingDate())
                             .isTrue();
                 }
             }
@@ -117,7 +119,9 @@ public class ProductsTest extends BaseTest {
      * @return
      * @throws ParseException
      */
-    public int[] getDay_Month_daysInMonth(String actualDateFromResponse) throws ParseException {
+    public Map<String, Integer> getDay_Month_daysInMonth(String actualDateFromResponse) throws ParseException {
+        Map<String, Integer> dateMap = new HashMap<>();
+
         /**
          * actualDateInWholeText =  = Sun Aug 09 00:00:00 IST 2020
          */
@@ -139,6 +143,11 @@ public class ProductsTest extends BaseTest {
          */
         YearMonth yearMonthObject = YearMonth.of(getYear, getMonth);
         int daysInMonth = yearMonthObject.lengthOfMonth();
-        return new int[]{getDay, getMonth, daysInMonth};
+
+        dateMap.put("day", getDay);
+        dateMap.put("month", getMonth);
+        dateMap.put("daysInMonth", daysInMonth);
+
+        return dateMap;
     }
 }
