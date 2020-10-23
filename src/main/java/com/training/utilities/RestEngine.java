@@ -45,4 +45,14 @@ public class RestEngine {
                 .extract()
                 .response();
     }
+
+    public Response getResponseGet(String base_url, Map headerMap) {
+        return given()
+                .headers(headerMap)
+                .when()
+                .get(base_url)
+                .then()
+                .extract()
+                .response();
+    }
 }
