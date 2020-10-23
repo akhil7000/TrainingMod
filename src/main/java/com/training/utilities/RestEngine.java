@@ -56,7 +56,7 @@ public class RestEngine {
      */
     public Response getResponseGet(String base_url, Map headerMap) {
         return given()
-              .headers(headerMap)
+                .headers(headerMap)
                 .when()
                 .get(base_url)
                 .then()
