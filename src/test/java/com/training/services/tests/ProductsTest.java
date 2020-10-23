@@ -8,6 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.YearMonth;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,8 +66,79 @@ public class ProductsTest extends BaseTest {
             softAssert.assertThat(
                     response.getPayload().getProducts().get(i).getProductType().getProductType()
                             .equalsIgnoreCase("SHOREX"))
-                    .as("Product id " + response.getPayload().getProducts().get(i).getProductID() +" is not SHOREX")
+                    .as("Product id " + response.getPayload().getProducts().get(i).getProductID() + " is not SHOREX")
                     .isTrue();
         }
+    }
+
+    /**
+     * Checking if offeringDate, day  should be less than or equal to 10 days, from sailing date 20200809
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testShorexOfferingDateValidate() throws ParseException {
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
+                .as(Response.class);
+
+        String actualDateFromLink = "20200809";
+        int day_Month_daysInMonthFromLink[] = getDay_Month_daysInMonth(actualDateFromLink);
+
+        for (int index = 0; index < response.getPayload().getProducts().size(); index++) {
+            for (int getDateOffering = 0; getDateOffering < response.getPayload().getProducts().get(index).getOffering().size(); getDateOffering++) {
+                int day_Month_daysInMonth[] = getDay_Month_daysInMonth(response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
+
+                /**
+                 * If query paramter link date and offeringDate are from same month
+                 */
+                if (day_Month_daysInMonthFromLink[1] == day_Month_daysInMonth[1]) {
+                    if (!((day_Month_daysInMonth[0] - day_Month_daysInMonthFromLink[0]) <= 10)) {
+                        softAssert.fail("Product ID = " + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
+                                .getProductID() + " offering date is greater than 10 days = "
+                                + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
+                    }
+                } else {
+                    softAssert.assertThat(
+                            (day_Month_daysInMonthFromLink[2] - day_Month_daysInMonthFromLink[0]) + day_Month_daysInMonth[0] <= 10)
+                            .as("Product ID = "
+                                    + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
+                                    .getProductID() + " offeringDate is greater than 10 days = "
+                                    + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate())
+                            .isTrue();
+                }
+            }
+        }
+    }
+
+    /**
+     * Returning segregate day, month and number of days in a month
+     *
+     * @param actualDateFromResponse
+     * @return
+     * @throws ParseException
+     */
+    public int[] getDay_Month_daysInMonth(String actualDateFromResponse) throws ParseException {
+        /**
+         * actualDateInWholeText =  = Sun Aug 09 00:00:00 IST 2020
+         */
+        SimpleDateFormat originalFormat = new SimpleDateFormat("yyyyMMdd");
+        Date actualDateWholeText = originalFormat.parse(actualDateFromResponse);
+
+        /**
+         * Segregate date = 2020-08-09
+         */
+        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String segregateDate = newFormat.format(actualDateWholeText);
+        String dateSplit[] = segregateDate.split("-");
+        int getYear = Integer.parseInt(dateSplit[0]);
+        int getMonth = Integer.parseInt(dateSplit[1]);
+        int getDay = Integer.parseInt(dateSplit[2]);
+
+        /**
+         * Number of days in month
+         */
+        YearMonth yearMonthObject = YearMonth.of(getYear, getMonth);
+        int daysInMonth = yearMonthObject.lengthOfMonth();
+        return new int[]{getDay, getMonth, daysInMonth};
     }
 }
