@@ -47,8 +47,15 @@ public class RestEngine {
                 .extract()
                 .response();
     }
+
+    /**
+     *
+     * @param base_url:complete url
+     * @param headerMap:passing Appkey and content type:json
+     * @return: response
+     */
     public Response getResponseGet(String base_url, Map headerMap) {
-        return given
+        return given()
               .headers(headerMap)
                 .when()
                 .get(base_url)
@@ -56,6 +63,7 @@ public class RestEngine {
                 .extract()
                 .response();
     }
+
     /**
      * We are writing rest assured method inside below class to decrease the loc in testcases,
      * and calling this method getResponseGet in test method

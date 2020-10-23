@@ -18,7 +18,7 @@
   "URI": "https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts",
   "accessToken": "Access-Token",
   "url_base": "https://aws-stg1.api.rccl.com",
-  "url_voyage":"https://aws-stg1.api.rccl.com/en/royal/mobile/v3/ships/al/voyages"
+  "url_voyage":"https://aws-stg1.api.rccl.com/en/royal/mobile/v3/ships/al/voyages",
   "shipIdParam": "sailingID",
   "sailingIdParamValue": "AL20200809",
   "categoryParam": "categoryID",
