@@ -66,4 +66,22 @@ public class VoyagesTest extends BaseTest {
                     "is not less than 10");
         }
     }
+
+    /**
+     * testVoyageShipCodeValidate:validating sail duration should br less than 10
+     */
+    @Test
+    public void testVoyageShipCodeValidate() {
+        Response voyageResponse = getResponse();
+        logger.info("status->" + voyageResponse.getStatus());
+        logger.info("totalVoyagesCount->"+voyageResponse.getPayload().getVoyages().size());
+        Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
+                .as(" status is not 200");
+        List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
+        for (int i = 0; i < voyages.size(); i++) {
+         String shipCode=voyageResponse.getPayload().getVoyages().get(i).getShipCode();
+         logger.info("shipcode is->"+shipCode+" "+i);
+         softAssert.assertThat(shipCode).isEqualTo("AL");
+        }
+    }
 }
