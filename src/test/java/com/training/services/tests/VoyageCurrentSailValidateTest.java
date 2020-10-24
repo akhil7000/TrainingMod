@@ -5,6 +5,7 @@ import com.training.base.BaseTest;
 import com.training.services.voyage.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -28,7 +29,8 @@ public class VoyageCurrentSailValidateTest extends BaseTest {
     @Test
     public void testVoyageCurrentSailDateValidate(){
         Response voyageResponse =
-                new RestEngine().getResponseGet(map.get("url_voyage"),headerMap)
+                new RestEngine().getResponseGet(map.get("url_base")+"/en/royal/mobile/v3/ships/al/voyages"
+                        ,headerMap)
                         .as(Response.class);
         logger.info("status->"+voyageResponse.getStatus());
         logger.info("currentsailDate->"+voyageResponse.getPayload().getCurrentSailDate());
@@ -42,5 +44,22 @@ public class VoyageCurrentSailValidateTest extends BaseTest {
                     Year2020.equals("2020"))
                     .as("sailDate " + i  +" "+ voyageResponse.getPayload().getCurrentSailDate() +" is not 2020").isTrue();
         }
+    }
+    @Test
+    public void testVoyageDurationValidate() {
+        Response voyageResponse =
+                new RestEngine().getResponseGet(map.get("url_base")+"/en/royal/mobile/v3/ships/al/voyages"
+                         ,headerMap)
+                        .as(Response.class);
+        logger.info("status->" + voyageResponse.getStatus());
+        logger.info("duration->"+voyageResponse.getPayload().getVoyages().size());
+        Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
+                .as(" status is not 200");
+        for (int i = 0; i < voyageResponse.getPayload().getVoyages().size(); i++) {
+            int duration = Integer.parseInt(voyageResponse.getPayload().getVoyages().get(i).getDuration());
+            System.out.println(duration +  " "+i);
+            Assertions.assertThat(duration<10).as("sailDate " + i  +" "+ voyageResponse.getPayload().getVoyages().get(i).getDuration() +" is not less than 10").isTrue();
+        }
+
     }
 }

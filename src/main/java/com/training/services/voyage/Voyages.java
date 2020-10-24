@@ -5,4 +5,5 @@ import lombok.Getter;
 @Getter
 public class Voyages {
    String sailDate;
+   String duration;
 }
