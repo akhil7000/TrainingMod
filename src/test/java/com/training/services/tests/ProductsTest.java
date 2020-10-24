@@ -83,7 +83,7 @@ public class ProductsTest extends BaseTest {
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
                 .as(Response.class);
 
-        Map<String, Integer> day_Month_daysInMonthFromLink = getDay_Month_DaysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
+        Map<String, Integer> dayMonthDaysInMonthFromLink = getDayMonthDaysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
 
         List<Products> products = response.getPayload().getProducts();
         List<Offering> offerings;
@@ -92,20 +92,20 @@ public class ProductsTest extends BaseTest {
              offerings = products.get(index).getOffering();
             for (int getDateOffering = 0; getDateOffering < offerings.size(); getDateOffering++) {
 
-                Map<String, Integer> day_Month_daysInMonth = getDay_Month_DaysInMonth(offerings.get(getDateOffering).getOfferingDate());
+                Map<String, Integer> dayMonthDaysInMonth = getDayMonthDaysInMonth(offerings.get(getDateOffering).getOfferingDate());
 
                 /**
                  * If query paramter link date and offeringDate are from same month
                  */
-                if (day_Month_daysInMonthFromLink.get("month") == day_Month_daysInMonth.get("month")) {
-                    if (!((day_Month_daysInMonth.get("day") - day_Month_daysInMonthFromLink.get("day")) <= 10)) {
+                if (dayMonthDaysInMonthFromLink.get("month") == dayMonthDaysInMonth.get("month")) {
+                    if (!((dayMonthDaysInMonth.get("day") - dayMonthDaysInMonthFromLink.get("day")) <= 10)) {
                         softAssert.fail("Product ID = " + offerings.get(getDateOffering)
                                 .getProductID() + " offering date is greater than 10 days = "
                                 + offerings.get(getDateOffering).getOfferingDate());
                     }
                 } else {
                     softAssert.assertThat(
-                            (day_Month_daysInMonthFromLink.get("daysInMonth") - day_Month_daysInMonthFromLink.get("day")) + day_Month_daysInMonth.get("day") <= 10)
+                            (dayMonthDaysInMonthFromLink.get("daysInMonth") - dayMonthDaysInMonthFromLink.get("day")) + dayMonthDaysInMonth.get("day") <= 10)
                             .as("Product ID = "
                                     + offerings.get(getDateOffering)
                                     .getProductID() + " offeringDate is greater than 10 days = "
@@ -124,7 +124,7 @@ public class ProductsTest extends BaseTest {
      * @return
      * @throws ParseException
      */
-    public Map<String, Integer> getDay_Month_DaysInMonth(String actualDateFromResponse) throws ParseException {
+    public Map<String, Integer> getDayMonthDaysInMonth(String actualDateFromResponse) throws ParseException {
         Map<String, Integer> dateMap = new HashMap<>();
 
         String dateSplit[] = new SimpleDateFormat("yyyy-MM-dd")
