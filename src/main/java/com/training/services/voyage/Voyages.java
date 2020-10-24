@@ -6,4 +6,5 @@ import lombok.Getter;
 public class Voyages {
    String sailDate;
    String duration;
+   String shipCode;
 }
