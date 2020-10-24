@@ -23,6 +23,9 @@ public class ProductsTest extends BaseTest {
     Map<String, Object> queryParam;
     String baseURL;
     Response response;
+    final String day="day";
+    final String month="month";
+    final String daysInMonth="daysInMonth ";
 
     @BeforeEach
     public void setData() {
@@ -97,21 +100,21 @@ public class ProductsTest extends BaseTest {
                 /**
                  * If query paramter link date and offeringDate are from same month
                  */
-                if (dayMonthDaysInMonthFromLink.get("month") == dayMonthDaysInMonth.get("month")) {
-                    if (!((dayMonthDaysInMonth.get("day") - dayMonthDaysInMonthFromLink.get("day")) <= 10)) {
-                        softAssert.fail("Product ID = " + offerings.get(getDateOffering)
-                                .getProductID() + " offering date is greater than 10 days = "
-                                + offerings.get(getDateOffering).getOfferingDate());
-                    }
+                if (dayMonthDaysInMonthFromLink.get(month) == dayMonthDaysInMonth.get(month)) {
+                        softAssert.assertThat(dayMonthDaysInMonth.get(day) - dayMonthDaysInMonthFromLink.get(day))
+                                .as("Product ID = " + offerings.get(getDateOffering)
+                                        .getProductID() + " offering date is greater than 10 days = "
+                                        + offerings.get(getDateOffering).getOfferingDate())
+                                .isLessThanOrEqualTo(10);
                 } else {
                     softAssert.assertThat(
-                            (dayMonthDaysInMonthFromLink.get("daysInMonth") - dayMonthDaysInMonthFromLink.get("day")) + dayMonthDaysInMonth.get("day") <= 10)
+                            (dayMonthDaysInMonthFromLink.get(daysInMonth) - dayMonthDaysInMonthFromLink.get(day)) + dayMonthDaysInMonth.get(day))
                             .as("Product ID = "
                                     + offerings.get(getDateOffering)
                                     .getProductID() + " offeringDate is greater than 10 days = "
                                     + offerings.get(getDateOffering)
                                     .getOfferingDate())
-                            .isTrue();
+                            .isLessThanOrEqualTo(10);
                 }
             }
         }
@@ -140,11 +143,11 @@ public class ProductsTest extends BaseTest {
          * Number of days in month
          */
         YearMonth yearMonthObject = YearMonth.of(getYear, getMonth);
-        int daysInMonth = yearMonthObject.lengthOfMonth();
+        int getDaysInMonth = yearMonthObject.lengthOfMonth();
 
-        dateMap.put("day", getDay);
-        dateMap.put("month", getMonth);
-        dateMap.put("daysInMonth", daysInMonth);
+        dateMap.put(day, getDay);
+        dateMap.put(month, getMonth);
+        dateMap.put(daysInMonth, getDaysInMonth);
 
         return dateMap;
     }
