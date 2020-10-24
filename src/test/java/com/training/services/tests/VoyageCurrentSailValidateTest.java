@@ -27,14 +27,15 @@ public class VoyageCurrentSailValidateTest extends BaseTest {
     @Test
     public void testVoyageCurrentSailDateValidate(){
         Response voyageResponse =
-                new RestEngine().getResponseGet(map.get("url_voyage"),headerMap)
+                new RestEngine().getResponseGet(map.get("url_base")+"/en/royal/mobile/v3/ships/al/voyages"
+                        ,headerMap)
                         .as(Response.class);
         logger.info("status->"+voyageResponse.getStatus());
-        logger.info("currentsailDate->"+voyageResponse.getPayload().getCurrentSailDate().substring(0,4));
+        logger.info("currentsailDate->"+(voyageResponse.getPayload().getCurrentSailDate()).matches(".*(2020).*"));
 
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
-        softAssert.assertThat(voyageResponse.getPayload().getCurrentSailDate().substring(0,4)).
-                isEqualTo("2020").as("is not in  the year 2020");
+        softAssert.assertThat(voyageResponse.getPayload().getCurrentSailDate().matches(".*(2020).*")).
+                isTrue().as("is not in  the year 2020");
     }
 }
