@@ -1,6 +1,8 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
+import com.training.services.products.Offering;
+import com.training.services.products.Products;
 import com.training.services.products.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
@@ -11,8 +13,8 @@ import org.junit.jupiter.api.TestInstance;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -81,30 +83,33 @@ public class ProductsTest extends BaseTest {
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
                 .as(Response.class);
 
-        Map<String, Integer> day_Month_daysInMonthFromLink = getDay_Month_daysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
+        Map<String, Integer> day_Month_daysInMonthFromLink = getDay_Month_DaysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
 
-        for (int index = 0; index < response.getPayload().getProducts().size(); index++) {
-            for (int getDateOffering = 0; getDateOffering < response.getPayload().getProducts().get(index).getOffering().size(); getDateOffering++) {
+        List<Products> products = response.getPayload().getProducts();
+        List<Offering> offerings;
 
-                Map<String, Integer> day_Month_daysInMonth = getDay_Month_daysInMonth(response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
+        for (int index = 0; index < products.size(); index++) {
+             offerings = products.get(index).getOffering();
+            for (int getDateOffering = 0; getDateOffering < offerings.size(); getDateOffering++) {
+
+                Map<String, Integer> day_Month_daysInMonth = getDay_Month_DaysInMonth(offerings.get(getDateOffering).getOfferingDate());
 
                 /**
                  * If query paramter link date and offeringDate are from same month
                  */
                 if (day_Month_daysInMonthFromLink.get("month") == day_Month_daysInMonth.get("month")) {
                     if (!((day_Month_daysInMonth.get("day") - day_Month_daysInMonthFromLink.get("day")) <= 10)) {
-                        softAssert.fail("Product ID = " + response.getPayload().getProducts()
-                                .get(index).getOffering().get(getDateOffering)
+                        softAssert.fail("Product ID = " + offerings.get(getDateOffering)
                                 .getProductID() + " offering date is greater than 10 days = "
-                                + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering).getOfferingDate());
+                                + offerings.get(getDateOffering).getOfferingDate());
                     }
                 } else {
                     softAssert.assertThat(
                             (day_Month_daysInMonthFromLink.get("daysInMonth") - day_Month_daysInMonthFromLink.get("day")) + day_Month_daysInMonth.get("day") <= 10)
                             .as("Product ID = "
-                                    + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
+                                    + offerings.get(getDateOffering)
                                     .getProductID() + " offeringDate is greater than 10 days = "
-                                    + response.getPayload().getProducts().get(index).getOffering().get(getDateOffering)
+                                    + offerings.get(getDateOffering)
                                     .getOfferingDate())
                             .isTrue();
                 }
@@ -119,21 +124,14 @@ public class ProductsTest extends BaseTest {
      * @return
      * @throws ParseException
      */
-    public Map<String, Integer> getDay_Month_daysInMonth(String actualDateFromResponse) throws ParseException {
+    public Map<String, Integer> getDay_Month_DaysInMonth(String actualDateFromResponse) throws ParseException {
         Map<String, Integer> dateMap = new HashMap<>();
 
-        /**
-         * actualDateInWholeText =  = Sun Aug 09 00:00:00 IST 2020
-         */
-        SimpleDateFormat originalFormat = new SimpleDateFormat("yyyyMMdd");
-        Date actualDateWholeText = originalFormat.parse(actualDateFromResponse);
+        String dateSplit[] = new SimpleDateFormat("yyyy-MM-dd")
+                            .format(new SimpleDateFormat("yyyyMMdd")
+                            .parse(actualDateFromResponse))
+                            .split("-");
 
-        /**
-         * Segregate date = 2020-08-09
-         */
-        SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String segregateDate = newFormat.format(actualDateWholeText);
-        String dateSplit[] = segregateDate.split("-");
         int getYear = Integer.parseInt(dateSplit[0]);
         int getMonth = Integer.parseInt(dateSplit[1]);
         int getDay = Integer.parseInt(dateSplit[2]);
