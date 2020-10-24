@@ -19,13 +19,13 @@ import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductsTest extends BaseTest {
-    Map<String, Object> headerMap;
-    Map<String, Object> queryParam;
-    String baseURL;
-    Response response;
-    final String DAY="day";
-    final String MONTH="month";
-    final String DAYS_IN_MONTH="daysInMonth";
+    private Map<String, Object> headerMap;
+    private Map<String, Object> queryParam;
+    private Response response;
+    private String baseURL;
+    private final String DAY="day";
+    private final String MONTH="month";
+    private final String DAYS_IN_MONTH="daysInMonth";
 
     @BeforeEach
     public void setData() {
