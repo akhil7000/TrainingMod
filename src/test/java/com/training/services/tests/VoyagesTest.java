@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class VoyageCurrentSailValidateTest extends BaseTest {
+public class VoyagesTest extends BaseTest {
     Map<String, Object> headerMap;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,7 +37,7 @@ public class VoyageCurrentSailValidateTest extends BaseTest {
      *  testVoyageCurrentSailDateValidate:validating currentSailDate is in year 2020
      */
     @Test
-    public void testCurrentSailYearValidation(){
+    public void testVoyageCurrentSailDateValidate(){
         Response voyageResponse=getResponse();
         logger.info("status->"+voyageResponse.getStatus());
         logger.info("currentsailDate->"+(voyageResponse.getPayload().getCurrentSailDate())
