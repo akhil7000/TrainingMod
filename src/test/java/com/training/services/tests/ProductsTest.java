@@ -158,17 +158,21 @@ public class ProductsTest extends BaseTest {
      */
     @Test
     public void testShorexProductTypeNameValidate() {
+        String productTypeName;
+
         response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
                 .as(Response.class);
-
         Assertions.assertThat(response.getStatus()).isEqualTo(200).as("Json response status is not 200");
 
         List<Products> products = response.getPayload().getProducts();
 
         for (int index = 0; index < products.size(); index++) {
-            softAssert.assertThat((products.get(index).getProductType().getProductTypeName().equalsIgnoreCase("Shore Excursion")
+
+            productTypeName = products.get(index).getProductType().getProductTypeName();
+
+            softAssert.assertThat((productTypeName.equalsIgnoreCase("Shore Excursion")
                     ||
-                    products.get(index).getProductType().getProductTypeName().equalsIgnoreCase("Aquatics")))
+                    productTypeName.equalsIgnoreCase("Aquatics")))
                     .as("Product Id = " +
                             products.get(index).getProductID() + " product type name is not shore excursion or aquatics")
                     .isTrue();
