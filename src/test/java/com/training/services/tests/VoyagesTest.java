@@ -80,7 +80,7 @@ public class VoyagesTest extends BaseTest {
                 .as(" status is not 200");
         List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
         for (int i = 0; i < voyages.size(); i++) {
-         softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
+            softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
         }
     }
 
@@ -102,8 +102,10 @@ public class VoyagesTest extends BaseTest {
             logger.info("master1Date->" + master1SailDate + " " + "index valueM1-->" + index);
             String master2SailDate = voyages.get(index).getMasterSailDate().getMaster2SailDate();
             logger.info("master2Date->" + master2SailDate + " " + "index valueM2-->" + index);
+            softAssert.assertThat(sailDate.equals(master1SailDate)).isTrue()
+                    .as("sailDate and master1sailDate are not equal");
+            softAssert.assertThat(sailDate.equals(master2SailDate)).isTrue()
+                    .as("sailDate and master2sailDate are not equal");
         }
-        Assertions.assertThat("sailDate".equals("master1SailDate")
-                || "sailDate".equals("master2SailDate"));
     }
 }
