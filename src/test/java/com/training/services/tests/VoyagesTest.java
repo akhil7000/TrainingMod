@@ -20,9 +20,9 @@ public class VoyagesTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll
-    public  void setData() {
+    public void setData() {
         headerMap = new HashMap();
-        headerMap.put(map.get("AppKeyHeader"),map.get("AppKeyValue"));
+        headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
     }
 
@@ -34,13 +34,13 @@ public class VoyagesTest extends BaseTest {
     }
 
     /**
-     *  testVoyageCurrentSailDateValidate:validating currentSailDate is in year 2020
+     * testVoyageCurrentSailDateValidate:validating currentSailDate is in year 2020
      */
     @Test
-    public void testVoyageCurrentSailDateValidate(){
-        Response voyageResponse=getResponse();
-        logger.info("status->"+voyageResponse.getStatus());
-        logger.info("currentsailDate->"+(voyageResponse.getPayload().getCurrentSailDate())
+    public void testVoyageCurrentSailDateValidate() {
+        Response voyageResponse = getResponse();
+        logger.info("status->" + voyageResponse.getStatus());
+        logger.info("currentsailDate->" + (voyageResponse.getPayload().getCurrentSailDate())
                 .matches("2020[0,1][0-2][0-3][0-9]"));
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
@@ -54,15 +54,15 @@ public class VoyagesTest extends BaseTest {
      */
     @Test
     public void testVoyageSailDurationValidate() {
-        Response voyageResponse=getResponse();
+        Response voyageResponse = getResponse();
         logger.info("status->" + voyageResponse.getStatus());
-        logger.info("totalVoyagesCount->"+voyageResponse.getPayload().getVoyages().size());
+        logger.info("totalVoyagesCount->" + voyageResponse.getPayload().getVoyages().size());
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
         List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
         for (int i = 0; i < voyages.size(); i++) {
             int duration = Integer.parseInt(voyages.get(i).getDuration());
-            softAssert.assertThat(duration).isLessThan(10).as(voyages.get(i).getDuration()+
+            softAssert.assertThat(duration).isLessThan(10).as(voyages.get(i).getDuration() +
                     "is not less than 10");
         }
     }
@@ -74,12 +74,35 @@ public class VoyagesTest extends BaseTest {
     public void testVoyageShipCodeValidate() {
         Response voyageResponse = getResponse();
         logger.info("status->" + voyageResponse.getStatus());
-        logger.info("totalVoyagesCount->"+voyageResponse.getPayload().getVoyages().size());
+        logger.info("totalVoyagesCount->" + voyageResponse.getPayload().getVoyages().size());
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
         List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
         for (int i = 0; i < voyages.size(); i++) {
-         softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
+            softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
+        }
+    }
+
+    /**
+     * testVoyageMasterSailDateValidate:comparing sailDate with both master1sailDate and master2SailDate.
+     */
+    @Test
+    public void testVoyageMasterSailDateValidate() {
+        Response voyageResponse = getResponse();
+        logger.info("status--->" + voyageResponse.getStatus());
+        List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
+        logger.info("totalVoyagesCount-->" + voyages.size());
+        Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
+                .as(" status is not 200");
+        for (int index = 0; index < voyages.size(); index++) {
+            String sailDate = voyages.get(index).getSailDate();
+            logger.info("sailDate->" + sailDate + " " + "index valuesS1-->" + index);
+            softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
+                    .getMaster1SailDate())).isTrue()
+                    .as("sailDate and master1SailDate of voyages" + index + "are not equal");
+            softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
+                    .getMaster2SailDate())).isTrue()
+                    .as("sailDate and master2SailDate of voyages" + index + "are not equal");
         }
     }
 }
