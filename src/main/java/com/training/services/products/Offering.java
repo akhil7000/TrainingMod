@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class Offering {
-    String offeringDate;
-    String productID;
+    private String offeringDate;
+    private String productID;
 }

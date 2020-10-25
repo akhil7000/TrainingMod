@@ -6,6 +6,6 @@ import java.util.List;
 
 @Getter
 public class Payload {
-    Summary summary;
-    List<Products> products;
+    private Summary summary;
+    private List<Products> products;
 }

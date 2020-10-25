@@ -4,6 +4,6 @@ import lombok.Setter;
 
 @Setter
 public class Header {
-    String brand;
-    String channel;
+    private String brand;
+    private String channel;
 }

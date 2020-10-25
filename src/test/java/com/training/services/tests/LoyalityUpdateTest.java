@@ -16,12 +16,12 @@ import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LoyalityUpdateTest extends BaseTest {
-    Map<String, String> headerMap;
-    RequestBody requestBodyAuthenticate;
-    Response authenticationResponse;
-    String loyaltyId;
-    com.training.services.ga.loyalty.RequestBody requestBody;
-    String globalUrl;
+    private Map<String, String> headerMap;
+    private RequestBody requestBodyAuthenticate;
+    private Response authenticationResponse;
+    private String loyaltyId;
+    private com.training.services.ga.loyalty.RequestBody requestBody;
+    private String globalUrl;
 
     @BeforeEach
     public void setData() {

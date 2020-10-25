@@ -4,12 +4,12 @@ import lombok.Getter;
 
 @Getter
 public class Payload {
-    String accountId;
-    String loginStatus;
-    String uid;
-    String firstName;
-    String lastName;
-    String openIdToken;
-    String refreshToken;
-    String accessToken;
+    private String accountId;
+    private String loginStatus;
+    private String uid;
+    private String firstName;
+    private String lastName;
+    private String openIdToken;
+    private String refreshToken;
+    private String accessToken;
 }

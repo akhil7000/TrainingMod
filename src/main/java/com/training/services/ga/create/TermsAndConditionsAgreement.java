@@ -4,6 +4,6 @@ import lombok.Setter;
 
 @Setter
 public class TermsAndConditionsAgreement {
-    String acceptDateTime;
-      String  version;
+    private String acceptDateTime;
+    private String version;
 }

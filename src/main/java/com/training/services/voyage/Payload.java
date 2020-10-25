@@ -5,6 +5,6 @@ import java.util.List;
 
 @Getter
 public class Payload {
-   List<Voyages> voyages;
-   String currentSailDate;
+   private List<Voyages> voyages;
+   private String currentSailDate;
 }

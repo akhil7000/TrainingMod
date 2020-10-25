@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 public class Products {
-    String productID;
-    ProductType productType;
-    List<Offering> offering;
+    private String productID;
+    private ProductType productType;
+    private List<Offering> offering;
 }

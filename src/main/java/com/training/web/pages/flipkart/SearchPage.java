@@ -17,18 +17,19 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class SearchPage {
 
-    ArrayList<Integer> a1;
-    ArrayList<Integer> a2;
-    public SelenideElement counting_page_wait = $("._2zN0mv");
-    ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
-    public SelenideElement sort_shoes_wait = $x("//div[contains(text(),'Newest First')]");
-    ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
-    String pageNoElement = "//a[@class='_2Xp0TH'][contains(text(),'%s')]";
-    String sortShoeElement = "//div[@class='_3ywJNQ']/div[%s]";
-    String getTextFirstShoe = "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
-    String clickShoeFromList = "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
-    String getPriceOfshoeFromList = "//div/div/div/div/div/div[2]/div[1]/div[%s]/div[1]/div[1]/a[2]/div[1]/div[1]";
+    private ArrayList<Integer> a1;
+    private ArrayList<Integer> a2;
+    private SelenideElement counting_page_wait = $("._2zN0mv");
+    private ElementsCollection priceList = $$x("//div[@class='_1vC4OE']");
+    private SelenideElement sort_shoes_wait = $x("//div[contains(text(),'Newest First')]");
+    private ElementsCollection sortingfilter = $$x("//div[@class='_3ywJNQ']/div");
+    private String pageNoElement = "//a[@class='_2Xp0TH'][contains(text(),'%s')]";
+    private String sortShoeElement = "//div[@class='_3ywJNQ']/div[%s]";
+    private String getTextFirstShoe = "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
+    private String clickShoeFromList = "(//div[@class='_1vC4OE'])[%s]/parent::div/parent::a/preceding-sibling::a";
+    private String getPriceOfshoeFromList = "//div/div/div/div/div/div[2]/div[1]/div[%s]/div[1]/div[1]/a[2]/div[1]/div[1]";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public SearchPage selectPageNumber(int no) {
         $x(String.format(pageNoElement, no)).shouldHave(Condition.visible).click();
         return new SearchPage();

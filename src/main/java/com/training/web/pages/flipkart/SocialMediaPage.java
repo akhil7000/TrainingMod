@@ -5,7 +5,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.WebDriverRunner.*;
 
 public class SocialMediaPage extends BasePage {
-    String placeholdersXpath="//input[@placeholder='%s']";
+    private String placeholdersXpath="//input[@placeholder='%s']";
 
     public String getSocialMediaUrl(String placeholdersOfSocialSites) {
         isDisplayedWait($x(String.format(placeholdersXpath,placeholdersOfSocialSites)));

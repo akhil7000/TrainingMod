@@ -16,7 +16,7 @@ import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class VoyagesTest extends BaseTest {
-    Map<String, Object> headerMap;
+    private Map<String, Object> headerMap;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll

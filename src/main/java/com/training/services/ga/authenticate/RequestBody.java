@@ -4,6 +4,6 @@ import lombok.Setter;
 
 @Setter
 public class RequestBody {
-    String uid;
-    String password;
+    private String uid;
+    private String password;
 }

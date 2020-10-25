@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GAAccountTest extends BaseTest {
-    Map<String, Object> headerMap;
-    RequestBody requestBodyAuthenticate;
+    private Map<String, Object> headerMap;
+    private RequestBody requestBodyAuthenticate;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @BeforeEach

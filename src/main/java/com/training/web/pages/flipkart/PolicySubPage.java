@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PolicySubPage extends BasePage {
-    String policyPageHeader = "//*[text()='%s']";
-    public SelenideElement backToTopButton = $(".kxUxS5._2eElCl span");
-    public SelenideElement backToTopButtonDisappear = $x("//div[@class='kxUxS5']");
-    public SelenideElement footer = $(".HJlsB9");
-    public SelenideElement getMinimumYaxisOfPage = $x("//div[@class='_3ybBIU']");
+    private String policyPageHeader = "//*[text()='%s']";
+    private SelenideElement backToTopButton = $(".kxUxS5._2eElCl span");
+    private SelenideElement backToTopButtonDisappear = $x("//div[@class='kxUxS5']");
+    private SelenideElement footer = $(".HJlsB9");
+    private SelenideElement getMinimumYaxisOfPage = $x("//div[@class='_3ybBIU']");
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
