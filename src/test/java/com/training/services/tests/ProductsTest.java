@@ -166,13 +166,12 @@ public class ProductsTest extends BaseTest {
         List<Products> products = response.getPayload().getProducts();
 
         for (int index = 0; index < products.size(); index++) {
-            if (!((products.get(index).getProductType().getProductTypeName().equalsIgnoreCase("Shore Excursion"))
-                  ||
-               (products.get(index).getProductType().getProductTypeName().equalsIgnoreCase("Aquatics"))))
-            {
-                softAssert.fail("Product Id = " +
-                        products.get(index).getProductID() + " product type name is not shore excursion or aquatics");
-            }
+            softAssert.assertThat((products.get(index).getProductType().getProductTypeName().equalsIgnoreCase("Shore Excursion")
+                    ||
+                    products.get(index).getProductType().getProductTypeName().equalsIgnoreCase("Aquatics")))
+                    .as("Product Id = " +
+                            products.get(index).getProductID() + " product type name is not shore excursion or aquatics")
+                    .isTrue();
         }
     }
 }
