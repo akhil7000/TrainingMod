@@ -23,9 +23,9 @@ public class ProductsTest extends BaseTest {
     private Map<String, Object> queryParam;
     private Response response;
     private String baseURL;
-    private final String DAY="day";
-    private final String MONTH="month";
-    private final String DAYS_IN_MONTH="daysInMonth";
+    private final String DAY = "day";
+    private final String MONTH = "month";
+    private final String DAYS_IN_MONTH = "daysInMonth";
 
     @BeforeEach
     public void setData() {
@@ -101,11 +101,11 @@ public class ProductsTest extends BaseTest {
                  * If query paramter link date and offeringDate are from same month
                  */
                 if (dayMonthDaysInMonthFromLink.get(MONTH) == dayMonthDaysInMonth.get(MONTH)) {
-                        softAssert.assertThat(dayMonthDaysInMonth.get(DAY) - dayMonthDaysInMonthFromLink.get(DAY))
-                                .as("Product ID = " + offerings.get(getDateOffering)
-                                        .getProductID() + " offering date is greater than 10 days = "
-                                        + offerings.get(getDateOffering).getOfferingDate())
-                                .isLessThanOrEqualTo(10);
+                    softAssert.assertThat(dayMonthDaysInMonth.get(DAY) - dayMonthDaysInMonthFromLink.get(DAY))
+                            .as("Product ID = " + offerings.get(getDateOffering)
+                                    .getProductID() + " offering date is greater than 10 days = "
+                                    + offerings.get(getDateOffering).getOfferingDate())
+                            .isLessThanOrEqualTo(10);
                 } else {
                     softAssert.assertThat(
                             (dayMonthDaysInMonthFromLink.get(DAYS_IN_MONTH) - dayMonthDaysInMonthFromLink.get(DAY)) + dayMonthDaysInMonth.get(DAY))
@@ -120,6 +120,7 @@ public class ProductsTest extends BaseTest {
         }
     }
 
+
     /**
      * Returning segregate day, month and number of days in a month
      *
@@ -131,9 +132,9 @@ public class ProductsTest extends BaseTest {
         Map<String, Integer> dateMap = new HashMap<>();
 
         String dateSplit[] = new SimpleDateFormat("yyyy-MM-dd")
-                            .format(new SimpleDateFormat("yyyyMMdd")
-                            .parse(actualDateFromResponse))
-                            .split("-");
+                .format(new SimpleDateFormat("yyyyMMdd")
+                        .parse(actualDateFromResponse))
+                .split("-");
 
         int getYear = Integer.parseInt(dateSplit[0]);
         int getMonth = Integer.parseInt(dateSplit[1]);
@@ -150,5 +151,31 @@ public class ProductsTest extends BaseTest {
         dateMap.put(DAYS_IN_MONTH, getDaysInMonth);
 
         return dateMap;
+    }
+
+    /**
+     * Checking if inside product type, product type name is shore excursion or aquatics.
+     */
+    @Test
+    public void testShorexProductTypeNameValidate() {
+        String productTypeName;
+
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
+                .as(Response.class);
+        Assertions.assertThat(response.getStatus()).isEqualTo(200).as("Json response status is not 200");
+
+        List<Products> products = response.getPayload().getProducts();
+
+        for (int index = 0; index < products.size(); index++) {
+
+            productTypeName = products.get(index).getProductType().getProductTypeName();
+
+            softAssert.assertThat((productTypeName.equalsIgnoreCase("Shore Excursion")
+                    ||
+                    productTypeName.equalsIgnoreCase("Aquatics")))
+                    .as("Product Id = " +
+                            products.get(index).getProductID() + " product type name is not shore excursion or aquatics")
+                    .isTrue();
+        }
     }
 }
