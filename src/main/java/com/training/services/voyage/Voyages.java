@@ -7,4 +7,5 @@ public class Voyages {
    String sailDate;
    String duration;
    String shipCode;
+   MasterSailDate masterSailDate;
 }
