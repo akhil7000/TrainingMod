@@ -1,6 +1,7 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
+import com.training.services.voyage.MasterSailDate;
 import com.training.services.voyage.Response;
 import com.training.services.voyage.Voyages;
 import com.training.utilities.RestEngine;
@@ -81,5 +82,28 @@ public class VoyagesTest extends BaseTest {
         for (int i = 0; i < voyages.size(); i++) {
          softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
         }
+    }
+
+    /**
+     * testVoyageMasterSailDateValidate:comparing sailDate with both master1sailDate and master2SailDate.
+     */
+    @Test
+    public void testVoyageMasterSailDateValidate() {
+        Response voyageResponse = getResponse();
+        logger.info("status--->" + voyageResponse.getStatus());
+        List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
+        logger.info("totalVoyagesCount-->" + voyages.size());
+        Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
+                .as(" status is not 200");
+        for (int index = 0; index < voyages.size(); index++) {
+            String sailDate = voyages.get(index).getSailDate();
+            logger.info("sailDate->" + sailDate + " " + "index valuesS1-->" + index);
+            String master1SailDate = voyages.get(index).getMasterSailDate().getMaster1SailDate();
+            logger.info("master1Date->" + master1SailDate + " " + "index valueM1-->" + index);
+            String master2SailDate = voyages.get(index).getMasterSailDate().getMaster2SailDate();
+            logger.info("master2Date->" + master2SailDate + " " + "index valueM2-->" + index);
+        }
+        Assertions.assertThat("sailDate".equals("master1SailDate")
+                || "sailDate".equals("master2SailDate"));
     }
 }
