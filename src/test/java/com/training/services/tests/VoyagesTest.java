@@ -99,10 +99,10 @@ public class VoyagesTest extends BaseTest {
             logger.info("sailDate->" + sailDate + " " + "index valuesS1-->" + index);
             softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
                     .getMaster1SailDate())).isTrue()
-                    .as("sailDate and master1sailDate are not equal");
+                    .as("sailDate and master1SailDate of voyages" + index + "are not equal");
             softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
                     .getMaster2SailDate())).isTrue()
-                    .as("sailDate and master2sailDate are not equal");
+                    .as("sailDate and master2SailDate of voyages" + index + "are not equal");
         }
     }
 }
