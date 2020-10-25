@@ -6,9 +6,9 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ContactPage {
 
-    public SelenideElement postalAddressLink = $x("//span[@class='_1iY293']//span");
-    public SelenideElement corporateAddress = $x("//div[@class='row QTKmAd']//div[1]//div[1]");
-    public SelenideElement postalAddress = $x("//div[@class='_2JHRHf']//div[2]//div[1]");
+    private SelenideElement postalAddressLink = $x("//span[@class='_1iY293']//span");
+    private SelenideElement corporateAddress = $x("//div[@class='row QTKmAd']//div[1]//div[1]");
+    private SelenideElement postalAddress = $x("//div[@class='_2JHRHf']//div[2]//div[1]");
 
     public ContactPage clickPostalAddress() {
         postalAddressLink.click();

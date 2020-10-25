@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class Payload {
-    String accountStatus;
-    boolean isUid;
+    private String accountStatus;
+    private boolean isUid;
 }

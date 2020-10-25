@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class Response {
-     String status;
-     Payload payload;
+     private String status;
+     private Payload payload;
 }

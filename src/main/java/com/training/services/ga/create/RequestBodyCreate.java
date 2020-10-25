@@ -6,17 +6,17 @@ import java.util.List;
 
 @Setter
 public class RequestBodyCreate {
-    String birthdate;
-    String email;
-    String firstName;
-    String lastName;
-    String marketingCountry;
-    String password;
-    PrivacyPolicyAgreement privacyPolicyAgreement;
-    List<SecurityQuestions>  securityQuestions;
-    SecurityQuestions questions;
-    TermsAndConditionsAgreement termsAndConditionsAgreement;
-    String uidType;
+    private String birthdate;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String marketingCountry;
+    private String password;
+    private PrivacyPolicyAgreement privacyPolicyAgreement;
+    private List<SecurityQuestions>  securityQuestions;
+    private SecurityQuestions questions;
+    private TermsAndConditionsAgreement termsAndConditionsAgreement;
+    private String uidType;
 
     public RequestBodyCreate(){
         privacyPolicyAgreement=new PrivacyPolicyAgreement();

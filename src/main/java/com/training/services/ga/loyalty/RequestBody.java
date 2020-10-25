@@ -4,11 +4,11 @@ import lombok.Setter;
 
 @Setter
 public class RequestBody {
-    String vdsId;
-    String lastName;
-    String loyaltyId;
-    String birthdate;
-    com.training.services.ga.loyalty.Header header;
+    private String vdsId;
+    private String lastName;
+    private String loyaltyId;
+    private String birthdate;
+    private com.training.services.ga.loyalty.Header header;
 
     public RequestBody(){
         header = new Header();

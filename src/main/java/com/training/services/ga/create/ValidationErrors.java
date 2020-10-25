@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ValidationErrors {
-    String element;
-    String error;
-    String invalidValue;
+    private String element;
+    private String error;
+    private String invalidValue;
 }

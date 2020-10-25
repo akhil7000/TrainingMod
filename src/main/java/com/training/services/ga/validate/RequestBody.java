@@ -4,5 +4,5 @@ import lombok.Setter;
 
 @Setter
 public class RequestBody {
-    String email;
+    private String email;
 }

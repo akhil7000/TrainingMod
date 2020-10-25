@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Voyages {
-   String sailDate;
-   String duration;
-   String shipCode;
+   private String sailDate;
+   private String duration;
+   private String shipCode;
 }

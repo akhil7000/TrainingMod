@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class ProductType {
-    String productType;
-    String productTypeName;
+    private String productType;
+    private String productTypeName;
 }

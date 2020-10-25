@@ -8,10 +8,10 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ProductPage extends BasePage{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public SelenideElement clickShoeSize = $x("//li[@id='swatch-0-size']/a");
-    public SelenideElement  addToCart = $x("//div[@class='_1k1QCg']/ul/li/button");
-    String headersXpath="//*[@id='container']/descendant::div[text()='%s']";
-    public SelenideElement bottomElement =$x("//span[text()='Flipkart.com']");
+    private SelenideElement clickShoeSize = $x("//li[@id='swatch-0-size']/a");
+    private SelenideElement  addToCart = $x("//div[@class='_1k1QCg']/ul/li/button");
+    private String headersXpath="//*[@id='container']/descendant::div[text()='%s']";
+    private SelenideElement bottomElement =$x("//span[text()='Flipkart.com']");
 
     public ProductPage clickShoeSize(){
         clickShoeSize.click();

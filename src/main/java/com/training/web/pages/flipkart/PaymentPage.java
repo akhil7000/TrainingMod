@@ -10,12 +10,12 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class PaymentPage {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public SelenideElement paymentHeader = $x("//h2[@id='payments']");
-    ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
-    String bank_xpath = "//table[3]/tbody/tr[%s]/td[1]";
-    String tenure_xpath = "//table[3]/tbody/tr[%s]/td[2]";
-    public SelenideElement  columnNameBanksForAddingDelay=$x("//th/child::strong[text()='Banks']");
-    ElementsCollection Rows=$$x("//table[3]/tbody/tr");
+    private SelenideElement paymentHeader = $x("//h2[@id='payments']");
+    private ElementsCollection questions = $$x("//h2[contains(text(),'?')]");
+    private String bank_xpath = "//table[3]/tbody/tr[%s]/td[1]";
+    private String tenure_xpath = "//table[3]/tbody/tr[%s]/td[2]";
+    private SelenideElement  columnNameBanksForAddingDelay=$x("//th/child::strong[text()='Banks']");
+    private ElementsCollection Rows=$$x("//table[3]/tbody/tr");
 
     public String getCurrentPageHeader(){
         return paymentHeader.shouldBe(Condition.visible).getText();

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Errors {
-    String internalMessage;
-    String errorCode;
-    String id;
+    private String internalMessage;
+    private String errorCode;
+    private String id;
 }

@@ -17,15 +17,15 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class HomePage extends BasePage {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public SelenideElement popUpCross = $x("//div[@class='mCRfo9']/div/div/button");
-    public static SelenideElement setShoes = $x("//form/div/div/input");
-    public static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
-    public SelenideElement paymentLink = $x("//a[contains(text(),'Payments')]");
-    String socialLinkXpath = "//div[text()='SOCIAL']/following-sibling::a[text()='%s']";
-    String clickHomePagePolicy = "(//div[@class='_3qd5C5'])[3]/a[text()='%s']";
-    ElementsCollection mailUsAddress = $$x("//div[@class='_38DIp6']//p");
-    ElementsCollection registeredOfficeAddress = $$x("//div[@class='m6ABEi']//p");
-    public SelenideElement contactUs = $x("//a[contains(normalize-space(),'Contact Us')]");
+    private SelenideElement popUpCross = $x("//div[@class='mCRfo9']/div/div/button");
+    private static SelenideElement setShoes = $x("//form/div/div/input");
+    private static SelenideElement searchShoes = $x("//button[@class='vh79eN']");
+    private SelenideElement paymentLink = $x("//a[contains(text(),'Payments')]");
+    private String socialLinkXpath = "//div[text()='SOCIAL']/following-sibling::a[text()='%s']";
+    private String clickHomePagePolicy = "(//div[@class='_3qd5C5'])[3]/a[text()='%s']";
+    private ElementsCollection mailUsAddress = $$x("//div[@class='_38DIp6']//p");
+    private ElementsCollection registeredOfficeAddress = $$x("//div[@class='m6ABEi']//p");
+    private SelenideElement contactUs = $x("//a[contains(normalize-space(),'Contact Us')]");
 
 
     public HomePage popUpCancel() {

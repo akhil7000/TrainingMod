@@ -6,8 +6,8 @@ import java.util.List;
 
 @Getter
 public class Response {
-    int status;
-    List<Errors> errors;
-    Error error;
-    Payload payload;
+    private int status;
+    private List<Errors> errors;
+    private Error error;
+    private Payload payload;
 }

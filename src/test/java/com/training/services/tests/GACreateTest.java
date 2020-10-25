@@ -14,12 +14,12 @@ import static com.training.utilities.UniqueMailId.getUniqueMailId;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GACreateTest extends BaseTest {
-    RequestBodyCreate requestBodyCreate;
-    Map<String, Object> headerMap;
+    private RequestBodyCreate requestBodyCreate;
+    private Map<String, Object> headerMap;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    String uid=getUniqueMailId();
-    String firstName="Audrey";
-    String lastName="Poole";
+    private String uid=getUniqueMailId();
+    private String firstName="Audrey";
+    private String lastName="Poole";
 
     @BeforeEach
     public  void setData() {

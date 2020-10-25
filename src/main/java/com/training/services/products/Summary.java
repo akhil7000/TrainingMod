@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class Summary {
-    String totalHits;
+    private String totalHits;
 }

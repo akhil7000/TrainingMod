@@ -5,6 +5,7 @@ import com.training.base.BaseTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.closeWindow;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FlipkartTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
