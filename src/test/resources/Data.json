@@ -21,5 +21,6 @@
   "shipIdParam": "sailingID",
   "sailingIdParamValue": "AL20200809",
   "categoryParam": "categoryID",
-  "categoryParamValue": "shorex"
+  "categoryParamValue": "shorex",
+  "rccl_url": "https://www.stage2.royalcaribbean.com"
 }

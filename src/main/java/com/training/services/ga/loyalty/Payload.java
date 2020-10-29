@@ -7,4 +7,5 @@ public class Payload {
     private String loyaltyId;
     private String loyaltyTier;
     private String relationshipPoints;
+    private String individualPoints;
 }
