@@ -7,6 +7,7 @@ import com.training.services.ga.create.RequestBodyCreate;
 import com.training.utilities.RestEngine;
 import com.training.web.pages.rccl.HomePage;
 import com.training.web.pages.rccl.LoginPage;
+import com.training.web.pages.rccl.ProfilePage;
 import org.junit.jupiter.api.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,23 +65,27 @@ public class RCCLTest extends BaseTest {
      *testUserUIValidate():Performing validation of elements using combination of web and Services
      */
     @Test
-    public void  testUserUIValidate() throws InterruptedException {
+    public void  testUserUIValidate(){
         Response responseGACreate= getResponse(requestBodyCreate);
         logger.info("status"+responseGACreate.getStatus());
         Assertions.assertEquals(responseGACreate.getStatus(),"200");
         String uid=responseGACreate.getPayload().getUid();
         logger.info(uid);
-        String firstName=responseGACreate.getPayload().getFirstName();
-        String lastName=responseGACreate.getPayload().getLastName();
+        String responseFirstName=responseGACreate.getPayload().getFirstName();
+        String responseLastName=responseGACreate.getPayload().getLastName();
         Selenide.open(map.get("RcclUrl"));
-        boolean firstNameStatus= new LoginPage().email(uid).password().signIn().popUpTermsAndCondition()
-                .popUpPrivacyPolicy().getName(firstName);
-        logger.info(firstNameStatus+"****first name status*****");
-        Assertions.assertTrue(firstNameStatus);
-        String fullName=firstName+" "+lastName;
-        logger.info(fullName);
-        boolean fullNameStatus=new HomePage().cruiseButton().planNewCruiseButton().APTab().
-                profileTab().getFullName(fullName);
-        logger.info(fullNameStatus+"***FullName status*****");
+        new LoginPage().email(uid).password().signIn();
+        HomePage homePage=new HomePage().popUpTermsAndCondition().popUpPrivacyPolicy();
+        String uiFirstName=homePage.getName();
+        logger.info(uiFirstName+"****uifirstName*****");
+        softAssert.assertThat(uiFirstName.equals(responseFirstName))
+                .as("firstName of ui and response are not equal");
+        ProfilePage profilePage=homePage.clickCruiseButton().planNewCruiseButton().apTab().profileTab();
+        String uiFullName=profilePage.getUiFullName();
+        logger.info(uiFullName+"***uiFullName*****");
+        String responseFullName=responseFirstName+" "+responseLastName;
+        logger.info(responseFullName);
+        softAssert.assertThat(uiFullName.equals(responseFullName))
+                .as("fullName of ui and response are not equal");
     }
 }

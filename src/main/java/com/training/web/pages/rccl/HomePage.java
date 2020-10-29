@@ -1,53 +1,49 @@
 package com.training.web.pages.rccl;
 
-import BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class HomePage extends BasePage {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public SelenideElement addCruiseButton= $x("//button[contains(text(),'Add a cruise')]");
+public class HomePage{
+    public SelenideElement popUpTermsandCondition = $x("//button[normalize-space(text()) = 'Accept']");
+    public SelenideElement headerName = $x("//h2[contains(text(),'audrey')]");
+    public SelenideElement popUpPrivacyPolicy= $x("//button[contains(text(),'Accept')]");
+    public SelenideElement  clickCruiseButton= $x("//button[contains(text(),'Add a cruise')]");
     public SelenideElement planNewCruiseButton= $x("//a[contains(text(),'Plan a new cruise')]");
-    public SelenideElement APTab= $x("//div[contains(text(),'AP')]");
+    public SelenideElement apTab= $x("//div[contains(text(),'AP')]");
     public SelenideElement profile= $x("//span[contains(text(),'Profile')]");
-    public SelenideElement fullName= $x("//h2[contains(text(),'Audrey Poole')]");
 
+    public  HomePage popUpTermsAndCondition() {
+        popUpTermsandCondition.click();
+        return this;
+    }
 
-    public HomePage cruiseButton() {
-        if (isDisplayedWait(addCruiseButton)) {
-            addCruiseButton.shouldHave(Condition.visible);
-        }
+    public  HomePage popUpPrivacyPolicy() {
+        popUpPrivacyPolicy.click();
+        return this;
+    }
+
+    public String getName(){
+        return headerName.getText();
+    }
+
+    public HomePage clickCruiseButton() {
+        clickCruiseButton.shouldHave(Condition.visible);
         return this;
     }
 
     public HomePage planNewCruiseButton() {
-        if (isDisplayedWait(planNewCruiseButton)) {
-            planNewCruiseButton.shouldHave(Condition.visible);
-        }
+        planNewCruiseButton.shouldHave(Condition.visible);
         return this;
     }
 
-    public HomePage APTab() {
-        APTab.click();
+    public HomePage apTab() {
+       apTab.click();
         return this;
     }
 
-    public HomePage profileTab() {
+    public ProfilePage profileTab() {
         profile.click();
-        return this;
-    }
-
-    public boolean getFullName(String ResponseFullName){
-        boolean isTrue = false;
-        String uiFullName=fullName.getText();
-        logger.info(ResponseFullName+"**********response**********");
-        logger.info(uiFullName+"************ui********");
-        if(uiFullName.equalsIgnoreCase(ResponseFullName)){
-            isTrue = true;
-        }
-        return isTrue;
+        return new ProfilePage();
     }
 }
