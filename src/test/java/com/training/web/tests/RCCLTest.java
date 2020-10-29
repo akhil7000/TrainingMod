@@ -15,13 +15,10 @@ import org.slf4j.LoggerFactory;
 import com.training.services.ga.create.Response;
 import static com.training.utilities.UniqueMailId.getUniqueMailId;
 
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RCCLTest extends BaseTest {
     Map<String, Object> headerMap;
     RequestBodyCreate requestBodyCreate;
-
-    HomePage homePage;
     String uid=getUniqueMailId();
     String firstName="Audrey";
     String lastName="Poole";
@@ -54,8 +51,8 @@ public class RCCLTest extends BaseTest {
 
     /**
      *
-     * @param
-     * @return :
+     * @param: get Body in pojo format
+     * @return :Response
      */
     public Response getResponse(RequestBodyCreate requestBodyCreate ){
         return  new RestEngine().getResponsePost(map.get("URI")
@@ -64,7 +61,7 @@ public class RCCLTest extends BaseTest {
     }
 
     /**
-     *testUserUIValidate():
+     *testUserUIValidate():Performing validation of elements using combination of web and Services
      */
     @Test
     public void  testUserUIValidate() throws InterruptedException {
@@ -76,17 +73,14 @@ public class RCCLTest extends BaseTest {
         String firstName=responseGACreate.getPayload().getFirstName();
         String lastName=responseGACreate.getPayload().getLastName();
         Selenide.open(map.get("RcclUrl"));
-        LoginPage rcclLoginPage=new LoginPage();
-        rcclLoginPage.email(uid);
-        rcclLoginPage.password();
-        rcclLoginPage.signIn();
-        rcclLoginPage.popUpAccept();
-      //  rcclLoginPage.getName(firstName);
-       // boolean test= new LoginPage().email(uid).password().signIn().popUpAccept().getName(firstName);
-//        boolean test=rcclLoginPage.getName(firstName);
-//        System.out.print(test+"*********");
-//        Assertions.assertTrue(test);
-        Thread.sleep(4000);
-//        new HomePage().cruiseButton().planNewCruiseButton().APTab();
+        boolean firstNameStatus= new LoginPage().email(uid).password().signIn().popUpTermsAndCondition()
+                .popUpPrivacyPolicy().getName(firstName);
+        logger.info(firstNameStatus+"****first name status*****");
+        Assertions.assertTrue(firstNameStatus);
+        String fullName=firstName+" "+lastName;
+        logger.info(fullName);
+        boolean fullNameStatus=new HomePage().cruiseButton().planNewCruiseButton().APTab().
+                profileTab().getFullName(fullName);
+        logger.info(fullNameStatus+"***FullName status*****");
     }
 }
