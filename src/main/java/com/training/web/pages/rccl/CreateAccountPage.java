@@ -4,6 +4,9 @@ import BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class CreateAccountPage extends BasePage {
@@ -40,37 +43,8 @@ public class CreateAccountPage extends BasePage {
         return new CreateAccountPage();
     }
 
-    public CreateAccountPage clickDateOfMonthDropDown() {
-        dateOfMonthDropDown.click();
-        return new CreateAccountPage();
-    }
-
-    public CreateAccountPage setDateOfBirthMonth() {
-        dateOfBirthMonth.click();
-        return new CreateAccountPage();
-    }
-
-    public CreateAccountPage clickDateOfDayDropDown() {
-        dateOfDayDropDown.click();
-        return new CreateAccountPage();
-    }
-
-    public CreateAccountPage setDateOfBirthDay() {
-        dateOfBirthDay.click();
-        return new CreateAccountPage();
-    }
-
-    public CreateAccountPage setDateOfYear(String year) {
-        dateOfBirthYear.sendKeys(year);
-        return new CreateAccountPage();
-    }
-
-    public CreateAccountPage clickCountryDropDown() {
-        countryDropDown.click();
-        return new CreateAccountPage();
-    }
-
     public CreateAccountPage selectCountry() {
+        countryDropDown.click();
         selectCountry.click();
         return new CreateAccountPage();
     }
@@ -86,12 +60,8 @@ public class CreateAccountPage extends BasePage {
         return new CreateAccountPage();
     }
 
-    public CreateAccountPage clickQuestionDropDown() {
-        questionDropDown.click();
-        return new CreateAccountPage();
-    }
-
     public CreateAccountPage setQuestion() {
+        questionDropDown.click();
         selectQuestion.click();
         return new CreateAccountPage();
     }
@@ -103,6 +73,26 @@ public class CreateAccountPage extends BasePage {
 
     public CreateAccountPage clickCheckBox() {
         checkout.click();
+        return new CreateAccountPage();
+    }
+
+    public CreateAccountPage setDateofBirth(String dateOfBirth) {
+        String dateSplit[] = new String[0];
+        try {
+            dateSplit = new SimpleDateFormat("yyyy-MM-dd")
+                    .format(new SimpleDateFormat("yyyyMMdd")
+                            .parse(dateOfBirth)).split("-");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        dateOfMonthDropDown.click();
+        dateOfBirthMonth.click();
+        dateOfDayDropDown.click();
+        dateOfBirthDay.click();
+
+        dateOfBirthYear.sendKeys(dateSplit[0]);
+
         return new CreateAccountPage();
     }
 

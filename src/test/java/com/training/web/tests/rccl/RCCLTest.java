@@ -6,7 +6,7 @@ import com.training.base.BaseTest;
 import com.training.services.ga.authenticate.RequestBody;
 import com.training.services.ga.authenticate.Response;
 import com.training.utilities.RestEngine;
-import com.training.web.pages.rccl.SigInPage;
+import com.training.web.pages.rccl.SignInPage;
 import com.training.web.pages.rccl.UserAccountPage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,22 +23,26 @@ public class RCCLTest extends BaseTest {
     private com.training.services.ga.loyalty.RequestBody requestBody;
     private String userPassword = "M212adasdasjdklj!";
     private String userEmail = getUniqueMailId();
-    private String dateOfYear = "1962";
     private String answer = "NewYork";
+    String dateOfBirth = "19620802";
 
+    /**
+     * Creating user from UI, and giving loyalty credit from API, and checking in UI if
+     * user gets the loyalty credit
+     */
     @Test
-    public void testUserLoyality(){
-       Selenide.open(map.get("rccl_url") + "/account/");
+    public void testUserLoyality() {
+        Selenide.open(map.get("rccl_url"));
 
         /**
          * Creating User account through UI.
          */
-        UserAccountPage userAccountPage = new SigInPage().clickLink().isPrivacyPolicyVisible()
-                .setFirstName("Audrey").setLastName("Poole").clickDateOfMonthDropDown()
-                .setDateOfBirthMonth().clickDateOfDayDropDown().setDateOfBirthDay()
-                .setDateOfYear(dateOfYear).clickCountryDropDown().selectCountry()
-                .setEmail(userEmail).setPassword(userPassword).clickQuestionDropDown()
-                .setQuestion().setAnswer(answer).clickCheckBox().clickDoneButton();
+        UserAccountPage userAccountPage = new SignInPage().clickLink().isPrivacyPolicyVisible()
+                .setFirstName("Audrey").setLastName("Poole")
+                .setDateofBirth(dateOfBirth).selectCountry()
+                .setEmail(userEmail).setPassword(userPassword)
+                .setQuestion().setAnswer(answer).clickCheckBox()
+                .clickDoneButton();
 
         /**
          * Now we are checking if the user we created from UI is present in Database or not, through api and,
@@ -58,7 +62,7 @@ public class RCCLTest extends BaseTest {
                         .as(Response.class);
 
         /**
-         * Giving loyality, putting access token and account ID, and getting response
+         * Giving loyalty, putting access token and account ID, and getting response
          */
         headerMap.put(map.get("accessToken"), authenticationResponse.getPayload().getAccessToken());
 
@@ -80,21 +84,20 @@ public class RCCLTest extends BaseTest {
         /**
          * Now comparing the API response and UI data
          */
-        String getLoyalityIdFromUI = userAccountPage.isUserPageLastElementDisplyed()
-                .refreshPage()
-                .isUserPageLastElementDisplyed()
-                .getLoyalityIdFromUI();
+        userAccountPage.isUserPageLastElementDisplyed();
 
-        String getLoyalityTierFromUI = userAccountPage.getLoyalityTierFromUI();
-        String getRelationshipPointsFromUI = userAccountPage.getRelationshipPointsFromUI();
+        refreshPage();
 
-        softAssert.assertThat(loyaltyResponse.getPayload().getLoyaltyId()).isEqualTo(getLoyalityIdFromUI)
+        softAssert.assertThat(loyaltyResponse.getPayload().getLoyaltyId())
+                .isEqualTo(userAccountPage.isUserPageLastElementDisplyed().getLoyalityId())
                 .as("Loyalty id is not matching with API response and UI");
 
-        softAssert.assertThat(loyaltyResponse.getPayload().getLoyaltyTier()).isEqualTo(getLoyalityTierFromUI)
+        softAssert.assertThat(loyaltyResponse.getPayload().getLoyaltyTier())
+                .isEqualTo(userAccountPage.getLoyalityTier())
                 .as("Guest loyalty tier is not matching with API response and UI");
 
-        softAssert.assertThat(loyaltyResponse.getPayload().getIndividualPoints()).isEqualTo(getRelationshipPointsFromUI)
+        softAssert.assertThat(loyaltyResponse.getPayload().getIndividualPoints())
+                .isEqualTo(userAccountPage.getRelationshipPoints())
                 .as("Individual points is not matching with API response and UI");
     }
 }

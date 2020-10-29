@@ -1,7 +1,6 @@
 package com.training.web.pages.rccl;
 
 import BasePage.BasePage;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -13,24 +12,19 @@ public class UserAccountPage extends BasePage {
     private SelenideElement relationshipPoints = $x("(//ul[@class='loyalty-meter']/li/a/span)[3]");
 
     public UserAccountPage isUserPageLastElementDisplyed() {
-         isDisplayedWait(lastELementDisplayed);
+        isDisplayedWait(lastELementDisplayed);
         return this;
     }
 
-    public UserAccountPage refreshPage() {
-        Selenide.refresh();
-        return this;
-    }
-
-    public String getLoyalityIdFromUI(){
+    public String getLoyalityId() {
         return loyalityId.getText().trim();
     }
 
-    public String getLoyalityTierFromUI(){
+    public String getLoyalityTier() {
         return loyalityTier.getText().trim();
     }
 
-    public String getRelationshipPointsFromUI(){
+    public String getRelationshipPoints() {
         return relationshipPoints.getText().trim();
     }
 }
