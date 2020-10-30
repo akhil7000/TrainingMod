@@ -23,7 +23,7 @@ public class RCCLTest extends BaseTest {
     private Response authenticationResponse;
     private com.training.services.ga.loyalty.RequestBody requestBodyLoyalty;
     private String userPassword = "M212adasdasjdklj!";
-    private String userEmail = getUniqueMailId();
+    private String userEmail;
     private String dateOfBirth = "19620802";
     private String lastName = "Poole";
     private DashboardPage userAccountPage;
@@ -33,6 +33,7 @@ public class RCCLTest extends BaseTest {
      */
     @BeforeEach
     public void setData() {
+        userEmail = getUniqueMailId();
         Selenide.open(map.get("rccl_url"));
 
         userAccountPage = new SignInPage()
