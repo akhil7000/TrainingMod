@@ -6,21 +6,21 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class LoginPage {
     public SelenideElement emailIdField = $x("//input[@id='mat-input-0']");
-    public SelenideElement passwordField  = $x("//input[@id='mat-input-1']");
+    public SelenideElement passwordField = $x("//input[@id='mat-input-1']");
     public SelenideElement signInButton = $x("//button[contains(text(),'Sign in')]");
 
-    public LoginPage email(String uid) {
+    public LoginPage setEmail(String uid) {
         emailIdField.sendKeys(uid);
         return this;
     }
 
-    public LoginPage password() {
+    public LoginPage setPassword() {
         passwordField.sendKeys("Password1");
         return this;
     }
 
-    public LoginPage signIn() {
+    public HomePage clickSignIn() {
         signInButton.shouldHave(Condition.visible).click();
-        return this;
+        return new HomePage();
     }
 }

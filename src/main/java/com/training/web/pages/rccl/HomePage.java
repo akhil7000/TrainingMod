@@ -8,17 +8,17 @@ public class HomePage{
     public SelenideElement popUpTermsandCondition = $x("//button[normalize-space(text()) = 'Accept']");
     public SelenideElement headerName = $x("//h2[contains(text(),'audrey')]");
     public SelenideElement popUpPrivacyPolicy= $x("//button[contains(text(),'Accept')]");
-    public SelenideElement  clickCruiseButton= $x("//button[contains(text(),'Add a cruise')]");
+    public SelenideElement cruiseButton= $x("//button[contains(text(),'Add a cruise')]");
     public SelenideElement planNewCruiseButton= $x("//a[contains(text(),'Plan a new cruise')]");
-    public SelenideElement apTab= $x("//div[contains(text(),'AP')]");
+    public SelenideElement apDropDown= $x("//div[contains(text(),'AP')]");
     public SelenideElement profile= $x("//span[contains(text(),'Profile')]");
 
-    public  HomePage popUpTermsAndCondition() {
+    public  HomePage clickPopUpTermsAndCondition() {
         popUpTermsandCondition.click();
         return this;
     }
 
-    public  HomePage popUpPrivacyPolicy() {
+    public  HomePage clickPopUpPrivacyPolicy() {
         popUpPrivacyPolicy.click();
         return this;
     }
@@ -27,22 +27,22 @@ public class HomePage{
         return headerName.getText();
     }
 
-    public HomePage clickCruiseButton() {
-        clickCruiseButton.shouldHave(Condition.visible);
+    public HomePage isCruiseButton() {
+        cruiseButton.shouldHave(Condition.visible);
         return this;
     }
 
-    public HomePage planNewCruiseButton() {
+    public HomePage isPlanNewCruiseButton() {
         planNewCruiseButton.shouldHave(Condition.visible);
         return this;
     }
 
-    public HomePage apTab() {
-       apTab.click();
+    public HomePage clickAPDropDown() {
+        apDropDown.click();
         return this;
     }
 
-    public ProfilePage profileTab() {
+    public ProfilePage clickProfileTab() {
         profile.click();
         return new ProfilePage();
     }

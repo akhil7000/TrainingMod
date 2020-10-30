@@ -74,18 +74,14 @@ public class RCCLTest extends BaseTest {
         String responseFirstName=responseGACreate.getPayload().getFirstName();
         String responseLastName=responseGACreate.getPayload().getLastName();
         Selenide.open(map.get("RcclUrl"));
-        new LoginPage().email(uid).password().signIn();
-        HomePage homePage=new HomePage().popUpTermsAndCondition().popUpPrivacyPolicy();
-        String uiFirstName=homePage.getName();
-        logger.info(uiFirstName+"****uifirstName*****");
-        softAssert.assertThat(uiFirstName.equals(responseFirstName))
-                .as("firstName of ui and response are not equal");
-        ProfilePage profilePage=homePage.clickCruiseButton().planNewCruiseButton().apTab().profileTab();
-        String uiFullName=profilePage.getUiFullName();
-        logger.info(uiFullName+"***uiFullName*****");
+        HomePage homePage=new LoginPage().setEmail(uid).setPassword().clickSignIn().
+                clickPopUpTermsAndCondition().clickPopUpPrivacyPolicy();
+        softAssert.assertThat(homePage.getName().equals(responseFirstName))
+                .as("firstName in ui and response are not equal");
+        ProfilePage profilePage=homePage.isCruiseButton().isPlanNewCruiseButton().clickAPDropDown().clickProfileTab();
         String responseFullName=responseFirstName+" "+responseLastName;
         logger.info(responseFullName);
-        softAssert.assertThat(uiFullName.equals(responseFullName))
-                .as("fullName of ui and response are not equal");
+        softAssert.assertThat(profilePage.getFullName().equals(responseFullName))
+                .as("fullName in ui and response are not equal");
     }
 }
