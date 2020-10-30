@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CreateAccountPage extends BasePage {
-    private SelenideElement firstName = $x("(//div[@class='mat-form-field-infix']/input)[1]");
+    private SelenideElement firstName = $x("(//div[@class='signup__control signup__names ng-star-inserted']//div[@class='mat-form-field-flex']/div[@class='mat-form-field-infix']/input)[1]");
     private SelenideElement LastName = $x("(//div[@class='mat-form-field-infix']/input)[2]");
     private SelenideElement dateOfMonthDropDown = $x("//mat-select[@id='mat-select-0']//div[@class='mat-select-arrow']");
     private SelenideElement dateOfBirthMonth = $x("//span[contains(normalize-space(),'August')]");
@@ -28,55 +28,49 @@ public class CreateAccountPage extends BasePage {
     private SelenideElement answer = $x("(//div[@class='mat-form-field-infix']/input)[6]");
     private SelenideElement checkout = $x("//div[@class='input-checkbox__container']/mat-checkbox/label");
     private SelenideElement DoneButton = $x("//button[@class='mat-royal-button btn-create']");
-    private SelenideElement footer = $x("//div[@class='footer-text']/ul/li/a");
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public CreateAccountPage waitForFooterToLoadInCreateAccountPage() {
-        footer.shouldBe(Condition.enabled);
-        return this;
-    }
-
     public CreateAccountPage setFirstName(String givenName) {
-        firstName.sendKeys(givenName);
+        firstName.shouldBe(Condition.visible).sendKeys(givenName);
         return new CreateAccountPage();
     }
 
     public CreateAccountPage setLastName(String givenLastName) {
-        LastName.sendKeys(givenLastName);
+        LastName.shouldBe(Condition.visible).sendKeys(givenLastName);
         return new CreateAccountPage();
     }
 
     public CreateAccountPage selectCountry() {
-        countryDropDown.click();
-        selectCountry.click();
+        countryDropDown.shouldBe(Condition.visible).click();
+        selectCountry.shouldBe(Condition.visible).click();
         return new CreateAccountPage();
     }
 
     public CreateAccountPage setEmail(String userEmail) {
-        email.doubleClick();
+        email.shouldBe(Condition.visible).doubleClick();
         email.sendKeys(userEmail);
         return new CreateAccountPage();
     }
 
     public CreateAccountPage setPassword(String userPassword) {
-        password.sendKeys(userPassword);
+        password.shouldBe(Condition.visible).sendKeys(userPassword);
         return new CreateAccountPage();
     }
 
     public CreateAccountPage setQuestion() {
-        questionDropDown.click();
-        selectQuestion.click();
+        questionDropDown.shouldBe(Condition.visible).click();
+        selectQuestion.shouldBe(Condition.visible).click();
         return new CreateAccountPage();
     }
 
     public CreateAccountPage setAnswer(String setAnswer) {
-        answer.sendKeys(setAnswer);
+        answer.shouldBe(Condition.visible).sendKeys(setAnswer);
         return new CreateAccountPage();
     }
 
     public CreateAccountPage clickCheckBox() {
-        checkout.click();
+        checkout.shouldBe(Condition.visible).click();
         return new CreateAccountPage();
     }
 
@@ -90,18 +84,18 @@ public class CreateAccountPage extends BasePage {
             logger.info("An exception occurred. ", e);
         }
 
-        dateOfMonthDropDown.click();
-        dateOfBirthMonth.click();
-        dateOfDayDropDown.click();
-        dateOfBirthDay.click();
+        dateOfMonthDropDown.shouldBe(Condition.visible).click();
+        dateOfBirthMonth.shouldBe(Condition.visible).click();
+        dateOfDayDropDown.shouldBe(Condition.visible).click();
+        dateOfBirthDay.shouldBe(Condition.visible).click();
 
-        dateOfBirthYear.sendKeys(dateSplit[0]);
+        dateOfBirthYear.shouldBe(Condition.visible).sendKeys(dateSplit[0]);
 
         return new CreateAccountPage();
     }
 
     public UserAccountPage clickDoneButton() {
-        DoneButton.click();
+        DoneButton.shouldBe(Condition.visible).click();
         return new UserAccountPage();
     }
 }

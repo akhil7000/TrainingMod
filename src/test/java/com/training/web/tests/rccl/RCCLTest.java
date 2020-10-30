@@ -38,9 +38,7 @@ public class RCCLTest extends BaseTest {
          * Creating User account through UI.
          */
         UserAccountPage userAccountPage = new SignInPage()
-                .waitForFooterToLoadInSignInPage()
                 .clickCreateAccountLink()
-                .waitForFooterToLoadInCreateAccountPage()
                 .setFirstName("Audrey").setLastName(lastName)
                 .setDateofBirth(dateOfBirth).selectCountry()
                 .setEmail(userEmail).setPassword(userPassword)
@@ -87,12 +85,10 @@ public class RCCLTest extends BaseTest {
         /**
          * Now comparing the API response and UI data
          */
-        userAccountPage.waitForFooterToLoadInUserAccountPage();
-
         refreshPage();
 
         softAssert.assertThat(loyaltyResponse.getPayload().getLoyaltyId())
-                .isEqualTo(userAccountPage.waitForFooterToLoadInUserAccountPage().getLoyaltyId())
+                .isEqualTo(userAccountPage.getLoyaltyId())
                 .as("Loyalty id is not matching with API response and UI");
 
         softAssert.assertThat(loyaltyResponse.getPayload().getLoyaltyTier())
