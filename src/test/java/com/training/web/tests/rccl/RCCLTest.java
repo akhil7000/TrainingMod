@@ -9,6 +9,7 @@ import com.training.utilities.RestEngine;
 import com.training.web.pages.rccl.SignInPage;
 import com.training.web.pages.rccl.DashboardPage;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -22,22 +23,20 @@ public class RCCLTest extends BaseTest {
     private Response authenticationResponse;
     private com.training.services.ga.loyalty.RequestBody requestBodyLoyalty;
     private String userPassword = "M212adasdasjdklj!";
-    private String userEmail = getUniqueMailId();
+    private String userEmail;
     private String dateOfBirth = "19620802";
     private String lastName = "Poole";
+    private DashboardPage userAccountPage;
 
     /**
-     * Creating user from UI, and giving loyalty credit from API, and checking in UI if
-     * user gets the loyalty credit
+     * Creating user from UI for testUserLoyality testcase and testUserValidateAfterUIGACreate testcase
      */
-    @Test
-    public void testUserLoyality() {
+    @BeforeEach
+    public void setData() {
+        userEmail = getUniqueMailId();
         Selenide.open(map.get("rccl_url"));
 
-        /**
-         * Creating User account through UI.
-         */
-        DashboardPage userAccountPage = new SignInPage()
+        userAccountPage = new SignInPage()
                 .clickCreateAccountLink()
                 .setFirstName("Audrey").setLastName(lastName)
                 .setDateofBirth(dateOfBirth).selectCountry()
@@ -45,14 +44,22 @@ public class RCCLTest extends BaseTest {
                 .setQuestion().setAnswer("NewYork").clickCheckBox()
                 .clickDoneButton();
 
-        /**
-         * Now we are checking if the user we created from UI is present in Database or not, through api and,
-         * Getting access token and account ID, through api
-         */
         headerMap = new HashMap();
         headerMap.put(map.get("AppKeyHeader"), map.get("AppKeyValue"));
         headerMap.put(map.get("ContentTypeHeader"), map.get("ContentTypeValue"));
+    }
 
+    /**
+     * Giving loyalty credit from API, and checking in UI if
+     * user gets the loyalty credit
+     */
+    @Test
+    public void testUserLoyality() {
+
+        /**
+         * We are checking if the user we created from UI is present in Database or not, through api and,
+         * Getting access token and account ID, through api
+         */
         requestBodyAuthenticate = new RequestBody();
         requestBodyAuthenticate.setUid(userEmail);
         requestBodyAuthenticate.setPassword(userPassword);
@@ -98,5 +105,29 @@ public class RCCLTest extends BaseTest {
         softAssert.assertThat(loyaltyResponse.getPayload().getIndividualPoints())
                 .isEqualTo(userAccountPage.getRelationshipPoints())
                 .as("Individual points is not matching with API response and UI");
+    }
+
+    /**
+     * Creating account through UI, and checking email validation through API.
+     */
+    @Test
+    public void testUserValidateAfterUIGACreate() {
+        com.training.services.ga.validate.RequestBody requestBodyGuestAccount =
+                new com.training.services.ga.validate.RequestBody();
+
+        requestBodyGuestAccount.setEmail(userEmail);
+
+        com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
+                .getResponsePost(map.get("base_url") + "/validation"
+                        , headerMap
+                        , new Gson().toJson(requestBodyGuestAccount))
+                .as(com.training.services.ga.validate.Response.class);
+
+        Assertions.assertThat(gaValidationResponse.getStatus()).isEqualTo(200)
+                .as("Json response is not 200");
+
+        softAssert.assertThat(gaValidationResponse.getPayload().getAccountStatus())
+                .as("Inside payload JSON, accountStatus is not equals to EXISTS")
+                .isEqualTo("EXISTS");
     }
 }
