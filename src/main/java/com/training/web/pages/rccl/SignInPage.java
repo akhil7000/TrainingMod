@@ -8,10 +8,10 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class SignInPage extends BasePage {
 
-    private SelenideElement singIn = $x("//a[@class='login__create-account login__create-account--royal']");
+    private SelenideElement signIn = $x("//a[@class='login__create-account login__create-account--royal']");
 
     public CreateAccountPage clickCreateAccountLink() {
-        singIn.shouldBe(Condition.visible).click();
+        signIn.shouldBe(Condition.visible).click();
         return new CreateAccountPage();
     }
 }

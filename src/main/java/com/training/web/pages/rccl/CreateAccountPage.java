@@ -94,8 +94,8 @@ public class CreateAccountPage extends BasePage {
         return new CreateAccountPage();
     }
 
-    public UserAccountPage clickDoneButton() {
+    public DashboardPage clickDoneButton() {
         DoneButton.shouldBe(Condition.visible).click();
-        return new UserAccountPage();
+        return new DashboardPage();
     }
 }

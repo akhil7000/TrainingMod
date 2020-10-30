@@ -7,7 +7,7 @@ import com.training.services.ga.authenticate.RequestBody;
 import com.training.services.ga.authenticate.Response;
 import com.training.utilities.RestEngine;
 import com.training.web.pages.rccl.SignInPage;
-import com.training.web.pages.rccl.UserAccountPage;
+import com.training.web.pages.rccl.DashboardPage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +37,7 @@ public class RCCLTest extends BaseTest {
         /**
          * Creating User account through UI.
          */
-        UserAccountPage userAccountPage = new SignInPage()
+        DashboardPage userAccountPage = new SignInPage()
                 .clickCreateAccountLink()
                 .setFirstName("Audrey").setLastName(lastName)
                 .setDateofBirth(dateOfBirth).selectCountry()

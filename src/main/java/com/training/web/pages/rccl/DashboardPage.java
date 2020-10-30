@@ -6,7 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class UserAccountPage extends BasePage {
+public class DashboardPage extends BasePage {
     private SelenideElement loyaltyId = $x("(//ul[@class='loyalty-meter']/li/a/span)[1]");
     private SelenideElement loyaltyTier = $x("(//ul[@class='loyalty-meter']/li/a/span)[2]");
     private SelenideElement relationshipPoints = $x("(//ul[@class='loyalty-meter']/li/a/span)[3]");
