@@ -111,15 +111,15 @@ public class RCCLTest extends BaseTest {
      */
     @Test
     public void testUserValidateAfterUIGACreate() {
-        com.training.services.ga.validate.RequestBody requestBody =
+        com.training.services.ga.validate.RequestBody requestBodyGuestAccount =
                 new com.training.services.ga.validate.RequestBody();
 
-        requestBody.setEmail(userEmail);
+        requestBodyGuestAccount.setEmail(userEmail);
 
         com.training.services.ga.validate.Response gaValidationResponse = new RestEngine()
                 .getResponsePost(map.get("base_url") + "/validation"
                         , headerMap
-                        , new Gson().toJson(requestBody))
+                        , new Gson().toJson(requestBodyGuestAccount))
                 .as(com.training.services.ga.validate.Response.class);
 
         Assertions.assertThat(gaValidationResponse.getStatus()).isEqualTo(200)
