@@ -3,6 +3,8 @@ package com.training.web.pages.rccl;
 import BasePage.BasePage;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +14,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class CreateAccountPage extends BasePage {
     private SelenideElement firstName = $x("(//div[@class='mat-form-field-infix']/input)[1]");
     private SelenideElement LastName = $x("(//div[@class='mat-form-field-infix']/input)[2]");
-    private SelenideElement privacyPolicy = $x("//a[@id='privacy-link']");
     private SelenideElement dateOfMonthDropDown = $x("//mat-select[@id='mat-select-0']//div[@class='mat-select-arrow']");
     private SelenideElement dateOfBirthMonth = $x("//span[contains(normalize-space(),'August')]");
     private SelenideElement dateOfDayDropDown = $x("//mat-select[@id='mat-select-1']//div[@class='mat-select-arrow']");
@@ -27,10 +28,13 @@ public class CreateAccountPage extends BasePage {
     private SelenideElement answer = $x("(//div[@class='mat-form-field-infix']/input)[6]");
     private SelenideElement checkout = $x("//div[@class='input-checkbox__container']/mat-checkbox/label");
     private SelenideElement DoneButton = $x("//button[@class='mat-royal-button btn-create']");
+    private SelenideElement footer = $x("//div[@class='footer-text']/ul/li/a");
 
-    public CreateAccountPage isPrivacyPolicyVisible() {
-        privacyPolicy.shouldBe(Condition.visible);
-        return new CreateAccountPage();
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public CreateAccountPage waitForFooterToLoadInCreateAccountPage() {
+        footer.shouldBe(Condition.enabled);
+        return this;
     }
 
     public CreateAccountPage setFirstName(String givenName) {
@@ -83,7 +87,7 @@ public class CreateAccountPage extends BasePage {
                     .format(new SimpleDateFormat("yyyyMMdd")
                             .parse(dateOfBirth)).split("-");
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.info("An exception occurred. ", e);
         }
 
         dateOfMonthDropDown.click();
