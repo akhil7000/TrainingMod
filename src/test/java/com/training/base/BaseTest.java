@@ -7,17 +7,21 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 import java.util.Iterator;
 import java.util.Map;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest {
     public Map<String, String> map;
     public SoftAssertions softAssert;
 
     @BeforeAll
-    public void setValue(){
+    public void setValue() {
         map = (Map) new GetJsonValue().getValue();
     }
 
@@ -49,5 +53,12 @@ public class BaseTest {
             Selenide.switchTo().window(multilpleWindow.next());
             break;
         }
+    }
+
+    /**
+     * Will refresh your current page
+     */
+    public void refreshPage() {
+        Selenide.refresh();
     }
 }
