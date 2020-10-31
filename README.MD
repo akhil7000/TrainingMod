@@ -1,6 +1,7 @@
 **Purpose:**
 -
 The purpose of this repo is to have a basic training template. 
+This branch - release/0.5 deals with basic Java training.
 
 **Requirements:**
 -
