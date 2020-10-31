@@ -73,7 +73,12 @@ public class Assignment {
         Operations operation=new Operations();
         String[] strArray= {"Paulo Dybala","Federico","Gianluigi","Ronaldo","Messi"};
         String strFind="Ronaldo";
-        int indexOfName=operation.searchNameFromArray(strArray,strFind);
-        System.out.println("index value-->"+indexOfName);
+        operation.getIndex(strArray,strFind);
+        System.out.println("index value-->"+operation.getIndex(strArray,strFind));
+        operation.checkCompanyReviews();
+        operation.conditionCheckUsingIf("Bad");
+        operation.printNumbers();
+        operation.printEvenNumbers();
+        operation.printUsingForEach();
     }
 }
