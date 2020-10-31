@@ -19,3 +19,5 @@ It has a sample test method inside the test package - `com/training/sample/tests
 It has a sample page class inside main package - `com/training/sample/pages/SamplePage.java`. All the pages/screen classes needs to inside this package.
 
 Everything related to data/drivers needs to be inside - `test/resources`
+
+Everything related to assignments needs to be inside - `com/training/assignments`
