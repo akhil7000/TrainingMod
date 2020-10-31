@@ -31,15 +31,15 @@ public class Assignment {
 
     public static void stringToChar(){
         String name="rccl";
-        char ch[]=name.toCharArray();
-        for(int index=0;index<ch.length;index++){
-            System.out.println(ch[index]);
+        char character[]=name.toCharArray();
+        for(int index=0;index<character.length;index++){
+            System.out.println(character[index]);
         }
     }
 
     public void replaceString(){
         //Ram to Sam
-        String name="ram";
+        String name="Ram";
         String replacedString=name.replace('R','S');
         logger.info("after replacing String R to S-->"+replacedString);
         //Sachin Tendulkar to Sachin Masterrrr
@@ -55,10 +55,10 @@ public class Assignment {
     public void stringOperation(){
         // index of x,a,o
         String name="Xioami";
-        int indexX=name.indexOf("X");
-        int indexa=name.indexOf("a");
-        int indexo=name.indexOf("o");
-        logger.info("index of x-->"+indexX+" "+"index of a-->"+indexa+" "+"index of o-->"+" "+indexo);
+        int indexOfXCharacter=name.indexOf("X");
+        int indeaxOfACharacter=name.indexOf("a");
+        int indexOfOCharacter=name.indexOf("o");
+        logger.info("index of x-->"+indexOfXCharacter+" "+"index of a-->"+indeaxOfACharacter+" "+"index of o-->"+" "+indexOfOCharacter);
         String companyName = "Indian Oil Corporation Ltd";
         String afterSubstringCompanyName = companyName.substring(11, 22);
         logger.info("after substring-->"+afterSubstringCompanyName);
