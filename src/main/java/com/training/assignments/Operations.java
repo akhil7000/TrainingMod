@@ -6,21 +6,12 @@ import java.util.Scanner;
 
 public class Operations {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public int getIndex(String[] strArray, String findString) {
-        int i;
-        for ( i = 0; i < strArray.length; i++) {
-            if (strArray[i].equals(findString)) {
-                break;
-            }
-        }
-        return i;
-    }
 
-    public void checkCompanyReviews(){
-        Scanner sc  = new Scanner(System.in);
+    public void printCompanyReviews(){
+         Scanner input = new Scanner(System.in);
         System.out.println("Please enter companyname: ");
-        String companyName  = sc.nextLine();
-        System.out.print("You have entered: "+companyName+":");
+        String companyName = input.nextLine();
+        logger.info("You have entered: "+companyName+":");
         switch(companyName)
         {
             case "Endee engineers":
@@ -36,7 +27,7 @@ public class Operations {
                 logger.info("provide solutions of fire alarm system");
                 break;
             case "Google":
-                logger.info(" Best platform where u will get solution for everything");
+                logger.info("Best platform where u will get solution for everything");
                 break;
             default:
                 logger.info("All companies are good");
