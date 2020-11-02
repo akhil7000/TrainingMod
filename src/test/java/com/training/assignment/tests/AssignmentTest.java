@@ -2,11 +2,18 @@ package com.training.assignment.tests;
 
 import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
+import com.training.assignments.TestCases;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AssignmentTest {
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Scanner;
+
+
+public class AssignmentTest extends BaseTest{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     Assignment assignment = new Assignment();
     Operations operation=new Operations();
@@ -44,11 +51,30 @@ public class AssignmentTest {
 
     @Test
     public void testOperationWithLoops() {
-     operation.printCompanyReviews();
-     operation.conditionCheckUsingIf("Bad");
+    // operation.printCompanyReviews();
+     operation.conditionCheckUsingIf("Very Bad");
      //operation.printNumbers();
      operation.printEvenNumbers();
      int[] array={1,2,3,4,5,6,7,8,9,10};
      operation.printUsingForEach(array);
+    }
+//wrong
+    @Test
+    public void isLeapYearKeboardTest() throws IOException {
+        TestCases leapYear = new TestCases();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter year(yyyy): ");
+        int year = sc.nextInt();
+        softAssert.assertThat("Leap Year") .isEqualTo(leapYear.isLeapYear(year));
+        sc.close();
+    }
+//wrong
+    @Test
+    public void shouldProcessUserInput() {
+        StringWriter output = new StringWriter();
+        String input = "11\n"       // "Wrong number, try again."
+                + "10\n";
+
+        softAssert.assertThat(output.toString()).contains("Wrong number, try again.");
     }
 }

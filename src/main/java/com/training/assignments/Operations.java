@@ -1,15 +1,10 @@
 package com.training.assignments;
 
-import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Scanner;
 
-public class Operations {
+public class Operations  {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void printCompanyReviews(){
@@ -46,11 +41,14 @@ public class Operations {
             logger.info("go to heaven with dog");
         } else if(people == "Bad"){
             logger.info("go to hell");
+        }else if(people == "Very Bad"){
+            logger.info("go to hell");
         }
     }
 
     public void printNumbers(){
         for(int i=1;i<500;i++){
+
             logger.info("value of i is-->"+i);
         }
     }
@@ -72,16 +70,5 @@ public class Operations {
             }
             k++;
         }
-    }
-
-    @Test
-    public void shouldTakeUserInput() {
-        InputOutput inputOutput= new InputOutput();
-
-        String input = "add 5";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        softassert.assertEquals("add 5", inputOutput.getInput());
     }
 }

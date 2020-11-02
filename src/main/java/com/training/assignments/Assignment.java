@@ -1,5 +1,9 @@
 package com.training.assignments;
 
+import org.junit.jupiter.api.Test;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 public class Assignment {
 
     public double getDoubleFromInt(int number){
