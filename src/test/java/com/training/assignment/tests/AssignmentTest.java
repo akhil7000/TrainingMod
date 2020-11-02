@@ -12,23 +12,23 @@ public class AssignmentTest extends BaseTest{
     @Test
     public void testDataConversion() {
         logger.info("double from int->" + assignment.getDoubleFromInt(55));
-        softAssert.assertThat(assignment.getDoubleFromInt(55)).isEqualTo(55.0)
-                .as("int number not converted to double");
+        softAssert.assertThat(assignment.getDoubleFromInt(55))
+                .as("int number not converted to double").isEqualTo(55.0);
         logger.info("int from double->" + assignment.getIntFromDouble(55.0));
-       softAssert.assertThat(assignment.getIntFromDouble(55.0)).isEqualTo(55)
-                .as("double number not converted to int");
+        softAssert.assertThat(assignment.getIntFromDouble(55.0))
+                .as("double number not converted to int").isEqualTo(55);
         logger.info("float from double->" + assignment.getFloatFromDouble(55.0555558888888888888));
-        softAssert.assertThat(assignment.getFloatFromDouble(55.0555558888888888888)).isEqualTo(55.055557f)
-                .as("double number not converted to float");
+        softAssert.assertThat(assignment.getFloatFromDouble(55.0555558888888888888))
+                .as("double number not converted to float").isEqualTo(55.055557f);
         logger.info("double from float->" + assignment.getDoubleFromFloat((float) 55.00589001231313450));
-        softAssert.assertThat(assignment.getDoubleFromFloat((float) 55.00589001231313450)).isEqualTo(55.005889892578125)
-                .as("float number not converted to double");
+        softAssert.assertThat(assignment.getDoubleFromFloat((float) 55.00589001231313450))
+                .as("float number not converted to double").isEqualTo(55.005889892578125);
         logger.info("byte from long->" + assignment.getByteFromLong(11005987L));
-        softAssert.assertThat(assignment.getByteFromLong(11005987L)).isEqualTo(35(Byte@23))
-                .as("long number not converted to byte");
+        softAssert.assertThat(assignment.getByteFromLong(11005987L))
+                .as("long number not converted to byte").isEqualTo((byte) 35);
         logger.info("long from byte->" + assignment.getLongFromByte((byte) 32));
-        softAssert.assertThat(assignment.getLongFromByte((byte) 32)).isEqualTo(32)
-                .as("byte number not converted to long");
+        softAssert.assertThat(assignment.getLongFromByte((byte) 32))
+                .as("byte number not converted to long").isEqualTo(32);
     }
 
     @Test
@@ -37,20 +37,36 @@ public class AssignmentTest extends BaseTest{
         for (char characters : getcharacter) {
             logger.info("converted in character format-->" + characters);
         }
-        softAssert.assertThat(assignment.getCharacterFromString("rccl")).contains('q','p','y','z')
-                .as("doesn't contains r,c,c,l characters");
-        logger.info("converted ram to sam-->" +
+        softAssert.assertThat(assignment.getCharacterFromString("rccl"))
+                .as("doesn't contains r,c,c,l characters").contains('r','c','c','l');
+        logger.info("converted Ram to Sam-->" +
                 assignment.getReplacedString("Ram", "Ram", "Sam"));
+        softAssert.assertThat(assignment.getReplacedString("Ram", "Ram", "Sam"))
+                .as("is not equal to Sam").isEqualTo("Sam");
         logger.info("converted Tendulkar to Masterrrr-->" +
                 assignment.getReplacedString("Sachin Tendulkar", "Tendulkar", "Masterrrr"));
-        logger.info("converted ram to sam-->" +
+        softAssert.assertThat(assignment.getReplacedString("Sachin Tendulkar", "Tendulkar", "Masterrrr"))
+                .as("is not equal to Sachin Masterrrr").isEqualTo("Sachin Masterrrr");
+        logger.info("converted Dell to Depp-->" +
                 assignment.getReplacedString("Dell", "Dell", "Depp"));
+        softAssert.assertThat(assignment.getReplacedString("Dell", "Dell", "Depp"))
+                .as("String not Replaced to Depp").isEqualTo("Depp");
         logger.info("index of X is-->" + assignment.getIndexOf("Xioami", 'X'));
+        softAssert.assertThat(assignment.getIndexOf("Xioami", 'X'))
+                .as("index not correct").isEqualTo(0);
         logger.info("index of a is-->" + assignment.getIndexOf("Xioami", 'a'));
+        softAssert.assertThat(assignment.getIndexOf("Xioami", 'a'))
+                .as("index not correct").isEqualTo(3);
         logger.info("index of o is-->" + assignment.getIndexOf("Xioami", 'o'));
+        softAssert.assertThat(assignment.getIndexOf("Xioami", 'o'))
+                .as("index not correct").isEqualTo(2);
         logger.info("after using subString name-->" +
                 assignment.getNameUsingSubString("Indian Oil Corporation Ltd", 11, 22));
+        softAssert.assertThat(assignment.getNameUsingSubString("Indian Oil Corporation Ltd", 11, 22))
+                .as("String not found").isEqualTo("Corporation");
         logger.info("index value-->" + assignment.
                 getIndex(new String[]{"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"}, "Ronaldo"));
+        softAssert.assertThat(assignment.getIndex(new String[]{"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"}, "Ronaldo"))
+                .as("Ronaldo string not found in list").isEqualTo(3);
     }
 }
