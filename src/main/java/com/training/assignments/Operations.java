@@ -41,8 +41,6 @@ public class Operations {
             logger.info("go to heaven with dog");
         } else if(people == "Bad"){
             logger.info("go to hell");
-        }else{
-            logger.info("go to hell");
         }
     }
 
@@ -62,10 +60,8 @@ public class Operations {
         }
     }
 
-    public void  printUsingForEach(){
-        int[] array={1,2,3,4,5,6,7,8,9,10};
-        int k = 1;
-        for(int i:array){
+    public void  printUsingForEach(int[] array){
+        for(int k:array){
             if((k%2)!=0){
                 logger.info("the odd number between 1 to 10 is-->"+k);
             }

@@ -33,28 +33,19 @@ public class Assignment {
     }
 
     public char[] getCharacterFromString(String name){
-        int index;
-        char[] characterArray=name.toCharArray();
-        char[] characters = new char[name.length()];
-        for(index=0;index<characterArray.length;index++){
-            characters[index] = characterArray[index];
-        }
-        return characters;
+        return name.toCharArray();
     }
 
     public String getReplacedString(String name,String oldCharacter,String newCharacter){
-        String replacedString=name.replace(oldCharacter,newCharacter);
-        return replacedString;
+        return name.replace(oldCharacter,newCharacter);
     }
 
     public int getIndexOf(String name,char findIndexChar){
-        int index=name.indexOf(findIndexChar);
-        return index;
+        return name.indexOf(findIndexChar);
     }
 
     public String getNameUsingSubString(String name,int beginIndex,int endingIndex){
-        String getName=name.substring(beginIndex,endingIndex);
-        return getName;
+        return name.substring(beginIndex,endingIndex);
     }
 
     public int getIndex(String[] nameArray, String findString) {
@@ -67,5 +58,3 @@ public class Assignment {
         return index;
     }
 }
-
-
