@@ -44,7 +44,7 @@ public class AssignmentTest {
 
     @Test
     public void testOperationWithLoops() {
-     //operation.printCompanyReviews();
+     operation.printCompanyReviews();
      operation.conditionCheckUsingIf("Bad");
      //operation.printNumbers();
      operation.printEvenNumbers();
