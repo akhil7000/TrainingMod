@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 
-public class Operations  {
+public class Operations {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public String printCompanyReviews(String companyName){

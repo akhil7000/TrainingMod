@@ -107,4 +107,9 @@ public class AssignmentTest extends BaseTest {
                     .as("not an odd number").isEqualTo(new int[]{1, 3, 5, 7, 9});
         }
     }
+
+    @Test
+    public void testOopsOperations(){
+
+    }
 }
