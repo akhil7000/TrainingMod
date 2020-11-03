@@ -18,7 +18,6 @@ dependencies {
     implementation "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_engine_version}"
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: "${logback_version}"
     testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
-    compile group: 'org.arakhne.afc.core', name: 'inputoutput', version: "${io_version}"
 }
 
 test{
