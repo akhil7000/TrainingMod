@@ -1,6 +1,5 @@
 package com.training.assignments;
 
-
 public class Assignment {
 
     public double getDoubleFromInt(int number){

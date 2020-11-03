@@ -18,19 +18,19 @@ public class Operations {
         switch(companyName)
         {
             case "Endee engineers":
-                logger.info("good company for production of portable and online instrument of gas analyzer");
+                logger.info(company.get(companyName));
                 break;
             case "Aaion automation":
-                logger.info("installation of GPS tracker");
+                logger.info(company.get(companyName));
                 break;
             case "Thermolab":
-                logger.info("good company for production of stabilizers and incubator");
+                logger.info(company.get(companyName));
                 break;
             case "Shreeji solution and services":
-                logger.info("provide solutions of fire alarm system");
+                logger.info(company.get(companyName));
                 break;
             case "Google":
-                logger.info("Best platform where u will get solution for everything");
+                logger.info(company.get(companyName));
                 break;
             default:
                 logger.info("All companies are good");
@@ -38,29 +38,32 @@ public class Operations {
         return company.get(companyName);
     }
 
-    public String conditionCheckUsingIf(String people){
+    public String getBehaviour(String people){
         HashMap<String,String> behaviour=new HashMap();
         behaviour.put("good","go to heaven");
         behaviour.put("very good","go to heaven with dog");
         behaviour.put("Bad","go to hell");
         behaviour.put("Very Bad","go to hell");
-
-        if(people == "good") {
-            logger.info("go to heaven");
-        } else if(people == "very good"){
-            logger.info("go to heaven with dog");
-        } else if(people == "Bad"){
-            logger.info("go to hell");
-        }else if(people == "Very Bad"){
-            logger.info("go to hell");
-        }
         return behaviour.get(people);
+    }
+
+    public String getPlaceBehaviourBased(String people) {
+        if (people == "good") {
+            return "go to heaven";
+        } else if (people == "very good") {
+            return "go to heaven with dog";
+        } else if (people == "Bad") {
+            return "go to hell";
+        } else if (people == "Very Bad") {
+            return "go to hell";
+        }
+        return " ";
     }
 
     public int getMiddleNumber(int number) {
         int index;
         for ( index = 1; index < number; index++) {
-            if (number / index == 250) {
+            if (number / index == number/2) {
                 logger.info("value of middle number is-->" + number / index);
                 break;
             }
@@ -68,10 +71,11 @@ public class Operations {
         return number / index;
     }
 
-    public int[] getEvenNumbers(int index){
+    public int[] getEvenNumbers(int limit){
+        int index=1;
         int array[]=new int[50];
         int number=0;
-        while(index <=100){
+        while(index <=limit){
             if(index%2==0){
                 logger.info("the even number between 1 to 100 is-->"+index);
                 array[number]=index;
@@ -82,7 +86,7 @@ public class Operations {
         return array;
     }
 
-    public int[]  printOddNumbers(int[] array){
+    public int[]  getOddNumbers(int[] array){
         int arraylimit[]=new int[5];
         int number=0;
         for(int index:array){
