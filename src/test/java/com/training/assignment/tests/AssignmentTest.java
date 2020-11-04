@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 public class AssignmentTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    Assignment assignment = new Assignment();
-    Operations operation = new Operations();
+   private Assignment assignment = new Assignment();
+   private Operations operation = new Operations();
 
     @Test
     public void testDataConversion() {

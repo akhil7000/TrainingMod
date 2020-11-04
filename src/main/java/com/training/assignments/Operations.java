@@ -49,21 +49,20 @@ public class Operations {
     }
 
     public String getPlaceBehaviourBased(String people) {
-        if (people == "good") {
+        if (people.equals("good")){
             return "go to heaven";
-        } else if (people == "very good") {
+        } else if (people.equals("very good")) {
             return "go to heaven with dog";
-        } else if (people == "Bad") {
+        } else if (people.equals("Bad")) {
             return "go to hell";
-        } else if (people == "Very Bad") {
+        } else if (people.equals("Very Bad")) {
             return "go to hell";
         }
         return "";
     }
 
     public int getMiddleNumber(int number) {
-        int index;
-        for (index = 1; index < number; index++) {
+        for (int index = 1; index < number; index++) {
             if (number / index == number / 2) {
                 return number / index;
             }
