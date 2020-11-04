@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class AssignmentTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     Assignment assignment = new Assignment();
     Operations operation = new Operations();
 
@@ -85,30 +86,35 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testOperationWithLoops() {
+
         softAssert.assertThat(operation.getCompanyReviews("Google")).
-                as("review not found").isEqualTo("Best platform where u will get solution for everything");
+                as("Review of google is not matching with best platform where u will get solution for everything, check other description too.")
+                .isEqualTo("Best platform where u will get solution for everything");
 
         softAssert.assertThat(operation.getCompanysFeedback("Thermolab")).
-                as("Company Feedback not found").isEqualTo("good company for production of stabilizers and incubator");
+                as("Company Feedback not matching with good company for production of stabilizers and incubator,check other description too.")
+                .isEqualTo("good company for production of stabilizers and incubator");
 
         softAssert.assertThat(operation.getBehaviour("good"))
-                .as("wrong decision").isEqualTo("go to heaven");
+                .as("Wrong decision as behaviour contradicts").isEqualTo("go to heaven");
 
         softAssert.assertThat(operation.getPlaceBehaviourBased("Bad"))
-                .as("wrong place assigned").isEqualTo("go to hell");
+                .as("Wrong place assigned as behaviour contradicts").isEqualTo("go to hell");
 
         softAssert.assertThat(operation.getPlaceBehaviourBased("good"))
-                .as("wrong place assigned").isEqualTo("go to heaven");
+                .as("Wrong place assigned as behaviour contradicts").isEqualTo("go to heaven");
 
         softAssert.assertThat(operation.getMiddleNumber(500))
-                .as("not a middle number").isEqualTo(250);
+                .as("Incorrect Middle number").isEqualTo(250);
 
         for (int evenNumber : operation.getEvenNumbers(1, 100)) {
-            softAssert.assertThat(evenNumber % 2 == 0).as("not an even number").isTrue();
+            softAssert.assertThat(evenNumber % 2 == 0)
+                    .as("Number is not an even number-->"+evenNumber).isTrue();
         }
 
         for (int oddNumber : operation.getOddNumbers(1, 10)) {
-            softAssert.assertThat((oddNumber % 2 )!= 0).as("not an odd number").isTrue();
+            softAssert.assertThat((oddNumber % 2 )!= 0)
+                    .as("Number is not an odd number-->"+oddNumber).isTrue();
         }
     }
 }
