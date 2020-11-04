@@ -1,29 +1,23 @@
 package com.training.assignments;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 
 public class Operations {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public String getCompanyReviews(String companyName){
+    public String getCompanyReviews(String companyName) {
+        HashMap<String, String> company = new HashMap<>();
 
-        HashMap<String,String> company=new HashMap<>();
-
-        company.put("Endee engineers","good company for production of portable and online instrument of gas analyzer");
-        company.put("Aaion automation","installation of GPS tracker");
-        company.put("Thermolab","good company for production of stabilizers and incubator");
-        company.put("Shreeji solution and services","provide solutions of fire alarm system");
-        company.put("Google","Best platform where u will get solution for everything");
+        company.put("Endee engineers", "good company for production of portable and online instrument of gas analyzer");
+        company.put("Aaion automation", "installation of GPS tracker");
+        company.put("Thermolab", "good company for production of stabilizers and incubator");
+        company.put("Shreeji solution and services", "provide solutions of fire alarm system");
+        company.put("Google", "Best platform where u will get solution for everything");
 
         return company.get(companyName);
     }
 
-    public String getCompanysFeedback(String company){
-
-        switch(company)
-        {
+    public String getCompanysFeedback(String company) {
+        switch (company) {
             case "Endee engineers":
                 return "good company for production of portable and online instrument of gas analyzer";
 
@@ -44,14 +38,13 @@ public class Operations {
         }
     }
 
-    public String getBehaviour(String people){
+    public String getBehaviour(String people) {
+        HashMap<String, String> behaviour = new HashMap();
 
-        HashMap<String,String> behaviour=new HashMap();
-
-        behaviour.put("good","go to heaven");
-        behaviour.put("very good","go to heaven with dog");
-        behaviour.put("Bad","go to hell");
-        behaviour.put("Very Bad","go to hell");
+        behaviour.put("good", "go to heaven");
+        behaviour.put("very good", "go to heaven with dog");
+        behaviour.put("Bad", "go to hell");
+        behaviour.put("Very Bad", "go to hell");
 
         return behaviour.get(people);
     }
@@ -71,33 +64,33 @@ public class Operations {
 
     public int getMiddleNumber(int number) {
         int index;
-        for ( index = 1; index < number; index++) {
-            if (number / index == number/2) {
+        for (index = 1; index < number; index++) {
+            if (number / index == number / 2) {
                 return number / index;
             }
         }
         return 0;
     }
 
-    public int[] getEvenNumbers(int fromIndex,int toIndex){
-        int  arrayOfEvenNum[]=new int[toIndex/2];
-        int number=0;
-        while(fromIndex <=toIndex){
-            if(fromIndex%2==0){
-                arrayOfEvenNum[number]=fromIndex;
+    public int[] getEvenNumbers(int fromIndex, int toIndex) {
+        int arrayOfEvenNum[] = new int[toIndex / 2];
+        int number = 0;
+        while (fromIndex <= toIndex) {
+            if (fromIndex % 2 == 0) {
+                arrayOfEvenNum[number] = fromIndex;
                 number++;
             }
             fromIndex++;
         }
-        return  arrayOfEvenNum;
+        return arrayOfEvenNum;
     }
 
-    public int[]  getOddNumbers(int from,int to){
-        int arrayOfOddNum[]=new int[to/2];
-        int number=0;
-        for(int index=from;index<=to;index++){
-            if((index%2)!=0){
-                arrayOfOddNum[number]=index;
+    public int[] getOddNumbers(int from, int to) {
+        int arrayOfOddNum[] = new int[to / 2];
+        int number = 0;
+        for (int index = from; index <= to; index++) {
+            if ((index % 2) != 0) {
+                arrayOfOddNum[number] = index;
                 number++;
             }
             index++;

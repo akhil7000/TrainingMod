@@ -109,12 +109,12 @@ public class AssignmentTest extends BaseTest {
 
         for (int evenNumber : operation.getEvenNumbers(1, 100)) {
             softAssert.assertThat(evenNumber % 2 == 0)
-                    .as("Number is not an even number-->"+evenNumber).isTrue();
+                    .as("Number is not an even number-->" + evenNumber).isTrue();
         }
 
         for (int oddNumber : operation.getOddNumbers(1, 10)) {
-            softAssert.assertThat((oddNumber % 2 )!= 0)
-                    .as("Number is not an odd number-->"+oddNumber).isTrue();
+            softAssert.assertThat((oddNumber % 2) != 0)
+                    .as("Number is not an odd number-->" + oddNumber).isTrue();
         }
     }
 }
