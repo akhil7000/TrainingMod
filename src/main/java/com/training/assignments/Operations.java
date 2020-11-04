@@ -3,7 +3,6 @@ package com.training.assignments;
 import java.util.HashMap;
 
 public class Operations {
-
     public String getCompanyReviews(String companyName) {
         HashMap<String, String> company = new HashMap<>();
 

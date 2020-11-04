@@ -86,7 +86,6 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testOperationWithLoops() {
-
         softAssert.assertThat(operation.getCompanyReviews("Google")).
                 as("Review of google is not matching with best platform where u will get solution for everything, check other description too.")
                 .isEqualTo("Best platform where u will get solution for everything");
