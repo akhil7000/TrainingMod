@@ -89,7 +89,7 @@ public class AssignmentTest extends BaseTest {
                 as("review not found").isEqualTo("Best platform where u will get solution for everything");
 
         softAssert.assertThat(operation.getCompanysFeedback("Thermolab")).
-                as("review not found").isEqualTo("good company for production of stabilizers and incubator");
+                as("Company Feedback not found").isEqualTo("good company for production of stabilizers and incubator");
 
         softAssert.assertThat(operation.getBehaviour("good"))
                 .as("wrong decision").isEqualTo("go to heaven");

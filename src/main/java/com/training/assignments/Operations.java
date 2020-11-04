@@ -109,7 +109,7 @@ public class Operations {
         int number=0;
         for(int index=from;index<=to;index++){
             if((index%2)!=0){
-                logger.info("the odd number between 1 to 10 is-->"+index);
+                logger.info("odd numbers are-->"+index);
                 arraylimit[number]=index;
                 number++;
             }
