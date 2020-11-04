@@ -1,13 +1,16 @@
 package com.training.assignment.tests;
 
 import com.training.assignments.Assignment;
+import com.training.assignments.Operations;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AssignmentTest extends BaseTest{
+public class AssignmentTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    Assignment assignment = new Assignment();
+
+   private Assignment assignment = new Assignment();
+   private Operations operation = new Operations();
 
     @Test
     public void testDataConversion() {
@@ -43,7 +46,7 @@ public class AssignmentTest extends BaseTest{
         }
 
         softAssert.assertThat(assignment.getCharacterFromString("rccl"))
-                .as("doesn't contains r,c,c,l characters").contains('r','c','c','l');
+                .as("doesn't contains r,c,c,l characters").contains('r', 'c', 'c', 'l');
 
         logger.info("converted Ram to Sam-->" + assignment.getReplacedString("Ram", "Ram", "Sam"));
         softAssert.assertThat(assignment.getReplacedString("Ram", "Ram", "Sam"))
@@ -79,5 +82,38 @@ public class AssignmentTest extends BaseTest{
         logger.info("index value-->" + assignment.getIndex(new String[]{"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"}, "Ronaldo"));
         softAssert.assertThat(assignment.getIndex(new String[]{"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"}, "Ronaldo"))
                 .as("Ronaldo string not found in list").isEqualTo(3);
+    }
+
+    @Test
+    public void testOperationWithLoops() {
+        softAssert.assertThat(operation.getCompanyReviews("Google")).
+                as("Review of google is not matching with best platform where u will get solution for everything, check other description too.")
+                .isEqualTo("Best platform where u will get solution for everything");
+
+        softAssert.assertThat(operation.getCompanysFeedback("Thermolab")).
+                as("Company Feedback not matching with good company for production of stabilizers and incubator,check other description too.")
+                .isEqualTo("good company for production of stabilizers and incubator");
+
+        softAssert.assertThat(operation.getBehaviour("good"))
+                .as("Wrong decision as behaviour contradicts").isEqualTo("go to heaven");
+
+        softAssert.assertThat(operation.getPlaceBehaviourBased("Bad"))
+                .as("Wrong place assigned as behaviour contradicts").isEqualTo("go to hell");
+
+        softAssert.assertThat(operation.getPlaceBehaviourBased("good"))
+                .as("Wrong place assigned as behaviour contradicts").isEqualTo("go to heaven");
+
+        softAssert.assertThat(operation.getMiddleNumber(500))
+                .as("Incorrect Middle number").isEqualTo(250);
+
+        for (int evenNumber : operation.getEvenNumbers(1, 100)) {
+            softAssert.assertThat(evenNumber % 2 == 0)
+                    .as("Number is not an even number-->" + evenNumber).isTrue();
+        }
+
+        for (int oddNumber : operation.getOddNumbers(1, 10)) {
+            softAssert.assertThat((oddNumber % 2) != 0)
+                    .as("Number is not an odd number-->" + oddNumber).isTrue();
+        }
     }
 }
