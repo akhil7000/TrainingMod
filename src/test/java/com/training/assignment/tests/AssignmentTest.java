@@ -85,8 +85,11 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testOperationWithLoops() {
-        softAssert.assertThat(operation.printCompanyReviews("Google")).
+        softAssert.assertThat(operation.getCompanyReviews("Google")).
                 as("review not found").isEqualTo("Best platform where u will get solution for everything");
+
+        softAssert.assertThat(operation.getCompanysFeedback("Thermolab")).
+                as("review not found").isEqualTo("good company for production of stabilizers and incubator");
 
         softAssert.assertThat(operation.getBehaviour("good"))
                 .as("wrong decision").isEqualTo("go to heaven");
@@ -94,18 +97,18 @@ public class AssignmentTest extends BaseTest {
         softAssert.assertThat(operation.getPlaceBehaviourBased("Bad"))
                 .as("wrong place assigned").isEqualTo("go to hell");
 
+        softAssert.assertThat(operation.getPlaceBehaviourBased("good"))
+                .as("wrong place assigned").isEqualTo("go to heaven");
+
         softAssert.assertThat(operation.getMiddleNumber(500))
                 .as("not a middle number").isEqualTo(250);
 
-        for (int evenNumbers : operation.getEvenNumbers(100)) {
-            if (!(evenNumbers % 2 == 0)) {
-                softAssert.fail("Not even number" + evenNumbers);
-            }
+        for (int evenNumber : operation.getEvenNumbers(1, 100)) {
+            softAssert.assertThat(evenNumber % 2 == 0).as("not an even number").isTrue();
+        }
 
-            for (int oddNumbers : operation.getOddNumbers(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})) {
-                softAssert.assertThat(operation.getOddNumbers(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}))
-                        .as("not an odd number").isEqualTo(new int[]{1, 3, 5, 7, 9});
-            }
+        for (int oddNumber : operation.getOddNumbers(1, 10)) {
+            softAssert.assertThat((oddNumber % 2 )!= 0).as("not an odd number").isTrue();
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Operations {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public String printCompanyReviews(String companyName){
+    public String getCompanyReviews(String companyName){
         HashMap<String,String> company=new HashMap<>();
         company.put("Endee engineers","good company for production of portable and online instrument of gas analyzer");
         company.put("Aaion automation","installation of GPS tracker");
@@ -38,6 +38,25 @@ public class Operations {
         return company.get(companyName);
     }
 
+    public String getCompanysFeedback(String company){
+        logger.info("You have entered: "+company+":");
+        switch(company)
+        {
+            case "Endee engineers":
+                return "good company for production of portable and online instrument of gas analyzer";
+            case "Aaion automation":
+                return "installation of GPS tracker";
+            case "Thermolab":
+                return "good company for production of stabilizers and incubator";
+            case "Shreeji solution and services":
+                return "provide solutions of fire alarm system";
+            case "Google":
+                return "Best platform where u will get solution for everything";
+            default:
+                return "All companies are good";
+        }
+    }
+
     public String getBehaviour(String people){
         HashMap<String,String> behaviour=new HashMap();
         behaviour.put("good","go to heaven");
@@ -57,7 +76,7 @@ public class Operations {
         } else if (people == "Very Bad") {
             return "go to hell";
         }
-        return " ";
+        return "";
     }
 
     public int getMiddleNumber(int number) {
@@ -65,31 +84,30 @@ public class Operations {
         for ( index = 1; index < number; index++) {
             if (number / index == number/2) {
                 logger.info("value of middle number is-->" + number / index);
-                break;
+                return number / index;
             }
         }
-        return number / index;
+        return 0;
     }
 
-    public int[] getEvenNumbers(int limit){
-        int index=1;
+    public int[] getEvenNumbers(int fromIndex,int toIndex){
         int array[]=new int[50];
         int number=0;
-        while(index <=limit){
-            if(index%2==0){
-                logger.info("the even number between 1 to 100 is-->"+index);
-                array[number]=index;
+        while(fromIndex <=toIndex){
+            if(fromIndex%2==0){
+                logger.info("the even number between 1 to 100 is-->"+fromIndex);
+                array[number]=fromIndex;
                 number++;
             }
-            index++;
+            fromIndex++;
         }
         return array;
     }
 
-    public int[]  getOddNumbers(int[] array){
-        int arraylimit[]=new int[5];
+    public int[]  getOddNumbers(int from,int to){
+        int arraylimit[]=new int[to/2];
         int number=0;
-        for(int index:array){
+        for(int index=from;index<=to;index++){
             if((index%2)!=0){
                 logger.info("the odd number between 1 to 10 is-->"+index);
                 arraylimit[number]=index;
