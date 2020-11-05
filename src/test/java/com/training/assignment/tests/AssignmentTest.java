@@ -151,13 +151,17 @@ public class AssignmentTest extends BaseTest {
 
         Yes2 yes2 = new Yes2();
 
-        softAssert.assertThat(employee.getName("Shrikant"))
+        String firstName="Shrikant";
+        String lastName="Sajjanshetti";
+        String middleName="Umakant";
+
+        softAssert.assertThat(employee.getName(firstName))
                 .as("Employee name doesn't match,try something else").isEqualTo("Shrikant");
 
-        softAssert.assertThat(employee.getName("Shrikant", "Sajjanshetti"))
+        softAssert.assertThat(employee.getName(firstName, lastName))
                 .as("Employee name doesnt match,try something else").isEqualTo("Shrikant Sajjanshetti");
 
-        softAssert.assertThat(employee.getName("Shrikant", "Sajjanshetti", "Umakant"))
+        softAssert.assertThat(employee.getName(firstName, lastName, middleName))
                 .as("Employee name doesnt match,try something else").isEqualTo("Shrikant Sajjanshetti Umakant");
 
         softAssert.assertThat(yes1.getSum(3))
