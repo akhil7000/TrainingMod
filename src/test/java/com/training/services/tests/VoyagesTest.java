@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class VoyagesTest extends BaseTest {
@@ -55,16 +57,18 @@ public class VoyagesTest extends BaseTest {
     @Test
     public void testVoyageSailDurationValidate() {
         Response voyageResponse = getResponse();
-        logger.info("status->" + voyageResponse.getStatus());
-        logger.info("totalVoyagesCount->" + voyageResponse.getPayload().getVoyages().size());
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
+
         List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
-        for (int i = 0; i < voyages.size(); i++) {
-            int duration = Integer.parseInt(voyages.get(i).getDuration());
-            softAssert.assertThat(duration).isLessThan(10).as(voyages.get(i).getDuration() +
+
+        IntStream.range(0, voyages.size()).forEach(index -> {
+            int duration = Integer.parseInt(voyages.get(index).getDuration());
+
+            softAssert.assertThat(duration).isLessThan(10).as(voyages.get(index).getDuration() +
                     "is not less than 10");
-        }
+        });
     }
 
     /**
@@ -73,14 +77,15 @@ public class VoyagesTest extends BaseTest {
     @Test
     public void testVoyageShipCodeValidate() {
         Response voyageResponse = getResponse();
-        logger.info("status->" + voyageResponse.getStatus());
-        logger.info("totalVoyagesCount->" + voyageResponse.getPayload().getVoyages().size());
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
+
         List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
-        for (int i = 0; i < voyages.size(); i++) {
-            softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
-        }
+
+        IntStream.range(0, voyages.size()).forEach(index -> {
+            softAssert.assertThat(voyages.get(index).getShipCode()).isEqualTo("AL");
+        });
     }
 
     /**
@@ -89,20 +94,22 @@ public class VoyagesTest extends BaseTest {
     @Test
     public void testVoyageMasterSailDateValidate() {
         Response voyageResponse = getResponse();
-        logger.info("status--->" + voyageResponse.getStatus());
+
         List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
-        logger.info("totalVoyagesCount-->" + voyages.size());
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
-        for (int index = 0; index < voyages.size(); index++) {
+
+        IntStream.range(0, voyages.size()).forEach(index -> {
             String sailDate = voyages.get(index).getSailDate();
-            logger.info("sailDate->" + sailDate + " " + "index valuesS1-->" + index);
+
             softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
                     .getMaster1SailDate())).isTrue()
                     .as("sailDate and master1SailDate of voyages" + index + "are not equal");
+
             softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
                     .getMaster2SailDate())).isTrue()
                     .as("sailDate and master2SailDate of voyages" + index + "are not equal");
-        }
+        });
     }
 }
