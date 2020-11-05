@@ -2,15 +2,20 @@ package com.training.assignment.tests;
 
 import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
+import com.training.assignments.inheritance.ParentChild;
+import com.training.assignments.polymorphism.overriding.Director;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AssignmentTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-   private Assignment assignment = new Assignment();
-   private Operations operation = new Operations();
+    private Assignment assignment = new Assignment();
+    private Operations operation = new Operations();
 
     @Test
     public void testDataConversion() {
@@ -115,5 +120,23 @@ public class AssignmentTest extends BaseTest {
             softAssert.assertThat((oddNumber % 2) != 0)
                     .as("Number is not an odd number-->" + oddNumber).isTrue();
         }
+    }
+
+    @Test
+    public void testOopsConcept() {
+        ParentChild parentChild=new ParentChild();
+        Director director = new Director();
+
+        List<String> sportsList = new ArrayList<>(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Batminton", "Hockey", "Football"));
+
+        softAssert.assertThat(operation.getSportsName(sportsList, "Batminton"))
+                .as("List should not contains Batminton")
+                .isEqualTo(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Hockey", "Football"));
+
+        softAssert.assertThat(parentChild.getName())
+                .as("Full name  of parent child is incorrect").isEqualTo("MIKE TYSON");
+
+        softAssert.assertThat(director.getWorkDetail())
+                .as("Work of actor and director differs").isEqualTo("Acting Directing");
     }
 }

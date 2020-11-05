@@ -1,8 +1,10 @@
 package com.training.assignments;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class Operations {
+
     public String getCompanyReviews(String companyName) {
         HashMap<String, String> company = new HashMap<>();
 
@@ -94,5 +96,10 @@ public class Operations {
             index++;
         }
         return arrayOfOddNum;
+    }
+
+    public List<String> getSportsName(List<String> sportsList, String eliminateSportName) {
+        sportsList.remove(eliminateSportName);
+        return sportsList;
     }
 }
