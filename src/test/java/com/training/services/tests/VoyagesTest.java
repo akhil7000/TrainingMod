@@ -55,14 +55,15 @@ public class VoyagesTest extends BaseTest {
     public void testVoyageSailDurationValidate() {
         Response voyageResponse = getResponse();
 
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
 
         voyageResponse.getPayload().getVoyages().forEach(voyage -> {
             int duration = Integer.parseInt(voyage.getDuration());
 
-            softAssert.assertThat(duration).isLessThan(10).as(voyage.getDuration() +
-                    "is not less than 10");
+            softAssert.assertThat(duration).isLessThan(10).as(duration +
+                    " is not less than 10");
         });
     }
 
@@ -96,11 +97,11 @@ public class VoyagesTest extends BaseTest {
 
             softAssert.assertThat(sailDate.equals(voyage.getMasterSailDate()
                     .getMaster1SailDate())).isTrue()
-                    .as("sailDate and master1SailDate of voyages" + voyage.getSailDate() + "are not equal");
+                    .as("sailDate and master1SailDate of voyages" + sailDate + "are not equal");
 
             softAssert.assertThat(sailDate.equals(voyage.getMasterSailDate()
                     .getMaster2SailDate())).isTrue()
-                    .as("sailDate and master2SailDate of voyages" + voyage.getSailDate() + "are not equal");
+                    .as("sailDate and master2SailDate of voyages" + sailDate + "are not equal");
         });
     }
 }
