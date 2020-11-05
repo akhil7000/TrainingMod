@@ -2,7 +2,6 @@ package com.training.services.tests;
 
 import com.training.base.BaseTest;
 import com.training.services.voyage.Response;
-import com.training.services.voyage.Voyages;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -55,16 +54,17 @@ public class VoyagesTest extends BaseTest {
     @Test
     public void testVoyageSailDurationValidate() {
         Response voyageResponse = getResponse();
-        logger.info("status->" + voyageResponse.getStatus());
-        logger.info("totalVoyagesCount->" + voyageResponse.getPayload().getVoyages().size());
+
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
-        List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
-        for (int i = 0; i < voyages.size(); i++) {
-            int duration = Integer.parseInt(voyages.get(i).getDuration());
-            softAssert.assertThat(duration).isLessThan(10).as(voyages.get(i).getDuration() +
-                    "is not less than 10");
-        }
+
+        voyageResponse.getPayload().getVoyages().forEach(voyage -> {
+            int duration = Integer.parseInt(voyage.getDuration());
+
+            softAssert.assertThat(duration).isLessThan(10).as(duration +
+                    " is not less than 10");
+        });
     }
 
     /**
@@ -73,14 +73,13 @@ public class VoyagesTest extends BaseTest {
     @Test
     public void testVoyageShipCodeValidate() {
         Response voyageResponse = getResponse();
-        logger.info("status->" + voyageResponse.getStatus());
-        logger.info("totalVoyagesCount->" + voyageResponse.getPayload().getVoyages().size());
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
-        List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
-        for (int i = 0; i < voyages.size(); i++) {
-            softAssert.assertThat(voyages.get(i).getShipCode()).isEqualTo("AL");
-        }
+
+        voyageResponse.getPayload().getVoyages().forEach(voyage -> {
+            softAssert.assertThat(voyage.getShipCode()).isEqualTo("AL");
+        });
     }
 
     /**
@@ -89,20 +88,20 @@ public class VoyagesTest extends BaseTest {
     @Test
     public void testVoyageMasterSailDateValidate() {
         Response voyageResponse = getResponse();
-        logger.info("status--->" + voyageResponse.getStatus());
-        List<Voyages> voyages = voyageResponse.getPayload().getVoyages();
-        logger.info("totalVoyagesCount-->" + voyages.size());
+
         Assertions.assertThat(voyageResponse.getStatus()).isEqualTo("200")
                 .as(" status is not 200");
-        for (int index = 0; index < voyages.size(); index++) {
-            String sailDate = voyages.get(index).getSailDate();
-            logger.info("sailDate->" + sailDate + " " + "index valuesS1-->" + index);
-            softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
+
+        voyageResponse.getPayload().getVoyages().forEach(voyage -> {
+            String sailDate = voyage.getSailDate();
+
+            softAssert.assertThat(sailDate.equals(voyage.getMasterSailDate()
                     .getMaster1SailDate())).isTrue()
-                    .as("sailDate and master1SailDate of voyages" + index + "are not equal");
-            softAssert.assertThat(sailDate.equals(voyages.get(index).getMasterSailDate()
+                    .as("sailDate and master1SailDate of voyages" + sailDate + "are not equal");
+
+            softAssert.assertThat(sailDate.equals(voyage.getMasterSailDate()
                     .getMaster2SailDate())).isTrue()
-                    .as("sailDate and master2SailDate of voyages" + index + "are not equal");
-        }
+                    .as("sailDate and master2SailDate of voyages" + sailDate + "are not equal");
+        });
     }
 }

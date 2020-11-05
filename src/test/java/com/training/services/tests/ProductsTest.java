@@ -1,8 +1,6 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
-import com.training.services.products.Offering;
-import com.training.services.products.Products;
 import com.training.services.products.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
@@ -14,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -61,19 +58,17 @@ public class ProductsTest extends BaseTest {
      */
     @Test
     public void testShorexProductTypeValidate() {
-        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
-                .as(Response.class);
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam).as(Response.class);
 
-        Assertions.assertThat(response.getStatus()).isEqualTo(200)
-                .as("Json response status is not 200");
+        Assertions.assertThat(response.getStatus()).isEqualTo(200).as("Json response status is not 200");
 
-        for (int i = 0; i < response.getPayload().getProducts().size(); i++) {
+        response.getPayload().getProducts().forEach(product -> {
             softAssert.assertThat(
-                    response.getPayload().getProducts().get(i).getProductType().getProductType()
+                    product.getProductType().getProductType()
                             .equalsIgnoreCase("SHOREX"))
-                    .as("Product id " + response.getPayload().getProducts().get(i).getProductID() + " is not SHOREX")
+                    .as("Product id " + product.getProductID() + " is not SHOREX")
                     .isTrue();
-        }
+        });
     }
 
     /**
@@ -88,38 +83,37 @@ public class ProductsTest extends BaseTest {
 
         Map<String, Integer> dayMonthDaysInMonthFromLink = getDayMonthDaysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
 
-        List<Products> products = response.getPayload().getProducts();
-        List<Offering> offerings;
+        response.getPayload().getProducts().forEach(product -> {
 
-        for (int index = 0; index < products.size(); index++) {
-            offerings = products.get(index).getOffering();
-            for (int getDateOffering = 0; getDateOffering < offerings.size(); getDateOffering++) {
+            product.getOffering().forEach(offering -> {
+                Map<String, Integer> dayMonthDaysInMonth = null;
 
-                Map<String, Integer> dayMonthDaysInMonth = getDayMonthDaysInMonth(offerings.get(getDateOffering).getOfferingDate());
+                try {
+                    dayMonthDaysInMonth = getDayMonthDaysInMonth(offering.getOfferingDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 /**
                  * If query paramter link date and offeringDate are from same month
                  */
                 if (dayMonthDaysInMonthFromLink.get(MONTH) == dayMonthDaysInMonth.get(MONTH)) {
                     softAssert.assertThat(dayMonthDaysInMonth.get(DAY) - dayMonthDaysInMonthFromLink.get(DAY))
-                            .as("Product ID = " + offerings.get(getDateOffering)
-                                    .getProductID() + " offering date is greater than 10 days = "
-                                    + offerings.get(getDateOffering).getOfferingDate())
+                            .as("Product ID = " +
+                                    offering.getProductID() + " offering date is greater than 10 days = "
+                                    + offering.getOfferingDate())
                             .isLessThanOrEqualTo(10);
                 } else {
                     softAssert.assertThat(
                             (dayMonthDaysInMonthFromLink.get(DAYS_IN_MONTH) - dayMonthDaysInMonthFromLink.get(DAY)) + dayMonthDaysInMonth.get(DAY))
                             .as("Product ID = "
-                                    + offerings.get(getDateOffering)
-                                    .getProductID() + " offeringDate is greater than 10 days = "
-                                    + offerings.get(getDateOffering)
-                                    .getOfferingDate())
+                                    + offering.getProductID() + " offeringDate is greater than 10 days = " +
+                                    offering.getOfferingDate())
                             .isLessThanOrEqualTo(10);
                 }
-            }
-        }
+            });
+        });
     }
-
 
     /**
      * Returning segregate day, month and number of days in a month
@@ -144,6 +138,7 @@ public class ProductsTest extends BaseTest {
          * Number of days in month
          */
         YearMonth yearMonthObject = YearMonth.of(getYear, getMonth);
+
         int getDaysInMonth = yearMonthObject.lengthOfMonth();
 
         dateMap.put(DAY, getDay);
@@ -158,24 +153,19 @@ public class ProductsTest extends BaseTest {
      */
     @Test
     public void testShorexProductTypeNameValidate() {
-        String productTypeName;
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam).as(Response.class);
 
-        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
-                .as(Response.class);
         Assertions.assertThat(response.getStatus()).isEqualTo(200).as("Json response status is not 200");
 
-        List<Products> products = response.getPayload().getProducts();
-
-        for (int index = 0; index < products.size(); index++) {
-
-            productTypeName = products.get(index).getProductType().getProductTypeName();
+        response.getPayload().getProducts().forEach(product -> {
+            String productTypeName = product.getProductType().getProductTypeName();
 
             softAssert.assertThat((productTypeName.equalsIgnoreCase("Shore Excursion")
                     ||
                     productTypeName.equalsIgnoreCase("Aquatics")))
                     .as("Product Id = " +
-                            products.get(index).getProductID() + " product type name is not shore excursion or aquatics")
+                            product.getProductID() + " product type name is not shore excursion or aquatics")
                     .isTrue();
-        }
+        });
     }
 }
