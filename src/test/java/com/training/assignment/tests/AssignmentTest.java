@@ -125,20 +125,20 @@ public class AssignmentTest extends BaseTest {
     }
 
     @Test
-    public void testOopsConcept(){
-        String eliminateSportName="Batminton";
-        List<String> sportsList= new ArrayList<>(Arrays.asList("Cricket","Khokho","Kabaddi","Batminton","Hockey","Football"));
-        softAssert.assertThat(operation.getSportsName(sportsList,eliminateSportName)).as("List should not contains Batminton")
-                .isEqualTo(Arrays.asList("Cricket","Khokho","Kabaddi","Hockey","Football"));
+    public void testOopsConcept() {
+        List<String> sportsList = new ArrayList<>(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Batminton", "Hockey", "Football"));
 
-        String firstName="MIKE";
-        String surname="TYSON";
-        String fullName=firstName+" "+surname;
-        softAssert.assertThat(parentChild.getName()).as("Full name  of parent child is incorrect").isEqualTo(fullName);
+        softAssert.assertThat(operation.getSportsName(sportsList, "Batminton"))
+                .as("List should not contains Batminton").isEqualTo(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Hockey", "Football"));
 
-        String actorWork="Acting";
-        String directorWork="Directing";
-        String workOFActorDirector=actorWork+" "+directorWork;
-        softAssert.assertThat(director.getWorkDetail()).as("Work of actor and director differs").isEqualTo(workOFActorDirector);
+        String firstName = "MIKE";
+        String surname = "TYSON";
+
+        softAssert.assertThat(parentChild.getName()).as("Full name  of parent child is incorrect").isEqualTo(firstName + " " + surname);
+
+        String actorWork = "Acting";
+        String directorWork = "Directing";
+
+        softAssert.assertThat(director.getWorkDetail()).as("Work of actor and director differs").isEqualTo(actorWork + " " + directorWork);
     }
 }
