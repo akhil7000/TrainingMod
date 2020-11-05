@@ -1,8 +1,6 @@
 package com.training.services.tests;
 
 import com.training.base.BaseTest;
-import com.training.services.products.Offering;
-import com.training.services.products.Products;
 import com.training.services.products.Response;
 import com.training.utilities.RestEngine;
 import org.assertj.core.api.Assertions;
@@ -14,9 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductsTest extends BaseTest {
@@ -66,12 +62,11 @@ public class ProductsTest extends BaseTest {
 
         Assertions.assertThat(response.getStatus()).isEqualTo(200).as("Json response status is not 200");
 
-        IntStream.range(0, response.getPayload().getProducts().size()).forEach(index -> {
+        response.getPayload().getProducts().forEach(product -> {
             softAssert.assertThat(
-                    response.getPayload().getProducts().get(index).getProductType().getProductType()
+                    product.getProductType().getProductType()
                             .equalsIgnoreCase("SHOREX"))
-                    .as("Product id " +
-                            response.getPayload().getProducts().get(index).getProductID() + " is not SHOREX")
+                    .as("Product id " + product.getProductID() + " is not SHOREX")
                     .isTrue();
         });
     }
@@ -83,20 +78,18 @@ public class ProductsTest extends BaseTest {
      */
     @Test
     public void testShorexOfferingDateValidate() throws ParseException {
-        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam).as(Response.class);
+        response = new RestEngine().getResponseGet(baseURL, headerMap, queryParam)
+                .as(Response.class);
 
         Map<String, Integer> dayMonthDaysInMonthFromLink = getDayMonthDaysInMonth(map.get("sailingIdParamValue").split("AL")[1]);
 
-        List<Products> products = response.getPayload().getProducts();
+        response.getPayload().getProducts().forEach(product -> {
 
-        IntStream.range(0, products.size()).forEach(index -> {
-            List<Offering> offerings = products.get(index).getOffering();
-
-            IntStream.range(0, offerings.size()).forEach(getDateOffering -> {
+            product.getOffering().forEach(offering -> {
                 Map<String, Integer> dayMonthDaysInMonth = null;
 
                 try {
-                    dayMonthDaysInMonth = getDayMonthDaysInMonth(offerings.get(getDateOffering).getOfferingDate());
+                    dayMonthDaysInMonth = getDayMonthDaysInMonth(offering.getOfferingDate());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -106,19 +99,16 @@ public class ProductsTest extends BaseTest {
                  */
                 if (dayMonthDaysInMonthFromLink.get(MONTH) == dayMonthDaysInMonth.get(MONTH)) {
                     softAssert.assertThat(dayMonthDaysInMonth.get(DAY) - dayMonthDaysInMonthFromLink.get(DAY))
-                            .as("Product ID = " + offerings.get(getDateOffering)
-                                    .getProductID() + " offering date is greater than 10 days = "
-                                    + offerings.get(getDateOffering).getOfferingDate())
+                            .as("Product ID = " +
+                                    offering.getProductID() + " offering date is greater than 10 days = "
+                                    + offering.getOfferingDate())
                             .isLessThanOrEqualTo(10);
                 } else {
                     softAssert.assertThat(
-                            (dayMonthDaysInMonthFromLink.get(DAYS_IN_MONTH) - dayMonthDaysInMonthFromLink.get(DAY))
-                                    + dayMonthDaysInMonth.get(DAY))
+                            (dayMonthDaysInMonthFromLink.get(DAYS_IN_MONTH) - dayMonthDaysInMonthFromLink.get(DAY)) + dayMonthDaysInMonth.get(DAY))
                             .as("Product ID = "
-                                    + offerings.get(getDateOffering)
-                                    .getProductID() + " offeringDate is greater than 10 days = "
-                                    + offerings.get(getDateOffering)
-                                    .getOfferingDate())
+                                    + offering.getProductID() + " offeringDate is greater than 10 days = " +
+                                    offering.getOfferingDate())
                             .isLessThanOrEqualTo(10);
                 }
             });
@@ -167,16 +157,14 @@ public class ProductsTest extends BaseTest {
 
         Assertions.assertThat(response.getStatus()).isEqualTo(200).as("Json response status is not 200");
 
-        List<Products> products = response.getPayload().getProducts();
-
-        IntStream.range(0, products.size()).forEach(index -> {
-            String productTypeName = products.get(index).getProductType().getProductTypeName();
+        response.getPayload().getProducts().forEach(product -> {
+            String productTypeName = product.getProductType().getProductTypeName();
 
             softAssert.assertThat((productTypeName.equalsIgnoreCase("Shore Excursion")
                     ||
                     productTypeName.equalsIgnoreCase("Aquatics")))
                     .as("Product Id = " +
-                            products.get(index).getProductID() + " product type name is not shore excursion or aquatics")
+                            product.getProductID() + " product type name is not shore excursion or aquatics")
                     .isTrue();
         });
     }
