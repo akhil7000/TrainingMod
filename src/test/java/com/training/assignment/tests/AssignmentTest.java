@@ -129,16 +129,13 @@ public class AssignmentTest extends BaseTest {
         List<String> sportsList = new ArrayList<>(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Batminton", "Hockey", "Football"));
 
         softAssert.assertThat(operation.getSportsName(sportsList, "Batminton"))
-                .as("List should not contains Batminton").isEqualTo(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Hockey", "Football"));
+                .as("List should not contains Batminton")
+                .isEqualTo(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Hockey", "Football"));
 
-        String firstName = "MIKE";
-        String surname = "TYSON";
+        softAssert.assertThat(parentChild.getName())
+                .as("Full name  of parent child is incorrect").isEqualTo("MIKE TYSON");
 
-        softAssert.assertThat(parentChild.getName()).as("Full name  of parent child is incorrect").isEqualTo(firstName + " " + surname);
-
-        String actorWork = "Acting";
-        String directorWork = "Directing";
-
-        softAssert.assertThat(director.getWorkDetail()).as("Work of actor and director differs").isEqualTo(actorWork + " " + directorWork);
+        softAssert.assertThat(director.getWorkDetail())
+                .as("Work of actor and director differs").isEqualTo("Acting Directing");
     }
 }
