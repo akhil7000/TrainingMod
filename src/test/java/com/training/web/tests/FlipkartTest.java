@@ -14,7 +14,6 @@ import com.training.web.pages.flipkart.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static com.codeborne.selenide.Selenide.closeWindow;
@@ -186,36 +185,33 @@ public class FlipkartTest extends BaseTest {
         ArrayList<String> policyHeaders =
                 new ArrayList<>(Arrays.asList(map.get("policyHeaders").split(",")));
 
-        AtomicInteger counter = new AtomicInteger();
         HomePage homePage = new HomePage().popUpCancel();
 
-        policyHeaders.stream().forEach((policyHeader) -> {
-            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(counter.get()));
+        IntStream.range(0, policyHeaders.size()).forEach(count -> {
+            PolicySubPage policySubPage = homePage.clickPolicySingleElement(policyElementsWhichNeedToClick.get(count));
 
-            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeader))
-                    .as("Header Not Displayed in = " + policyElementsWhichNeedToClick.get(counter.get()))
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(count)))
+                    .as("Header Not Displayed in = " + policyElementsWhichNeedToClick.get(count))
                     .isTrue();
 
             softAssert.assertThat(policySubPage.scrollPageToFooter())
-                    .as("Footer is not displayed = " + policyElementsWhichNeedToClick.get(counter.get()))
+                    .as("Footer is not displayed = " + policyElementsWhichNeedToClick.get(count))
                     .isTrue();
 
-            softAssert.assertThat(policySubPage.clickBackToTopButton(policyElementsWhichNeedToClick.get(counter.get())))
+            softAssert.assertThat(policySubPage.clickBackToTopButton(policyElementsWhichNeedToClick.get(count)))
                     .as("Back to top button is not displayed = "
-                            + policyElementsWhichNeedToClick.get(counter.get())).isTrue();
+                            + policyElementsWhichNeedToClick.get(count)).isTrue();
 
             softAssert.assertThat(policySubPage.checkIfBackToTopButtonIsDisapperAndverifyPageGoesUp
-                    (policyElementsWhichNeedToClick.get(counter.get())))
-                    .as("Page = " + policyElementsWhichNeedToClick.get(counter.get())
+                    (policyElementsWhichNeedToClick.get(count)))
+                    .as("Page = " + policyElementsWhichNeedToClick.get(count)
                             + " doesnt scrolled up or back to top button is disappear")
                     .isTrue();
 
-            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(counter.get())))
+            softAssert.assertThat(policySubPage.isHeaderDisplayed(policyHeaders.get(count)))
                     .as("After clicking back to top button, Header Not Displayed in = "
-                            + policyElementsWhichNeedToClick.get(counter.get()))
+                            + policyElementsWhichNeedToClick.get(count))
                     .isTrue();
-
-            counter.set(counter.get() + 1);
 
             closeWindow();
 
@@ -232,9 +228,10 @@ public class FlipkartTest extends BaseTest {
     public void testProductPageDesign(String item, int position) {
         ProductPage productPage = new HomePage().popUpCancel().setShoes(item).searchShoes().OpenProductPage(position);
         productPage.scrollToBottom();
+
         ArrayList<String> headers = new ArrayList<>(Arrays.asList(map.get("headers").split(",")));
 
-        headers.stream().forEach(header ->
+        headers.forEach(header ->
                 softAssert.assertThat(productPage.isSelectionDisplayed(header)).
                         as("Json selected Headers is Not matching with selection page Headers").isTrue());
     }
@@ -244,7 +241,6 @@ public class FlipkartTest extends BaseTest {
      */
     @Test
     public void flipkartSocialMedia() {
-        AtomicInteger counter = new AtomicInteger();
         HomePage homePage = new HomePage().popUpCancel();
 
         ArrayList<String> socialMediaLinksArrayList = new ArrayList<>(Arrays.asList(map.get("links")
@@ -252,16 +248,14 @@ public class FlipkartTest extends BaseTest {
         ArrayList<String> placeholdersOfSocialSites = new ArrayList<>(Arrays.asList(map.get("placeholders")
                 .split(",")));
 
-        socialMediaLinksArrayList.stream().forEach(socialMediaLink -> {
-            SocialMediaPage socialMediaPage = homePage.clickLink(socialMediaLink);
+        IntStream.range(0, socialMediaLinksArrayList.size()).forEach(count -> {
+            SocialMediaPage socialMediaPage = homePage.clickLink(socialMediaLinksArrayList.get(count));
 
-            softAssert.assertThat(socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(counter.get())))
-                    .contains(socialMediaLink.toLowerCase()).
+            softAssert.assertThat(socialMediaPage.getSocialMediaUrl(placeholdersOfSocialSites.get(count)))
+                    .contains(socialMediaLinksArrayList.get(count).toLowerCase()).
                     as("links of social media are not matching with the contents in url");
 
             Selenide.back();
-
-            counter.set(counter.get() + 1);
         });
     }
 
