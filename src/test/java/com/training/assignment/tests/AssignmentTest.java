@@ -146,7 +146,9 @@ public class AssignmentTest extends BaseTest {
     @Test
     public void testAbstractInterfaceConcept() {
         Employee employee = new Employee();
+
         Yes1 yes1 = new Yes1();
+
         Yes2 yes2 = new Yes2();
 
         softAssert.assertThat(employee.getName("Shrikant"))
