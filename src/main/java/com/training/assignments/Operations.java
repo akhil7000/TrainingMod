@@ -100,6 +100,7 @@ public class Operations {
 
     public List<String> getSportsName(List<String> sportsList, String eliminateSportName) {
         sportsList.remove(eliminateSportName);
+
         return sportsList;
     }
 }
