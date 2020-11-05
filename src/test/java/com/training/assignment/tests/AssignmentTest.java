@@ -2,7 +2,10 @@ package com.training.assignment.tests;
 
 import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
+import com.training.assignments.abstraction.Yes1;
 import com.training.assignments.inheritance.ParentChild;
+import com.training.assignments.oopsinterface.Yes2;
+import com.training.assignments.polymorphism.overloading.Employee;
 import com.training.assignments.polymorphism.overriding.Director;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -138,5 +141,27 @@ public class AssignmentTest extends BaseTest {
 
         softAssert.assertThat(director.getWorkDetail())
                 .as("Work of actor and director differs").isEqualTo("Acting Directing");
+    }
+
+    @Test
+    public void testAbstractInterfaceConcept() {
+        Employee employee = new Employee();
+        Yes1 yes1 = new Yes1();
+        Yes2 yes2 = new Yes2();
+
+        softAssert.assertThat(employee.getName("Shrikant"))
+                .as("Employee name doesn't match,try something else").isEqualTo("Shrikant");
+
+        softAssert.assertThat(employee.getName("Shrikant", "Sajjanshetti"))
+                .as("Employee name doesnt match,try something else").isEqualTo("Shrikant Sajjanshetti");
+
+        softAssert.assertThat(employee.getName("Shrikant", "Sajjanshetti", "Umakant"))
+                .as("Employee name doesnt match,try something else").isEqualTo("Shrikant Sajjanshetti Umakant");
+
+        softAssert.assertThat(yes1.getSum(3))
+                .as("Sum of three number is incorrect").isEqualTo(33);
+
+        softAssert.assertThat(yes2.getSum(5))
+                .as("Sum of three number is incorrect").isEqualTo(35);
     }
 }
