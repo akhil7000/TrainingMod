@@ -16,7 +16,6 @@ public class AssignmentTest extends BaseTest {
 
     private Assignment assignment = new Assignment();
     private Operations operation = new Operations();
-    private ParentChild parentChild=new ParentChild();
 
     @Test
     public void testDataConversion() {
@@ -125,6 +124,7 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testOopsConcept() {
+        ParentChild parentChild=new ParentChild();
         Director director = new Director();
 
         List<String> sportsList = new ArrayList<>(Arrays.asList("Cricket", "Khokho", "Kabaddi", "Batminton", "Hockey", "Football"));
