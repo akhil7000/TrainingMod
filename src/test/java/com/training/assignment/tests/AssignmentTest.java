@@ -139,6 +139,6 @@ public class AssignmentTest extends BaseTest {
         String actorWork="Acting";
         String directorWork="Directing";
         String workOFActorDirector=actorWork+" "+directorWork;
-        softAssert.assertThat(director.work()).as("Work of actor and director differs").isEqualTo(workOFActorDirector);
+        softAssert.assertThat(director.getWorkDetail()).as("Work of actor and director differs").isEqualTo(workOFActorDirector);
     }
 }
