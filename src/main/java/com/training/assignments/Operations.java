@@ -1,12 +1,9 @@
 package com.training.assignments;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 
 public class Operations {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public String getCompanyReviews(String companyName) {
         HashMap<String, String> company = new HashMap<>();
