@@ -147,13 +147,8 @@ public class AssignmentTest extends BaseTest {
     public void testAbstractInterfaceConcept() {
         Employee employee = new Employee();
 
-        Yes1 yes1 = new Yes1();
-
-        Yes2 yes2 = new Yes2();
-
         String firstName="Shrikant";
         String lastName="Sajjanshetti";
-        String middleName="Umakant";
 
         softAssert.assertThat(employee.getName(firstName))
                 .as("Employee name doesn't match,try something else").isEqualTo("Shrikant");
@@ -161,13 +156,13 @@ public class AssignmentTest extends BaseTest {
         softAssert.assertThat(employee.getName(firstName, lastName))
                 .as("Employee name doesnt match,try something else").isEqualTo("Shrikant Sajjanshetti");
 
-        softAssert.assertThat(employee.getName(firstName, lastName, middleName))
+        softAssert.assertThat(employee.getName(firstName, lastName, "Umakant"))
                 .as("Employee name doesnt match,try something else").isEqualTo("Shrikant Sajjanshetti Umakant");
 
-        softAssert.assertThat(yes1.getSum(3))
+        softAssert.assertThat(new Yes1().getSum(3))
                 .as("Sum of three number is incorrect").isEqualTo(33);
 
-        softAssert.assertThat(yes2.getSum(5))
+        softAssert.assertThat(new Yes2().getSum(5))
                 .as("Sum of three number is incorrect").isEqualTo(35);
     }
 }
