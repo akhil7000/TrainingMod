@@ -2,15 +2,22 @@ package com.training.assignment.tests;
 
 import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
+import com.training.assignments.inheritance.ParentChild;
+import com.training.assignments.polymorphism.overriding.Director;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AssignmentTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-   private Assignment assignment = new Assignment();
-   private Operations operation = new Operations();
+    private Assignment assignment = new Assignment();
+    private Operations operation = new Operations();
+    private ParentChild parentChild=new ParentChild();
+    private Director director=new Director();
 
     @Test
     public void testDataConversion() {
@@ -115,5 +122,23 @@ public class AssignmentTest extends BaseTest {
             softAssert.assertThat((oddNumber % 2) != 0)
                     .as("Number is not an odd number-->" + oddNumber).isTrue();
         }
+    }
+
+    @Test
+    public void testOopsConcept(){
+        String eliminateSportName="Batminton";
+        List<String> sportsList= new ArrayList<>(Arrays.asList("Cricket","Khokho","Kabaddi","Batminton","Hockey","Football"));
+        softAssert.assertThat(operation.getSportsName(sportsList,eliminateSportName)).as("List should not contains Batminton")
+                .isEqualTo(Arrays.asList("Cricket","Khokho","Kabaddi","Hockey","Football"));
+
+        String firstName="MIKE";
+        String surname="TYSON";
+        String fullName=firstName+" "+surname;
+        softAssert.assertThat(parentChild.getName()).as("Full name  of parent child is incorrect").isEqualTo(fullName);
+
+        String actorWork="Acting";
+        String directorWork="Directing";
+        String workOFActorDirector=actorWork+" "+directorWork;
+        softAssert.assertThat(director.work()).as("Work of actor and director differs").isEqualTo(workOFActorDirector);
     }
 }
