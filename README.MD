@@ -55,10 +55,11 @@ After installing the Lombok plugin, it needs to be enabled as an annotation proc
 **Usage:**
 -
 It has a sample test method inside the test package - `com/training/sample/tests/SampleTest.java`. All the tests needs to be inside this package based on - `web, mobile and services`
-For streams all the tests/exercises would go inside- `com/training/streams/tests/`
 
 It has a sample page class inside main package - `com/training/sample/pages/SamplePage.java`. All the pages/screen classes needs to inside this package.
-All the domain classes for streams api are inside - `com/training/streams`
 
 Everything related to data/drivers needs to be inside - `test/resources/streams`
 
+For streams all the tests/exercises would go inside- `com/training/streams/tests/`
+
+All the domain classes for streams api are inside - `com/training/streams`
