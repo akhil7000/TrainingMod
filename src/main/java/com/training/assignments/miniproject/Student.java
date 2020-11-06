@@ -1,9 +1,11 @@
 package com.training.assignments.miniproject;
 
-import lombok.Data;
-
-
 public class Student {
+    String name;
+    String lastName;
+    int rollNo;
+    static String schoolName;
+
     public String getName() {
         return name;
     }
@@ -35,9 +37,4 @@ public class Student {
     public static void setSchoolName(String schoolName) {
         Student.schoolName = schoolName;
     }
-
-    String name;
-    String lastName;
-    int rollNo;
-   static String schoolName;
 }
