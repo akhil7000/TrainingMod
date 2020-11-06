@@ -58,8 +58,8 @@ It has a sample test method inside the test package - `com/training/sample/tests
 
 It has a sample page class inside main package - `com/training/sample/pages/SamplePage.java`. All the pages/screen classes needs to inside this package.
 
-Everything related to data/drivers needs to be inside - `test/resources/streams`
+Everything related to data/drivers needs to be inside - `test/resources/`
 
-For streams all the tests/exercises would go inside- `com/training/streams/tests/`
+For streams all the tests/exercises would go inside test package - `com/training/streams/tests/`
 
-All the domain classes for streams api are inside - `com/training/streams`
+All the domain classes for streams api are inside main package - `com/training/streams/`
