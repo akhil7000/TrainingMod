@@ -14,6 +14,7 @@ import com.training.web.pages.flipkart.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static com.codeborne.selenide.Selenide.closeWindow;
@@ -84,62 +85,52 @@ public class FlipkartTest extends BaseTest {
         String shoenoInString[] = map.get("select_shoe").split(",");
         int[] shoeno = Arrays.asList(shoenoInString).stream().mapToInt(Integer::parseInt).toArray();
         String[][] productNameAndPrice = new String[shoeno.length][2];
+
         SearchPage searchPage = new HomePage().popUpCancel().setShoes(product).searchShoes().sortShoes("Price -- Low to High");
 
         /**
          * Getting the product name and price of shoe and storing in array
          */
-        for (int row = 0; row < shoeno.length; row++) {
-            for (int col = 0; col < 2; col++) {
-                productNameAndPrice[row][col] = searchPage.getProductName(shoeno[row]);
-                col = col + 1;
-                productNameAndPrice[row][col] = searchPage.getProductPrice(shoeno[row]);
-            }
-        }
-
-        /**
-         * Just printing product Name And Price array
-         */
-        for (int row = 0; row < shoeno.length; row++) {
-            for (int col = 0; col < 2; col++) {
-                logger.info("****productNameAndPrice = *** = " + productNameAndPrice[row][col]);
-            }
-        }
+        IntStream.range(0, shoeno.length).forEach(row -> {
+            IntStream.range(0, 2).forEach(col -> {
+                if (col == 0) {
+                    productNameAndPrice[row][col] = searchPage.getProductName(shoeno[row]);
+                }
+                if (col == 1) {
+                    productNameAndPrice[row][col] = searchPage.getProductPrice(shoeno[row]);
+                }
+            });
+        });
 
         /**
          * Selecting shoe 1 and adding in cart , same procedure for other shoes
          */
-        CartPage cartPage = null;
-        for (int index = 0; index < shoeno.length; index++) {
-            cartPage = searchPage.OpenProductPage(shoeno[index]).clickShoeSize().addToCartShoe();
+        IntStream.range(0, shoeno.length).forEach(index -> {
+            searchPage.OpenProductPage(shoeno[index]).clickShoeSize().addToCartShoe();
             /**
              * If you are selecting last shoe than below if statement will not run, it will not switch to parent window
              */
             if (!((shoeno.length - 1) == index)) {
                 switchParentWindow();
             }
-        }
+        });
 
         /**
          * getting ProductName And Price From AddtoCart
          */
+        CartPage cartPage = new CartPage();
         String[][] getProductNameAndPriceFromAddtoCart = new String[shoeno.length][2];
+
         for (int row = 0; row < shoeno.length; row++) {
             for (int col = 0; col < 2; col++) {
                 int positionOfProductName = row + 1;
                 int positionOfPrice = positionOfProductName + 1;
-                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductName(positionOfProductName);
-                col = col + 1;
-                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductPrice(positionOfPrice);
-            }
-        }
 
-        /**
-         * Just printing the array and seeing the value
-         */
-        for (int row = 0; row < getProductNameAndPriceFromAddtoCart.length; row++) {
-            for (int col = 0; col < 2; col++) {
-                logger.info("****getProductNameAndPriceFromAddtoCart = *** = " + getProductNameAndPriceFromAddtoCart[row][col]);
+                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductName(positionOfProductName);
+
+                col = col + 1;
+
+                getProductNameAndPriceFromAddtoCart[row][col] = cartPage.getProductPrice(positionOfPrice);
             }
         }
 
@@ -156,7 +147,6 @@ public class FlipkartTest extends BaseTest {
                     break;
                 }
             }
-
             /**
              * If we dont find the product in getProductNameAndPriceFromAddtoCart[][] array, then the softAssert will fail
              */
@@ -167,11 +157,12 @@ public class FlipkartTest extends BaseTest {
         /**
          * Now checking the total price of selected shoe from list
          */
-        int totalPriceOfShoeSelectedFromList = 0;
-        for (int row = 0; row < productNameAndPrice.length; row++) {
-            totalPriceOfShoeSelectedFromList = totalPriceOfShoeSelectedFromList + Integer.parseInt(productNameAndPrice[row][1]);
-        }
-        softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList).isTrue();
+        AtomicInteger totalPriceOfShoeSelectedFromList = new AtomicInteger();
+        IntStream.range(0, productNameAndPrice.length).forEach(row -> {
+            totalPriceOfShoeSelectedFromList.set(totalPriceOfShoeSelectedFromList.get() + Integer.parseInt(productNameAndPrice[row][1]));
+        });
+
+        softAssert.assertThat(Integer.parseInt(cartPage.getShoePriceTotalInCart()) == totalPriceOfShoeSelectedFromList.get()).isTrue();
     }
 
     /**
