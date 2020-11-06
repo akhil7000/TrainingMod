@@ -6,7 +6,7 @@ import com.training.streams.domain.City;
 
 /**
  *
- * @author Binnur Kurt (binnur.kurt@gmail.com)
+ * @author Akhil Cherian (akhil7000@gmail.com)
  */
 public interface CityDao {
     City findCityById(int id);

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author Binnur Kurt (binnur.kurt@gmail.com)
+ * @author Akhil Cherian (akhil7000@gmail.com)
  */
 public class Country {
     private String code;

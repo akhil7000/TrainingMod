@@ -2,7 +2,7 @@ package com.training.streams.domain;
 
 /**
  *
- * @author Binnur Kurt (binnur.kurt@gmail.com)
+ * @author Akhil Cherian (akhil7000@gmail.com)
  */
 public class Director {
     private int id;

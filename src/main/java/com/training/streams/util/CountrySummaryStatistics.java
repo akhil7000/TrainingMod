@@ -7,7 +7,7 @@ import com.training.streams.domain.Country;
 
 /**
  *
- * @author Binnur Kurt <binnur.kurt@gmail.com>
+ * @author Akhil Cherian (akhil7000@gmail.com)
  *
  */
 public class CountrySummaryStatistics implements Consumer<Country> {

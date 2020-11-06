@@ -10,7 +10,7 @@ import com.training.streams.model.CriteriaBean;
 
 /**
  *
- * @author Binnur Kurt (binnur.kurt@gmail.com)
+ * @author Akhil Cherian (akhil7000@gmail.com)
  */
 public interface MovieService {
     Movie findMovieById(int id);

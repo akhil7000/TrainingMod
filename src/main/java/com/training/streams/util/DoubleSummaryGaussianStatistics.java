@@ -4,7 +4,7 @@ import java.util.DoubleSummaryStatistics;
 
 /**
  *
- * @author Binnur Kurt <binnur.kurt@gmail.com>
+ * @author Akhil Cherian (akhil7000@gmail.com)
  *
  */
 public class DoubleSummaryGaussianStatistics extends DoubleSummaryStatistics {
