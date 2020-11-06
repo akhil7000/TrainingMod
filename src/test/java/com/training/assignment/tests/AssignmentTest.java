@@ -4,6 +4,7 @@ import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
 import com.training.assignments.abstraction.Yes1;
 import com.training.assignments.inheritance.ParentChild;
+import com.training.assignments.miniproject.Student;
 import com.training.assignments.oopsinterface.Yes2;
 import com.training.assignments.polymorphism.overloading.Employee;
 import com.training.assignments.polymorphism.overriding.Director;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class AssignmentTest extends BaseTest {
@@ -147,8 +149,8 @@ public class AssignmentTest extends BaseTest {
     public void testAbstractInterfaceConcept() {
         Employee employee = new Employee();
 
-        String firstName="Shrikant";
-        String lastName="Sajjanshetti";
+        String firstName = "Shrikant";
+        String lastName = "Sajjanshetti";
 
         softAssert.assertThat(employee.getName(firstName))
                 .as("Employee name doesn't match,try something else").isEqualTo("Shrikant");
@@ -164,5 +166,124 @@ public class AssignmentTest extends BaseTest {
 
         softAssert.assertThat(new Yes2().getSum(5))
                 .as("Sum of three number is incorrect").isEqualTo(35);
+    }
+
+    @Test
+    public void testStaticExample() {
+        String name = "Shri";
+        String lastName = "Shetti";
+        int rollNo = 56;
+        String schoolName = "Anudatt";
+
+        Student student = new Student();
+        Student student2 = new Student();
+
+        student.setName(name);
+        student.setLastName(lastName);
+        student.setRollNo(rollNo);
+        Student.setSchoolName(schoolName);
+
+        student2.setSchoolName("SVP");
+
+        softAssert.assertThat(student.getName()).as("Name is not matching").isEqualTo(name);
+
+        softAssert.assertThat(student.getLastName()).as("Lastname is not matching").isEqualTo(lastName);
+
+        softAssert.assertThat(student.getRollNo()).as("Roll number doesn't match").isEqualTo(rollNo);
+
+        softAssert.assertThat(Student.getSchoolName()).as("School name doesn't match").isEqualTo("SVP");
+
+        softAssert.assertThat(student2.getSchoolName()).as("School name doesn't match").isEqualTo("SVP");
+    }
+
+    @Test
+    public void testMiniProject() {
+        com.training.assignments.miniproject.Employee originalEmployee =
+                new com.training.assignments.miniproject.Employee();
+
+        com.training.assignments.miniproject.Employee cloneEmployee =
+                new com.training.assignments.miniproject.Employee();
+
+        List<com.training.assignments.miniproject.Employee> createEmp = originalEmployee.getCreatedEmployee();
+        List<com.training.assignments.miniproject.Employee> cloneEmp = cloneEmployee.getExistingEmployee();
+
+        Iterator<com.training.assignments.miniproject.Employee> createdEmployeeIterator = createEmp.iterator();
+        Iterator<com.training.assignments.miniproject.Employee> cloneEmployeeIterator = cloneEmp.iterator();
+
+        while (createdEmployeeIterator.hasNext()) {
+            com.training.assignments.miniproject.Employee empDetails = createdEmployeeIterator.next();
+            com.training.assignments.miniproject.Employee cloneEmpDetails = cloneEmployeeIterator.next();
+
+            softAssert.assertThat(empDetails.getName())
+                    .as("Name's inside created list and clone list differs")
+                    .isEqualTo(cloneEmpDetails.getName());
+
+            softAssert.assertThat(empDetails.getAddress())
+                    .as("Address inside created list and clone list differs")
+                    .isEqualTo(cloneEmpDetails.getAddress());
+
+            softAssert.assertThat(empDetails.getId())
+                    .as("Id's inside created list and clone list differs")
+                    .isEqualTo(cloneEmpDetails.getId());
+
+            softAssert.assertThat(empDetails.getSalary())
+                    .as("Salary inside created list and clone list differs")
+                    .isEqualTo(cloneEmpDetails.getSalary());
+
+        }
+
+        List<com.training.assignments.miniproject.Employee> deletedEmployee = originalEmployee.getDeletedEmployee(1);
+        List<com.training.assignments.miniproject.Employee> cloneDeletedEmp = cloneEmployee.getCloneDeletedEmployee(1);
+
+        Iterator<com.training.assignments.miniproject.Employee> deletedEmployeeIterator = deletedEmployee.iterator();
+        Iterator<com.training.assignments.miniproject.Employee> cloneDeletedEmployeeIterator = cloneDeletedEmp.iterator();
+
+        while (deletedEmployeeIterator.hasNext() && cloneDeletedEmployeeIterator.hasNext()) {
+            com.training.assignments.miniproject.Employee employee = deletedEmployeeIterator.next();
+            com.training.assignments.miniproject.Employee clonedEmpoyee = cloneDeletedEmployeeIterator.next();
+
+            softAssert.assertThat(employee.getAddress())
+                    .as("Address inside updated list and clone list differs")
+                    .isEqualTo(clonedEmpoyee.getAddress());
+
+            softAssert.assertThat(employee.getName())
+                    .as("Name's inside updated list and clone list differs")
+                    .isEqualTo(clonedEmpoyee.getName());
+
+            softAssert.assertThat(employee.getId())
+                    .as("Id's inside updated list and clone list differs")
+                    .isEqualTo(clonedEmpoyee.getId());
+
+            softAssert.assertThat(employee.getSalary())
+                    .as("Salary inside updated list and clone list differs")
+                    .isEqualTo(clonedEmpoyee.getSalary());
+        }
+
+        List<com.training.assignments.miniproject.Employee> updatedEmployee = originalEmployee.getUpdatedEmployee(0);
+        List<com.training.assignments.miniproject.Employee> cloneUpdatedEmployeeEmp = originalEmployee.getCloneUpdatedEmployee(0);
+
+        Iterator<com.training.assignments.miniproject.Employee> updatedEmployeeIterator = updatedEmployee.iterator();
+        Iterator<com.training.assignments.miniproject.Employee> updatedCloneEmployeeIterator = cloneUpdatedEmployeeEmp.iterator();
+
+        while (updatedEmployeeIterator.hasNext()) {
+            com.training.assignments.miniproject.Employee updatedEmpDetails = updatedEmployeeIterator.next();
+            com.training.assignments.miniproject.Employee updatedCloneEmpDetails = updatedCloneEmployeeIterator.next();
+
+            softAssert.assertThat(updatedEmpDetails.getName())
+                    .as("Name's inside updated list and clone list differs")
+                    .isEqualTo(updatedCloneEmpDetails.getName());
+
+            softAssert.assertThat(updatedEmpDetails.getAddress())
+                    .as("Address inside updated list and clone list differs")
+                    .isEqualTo(updatedCloneEmpDetails.getAddress());
+
+            softAssert.assertThat(updatedEmpDetails.getId())
+                    .as("Id's inside updated list and clone list differs")
+                    .isEqualTo(updatedCloneEmpDetails.getId());
+
+            softAssert.assertThat(updatedEmpDetails.getSalary())
+                    .as("Salary inside updated list and clone list differs")
+                    .isEqualTo(updatedCloneEmpDetails.getSalary());
+        }
     }
 }
