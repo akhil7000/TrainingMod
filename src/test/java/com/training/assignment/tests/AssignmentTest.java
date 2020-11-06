@@ -173,7 +173,7 @@ public class AssignmentTest extends BaseTest {
         String name = "Shri";
         String lastName = "Shetti";
         int rollNo = 56;
-        String schoolName = "Anudatt";
+        String schoolName = "SVP";
 
         Student student = new Student();
         Student student2 = new Student();
@@ -181,9 +181,9 @@ public class AssignmentTest extends BaseTest {
         student.setName(name);
         student.setLastName(lastName);
         student.setRollNo(rollNo);
-        Student.setSchoolName(schoolName);
+        Student.setSchoolName("Anudatt");
 
-        student2.setSchoolName("SVP");
+        student2.setSchoolName(schoolName);
 
         softAssert.assertThat(student.getName()).as("Name is not matching").isEqualTo(name);
 
@@ -191,9 +191,9 @@ public class AssignmentTest extends BaseTest {
 
         softAssert.assertThat(student.getRollNo()).as("Roll number doesn't match").isEqualTo(rollNo);
 
-        softAssert.assertThat(Student.getSchoolName()).as("School name doesn't match").isEqualTo("SVP");
+        softAssert.assertThat(Student.getSchoolName()).as("School name doesn't match").isEqualTo(schoolName);
 
-        softAssert.assertThat(student2.getSchoolName()).as("School name doesn't match").isEqualTo("SVP");
+        softAssert.assertThat(student2.getSchoolName()).as("School name doesn't match").isEqualTo(schoolName);
     }
 
     @Test
