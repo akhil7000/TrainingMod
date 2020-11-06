@@ -1,6 +1,34 @@
 **Purpose:**
 -
-The purpose of this repo is to have a basic training template. 
+The purpose of this repo is to have a basic training template for streams API.
+
+### Stream API Exercises : Part II
+Stream API Exercises : Part II
+
+`List<Animal> animals= List.of(
+        new Spider(),
+        new Cat(),
+        new Fish("Free Willy"),
+        new Cat("Tekir"),
+        new Fish("Jaws"),
+        new Spider()
+);`
+
+**Q.1)** Take a list of wild animals
+
+**Q.2)** Take a list of pets
+
+**Q.3)** Find the animal with the highest number of legs
+
+**Q.4)** Take a list of 100 random animals
+
+**Q.5)** Find the total number of legs
+
+**Q.6)** Group the animals by their number of legs
+
+**Q.7)** Count the number of animals in each specie
+
+**Q.8)** Count the number of species
 
 **Requirements:**
 -
@@ -17,4 +45,8 @@ It has a sample test method inside the test package - `com/training/sample/tests
 
 It has a sample page class inside main package - `com/training/sample/pages/SamplePage.java`. All the pages/screen classes needs to inside this package.
 
-Everything related to data/drivers needs to be inside - `test/resources`
+Everything related to data/drivers needs to be inside - `test/resources/streams`
+
+For streams all the tests/exercises would go inside- `com/training/streams/tests/`
+
+All the domain classes for streams api are inside - `com/training/streams`
