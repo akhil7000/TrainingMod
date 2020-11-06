@@ -204,11 +204,8 @@ public class AssignmentTest extends BaseTest {
         com.training.assignments.miniproject.Employee cloneEmployee =
                 new com.training.assignments.miniproject.Employee();
 
-        List<com.training.assignments.miniproject.Employee> createEmp = originalEmployee.getCreatedEmployee();
-        List<com.training.assignments.miniproject.Employee> cloneEmp = cloneEmployee.getExistingEmployee();
-
-        Iterator<com.training.assignments.miniproject.Employee> createdEmployeeIterator = createEmp.iterator();
-        Iterator<com.training.assignments.miniproject.Employee> cloneEmployeeIterator = cloneEmp.iterator();
+        Iterator<com.training.assignments.miniproject.Employee> createdEmployeeIterator = originalEmployee.getCreatedEmployee().iterator();
+        Iterator<com.training.assignments.miniproject.Employee> cloneEmployeeIterator = cloneEmployee.getExistingEmployee().iterator();
 
         while (createdEmployeeIterator.hasNext()) {
             com.training.assignments.miniproject.Employee empDetails = createdEmployeeIterator.next();
@@ -229,14 +226,13 @@ public class AssignmentTest extends BaseTest {
             softAssert.assertThat(empDetails.getSalary())
                     .as("Salary inside created list and clone list differs")
                     .isEqualTo(cloneEmpDetails.getSalary());
-
         }
 
-        List<com.training.assignments.miniproject.Employee> deletedEmployee = originalEmployee.getDeletedEmployee(1);
-        List<com.training.assignments.miniproject.Employee> cloneDeletedEmp = cloneEmployee.getCloneDeletedEmployee(1);
+        Iterator<com.training.assignments.miniproject.Employee> deletedEmployeeIterator =
+                originalEmployee.getDeletedEmployee(1).iterator();
 
-        Iterator<com.training.assignments.miniproject.Employee> deletedEmployeeIterator = deletedEmployee.iterator();
-        Iterator<com.training.assignments.miniproject.Employee> cloneDeletedEmployeeIterator = cloneDeletedEmp.iterator();
+        Iterator<com.training.assignments.miniproject.Employee> cloneDeletedEmployeeIterator =
+                cloneEmployee.getCloneDeletedEmployee(1).iterator();
 
         while (deletedEmployeeIterator.hasNext() && cloneDeletedEmployeeIterator.hasNext()) {
             com.training.assignments.miniproject.Employee employee = deletedEmployeeIterator.next();
@@ -259,11 +255,11 @@ public class AssignmentTest extends BaseTest {
                     .isEqualTo(clonedEmpoyee.getSalary());
         }
 
-        List<com.training.assignments.miniproject.Employee> updatedEmployee = originalEmployee.getUpdatedEmployee(0);
-        List<com.training.assignments.miniproject.Employee> cloneUpdatedEmployeeEmp = originalEmployee.getCloneUpdatedEmployee(0);
+        Iterator<com.training.assignments.miniproject.Employee> updatedEmployeeIterator =
+                originalEmployee.getUpdatedEmployee(0).iterator();
 
-        Iterator<com.training.assignments.miniproject.Employee> updatedEmployeeIterator = updatedEmployee.iterator();
-        Iterator<com.training.assignments.miniproject.Employee> updatedCloneEmployeeIterator = cloneUpdatedEmployeeEmp.iterator();
+        Iterator<com.training.assignments.miniproject.Employee> updatedCloneEmployeeIterator =
+                cloneEmployee.getCloneUpdatedEmployee(0).iterator();
 
         while (updatedEmployeeIterator.hasNext()) {
             com.training.assignments.miniproject.Employee updatedEmpDetails = updatedEmployeeIterator.next();
