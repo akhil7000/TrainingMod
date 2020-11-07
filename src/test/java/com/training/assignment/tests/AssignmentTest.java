@@ -222,6 +222,6 @@ public class AssignmentTest extends BaseTest {
                 .as("Doesn't updated Ashwini record in list").isEqualTo("Ashwini");
 
         softAssert.assertThat(empOperation.getEmployee().get(1).getAddress())
-                .as("Doesn't updated Ashwini record in list").isEqualTo("Lokhandwala");
+                .as("Doesn't updated address record in list").isEqualTo("Lokhandwala");
     }
 }
