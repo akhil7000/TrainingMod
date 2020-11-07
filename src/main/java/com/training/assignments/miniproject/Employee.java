@@ -6,37 +6,30 @@ import java.util.List;
 
 @Data
 public class Employee {
-    List<Employee> employeeList = new ArrayList<>();
+    static List<Employee> employeeList = new ArrayList<>();
+    static List<Employee> cloneEmployeeList = new ArrayList<>();
 
     String name;
     String address;
     int salary;
     int id;
 
-    public Employee(String name, String address, int salary, int id) {
-        this.name = name;
-        this.address = address;
-        this.salary = salary;
-        this.id = id;
+    public Employee getCreateEmployee(Employee employee) {
+        employeeList.add(employee);
+        return employee;
     }
 
-    public Employee() {
-    }
-
-    public List<Employee> getCreatedEmployee() {
-        employeeList.add(new Employee("Shri", "kandivali", 20000, 56));
-        employeeList.add(new Employee("Ashish", "Malad", 25000, 84));
-        employeeList.add(new Employee("Arnav", "Goregaon", 3000, 75));
-        employeeList.add(new Employee("Paramveer", "Andheri", 40000, 420));
+    public List<Employee> getCreatedEmployeeList() {
         return employeeList;
     }
 
-    public List<Employee> getExistingEmployee() {
-        employeeList.add(new Employee("Shri", "kandivali", 20000, 56));
-        employeeList.add(new Employee("Ashish", "Malad", 25000, 84));
-        employeeList.add(new Employee("Arnav", "Goregaon", 3000, 75));
-        employeeList.add(new Employee("Paramveer", "Andheri", 40000, 420));
-        return employeeList;
+    public Employee getCreateCloneEmployee(Employee employee) {
+        cloneEmployeeList.add(employee);
+        return employee;
+    }
+
+    public List<Employee> getCreatedCloneEmployeeList() {
+        return cloneEmployeeList;
     }
 
     public List<Employee> getDeletedEmployee(int index) {
@@ -45,23 +38,17 @@ public class Employee {
     }
 
     public List<Employee> getCloneDeletedEmployee(int index) {
-        employeeList.remove(index);
+        cloneEmployeeList.remove(index);
+        return cloneEmployeeList;
+    }
+
+    public List<Employee> getUpdatedEmployee(Employee employee1, int index) {
+        employeeList.add(index, employee1);
         return employeeList;
     }
 
-    public List<Employee> getUpdatedEmployee(int index) {
-        Employee employee = employeeList.get(index);
-        employee.setName("Ashwini");
-        employee.setAddress("Lokhandwala");
-        employee.setSalary(25000);
-        return employeeList;
-    }
-
-    public List<Employee> getCloneUpdatedEmployee(int index) {
-        Employee employee = employeeList.get(index);
-        employee.setName("Ashwini");
-        employee.setAddress("Lokhandwala");
-        employee.setSalary(25000);
-        return employeeList;
+    public List<Employee> getCloneUpdatedEmployee(Employee employee2, int index) {
+        cloneEmployeeList.add(index, employee2);
+        return cloneEmployeeList;
     }
 }

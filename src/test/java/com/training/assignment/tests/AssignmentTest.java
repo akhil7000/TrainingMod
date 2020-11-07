@@ -11,10 +11,7 @@ import com.training.assignments.polymorphism.overriding.Director;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class AssignmentTest extends BaseTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -175,21 +172,21 @@ public class AssignmentTest extends BaseTest {
         int rollNo = 56;
         String schoolName = "SVP";
 
-        Student student = new Student();
+        Student student1 = new Student();
         Student student2 = new Student();
 
-        student.setName(name);
-        student.setLastName(lastName);
-        student.setRollNo(rollNo);
+        student1.setName(name);
+        student1.setLastName(lastName);
+        student1.setRollNo(rollNo);
         Student.setSchoolName("Anudatt");
 
         student2.setSchoolName(schoolName);
 
-        softAssert.assertThat(student.getName()).as("Name is not matching").isEqualTo(name);
+        softAssert.assertThat(student1.getName()).as("Name is not matching").isEqualTo(name);
 
-        softAssert.assertThat(student.getLastName()).as("Lastname is not matching").isEqualTo(lastName);
+        softAssert.assertThat(student1.getLastName()).as("Lastname is not matching").isEqualTo(lastName);
 
-        softAssert.assertThat(student.getRollNo()).as("Roll number doesn't match").isEqualTo(rollNo);
+        softAssert.assertThat(student1.getRollNo()).as("Roll number doesn't match").isEqualTo(rollNo);
 
         softAssert.assertThat(Student.getSchoolName()).as("School name doesn't match").isEqualTo(schoolName);
 
@@ -198,14 +195,80 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testMiniProject() {
-        com.training.assignments.miniproject.Employee originalEmployee =
+
+        com.training.assignments.miniproject.Employee originalEmployee1 =
                 new com.training.assignments.miniproject.Employee();
 
-        com.training.assignments.miniproject.Employee cloneEmployee =
+        originalEmployee1.setName("Shri");
+        originalEmployee1.setAddress("Kandivali");
+        originalEmployee1.setSalary(20000);
+        originalEmployee1.setId(56);
+        originalEmployee1.getCreateEmployee(originalEmployee1);
+
+        com.training.assignments.miniproject.Employee originalEmployee2 =
                 new com.training.assignments.miniproject.Employee();
 
-        Iterator<com.training.assignments.miniproject.Employee> createdEmployeeIterator = originalEmployee.getCreatedEmployee().iterator();
-        Iterator<com.training.assignments.miniproject.Employee> cloneEmployeeIterator = cloneEmployee.getExistingEmployee().iterator();
+        originalEmployee2.setName("Ashish");
+        originalEmployee2.setAddress("Malad");
+        originalEmployee2.setSalary(25000);
+        originalEmployee2.setId(84);
+        originalEmployee2.getCreateEmployee(originalEmployee2);
+
+        com.training.assignments.miniproject.Employee originalEmployee3 =
+                new com.training.assignments.miniproject.Employee();
+
+        originalEmployee3.setName("Arnav");
+        originalEmployee3.setAddress("Goregaon");
+        originalEmployee3.setSalary(3000);
+        originalEmployee3.setId(75);
+        originalEmployee3.getCreateEmployee(originalEmployee3);
+
+        com.training.assignments.miniproject.Employee originalEmployee4 =
+                new com.training.assignments.miniproject.Employee();
+        originalEmployee4.setName("Paramveer");
+        originalEmployee4.setAddress("Andheri");
+        originalEmployee4.setSalary(40000);
+        originalEmployee4.setId(420);
+        originalEmployee4.getCreateEmployee(originalEmployee4);
+
+        com.training.assignments.miniproject.Employee cloneEmployee1 =
+                new com.training.assignments.miniproject.Employee();
+
+        cloneEmployee1.setName("Shri");
+        cloneEmployee1.setAddress("Kandivali");
+        cloneEmployee1.setSalary(20000);
+        cloneEmployee1.setId(56);
+        cloneEmployee1.getCreateCloneEmployee(cloneEmployee1);
+
+        com.training.assignments.miniproject.Employee cloneEmployee2 =
+                new com.training.assignments.miniproject.Employee();
+
+        cloneEmployee2.setName("Ashish");
+        cloneEmployee2.setAddress("Malad");
+        cloneEmployee2.setSalary(25000);
+        cloneEmployee2.setId(84);
+        cloneEmployee2.getCreateCloneEmployee(cloneEmployee2);
+
+        com.training.assignments.miniproject.Employee cloneEmployee3 =
+                new com.training.assignments.miniproject.Employee();
+
+        cloneEmployee3.setName("Arnav");
+        cloneEmployee3.setAddress("Goregaon");
+        cloneEmployee3.setSalary(3000);
+        cloneEmployee3.setId(75);
+        cloneEmployee3.getCreateCloneEmployee(cloneEmployee3);
+
+        com.training.assignments.miniproject.Employee cloneEmployee4 =
+                new com.training.assignments.miniproject.Employee();
+
+        cloneEmployee4.setName("Paramveer");
+        cloneEmployee4.setAddress("Andheri");
+        cloneEmployee4.setSalary(40000);
+        cloneEmployee4.setId(420);
+        cloneEmployee4.getCreateCloneEmployee(cloneEmployee4);
+
+        Iterator<com.training.assignments.miniproject.Employee> createdEmployeeIterator =originalEmployee4.getCreatedEmployeeList().iterator();
+        Iterator<com.training.assignments.miniproject.Employee> cloneEmployeeIterator = cloneEmployee4.getCreatedCloneEmployeeList().iterator();
 
         while (createdEmployeeIterator.hasNext()) {
             com.training.assignments.miniproject.Employee empDetails = createdEmployeeIterator.next();
@@ -229,10 +292,10 @@ public class AssignmentTest extends BaseTest {
         }
 
         Iterator<com.training.assignments.miniproject.Employee> deletedEmployeeIterator =
-                originalEmployee.getDeletedEmployee(1).iterator();
+                originalEmployee1.getDeletedEmployee(1).iterator();
 
         Iterator<com.training.assignments.miniproject.Employee> cloneDeletedEmployeeIterator =
-                cloneEmployee.getCloneDeletedEmployee(1).iterator();
+                cloneEmployee1.getCloneDeletedEmployee(1).iterator();
 
         while (deletedEmployeeIterator.hasNext() && cloneDeletedEmployeeIterator.hasNext()) {
             com.training.assignments.miniproject.Employee employee = deletedEmployeeIterator.next();
@@ -255,15 +318,26 @@ public class AssignmentTest extends BaseTest {
                     .isEqualTo(clonedEmpoyee.getSalary());
         }
 
-        Iterator<com.training.assignments.miniproject.Employee> updatedEmployeeIterator =
-                originalEmployee.getUpdatedEmployee(0).iterator();
+        //Accessing first index values and updating the same
+        originalEmployee2 = originalEmployee4.getCreatedEmployeeList().get(1);
+        originalEmployee2.setName("Ashwini");
+        originalEmployee2.setAddress("Lokhandwala");
+        originalEmployee2.setSalary(25000);
 
-        Iterator<com.training.assignments.miniproject.Employee> updatedCloneEmployeeIterator =
-                cloneEmployee.getCloneUpdatedEmployee(0).iterator();
+        Iterator<com.training.assignments.miniproject.Employee> updatedEmployeeIterator =
+                originalEmployee2.getUpdatedEmployee(originalEmployee2, 1).iterator();
+
+        cloneEmployee2 = cloneEmployee4.getCreatedCloneEmployeeList().get(1);
+        cloneEmployee2.setName("Ashwini");
+        cloneEmployee2.setAddress("Lokhandwala");
+        cloneEmployee2.setSalary(25000);
+
+        Iterator<com.training.assignments.miniproject.Employee> updatedClonedEmployeeIterator =
+                cloneEmployee2.getCloneUpdatedEmployee(cloneEmployee2, 2).iterator();
 
         while (updatedEmployeeIterator.hasNext()) {
             com.training.assignments.miniproject.Employee updatedEmpDetails = updatedEmployeeIterator.next();
-            com.training.assignments.miniproject.Employee updatedCloneEmpDetails = updatedCloneEmployeeIterator.next();
+            com.training.assignments.miniproject.Employee updatedCloneEmpDetails = updatedClonedEmployeeIterator.next();
 
             softAssert.assertThat(updatedEmpDetails.getName())
                     .as("Name's inside updated list and clone list differs")
