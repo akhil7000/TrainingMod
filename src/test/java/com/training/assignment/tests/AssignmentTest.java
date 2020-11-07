@@ -199,29 +199,39 @@ public class AssignmentTest extends BaseTest {
     public void testMiniProject() {
         EmployeeOperation empOperation = new EmployeeOperation();
 
-        /**  CREATED   */
+        String name1="Pranav";
+        String name2="Ashwini";
+        String address="Lokhandwala";
+
+        /**
+         * CREATED
+         */
         empOperation.createEmployee("Shri", "Kandivali", 1000, 1);
-        empOperation.createEmployee("Pranav", "Thane", 2000, 2);
+        empOperation.createEmployee(name1, "Thane", 2000, 2);
         empOperation.createEmployee("Naresh", "Nerul", 3000, 3);
         empOperation.createEmployee("Sunil", "panvel", 4000, 4);
 
-        /** DELETED   */
+        /**
+         * DELETED
+         */
         Iterator<EmployeeManagement> employeeManagementIterator = empOperation.getDeletedEmployee(1, empOperation.getEmployee()).iterator();
         while (employeeManagementIterator.hasNext()) {
 
             softAssert.assertThat(employeeManagementIterator.next().getName())
                     .as("Delete operation not performed")
-                    .doesNotContain("Pranav");
+                    .doesNotContain(name1);
         }
-        /** UPDATED   */
+        /**
+         * UPDATED
+         */
         EmployeeManagement updateEmployee = empOperation.getEmployee().get(1);
-        updateEmployee.setName("Ashwini");
-        updateEmployee.setAddress("Lokhandwala");
+        updateEmployee.setName(name2);
+        updateEmployee.setAddress(address);
 
         softAssert.assertThat(empOperation.getEmployee().get(1).getName())
-                .as("Doesn't updated Ashwini record in list").isEqualTo("Ashwini");
+                .as("Doesn't updated Ashwini record in list").isEqualTo(name2);
 
         softAssert.assertThat(empOperation.getEmployee().get(1).getAddress())
-                .as("Doesn't updated address record in list").isEqualTo("Lokhandwala");
+                .as("Doesn't updated address record in list").isEqualTo(address);
     }
 }
