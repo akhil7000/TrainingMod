@@ -204,8 +204,8 @@ public class AssignmentTest extends BaseTest {
         empOperation.createEmployee("Pranav", "Thane", 2000, 2);
         empOperation.createEmployee("Naresh", "Nerul", 3000, 3);
         empOperation.createEmployee("Sunil", "panvel", 4000, 4);
-        /** DELETED   */
 
+        /** DELETED   */
         Iterator<EmployeeManagement> employeeManagementIterator = empOperation.getDeletedEmployee(1, empOperation.getEmployee()).iterator();
         while (employeeManagementIterator.hasNext()) {
 
