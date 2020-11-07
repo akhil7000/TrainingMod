@@ -4,7 +4,7 @@ import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
 import com.training.assignments.abstraction.Yes1;
 import com.training.assignments.inheritance.ParentChild;
-import com.training.assignments.miniproject.Employee1;
+import com.training.assignments.miniproject.EmployeeManagement;
 import com.training.assignments.miniproject.EmployeeOperation;
 import com.training.assignments.miniproject.Student;
 import com.training.assignments.oopsinterface.Yes2;
@@ -197,188 +197,28 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testMiniProject() {
+        EmployeeOperation empOperation = new EmployeeOperation();
+        //CREATED
+        empOperation.createEmployee("Shri", "Kandivali", 1000, 1);
+        empOperation.createEmployee("Pranav", "Thane", 2000, 2);
+        empOperation.createEmployee("Naresh", "Nerul", 3000, 3);
+        empOperation.createEmployee("Sunil", "panvel", 4000, 4);
+        //DELETED
+        empOperation.getDeletedEmployee(1, empOperation.getEmployee());
 
-        Employee1 originalEmployee1 =new Employee1();
+        Iterator<EmployeeManagement> employeeManagementIterator = empOperation.getEmployee().iterator();
+        while (employeeManagementIterator.hasNext()) {
 
-
-        originalEmployee1.createEmployee("Shri", "Kandivali", 1000, 1);
-        originalEmployee1.createEmployee("Pranav", "Thane", 2000, 2);
-        originalEmployee1.createEmployee("Naresh", "Nerul", 3000, 3);
-        originalEmployee1.createEmployee("Sunil", "panvel", 4000, 4);
-
-        System.out.println("All Emp = " + originalEmployee1.getEmployee());
-
-        EmployeeOperation empOperation=new EmployeeOperation();
-       // empOperation.getDeletedEmployee(1,originalEmployee1.getEmployee());
-
-        System.out.println("All Emp = " + empOperation.getDeletedEmployee(1,originalEmployee1.getEmployee()));
-
-        System.out.println("All Emp = " + empOperation.getDeletedEmployee(1,originalEmployee1.getEmployee(),"Sunil", "panvel", 4000, 4));
-
-        System.out.println("*********= " + originalEmployee1.getEmployee());
-        List<Employee1> abc = originalEmployee1.getEmployee();
-        Iterator<Employee1> abcI = abc.iterator();
-        while(abcI.hasNext()){
-            softAssert.assertThat(abcI.next().getName()).as("Delete operation not performed")
+            softAssert.assertThat(employeeManagementIterator.next().getName())
+                    .as("Delete operation not performed")
                     .doesNotContain("Pranav");
         }
+        //UPDATED
+        EmployeeManagement updateEmployee = empOperation.getEmployee().get(1);
+        updateEmployee.setName("Ashwini");
+        updateEmployee.setAddress("Lokhandwala");
 
-
-//        originalEmployee1.setName("Shri");
-//        originalEmployee1.setAddress("Kandivali");
-//        originalEmployee1.setSalary(20000);
-//        originalEmployee1.setId(56);
-//        originalEmployee1.getCreateEmployee(originalEmployee1);
-//
-//        com.training.assignments.miniproject.Employee originalEmployee2 =
-//                new com.training.assignments.miniproject.Employee();
-//
-//        originalEmployee2.setName("Ashish");
-//        originalEmployee2.setAddress("Malad");
-//        originalEmployee2.setSalary(25000);
-//        originalEmployee2.setId(84);
-//        originalEmployee2.getCreateEmployee(originalEmployee2);
-//
-//        com.training.assignments.miniproject.Employee originalEmployee3 =
-//                new com.training.assignments.miniproject.Employee();
-//
-//        originalEmployee3.setName("Arnav");
-//        originalEmployee3.setAddress("Goregaon");
-//        originalEmployee3.setSalary(3000);
-//        originalEmployee3.setId(75);
-//        originalEmployee3.getCreateEmployee(originalEmployee3);
-//
-//        com.training.assignments.miniproject.Employee originalEmployee4 =
-//                new com.training.assignments.miniproject.Employee();
-//        originalEmployee4.setName("Paramveer");
-//        originalEmployee4.setAddress("Andheri");
-//        originalEmployee4.setSalary(40000);
-//        originalEmployee4.setId(420);
-//        originalEmployee4.getCreateEmployee(originalEmployee4);
-//
-//        com.training.assignments.miniproject.Employee cloneEmployee1 =
-//                new com.training.assignments.miniproject.Employee();
-//
-//        cloneEmployee1.setName("Shri");
-//        cloneEmployee1.setAddress("Kandivali");
-//        cloneEmployee1.setSalary(20000);
-//        cloneEmployee1.setId(56);
-//        cloneEmployee1.getCreateCloneEmployee(cloneEmployee1);
-//
-//        com.training.assignments.miniproject.Employee cloneEmployee2 =
-//                new com.training.assignments.miniproject.Employee();
-//
-//        cloneEmployee2.setName("Ashish");
-//        cloneEmployee2.setAddress("Malad");
-//        cloneEmployee2.setSalary(25000);
-//        cloneEmployee2.setId(84);
-//        cloneEmployee2.getCreateCloneEmployee(cloneEmployee2);
-//
-//        com.training.assignments.miniproject.Employee cloneEmployee3 =
-//                new com.training.assignments.miniproject.Employee();
-//
-//        cloneEmployee3.setName("Arnav");
-//        cloneEmployee3.setAddress("Goregaon");
-//        cloneEmployee3.setSalary(3000);
-//        cloneEmployee3.setId(75);
-//        cloneEmployee3.getCreateCloneEmployee(cloneEmployee3);
-//
-//        com.training.assignments.miniproject.Employee cloneEmployee4 =
-//                new com.training.assignments.miniproject.Employee();
-//
-//        cloneEmployee4.setName("Paramveer");
-//        cloneEmployee4.setAddress("Andheri");
-//        cloneEmployee4.setSalary(40000);
-//        cloneEmployee4.setId(420);
-//        cloneEmployee4.getCreateCloneEmployee(cloneEmployee4);
-//
-//        Iterator<com.training.assignments.miniproject.Employee> createdEmployeeIterator =originalEmployee4.getCreatedEmployeeList().iterator();
-//        Iterator<com.training.assignments.miniproject.Employee> cloneEmployeeIterator = cloneEmployee4.getCreatedCloneEmployeeList().iterator();
-//
-//        while (createdEmployeeIterator.hasNext()) {
-//            com.training.assignments.miniproject.Employee empDetails = createdEmployeeIterator.next();
-//            com.training.assignments.miniproject.Employee cloneEmpDetails = cloneEmployeeIterator.next();
-//
-//            softAssert.assertThat(empDetails.getName())
-//                    .as("Name's inside created list and clone list differs")
-//                    .isEqualTo(cloneEmpDetails.getName());
-//
-//            softAssert.assertThat(empDetails.getAddress())
-//                    .as("Address inside created list and clone list differs")
-//                    .isEqualTo(cloneEmpDetails.getAddress());
-//
-//            softAssert.assertThat(empDetails.getId())
-//                    .as("Id's inside created list and clone list differs")
-//                    .isEqualTo(cloneEmpDetails.getId());
-//
-//            softAssert.assertThat(empDetails.getSalary())
-//                    .as("Salary inside created list and clone list differs")
-//                    .isEqualTo(cloneEmpDetails.getSalary());
-//        }
-//
-//        Iterator<com.training.assignments.miniproject.Employee> deletedEmployeeIterator =
-//                originalEmployee1.getDeletedEmployee(1).iterator();
-//
-//        Iterator<com.training.assignments.miniproject.Employee> cloneDeletedEmployeeIterator =
-//                cloneEmployee1.getCloneDeletedEmployee(1).iterator();
-//
-//        while (deletedEmployeeIterator.hasNext() && cloneDeletedEmployeeIterator.hasNext()) {
-//            com.training.assignments.miniproject.Employee employee = deletedEmployeeIterator.next();
-//            com.training.assignments.miniproject.Employee clonedEmpoyee = cloneDeletedEmployeeIterator.next();
-//
-//            softAssert.assertThat(employee.getAddress())
-//                    .as("Address inside updated list and clone list differs")
-//                    .isEqualTo(clonedEmpoyee.getAddress());
-//
-//            softAssert.assertThat(employee.getName())
-//                    .as("Name's inside updated list and clone list differs")
-//                    .isEqualTo(clonedEmpoyee.getName());
-//
-//            softAssert.assertThat(employee.getId())
-//                    .as("Id's inside updated list and clone list differs")
-//                    .isEqualTo(clonedEmpoyee.getId());
-//
-//            softAssert.assertThat(employee.getSalary())
-//                    .as("Salary inside updated list and clone list differs")
-//                    .isEqualTo(clonedEmpoyee.getSalary());
-//        }
-//
-//        //Accessing first index values and updating the same
-//        originalEmployee2 = originalEmployee4.getCreatedEmployeeList().get(1);
-//        originalEmployee2.setName("Ashwini");
-//        originalEmployee2.setAddress("Lokhandwala");
-//        originalEmployee2.setSalary(25000);
-//
-//        Iterator<com.training.assignments.miniproject.Employee> updatedEmployeeIterator =
-//                originalEmployee2.getUpdatedEmployee(originalEmployee2, 1).iterator();
-//
-//        cloneEmployee2 = cloneEmployee4.getCreatedCloneEmployeeList().get(1);
-//        cloneEmployee2.setName("Ashwini");
-//        cloneEmployee2.setAddress("Lokhandwala");
-//        cloneEmployee2.setSalary(25000);
-//
-//        Iterator<com.training.assignments.miniproject.Employee> updatedClonedEmployeeIterator =
-//                cloneEmployee2.getCloneUpdatedEmployee(cloneEmployee2, 2).iterator();
-//
-//        while (updatedEmployeeIterator.hasNext()) {
-//            com.training.assignments.miniproject.Employee updatedEmpDetails = updatedEmployeeIterator.next();
-//            com.training.assignments.miniproject.Employee updatedCloneEmpDetails = updatedClonedEmployeeIterator.next();
-//
-//            softAssert.assertThat(updatedEmpDetails.getName())
-//                    .as("Name's inside updated list and clone list differs")
-//                    .isEqualTo(updatedCloneEmpDetails.getName());
-//
-//            softAssert.assertThat(updatedEmpDetails.getAddress())
-//                    .as("Address inside updated list and clone list differs")
-//                    .isEqualTo(updatedCloneEmpDetails.getAddress());
-//
-//            softAssert.assertThat(updatedEmpDetails.getId())
-//                    .as("Id's inside updated list and clone list differs")
-//                    .isEqualTo(updatedCloneEmpDetails.getId());
-//
-//            softAssert.assertThat(updatedEmpDetails.getSalary())
-//                    .as("Salary inside updated list and clone list differs")
-//                    .isEqualTo(updatedCloneEmpDetails.getSalary());
-//        }
+        softAssert.assertThat(empOperation.getEmployee().get(1).getName())
+                .as("Doesn't updated Ashwini record in list").isEqualTo("Ashwini");
     }
 }
