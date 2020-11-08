@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeOperation {
-    static List<EmployeeManagement> employeeList = new ArrayList<>();
+    static List<com.training.assignments.miniproject.Employee> employeeList = new ArrayList<>();
 
     public void createEmployee(String name, String address, int salary, int id) {
-        employeeList.add(new EmployeeManagement(name, address, salary, id));
+        employeeList.add(new com.training.assignments.miniproject.Employee(name, address, salary, id));
     }
 
-    public List<EmployeeManagement> getEmployee() {
+    public List<com.training.assignments.miniproject.Employee> getEmployee() {
         return employeeList;
     }
 
-    public List<EmployeeManagement> getDeletedEmployee(int index, List<EmployeeManagement> employee) {
-        employee.remove(index);
-        return employee;
+    public void deleteEmployee(int index) {
+        employeeList.remove(index);
     }
 }

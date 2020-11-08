@@ -4,7 +4,6 @@ import com.training.assignments.Assignment;
 import com.training.assignments.Operations;
 import com.training.assignments.abstraction.Yes1;
 import com.training.assignments.inheritance.ParentChild;
-import com.training.assignments.miniproject.EmployeeManagement;
 import com.training.assignments.miniproject.EmployeeOperation;
 import com.training.assignments.miniproject.Student;
 import com.training.assignments.oopsinterface.Yes2;
@@ -199,9 +198,9 @@ public class AssignmentTest extends BaseTest {
     public void testMiniProject() {
         EmployeeOperation empOperation = new EmployeeOperation();
 
-        String createdName="Pranav";
-        String updatedName="Ashwini";
-        String updatedAddress="Lokhandwala";
+        String createdName = "Pranav";
+        String updatedName = "Ashwini";
+        String updatedAddress = "Lokhandwala";
 
         /**
          * CREATED
@@ -211,21 +210,35 @@ public class AssignmentTest extends BaseTest {
         empOperation.createEmployee("Naresh", "Nerul", 3000, 3);
         empOperation.createEmployee("Sunil", "panvel", 4000, 4);
 
+        softAssert.assertThat(empOperation.getEmployee().get(0).getId())
+                .as("Id of first employee in list doesn't match with the created employee id")
+                .isEqualTo(1);
+
+        softAssert.assertThat(empOperation.getEmployee().get(1).getId())
+                .as("Id of second employee in list doesn't match with the created employee id")
+                .isEqualTo(2);
+
+        softAssert.assertThat(empOperation.getEmployee().get(2).getId())
+                .as("Id of third employee in list doesn't match with the created employee id")
+                .isEqualTo(3);
+
+        softAssert.assertThat(empOperation.getEmployee().get(3).getId())
+                .as("Id of first employee in list doesn't match with the created id")
+                .isEqualTo(4);
+
         /**
          * DELETED
          */
-        Iterator<EmployeeManagement> employeeManagementIterator = empOperation.getDeletedEmployee(1, empOperation.getEmployee()).iterator();
-        while (employeeManagementIterator.hasNext()) {
+        empOperation.deleteEmployee(1);
 
-            softAssert.assertThat(employeeManagementIterator.next().getName())
-                    .as("Delete operation not performed")
-                    .doesNotContain(createdName);
-        }
+        softAssert.assertThat(empOperation.getEmployee().get(1).getId() != 2)
+                .as("Employee id 2 is not deleted from list")
+                .isTrue();
 
         /**
          * UPDATED
          */
-        EmployeeManagement updateEmployee = empOperation.getEmployee().get(1);
+        com.training.assignments.miniproject.Employee updateEmployee = empOperation.getEmployee().get(1);
         updateEmployee.setName(updatedName);
         updateEmployee.setAddress(updatedAddress);
 
