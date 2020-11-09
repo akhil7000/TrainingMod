@@ -248,6 +248,8 @@ public class AssignmentTest extends BaseTest {
          * UPDATED
          */
         com.training.assignments.miniproject.Employee updateEmployee = employeeOperation.getEmployee().get(1);
+        updateEmployee.setName(updatedName);
+        updateEmployee.setAddress(updatedAddress);
         employeeOperation.updateEmployee(updateEmployee);
 
         softAssert.assertThat(employeeOperation.getEmployee().get(1).getName())

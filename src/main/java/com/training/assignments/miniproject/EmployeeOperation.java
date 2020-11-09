@@ -37,8 +37,6 @@ public class EmployeeOperation {
     }
 
     public void updateEmployee(Employee employee) {
-        employee.setName("Ashwini");
-        employee.setAddress("Lokhandwala");
         employeeList.add(employee);
     }
 }
