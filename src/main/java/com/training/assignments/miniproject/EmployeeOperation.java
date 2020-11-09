@@ -14,7 +14,31 @@ public class EmployeeOperation {
         return employeeList;
     }
 
-    public void deleteEmployee(int index) {
-        employeeList.remove(index);
+    public void deleteEmployee(int id) {
+        Employee employeeToRemove = null;
+        for (Employee emp : employeeList) {
+            if (emp.id == id) {
+                employeeToRemove = emp;
+                break;
+            }
+        }
+        employeeList.remove(employeeToRemove);
+    }
+
+    public void deleteEmployee(String name) {
+        Employee employeeToRemove = null;
+        for (Employee emp : employeeList) {
+            if (emp.name.equalsIgnoreCase(name)) {
+                employeeToRemove = emp;
+                break;
+            }
+        }
+        employeeList.remove(employeeToRemove);
+    }
+
+    public void updateEmployee(Employee employee) {
+        employee.setName("Ashwini");
+        employee.setAddress("Lokhandwala");
+        employeeList.add(employee);
     }
 }

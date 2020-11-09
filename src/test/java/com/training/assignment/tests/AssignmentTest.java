@@ -196,7 +196,7 @@ public class AssignmentTest extends BaseTest {
 
     @Test
     public void testMiniProject() {
-        EmployeeOperation empOperation = new EmployeeOperation();
+        EmployeeOperation employeeOperation = new EmployeeOperation();
 
         String createdName = "Pranav";
         String updatedName = "Ashwini";
@@ -205,47 +205,55 @@ public class AssignmentTest extends BaseTest {
         /**
          * CREATED
          */
-        empOperation.createEmployee("Shri", "Kandivali", 1000, 1);
-        empOperation.createEmployee(createdName, "Thane", 2000, 2);
-        empOperation.createEmployee("Naresh", "Nerul", 3000, 3);
-        empOperation.createEmployee("Sunil", "panvel", 4000, 4);
+        employeeOperation.createEmployee("Shri", "Kandivali", 1000, 1);
+        employeeOperation.createEmployee(createdName, "Thane", 2000, 2);
+        employeeOperation.createEmployee("Naresh", "Nerul", 3000, 3);
+        employeeOperation.createEmployee("Sunil", "Panvel", 4000, 4);
+        employeeOperation.createEmployee("Viren", "Virar", 5000, 5);
 
-        softAssert.assertThat(empOperation.getEmployee().get(0).getId())
+        softAssert.assertThat(employeeOperation.getEmployee().get(0).getId())
                 .as("Id of first employee in list doesn't match with the created employee id")
                 .isEqualTo(1);
 
-        softAssert.assertThat(empOperation.getEmployee().get(1).getId())
+        softAssert.assertThat(employeeOperation.getEmployee().get(1).getId())
                 .as("Id of second employee in list doesn't match with the created employee id")
                 .isEqualTo(2);
 
-        softAssert.assertThat(empOperation.getEmployee().get(2).getId())
+        softAssert.assertThat(employeeOperation.getEmployee().get(2).getId())
                 .as("Id of third employee in list doesn't match with the created employee id")
                 .isEqualTo(3);
 
-        softAssert.assertThat(empOperation.getEmployee().get(3).getId())
+        softAssert.assertThat(employeeOperation.getEmployee().get(3).getId())
                 .as("Id of first employee in list doesn't match with the created id")
                 .isEqualTo(4);
+
+        softAssert.assertThat(employeeOperation.getEmployee().get(4).getId())
+                .as("Id of first employee in list doesn't match with the created id")
+                .isEqualTo(5);
 
         /**
          * DELETED
          */
-        empOperation.deleteEmployee(1);
+        employeeOperation.deleteEmployee(1);
+        employeeOperation.deleteEmployee(createdName);
 
-        softAssert.assertThat(empOperation.getEmployee().get(1).getId() != 2)
+        softAssert.assertThat(employeeOperation.getEmployee().get(1).getId() != 1)
                 .as("Employee id 2 is not deleted from list")
                 .isTrue();
+
+        softAssert.assertThat(employeeOperation.getEmployee().get(2).getId() != 2)
+                .as("Employee id 2 is not deleted from list").isTrue();
 
         /**
          * UPDATED
          */
-        com.training.assignments.miniproject.Employee updateEmployee = empOperation.getEmployee().get(1);
-        updateEmployee.setName(updatedName);
-        updateEmployee.setAddress(updatedAddress);
+        com.training.assignments.miniproject.Employee updateEmployee = employeeOperation.getEmployee().get(1);
+        employeeOperation.updateEmployee(updateEmployee);
 
-        softAssert.assertThat(empOperation.getEmployee().get(1).getName())
+        softAssert.assertThat(employeeOperation.getEmployee().get(1).getName())
                 .as("Doesn't updated Ashwini record in list").isEqualTo(updatedName);
 
-        softAssert.assertThat(empOperation.getEmployee().get(1).getAddress())
+        softAssert.assertThat(employeeOperation.getEmployee().get(1).getAddress())
                 .as("Doesn't updated address record in list").isEqualTo(updatedAddress);
     }
 }
