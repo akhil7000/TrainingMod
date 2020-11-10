@@ -3,47 +3,75 @@ package com.training.streams.tests;
 import com.training.streams.dao.InMemoryWorldDao;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class StreamAssigments {
 
+//
+//    @Test
+//    public void student() {
+//        AtomicInteger sum = new AtomicInteger();
+//        InMemoryWorldDao obj = InMemoryWorldDao.getInstance();
+//
+//        obj.getAllContinents().stream().forEach(continent -> {
+//            obj.findCountriesByContinent(continent).stream().forEach(country -> {
+//                sum.set(sum.get() + country.getCities().stream().collect(Collectors.toList()).size());
+//            });
+//            totalCitiesInOneContinent.add(sum.get());
+//        });
+//        System.out.println(totalCitiesInOneContinent);
+//    }
+
     @Test
     public void streamAPIFirst() {
+        ArrayList<Integer> totalCitiesInOneContinent = new ArrayList<>();
+
+        /**
+         * To get total cities from one continent, storing that in array list
+         */
+        AtomicInteger sum = new AtomicInteger();
         InMemoryWorldDao obj = InMemoryWorldDao.getInstance();
 
         obj.getAllContinents().stream().forEach(continent -> {
-            AtomicInteger maxxx = new AtomicInteger();
-            obj.findCountriesByContinent(continent).stream().map(country -> {
-                if (country.getPopulation() > maxxx.get()){
-                    System.out.println("xx="+country.getPopulation());
-                }
-                return null;
+            System.out.println(continent);
+            obj.findCountriesByContinent(continent).stream().forEach(country -> {
+                sum.set(sum.get() + country.getCities().stream().collect(Collectors.toList()).size());
             });
-            System.out.println("max = " +maxxx);
+            totalCitiesInOneContinent.add(sum.get());
         });
+        System.out.println(totalCitiesInOneContinent);
+
+/**
+ * Finding max city in continent
+ */
 
 
+        Map<String, Integer> continentCountry = new HashMap<>();
 
+        obj.getAllContinents().stream().forEach(continent -> {
+            AtomicInteger citiesCounter = new AtomicInteger();
+            int[] max = {0};
+            AtomicInteger totalCitiesInOneContinentCounter = new AtomicInteger();
 
+            obj.findCountriesByContinent(continent).stream().forEach(country -> {
+                country.getCities().stream().forEach(city -> {
 
-//        Iterator<String> continentItr = allContinent.iterator();
-//        List<Country> country = null;
-//
-//        while (continentItr.hasNext()) {
-//            country = obj.findCountriesByContinent(continentItr.next());
-//
-//            Iterator<Country> countryItr = country.iterator();
-//
-//            int maximumPopulation = 0;
-//
-//            while (countryItr.hasNext()) {
-//                int pop = countryItr.next().getPopulation();
-//                if (pop > maximumPopulation) {
-//                    maximumPopulation = pop;
-//                }
-//            }
-//            System.out.println("maximumPopulation = " + maximumPopulation);
-//        }
+                    if (city.getPopulation() > max[0]) {
+
+                        max[0] = city.getPopulation();
+                    }
+                    if ((totalCitiesInOneContinent.get(totalCitiesInOneContinentCounter.get())) == (citiesCounter.get() + 1)) {
+                        continentCountry.put(continent, max[0]);
+                    }
+                    citiesCounter.getAndIncrement();
+                });
+            });
+            totalCitiesInOneContinentCounter.getAndIncrement();
+        });
+        System.out.println(continentCountry);
     }
 }
