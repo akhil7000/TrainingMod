@@ -5,11 +5,11 @@ public class Assignment1 {
         double d = i;
 
         //double to int
-        double x =5;
+        double x =5d;
         int y = (int) x;
 
         //double to float
-        double a =1000;
+        double a =1000d;
         float b = (float) a;
 
         // float to double
@@ -21,18 +21,16 @@ public class Assignment1 {
         long q = p;
 
         //long to byte
-        long r = 21546;
+        long r = 21546L;
         byte s = (byte) r;
 
         //string "rccl" to char[] name
         String name = "rccl";
         char [] cname = new char [name.length()];
         for (i=0;i<name.length();i++) {
-            cname[i]=name.charAt(i);
-            System.out.println(cname[i]);
+        cname[i]=name.charAt(i);
+        System.out.println(cname[i]);
         }
         System.out.println(cname);
-
-
     }
 }
