@@ -7,8 +7,7 @@ public class Assignment2 {
 
         // Replace Sachin Tendulkar to Sachin Master
         String sachin = "Sachin Tendulkar";
-
-        sachin = sachin.replace("Tendulkar","Sachin Masterrrr");
+        sachin = sachin.replace("Tendulkar","Masterrrr");
         System.out.println(sachin);
 
         // Dell to Depp
