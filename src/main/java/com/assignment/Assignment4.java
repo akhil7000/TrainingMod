@@ -1,7 +1,8 @@
 package com.assignment;
 public class Assignment4 {
-    public static void replacement() {
+    public static String replacement() {
         String IOCL = "Indian Oil Corporation Ltd";
-        System.out.println(IOCL.substring(IOCL.indexOf('C'),IOCL.lastIndexOf('n')+1));
-    }
+        String Corp = IOCL.substring(IOCL.indexOf('C'),IOCL.lastIndexOf('n')+1);
+        return Corp;
+       }
 }
