@@ -1,21 +1,19 @@
 package com.assignment;
 
 public class Assignment2 {
-    public static void stringTest(){
+    public static void stringTest1() {
         // Replace Ram to Sam
-        //String a= "Ram";
-
-        //a = a.replace('R','S');
-        System.out.println("Ram".replace('R','S'));
-
+        System.out.println("Ram".replace('R', 'S'));
+        //return a;
+    }
+    public static void stringTest2() {
         // Replace Sachin Tendulkar to Sachin Master
-        //String sachin = "Sachin Tendulkar";
-        //sachin = sachin.replace("Tendulkar","Masterrrr");
         System.out.println("Sachin Tendulkar".replace("Tendulkar","Masterrrr"));
-
+    }
+    public static void stringTest3() {
         // Dell to Depp
-        //String d="Dell";
-        //d = d.replace("ll","pp");
         System.out.println("Dell".replace("ll","pp"));
     }
+
 }
+
