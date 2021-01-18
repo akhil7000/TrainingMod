@@ -7,5 +7,6 @@ public class Assignment7Test {
     @Test
     public void heavenOrHell(){
     System.out.println(Assignment7.whatAreYou("very good"));
+    Assertions.assertEquals(Assignment7.whatAreYou("very good"),"Go to heaven with dogs");
     }
 }
