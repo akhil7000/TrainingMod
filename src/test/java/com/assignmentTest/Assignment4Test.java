@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 public class Assignment4Test {
     @Test
     public void substring(){
-        System.out.println(Assignment4.replacement());
-        Assertions.assertEquals(Assignment4.replacement(),"Corporation");
+        System.out.println(Assignment4.getSubString("Indian Oil Corporation Ltd","Corporation"));
+        Assertions.assertEquals(Assignment4.getSubString("Indian Oil Corporation Ltd","Corporation"),"Corporation");
     }
 
 }
