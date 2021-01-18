@@ -8,11 +8,12 @@ import sun.jvm.hotspot.utilities.Assert;
 public class assignment2Test {
     @Test
     public void Test(){
-        System.out.println(Assignment2.stringTest1());
-        Assertions.assertEquals(Assignment2.stringTest1(),"Sam");
-        System.out.println(Assignment2.stringTest2()) ;
-        Assertions.assertEquals(Assignment2.stringTest2(),"Sachin Masterrrr");
-        System.out.println(Assignment2.stringTest3());
-        Assertions.assertEquals(Assignment2.stringTest3(),"Depp");
+        System.out.println(Assignment2.getReplacedCharacter("Ram",'R','S'));
+        Assertions.assertEquals(Assignment2.getReplacedCharacter("Ram",'R','S'),"Sam");
+        System.out.println(Assignment2.getReplacedSubString("Sachin Tendulkar","Tendulkar","Masterrrr"));
+        Assertions.assertEquals(Assignment2.getReplacedSubString("Sachin Tendulkar","Tendulkar","Masterrrr"),"Sachin Masterrrr");
+        System.out.println(Assignment2.getReplacedSubString("Dell","ll","pp"));
+        Assertions.assertEquals(Assignment2.getReplacedSubString("Dell","ll","pp"),"Depp");
+
     }
 }
