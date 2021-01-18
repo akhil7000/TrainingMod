@@ -5,17 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Assignment7 {
-    public static String whatAreYou(String quality) {
-        String a;
-        if (quality.equals("very good")) {
-            a="Go to heaven with dogs";
-        }
-        else if (quality.equals("good")) {
-            a="Go to heaven";
-        }
-        else {
-            a="Go to hell";
-        }
-        return a;
+    public String whatAreYou(String quality) {
+    if (quality.equals("very good")) {
+    return  "Go to heaven with dogs";
+    }
+    else if (quality.equals("good")) {
+    return "Go to heaven";
+    }
+    else {
+    return "Go to hell";
+    }
     }
 }
