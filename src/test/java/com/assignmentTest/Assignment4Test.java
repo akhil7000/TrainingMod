@@ -1,4 +1,5 @@
 package com.assignmentTest;
+
 import org.junit.jupiter.api.Assertions;
 import com.assignment.Assignment4;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,8 @@ public class Assignment4Test {
 
     @Test
     public void getSubstring(){
-    Assignment4 Test = new Assignment4();
-    logger.info(Test.extractSubString("Indian Oil Corporation Ltd","Corporation"));
-    Assertions.assertEquals(Test.extractSubString("Indian Oil Corporation Ltd","Corporation"),"Corporation","String doesn't match");
+    Assignment4 assignment4 = new Assignment4();
+    logger.info(assignment4.extractSubString("Indian Oil Corporation Ltd","Corporation"));
+    Assertions.assertEquals(assignment4.extractSubString("Indian Oil Corporation Ltd","Corporation"),"Corporation","String doesn't match");
     }
 }
