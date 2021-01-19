@@ -9,9 +9,9 @@ public class Assignment4Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void substring(){
-        Assignment4 Test = new Assignment4();
-        logger.info(Test.getSubString("Indian Oil Corporation Ltd","Corporation"));
-        Assertions.assertEquals(Test.getSubString("Indian Oil Corporation Ltd","Corporation"),"Corporation","String doesn't match");
+    public void getSubstring(){
+    Assignment4 Test = new Assignment4();
+    logger.info(Test.extractSubString("Indian Oil Corporation Ltd","Corporation"));
+    Assertions.assertEquals(Test.extractSubString("Indian Oil Corporation Ltd","Corporation"),"Corporation","String doesn't match");
     }
 }
