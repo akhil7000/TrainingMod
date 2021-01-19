@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Assignment7 {
-    public String whatAreYou(String quality) {
+    public String return_where_user_will_Go(String quality) {
     if (quality.equals("very good")) {
     return  "Go to heaven with dogs";
     }
