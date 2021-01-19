@@ -1,3 +1,5 @@
+package com.assignment;
+
 class Actor{
 public void work(){
         System.out.println("Doing Acting");
@@ -8,9 +10,9 @@ public void work(){
         System.out.println("Directing");
     }
 }
-public class Assignment14 {
+/*public class Assignment14 {
 public static void main(String[]args){
-    new Actor().work();
-    new Director().work();
+    new com.assignment.Actor().work();
+    new com.assignment.Director().work();
 }
-}
+}*/
