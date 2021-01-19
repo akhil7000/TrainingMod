@@ -5,16 +5,18 @@ import org.junit.jupiter.api.Test;
 import com.assignment.Assignment3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class Assignment3Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Test
-    public void getCharacterIndex(){
-    Assignment3 indexCharacter=new Assignment3();
-    logger.info(Integer.toString(indexCharacter.getIndex('X')));
-    logger.info(Integer.toString(indexCharacter.getIndex('a')));
-    logger.info(Integer.toString(indexCharacter.getIndex('o')));
-    Assertions.assertEquals(indexCharacter.getIndex('X'),0);
-    Assertions.assertEquals(indexCharacter.getIndex('a'),3);
-    Assertions.assertEquals(indexCharacter.getIndex('o'),2);
+    public void getIndexOfCharacter(){
+    Assignment3 assignment3 =new Assignment3();
+    logger.info(Integer.toString(assignment3.returnCharacterIndex("Xioami",'X')));
+    logger.info(Integer.toString(assignment3.returnCharacterIndex("Xioami",'a')));
+    logger.info(Integer.toString(assignment3.returnCharacterIndex("Xioami",'o')));
+    Assertions.assertEquals(assignment3.returnCharacterIndex("Xioami",'X'),0,"Character index doesn't match");
+    Assertions.assertEquals(assignment3.returnCharacterIndex("Xioami",'a'),3,"Character index doesn't match");
+    Assertions.assertEquals(assignment3.returnCharacterIndex("Xioami",'o'),2,"Character index doesn't match");
     }
 }
