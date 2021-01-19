@@ -1,9 +1,9 @@
 package com.assignment;
 
-//Printing middle number
 public class Assignment8 {
-    public int getMiddleNumber(){
-    int[] arrayM = new int[500];
+
+    public int return_Middle_Number(int min,int max){
+    int[] arrayM = new int[max-min];
     return (arrayM.length)/2;
     }
 }
