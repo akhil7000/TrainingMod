@@ -9,13 +9,14 @@ import sun.jvm.hotspot.utilities.Assert;
 
 public class assignment2Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Test
-    public void stringReplacement(){
-        logger.info(Assignment2.getReplacedSubString("Ram","R","S"));
-        logger.info(Assignment2.getReplacedSubString("Sachin Tendulkar","Tendulkar","Masterrrr"));
-        logger.info(Assignment2.getReplacedSubString("Dell","ll","pp"));
-        Assertions.assertEquals(Assignment2.getReplacedSubString("Ram","R","S"),"Sam");
-        Assertions.assertEquals(Assignment2.getReplacedSubString("Sachin Tendulkar","Tendulkar","Masterrrr"),"Sachin Masterrrr");
-        Assertions.assertEquals(Assignment2.getReplacedSubString("Dell","ll","pp"),"Depp");
+    public void GetReplacedStringFromOriginal(){
+    logger.info(Assignment2.returnReplacedSubString("Ram","R","S"));
+    logger.info(Assignment2.returnReplacedSubString("Sachin Tendulkar","Tendulkar","Masterrrr"));
+    logger.info(Assignment2.returnReplacedSubString("Dell","ll","pp"));
+    Assertions.assertEquals(Assignment2.returnReplacedSubString("Ram","R","S"),"Sam","String replacement not successful");
+    Assertions.assertEquals(Assignment2.returnReplacedSubString("Sachin Tendulkar","Tendulkar","Masterrrr"),"Sachin Masterrrr","String replacement not successful");
+    Assertions.assertEquals(Assignment2.returnReplacedSubString("Dell","ll","pp"),"Depp","String replacement not successful");
     }
 }
