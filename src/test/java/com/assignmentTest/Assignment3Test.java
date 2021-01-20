@@ -10,7 +10,7 @@ public class Assignment3Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void getIndexOfCharacter(){
+    public void testGetIndexOfCharacter(){
     Assignment3 assignment3 =new Assignment3();
     logger.info(Integer.toString(assignment3.returnCharacterIndex("Xioami",'X')));
     logger.info(Integer.toString(assignment3.returnCharacterIndex("Xioami",'a')));
