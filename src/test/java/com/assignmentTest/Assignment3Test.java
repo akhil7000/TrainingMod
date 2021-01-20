@@ -13,14 +13,15 @@ public class Assignment3Test {
     public void testGetIndexOfCharacter() {
         Assignment3 assignment3 = new Assignment3();
         String errorMessage = "Character index doesn't match";
+        String originalString="Xioami";
 
-        logger.info(Integer.toString(assignment3.getCharacterIndex("Xioami", 'X')));
-        Assertions.assertEquals(assignment3.getCharacterIndex("Xioami", 'X'), 0, errorMessage);
+        logger.info(Integer.toString(assignment3.getCharacterIndex(originalString, 'X')));
+        Assertions.assertEquals(assignment3.getCharacterIndex(originalString, 'X'), 0, errorMessage);
 
-        logger.info(Integer.toString(assignment3.getCharacterIndex("Xioami", 'a')));
-        Assertions.assertEquals(assignment3.getCharacterIndex("Xioami", 'a'), 3, errorMessage);
+        logger.info(Integer.toString(assignment3.getCharacterIndex(originalString, 'a')));
+        Assertions.assertEquals(assignment3.getCharacterIndex(originalString, 'a'), 3, errorMessage);
 
-        logger.info(Integer.toString(assignment3.getCharacterIndex("Xioami", 'o')));
-        Assertions.assertEquals(assignment3.getCharacterIndex("Xioami", 'o'), 2, errorMessage);
+        logger.info(Integer.toString(assignment3.getCharacterIndex(originalString, 'o')));
+        Assertions.assertEquals(assignment3.getCharacterIndex(originalString, 'o'), 2, errorMessage);
     }
 }
