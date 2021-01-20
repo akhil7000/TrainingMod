@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Assignment6Test {
 
     @Test
-    public void testPrintCompanyReview() {
+    public void testCompanyReview() {
         final Logger logger = LoggerFactory.getLogger(this.getClass());
         Assignment6 assignment6 = new Assignment6();
 
