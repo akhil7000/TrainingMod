@@ -10,7 +10,7 @@ public class Assignment4Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testGetSubstring(){
+    public void testGetSubstring() {
         Assignment4 assignment4 = new Assignment4();
 
         logger.info(assignment4.getSubString("Indian Oil Corporation Ltd", "Corporation"));
