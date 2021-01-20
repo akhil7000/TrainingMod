@@ -1,13 +1,9 @@
 package com.assignment;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class Assignment6 {
 
-    public String getCompanyReview(String companyname) {
-        switch (companyname) {
+    public String getCompanyReview(String companyName) {
+        switch (companyName) {
             case "Google":
                 return "Monitors everything";
             case "Apple":
