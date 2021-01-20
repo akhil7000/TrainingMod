@@ -14,6 +14,7 @@ public class Assignment7Test {
         Assignment7 assignment7 = new Assignment7();
 
         logger.info(assignment7.getWhereUserWillGo("very good"));
-        Assertions.assertEquals(assignment7.getWhereUserWillGo("very good"), "Go to heaven with dogs", "Please enter proper parameters");
+        Assertions.assertEquals(assignment7.getWhereUserWillGo("very good"), "Go to heaven with dogs",
+                "Please enter proper parameters");
     }
 }
