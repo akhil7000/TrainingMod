@@ -12,7 +12,6 @@ public class Assignment4Test {
     @Test
     public void testGetSubstring() {
         Assignment4 assignment4 = new Assignment4();
-
         logger.info(assignment4.getSubString("Indian Oil Corporation Ltd", "Corporation"));
         Assertions.assertEquals(assignment4.getSubString("Indian Oil Corporation Ltd", "Corporation"), "Corporation", "String doesn't match");
     }
