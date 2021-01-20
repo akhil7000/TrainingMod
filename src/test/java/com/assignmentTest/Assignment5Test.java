@@ -12,9 +12,9 @@ public class Assignment5Test {
     @Test
     public void testGetIndexOfPLayer() {
         Assignment5 assignment5 = new Assignment5();
-        String Players[] = {"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"};
+        String players[] = {"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"};
 
-        logger.info(Integer.toString(assignment5.getPlayerIndex(Players, "Ronaldo")));
-        Assertions.assertEquals(assignment5.getPlayerIndex(Players, "Ronaldo"), 3, "Index does not match");
+        logger.info(Integer.toString(assignment5.getPlayerIndex(players, "Ronaldo")));
+        Assertions.assertEquals(assignment5.getPlayerIndex(players, "Ronaldo"), 3, "Index does not match");
     }
 }
