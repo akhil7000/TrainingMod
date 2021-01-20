@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Assignment6Test {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void testCompanyReview() {
-        final Logger logger = LoggerFactory.getLogger(this.getClass());
         Assignment6 assignment6 = new Assignment6();
 
         logger.info(assignment6.getCompanyReview("Google"));
