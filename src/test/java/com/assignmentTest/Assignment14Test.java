@@ -11,14 +11,15 @@ public class Assignment14Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void methodOverloading() {
+    public void testWorkAction() {
+        String errorMessage = "Action doesn't Match";
         Actor actor = new Actor();
         Director director = new Director();
 
         logger.info(actor.work());
-        Assertions.assertEquals(actor.work(),"Doing Acting","Action doesn't Match");
+        Assertions.assertEquals(actor.work(), "Doing Acting", errorMessage);
 
         logger.info(director.work());
-        Assertions.assertEquals(director.work(),"Directing","Action doesn't Match");
+        Assertions.assertEquals(director.work(), "Directing", errorMessage);
     }
 }
