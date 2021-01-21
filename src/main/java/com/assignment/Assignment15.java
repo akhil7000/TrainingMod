@@ -1,6 +1,7 @@
 package com.assignment;
 
 public class Assignment15 {
+
     public String fullName(String firstName) {
         return firstName;
     }
