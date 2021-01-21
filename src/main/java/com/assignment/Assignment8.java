@@ -3,7 +3,11 @@ package com.assignment;
 public class Assignment8 {
 
     public int getMiddleNumber(int min, int max) {
-        int[] arrayM = new int[max - min + 1];
-        return (arrayM.length) / 2;
+        for (int i = min; i <= max; i++) {
+            if (i == (max + min) / 2) {
+                return i;
+            }
+        }
+        return 0;
     }
 }
