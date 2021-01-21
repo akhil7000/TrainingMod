@@ -2,15 +2,15 @@ package com.assignment;
 
 public class Assignment15 {
 
-    public String fullName(String firstName) {
+    public String getFullName(String firstName) {
         return firstName;
     }
 
-    public String fullName(String firstName, String lastName) {
+    public String getFullName(String firstName, String lastName) {
         return firstName + " " + lastName;
     }
 
-    public String fullName(String firstName, String lastName, String middleName) {
+    public String getFullName(String firstName, String lastName, String middleName) {
         return firstName + " " + lastName + " " + middleName;
     }
 }

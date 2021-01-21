@@ -16,14 +16,14 @@ public class Assignment15Test {
         String lastName = "Obama";
         Assignment15 assignment15 = new Assignment15();
 
-        logger.info(assignment15.fullName(firstName));
-        Assertions.assertEquals(assignment15.fullName(firstName), "Barrack", errorMessage);
+        logger.info(assignment15.getFullName(firstName));
+        Assertions.assertEquals(assignment15.getFullName(firstName), "Barrack", errorMessage);
 
-        logger.info(assignment15.fullName(firstName,lastName));
-        Assertions.assertEquals(assignment15.fullName(firstName,lastName), "Barrack Obama", errorMessage);
+        logger.info(assignment15.getFullName(firstName, lastName));
+        Assertions.assertEquals(assignment15.getFullName(firstName, lastName), "Barrack Obama", errorMessage);
 
-        logger.info(assignment15.fullName(firstName,lastName, "Hussain"));
-        Assertions.assertEquals(assignment15.fullName(firstName,lastName, "Hussain"),
+        logger.info(assignment15.getFullName(firstName, lastName, "Hussain"));
+        Assertions.assertEquals(assignment15.getFullName(firstName, lastName, "Hussain"),
                 "Barrack Obama Hussain", errorMessage);
     }
 }
