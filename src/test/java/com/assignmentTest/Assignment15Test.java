@@ -11,16 +11,19 @@ public class Assignment15Test {
 
     @Test
     public void testGetFullName() {
-        String errorMessage="Not full name";
+        String errorMessage = "Not full name";
+        String firstName = "Barrack";
+        String lastName = "Obama";
         Assignment15 assignment15 = new Assignment15();
-        logger.info(assignment15.fullName("Barrack"));
 
-        Assertions.assertEquals(assignment15.fullName("Barrack"),"Barrack",errorMessage);
-        logger.info(assignment15.fullName("Barrack", "Obama"));
-        Assertions.assertEquals(assignment15.fullName("Barrack", "Obama"),"Barrack Obama", errorMessage);
+        logger.info(assignment15.fullName(firstName));
+        Assertions.assertEquals(assignment15.fullName(firstName), "Barrack", errorMessage);
 
-        logger.info(assignment15.fullName("Barrack", "Hussain", "Obama"));
-        Assertions.assertEquals(assignment15.fullName("Barrack", "Hussain", "Obama"),
-                "Barrack Hussain Obama",errorMessage);
+        logger.info(assignment15.fullName(firstName,lastName));
+        Assertions.assertEquals(assignment15.fullName(firstName,lastName), "Barrack Obama", errorMessage);
+
+        logger.info(assignment15.fullName(firstName,lastName, "Hussain"));
+        Assertions.assertEquals(assignment15.fullName(firstName,lastName, "Hussain"),
+                "Barrack Obama Hussain", errorMessage);
     }
 }
