@@ -2,7 +2,7 @@ package com.assignment;
 
 public class Director extends Actor {
 
-    public String work() {
+    public String getWork() {
         return "Directing";
     }
 }

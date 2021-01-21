@@ -2,7 +2,7 @@ package com.assignment;
 
 public class Actor {
 
-    public String work() {
+    public String getWork() {
         return "Doing Acting";
     }
 }

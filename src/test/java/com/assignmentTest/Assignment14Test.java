@@ -16,10 +16,10 @@ public class Assignment14Test {
         Actor actor = new Actor();
         Director director = new Director();
 
-        logger.info(actor.work());
-        Assertions.assertEquals(actor.work(), "Doing Acting", errorMessage);
+        logger.info(actor.getWork());
+        Assertions.assertEquals(actor.getWork(), "Doing Acting", errorMessage);
 
-        logger.info(director.work());
-        Assertions.assertEquals(director.work(), "Directing", errorMessage);
+        logger.info(director.getWork());
+        Assertions.assertEquals(director.getWork(), "Directing", errorMessage);
     }
 }
