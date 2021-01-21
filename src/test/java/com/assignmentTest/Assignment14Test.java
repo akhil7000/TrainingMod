@@ -14,9 +14,11 @@ public class Assignment14Test {
     public void methodOverloading() {
         Actor actor = new Actor();
         Director director = new Director();
+
         logger.info(actor.work());
-        logger.info(director.work());
         Assertions.assertEquals(actor.work(),"Doing Acting","Action doesn't Match");
+
+        logger.info(director.work());
         Assertions.assertEquals(director.work(),"Directing","Action doesn't Match");
     }
 }
