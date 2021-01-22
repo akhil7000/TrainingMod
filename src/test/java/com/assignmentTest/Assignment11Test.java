@@ -13,29 +13,27 @@ public class Assignment11Test {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testSportWithoutIndexAt(){
-        ArrayList<String> sportNamesList=new ArrayList<>();
-        sportNamesList.addAll(Arrays.asList("Tennis", "Volleyball","Cricket","Cycling","Swimming","Badminton"));
-        int index =3;
-        Assignment11 assignment11=new Assignment11();
+    public void testSportWithoutIndexAt() {
+        ArrayList<String> sportNamesList = new ArrayList<>();
+        sportNamesList.addAll(Arrays.asList("Tennis", "Volleyball", "Cricket", "Cycling", "Swimming", "Badminton"));
+        int index = 3;
+        Assignment11 assignment11 = new Assignment11();
 
-        ArrayList newSportNamesList = assignment11.getSportExceptAtIndex(sportNamesList,index);
+        ArrayList newSportNamesList = assignment11.getSportExceptAtIndex(sportNamesList, index);
         Iterator iterator = newSportNamesList.iterator();
 
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             logger.info(iterator.next().toString());
         }
 
         /**
          * Assertion to check if correct array has been retrieved
          */
-        ArrayList <String>sportNamesVerificationList=new ArrayList<>();
-        sportNamesVerificationList = sportNamesList;
+        ArrayList sportNamesVerificationList = sportNamesList;
         sportNamesVerificationList.remove(index);
 
-        Assertions.assertArrayEquals(newSportNamesList.toArray(),sportNamesVerificationList.toArray(),
+        Assertions.assertArrayEquals(newSportNamesList.toArray(), sportNamesVerificationList.toArray(),
                 "Arraylists don't match");
 
     }
 }
-
