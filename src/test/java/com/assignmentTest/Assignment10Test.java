@@ -13,12 +13,12 @@ public class Assignment10Test {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void printodd() {
+    public void testPrintOdd() {
         Assignment10 assignment10 = new Assignment10();
         int min = 1;
         int max = 10;
-        ArrayList oddNumbers = assignment10.getOddNumber(min, max);
-        Iterator iterator = oddNumbers.iterator();
+        ArrayList oddNumbersArray = assignment10.getOddNumbers(min, max);
+        Iterator iterator = oddNumbersArray.iterator();
         while (iterator.hasNext()) {
             logger.info((iterator.next()).toString());
         }
@@ -30,6 +30,6 @@ public class Assignment10Test {
             }
         }
 
-        Assertions.assertArrayEquals(oddNumbers.toArray(), oddNumbersVerfication.toArray(), "Doesnt Match");
+        Assertions.assertArrayEquals(oddNumbersArray.toArray(), oddNumbersVerfication.toArray(), "Doesnt Match");
     }
 }

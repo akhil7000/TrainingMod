@@ -3,7 +3,7 @@ package com.assignment;
 import java.util.ArrayList;
 
 public class Assignment10 {
-    public ArrayList getOddNumber(int min, int max){
+    public ArrayList getOddNumbers(int min, int max) {
 
         ArrayList<Integer> oddNumbersArraylist = new ArrayList<>();
         for (int i = min; i <= max; i++) {
@@ -11,6 +11,6 @@ public class Assignment10 {
                 oddNumbersArraylist.add(i);
             }
         }
-    return oddNumbersArraylist;
+        return oddNumbersArraylist;
     }
 }
