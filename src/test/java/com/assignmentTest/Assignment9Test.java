@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class assignment9Test {
+public class Assignment9Test {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
@@ -24,13 +23,15 @@ public class assignment9Test {
             logger.info((iterator.next()).toString());
         }
 
-        //Assertion to check if even numbers are retrieved
-        ArrayList<Integer> evenNumbersVerfication = new ArrayList<>();
+        /*
+         * Assertion to check if even numbers are retrieved
+         */
+        ArrayList<Integer> evenNumbersVerification = new ArrayList<>();
         for (int i = min; i <= max; i++) {
             if (i % 2 == 0) {
-                evenNumbersVerfication.add(i);
+                evenNumbersVerification.add(i);
             }
         }
-        Assertions.assertArrayEquals(evenNumbers.toArray(), evenNumbersVerfication.toArray(), "Doesn't Match");
+        Assertions.assertArrayEquals(evenNumbers.toArray(), evenNumbersVerification.toArray(), "Doesn't Match");
     }
 }
