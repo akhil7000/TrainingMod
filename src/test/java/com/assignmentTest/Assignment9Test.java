@@ -13,8 +13,7 @@ public class Assignment9Test {
 
     @Test
     public void testEvenNumbers() {
-        int min = 1;
-        int max = 500;
+        int min = 1, max = 500;
         Assignment9 assignment9 = new Assignment9();
 
         ArrayList evenNumbers = assignment9.getEvenNumber(min, max);
@@ -23,7 +22,7 @@ public class Assignment9Test {
             logger.info((iterator.next()).toString());
         }
 
-        /*
+        /**
          * Assertion to check if even numbers are retrieved
          */
         ArrayList<Integer> evenNumbersVerification = new ArrayList<>();
