@@ -24,7 +24,7 @@ public class assignment9Test {
             logger.info((iterator.next()).toString());
         }
 
-        //Assertion to check if Array is correct
+        //Assertion to check if even numbers are retrieved
         ArrayList<Integer> evenNumbersVerfication = new ArrayList<>();
         for (int i = min; i <= max; i++) {
             if (i % 2 == 0) {
