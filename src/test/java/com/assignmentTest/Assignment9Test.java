@@ -15,9 +15,7 @@ public class Assignment9Test {
     public void testEvenNumbers() {
         int min = 1, max = 500;
         ArrayList<Integer> evenNumbersVerification = new ArrayList<>();
-        Assignment9 assignment9 = new Assignment9();
-
-        ArrayList evenNumbers = assignment9.getEvenNumber(min, max);
+        ArrayList evenNumbers = new Assignment9().getEvenNumber(min, max);
         Iterator iterator = evenNumbers.iterator();
 
         while (iterator.hasNext()) {
