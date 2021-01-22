@@ -15,7 +15,9 @@ public class Assignment10Test {
     public void testPrintOdd() {
         Assignment10 assignment10 = new Assignment10();
         int min = 1, max = 10;
+        ArrayList<Integer> oddNumbersVerfication = new ArrayList<>();
         ArrayList oddNumbersArray = assignment10.getOddNumbers(min, max);
+
         Iterator iterator = oddNumbersArray.iterator();
         while (iterator.hasNext()) {
             logger.info((iterator.next()).toString());
@@ -24,7 +26,6 @@ public class Assignment10Test {
         /**
          * Assertion to check if odd numbers are retrieved correctly
          */
-        ArrayList<Integer> oddNumbersVerfication = new ArrayList<>();
         for (int i = min; i <= max; i++) {
             if (i % 2 == 1) {
                 oddNumbersVerfication.add(i);
