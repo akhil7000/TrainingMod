@@ -23,6 +23,7 @@ public class Assignment10Test {
             logger.info((iterator.next()).toString());
         }
 
+        //Assertion to check if odd numbers are retrieved correctly
         ArrayList<Integer> oddNumbersVerfication = new ArrayList<>();
         for (int i = min; i <= max; i++) {
             if (i % 2 == 1) {
