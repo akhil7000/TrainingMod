@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Assignment9 {
 
     public ArrayList getEvenNumber(int min, int max) {
-        int i = min;
+        int index = min;
         ArrayList<Integer> evenNumberArray = new ArrayList<>();
-        while (i <= max) {
-            if (i % 2 == 0) {
-                evenNumberArray.add(i);
+        while (index <= max) {
+            if (index % 2 == 0) {
+                evenNumberArray.add(index);
             }
-            i++;
+            index++;
         }
         return evenNumberArray;
     }

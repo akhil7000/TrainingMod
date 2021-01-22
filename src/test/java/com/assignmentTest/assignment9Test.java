@@ -31,7 +31,6 @@ public class assignment9Test {
                 evenNumbersVerfication.add(i);
             }
         }
-
         Assertions.assertArrayEquals(evenNumbers.toArray(), evenNumbersVerfication.toArray(), "Doesn't Match");
     }
 }
