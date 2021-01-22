@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Assignment10 {
 
-    public ArrayList getOddNumbers(int min, int max) {
+    public ArrayList<Integer> getOddNumbers(int min, int max) {
         ArrayList<Integer> oddNumbersArraylist = new ArrayList<>();
         for (int i = min; i <= max; i++) {
             if (i % 2 == 1) {
