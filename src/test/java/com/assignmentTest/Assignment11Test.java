@@ -15,7 +15,8 @@ public class Assignment11Test {
     @Test
     public void testSportWithoutIndexAt() {
         ArrayList<String> sportNamesList = new ArrayList<>();
-        sportNamesList.addAll(Arrays.asList("Tennis", "Volleyball", "Cricket", "Cycling", "Swimming", "Badminton"));
+        sportNamesList.addAll(Arrays.asList("Tennis", "Volleyball", "Cricket",
+                "Cycling", "Swimming", "Badminton"));
         int index = 3;
         Assignment11 assignment11 = new Assignment11();
 
