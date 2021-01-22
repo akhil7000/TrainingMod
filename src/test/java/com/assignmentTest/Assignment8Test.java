@@ -17,4 +17,3 @@ public class Assignment8Test {
         Assertions.assertEquals(assignment8.getMiddleNumber(lowerNumber, higherNumber), 250, "It's not the middle number");
     }
 }
-/**
