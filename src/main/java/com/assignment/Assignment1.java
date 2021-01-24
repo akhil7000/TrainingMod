@@ -1,5 +1,7 @@
 package com.assignment;
 
+import java.lang.reflect.Array;
+
 public class Assignment1 {
     public double getDoubleFromInt(int i) {
         double getDouble = i;
@@ -32,10 +34,9 @@ public class Assignment1 {
     }
 
     public char[] getCharacterArray(String name) {
-        char[] cname = new char[name.length()];
+        char [] cname = new char[name.length()];
         for (int i = 0; i < name.length(); i++) {
-            cname[i] = name.charAt(i);
-            System.out.println(cname[i]);
+        cname[i]=name.charAt(i);
         }
         return cname;
     }
