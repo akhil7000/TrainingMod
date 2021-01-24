@@ -34,9 +34,9 @@ public class Assignment1 {
     }
 
     public char[] getCharacterArray(String name) {
-        char [] cname = new char[name.length()];
+        char[] cname = new char[name.length()];
         for (int i = 0; i < name.length(); i++) {
-        cname[i]=name.charAt(i);
+            cname[i] = name.charAt(i);
         }
         return cname;
     }
