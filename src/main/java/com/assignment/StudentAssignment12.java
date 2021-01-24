@@ -11,7 +11,7 @@ public class StudentAssignment12 {
     }
 
     public void setName(String name) {
-        this.name = "Barrack";
+        this.name = name;
     }
 
     public String getLastname() {
@@ -19,7 +19,7 @@ public class StudentAssignment12 {
     }
 
     public void setLastname(String lastname) {
-        this.lastname = "Obama";
+        this.lastname=lastname;
     }
 
     public int getRollno() {
@@ -27,7 +27,7 @@ public class StudentAssignment12 {
     }
 
     public void setRollno(int rollno) {
-        this.rollno = 1;
+        this.rollno = rollno;
     }
 
     public String getSchool() {
