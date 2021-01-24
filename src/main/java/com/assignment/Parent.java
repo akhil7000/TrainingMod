@@ -1,5 +1,5 @@
 package com.assignment;
 
-public class Assignment13 {
+public class Parent {
 
 }
