@@ -14,7 +14,7 @@ public class assignmentTest {
         int intToAdd = 1;
         Yes1 yes1 = new Yes1();
         logger.info(Integer.toString(yes1.sum(intToAdd)));
-        Assertions.assertTrue(yes1.sum(intToAdd) == (intToAdd + intToAdd + intToAdd),
+        Assertions.assertTrue(yes1.sum(intToAdd) == (1 + 1 + 1),
                 "Sum is not correct");
     }
 }
