@@ -1,10 +1,9 @@
 package com.assignment;
 
 public class StudentAssignment12 {
-    private String name;
-    private String lastname;
+    private String name, lastname;
     private int rollno;
-    private String school = "Pratap Singh Morarji Memorial Inner Wheel School";
+    private static String school = "Pratap Singh Morarji Memorial Inner Wheel School";
 
     public String getName() {
         return name;
@@ -33,5 +32,4 @@ public class StudentAssignment12 {
     public String getSchool() {
         return school;
     }
-
 }

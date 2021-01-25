@@ -1,4 +1,4 @@
-package com.AssignmentTest;
+package com.assignmentTest;
 
 import com.assignment.StudentAssignment12;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +17,7 @@ public class Assignment12Test {
 
         studentAssignment12.setName(name);
         studentAssignment12.setLastname(lastname);
-        studentAssignment12.setRollno(1);
+        studentAssignment12.setRollno(rollno);
 
         logger.info("First Name: " + studentAssignment12.getName());
         Assertions.assertEquals(studentAssignment12.getName(), name,
@@ -28,7 +28,7 @@ public class Assignment12Test {
                 "Lastname doesn't match");
 
         logger.info("Roll NO: " + studentAssignment12.getRollno());
-        Assertions.assertEquals(studentAssignment12.getRollno(), 1,
+        Assertions.assertEquals(studentAssignment12.getRollno(), rollno,
                 "Roll No Doesn't Match");
 
         logger.info("School: " + studentAssignment12.getSchool());
