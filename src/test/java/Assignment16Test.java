@@ -1,4 +1,4 @@
-import com.assignment.SumMethodClass;
+import com.assignment.AdditionOfNumbers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -9,11 +9,11 @@ public class Assignment16Test {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testSumUsingAbstract() {
+    public void testAdditionUsingAbstract() {
         int integerToSum = 1;
-        SumMethodClass sumMethodClass = new SumMethodClass();
-        logger.info(Integer.toString(sumMethodClass.getSum(integerToSum)));
-        Assertions.assertEquals (sumMethodClass.getSum(integerToSum),3,
+        AdditionOfNumbers additionOfNumbers = new AdditionOfNumbers();
+        logger.info(Integer.toString(additionOfNumbers.getSum(integerToSum)));
+        Assertions.assertEquals (additionOfNumbers.getSum(integerToSum),3,
                 "Sum is not correct");
     }
 }
