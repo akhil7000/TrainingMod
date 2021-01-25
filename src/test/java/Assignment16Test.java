@@ -13,7 +13,7 @@ public class Assignment16Test {
         int integerToSum = 1;
         AdditionOfNumbers additionOfNumbers = new AdditionOfNumbers();
         logger.info(Integer.toString(additionOfNumbers.getSum(integerToSum)));
-        Assertions.assertEquals (additionOfNumbers.getSum(integerToSum),3,
+        Assertions.assertEquals(additionOfNumbers.getSum(integerToSum), 3,
                 "Sum is not correct");
     }
 }
