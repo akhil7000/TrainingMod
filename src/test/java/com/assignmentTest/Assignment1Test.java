@@ -14,66 +14,47 @@ public class Assignment1Test {
     @Test
     public void testConvertDataType() {
         Assignment1 assignment1 = new Assignment1();
-        Object object = null;
         String errorMessage = "Datatype doesn't match";
         String name = "rccl";
 
         /**
          * int to double
          */
-        object = 2;
-        object = assignment1.getDoubleFromInt((Integer) object);
-        logger.info(object.getClass().getSimpleName());
-        Assertions.assertEquals(object.getClass().getSimpleName(), "Double", errorMessage);
+        Assertions.assertTrue(Integer.class.isInstance(assignment1.getIntFromDouble(21D)),errorMessage);
 
         /**
          * double to int
          */
-        object = 200d;
-        object = assignment1.getIntFromDouble((Double) object);
-        logger.info(object.getClass().getSimpleName());
-        Assertions.assertEquals(object.getClass().getSimpleName(), "Integer", errorMessage);
+        Assertions.assertTrue(Double.class.isInstance(assignment1.getDoubleFromInt(20)),errorMessage);
 
         /**
-         *  double to float
+         * double to float
          */
-        object = 200d;
-        object = assignment1.getFloatFromDouble((Double) object);
-        logger.info(object.getClass().getSimpleName());
-        Assertions.assertEquals(object.getClass().getSimpleName(), "Float", errorMessage);
+        Assertions.assertTrue(Double.class.isInstance(assignment1.getDoubleFromFloat(20f)),errorMessage);
 
         /**
          * float to double
          */
-        object = 5.5f;
-        object = assignment1.getDoubleFromFloat((Float) object);
-        logger.info(object.getClass().getSimpleName());
-        Assertions.assertEquals(object.getClass().getSimpleName(), "Double", errorMessage);
+        Assertions.assertTrue(Float.class.isInstance(assignment1.getFloatFromDouble(20D)),errorMessage);
 
         /**
          * byte to long
          */
-        byte b = 100;
-        object = b;
-        object = assignment1.getLongFromByte((Byte) object);
-        logger.info(object.getClass().getSimpleName());
-        Assertions.assertEquals(object.getClass().getSimpleName(), "Long", errorMessage);
+        byte byteValue=2;
+        Assertions.assertTrue(Long.class.isInstance(assignment1.getLongFromByte(byteValue)),errorMessage);
 
         /**
          * long to byte
          */
-        object = 15L;
-        object = assignment1.getByteFromLong((Long) object);
-        logger.info(object.getClass().getSimpleName());
-        Assertions.assertEquals(object.getClass().getSimpleName(), "Byte", errorMessage);
+        Assertions.assertTrue(Byte.class.isInstance(assignment1.getByteFromLong(20L)),errorMessage);
 
         /**
          * String to char array
          */
         char[] charArray = assignment1.getCharacterArray(name);
-        for (int x = 0; x < charArray.length; x++) {
-            logger.info(String.valueOf(charArray[x]));
-            Assertions.assertEquals(charArray[x], name.charAt(x), errorMessage);
+        for (int index = 0; index < charArray.length; index++) {
+            logger.info(String.valueOf(charArray[index]));
+            Assertions.assertEquals(charArray[index], name.charAt(index), errorMessage);
         }
     }
 }
