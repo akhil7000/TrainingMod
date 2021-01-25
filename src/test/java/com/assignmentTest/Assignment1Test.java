@@ -12,7 +12,7 @@ public class Assignment1Test {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testCovertDataType() {
+    public void testConvertDataType() {
         Assignment1 assignment1 = new Assignment1();
         Object object = null;
         String errorMessage = "Datatype doesn't match";
