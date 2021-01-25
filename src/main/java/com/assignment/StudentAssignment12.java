@@ -1,10 +1,10 @@
 package com.assignment;
 
 public class StudentAssignment12 {
-    String name;
-    String lastname;
-    int rollno;
-    String school = "Pratap Singh Morarji Memorial Inner Wheel School";
+    private String name;
+    private String lastname;
+    private int rollno;
+    private String school = "Pratap Singh Morarji Memorial Inner Wheel School";
 
     public String getName() {
         return name;
@@ -32,10 +32,6 @@ public class StudentAssignment12 {
 
     public String getSchool() {
         return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
     }
 
 }
