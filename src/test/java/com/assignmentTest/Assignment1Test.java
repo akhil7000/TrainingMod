@@ -53,7 +53,11 @@ public class Assignment1Test {
         /**
          * byte to long
          */
-
+        byte b=100;
+        object=b;
+        object = assignment1.getLongFromByte((Byte) object);
+        logger.info(object.getClass().getSimpleName());
+        Assertions.assertEquals(object.getClass().getSimpleName(), "Long", errorMessage);
 
         /**
          * long to byte
