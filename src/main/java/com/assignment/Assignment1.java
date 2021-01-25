@@ -1,42 +1,34 @@
 package com.assignment;
 
-import java.lang.reflect.Array;
-
 public class Assignment1 {
     public double getDoubleFromInt(int i) {
-        double getDouble = i;
-        return getDouble;
+        return (double) i;
     }
 
-    public int getIntFromDouble(double i) {
-        int getInt = (int) i;
-        return getInt;
+    public int getIntFromDouble(double d) {
+        return (int) d;
     }
 
     public double getDoubleFromFloat(float f) {
-        double getDouble = f;
-        return getDouble;
+        return (double) f;
     }
 
     public float getFloatFromDouble(double d) {
-        float getFloat = (float) d;
-        return getFloat;
+        return (float) d;
     }
 
     public byte getByteFromLong(long l) {
-        byte getByte = (byte) l;
-        return getByte;
+        return (byte) l;
     }
 
     public long getLongFromByte(byte b) {
-        long getLong = b;
-        return getLong;
+        return (long) b;
     }
 
     public char[] getCharacterArray(String name) {
         char[] cname = new char[name.length()];
-        for (int i = 0; i < name.length(); i++) {
-            cname[i] = name.charAt(i);
+        for (int index = 0; index < name.length(); index++) {
+            cname[index] = name.charAt(index);
         }
         return cname;
     }
