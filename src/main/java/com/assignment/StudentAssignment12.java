@@ -4,7 +4,7 @@ public class StudentAssignment12 {
     String name;
     String lastname;
     int rollno;
-    String school = "PMMIWS";
+    String school = "Pratap Singh Morarji Memorial Inner Wheel School";
 
     public String getName() {
         return name;
@@ -19,7 +19,7 @@ public class StudentAssignment12 {
     }
 
     public void setLastname(String lastname) {
-        this.lastname=lastname;
+        this.lastname = lastname;
     }
 
     public int getRollno() {
@@ -35,7 +35,7 @@ public class StudentAssignment12 {
     }
 
     public void setSchool(String school) {
-        this.school = "PMMIWS";
+        this.school = school;
     }
 
 }
