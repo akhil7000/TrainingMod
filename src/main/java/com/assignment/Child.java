@@ -1,5 +1,13 @@
 package com.assignment;
 
-public class Child extends Parent{
+class Parent {
+    public String getSurname() {
+        return "Tyson";
+    }
+}
 
+public class Child extends Parent {
+    public String getName() {
+        return "Mike";
+    }
 }
