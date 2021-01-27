@@ -7,7 +7,7 @@ class Parent {
 }
 
 public class Child extends Parent {
-    public String getName() {
+    public String getFirstName() {
         return "Mike";
     }
 }

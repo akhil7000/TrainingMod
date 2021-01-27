@@ -13,7 +13,7 @@ public class Assignment13Test {
 
     public void testParentChildInheritance() {
         Child child = new Child();
-        logger.info(child.getName() + " " + child.getSurname());
-        Assertions.assertEquals(child.getName() + " " + child.getSurname(), "Mike Tyson", "Not Mike Tyson");
+        logger.info(child.getFirstName() + " " + child.getSurname());
+        Assertions.assertEquals(child.getFirstName() + " " + child.getSurname(), "Mike Tyson", "Not Mike Tyson");
     }
 }
