@@ -10,9 +10,9 @@ public class Assignment13Test {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-
     public void testParentChildInheritance() {
         Child child = new Child();
+
         logger.info(child.getFirstName() + " " + child.getSurname());
         Assertions.assertEquals(child.getFirstName() + " " + child.getSurname(), "Mike Tyson", "Not Mike Tyson");
     }
