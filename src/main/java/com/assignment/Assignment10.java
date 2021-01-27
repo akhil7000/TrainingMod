@@ -3,14 +3,21 @@ package com.assignment;
 import java.util.ArrayList;
 
 public class Assignment10 {
+    public ArrayList<Integer> getNumbersArray(int min, int max) {
+        ArrayList<Integer> numberArray = new ArrayList<>();
+        for (int index = min; index <= max; index++) {
+            numberArray.add(index);
+        }
+        return numberArray;
+    }
 
-    public ArrayList<Integer> getOddNumbers(int min, int max) {
-        ArrayList<Integer> oddNumbersArraylist = new ArrayList<>();
-        for (int i = min; i <= max; i++) {
+    public ArrayList<Integer> getOddNumbers(ArrayList<Integer> numbersArray) {
+        ArrayList<Integer> oddNumberArrayList = new ArrayList<>();
+        for (int i : numbersArray) {
             if (i % 2 == 1) {
-                oddNumbersArraylist.add(i);
+                oddNumberArrayList.add(i);
             }
         }
-        return oddNumbersArraylist;
+        return oddNumberArrayList;
     }
 }
