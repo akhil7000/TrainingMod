@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,8 +14,7 @@ public class Assignment10Test {
     @Test
     public void testPrintOdd() {
         Assignment10 assignment10 = new Assignment10();
-        int min = 1, max = 10;
-        ArrayList<Integer> numberArrayList = assignment10.getNumbersArray(min, max);
+        ArrayList<Integer> numberArrayList = assignment10.getNumbersArray(1, 10);
         ArrayList<Integer> oddNumbersArray = assignment10.getOddNumbers(numberArrayList);
 
         Iterator iterator = oddNumbersArray.iterator();
@@ -27,9 +25,8 @@ public class Assignment10Test {
         /**
          * Assertion to check if odd numbers are retrieved correctly
          */
-
-        for (int i : oddNumbersArray) {
-            Assertions.assertTrue(i % 2 == 1, "Not Odd");
+        for (int number : oddNumbersArray) {
+            Assertions.assertTrue(number % 2 == 1, "Not Odd");
         }
     }
 }

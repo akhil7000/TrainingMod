@@ -13,9 +13,9 @@ public class Assignment10 {
 
     public ArrayList<Integer> getOddNumbers(ArrayList<Integer> numbersArray) {
         ArrayList<Integer> oddNumberArrayList = new ArrayList<>();
-        for (int i : numbersArray) {
-            if (i % 2 == 1) {
-                oddNumberArrayList.add(i);
+        for (int number : numbersArray) {
+            if (number % 2 == 1) {
+                oddNumberArrayList.add(number);
             }
         }
         return oddNumberArrayList;
