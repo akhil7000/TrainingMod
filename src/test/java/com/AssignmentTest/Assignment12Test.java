@@ -18,6 +18,7 @@ public class Assignment12Test {
         studentAssignment12.setName(name);
         studentAssignment12.setLastname(lastname);
         studentAssignment12.setRollno(rollno);
+        StudentAssignment12.setSchool("PMMIWS");
 
         logger.info("First Name: " + studentAssignment12.getName());
         Assertions.assertEquals(studentAssignment12.getName(), name,
@@ -32,7 +33,7 @@ public class Assignment12Test {
                 "Roll No Doesn't Match");
 
         logger.info("School: " + studentAssignment12.getSchool());
-        Assertions.assertEquals(studentAssignment12.getSchool(), "Pratap Singh Morarji Memorial Inner Wheel School",
+        Assertions.assertEquals(StudentAssignment12.getSchool(), "PMMIWS",
                 "School Name Doesn't match");
     }
 }

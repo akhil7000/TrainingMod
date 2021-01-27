@@ -3,7 +3,11 @@ package com.assignment;
 public class StudentAssignment12 {
     private String name, lastname;
     private int rollno;
-    private static String school = "Pratap Singh Morarji Memorial Inner Wheel School";
+    private static String school;
+
+    public static void setSchool(String schoolName){
+        school=schoolName;
+    }
 
     public String getName() {
         return name;
@@ -29,7 +33,7 @@ public class StudentAssignment12 {
         this.rollno = rollno;
     }
 
-    public String getSchool() {
+    public static String getSchool() {
         return school;
     }
 }
