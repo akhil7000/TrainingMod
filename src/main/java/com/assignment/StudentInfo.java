@@ -2,6 +2,7 @@ package com.assignment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 
 public class StudentInfo {
@@ -33,7 +34,7 @@ public class StudentInfo {
         }
     }
 
-    public void getStudentInfo(String studentDetails) {
+    public String getStudentInfo(String studentDetails) {
         Student student = new Student();
         for (int i = 0; i < studentList.size(); i++) {
             student = studentList.get(i);
@@ -44,6 +45,7 @@ public class StudentInfo {
                         + " " + student.getStudentClass() + " " + student.getSchool());
             }
         }
+        return studentDetails;
     }
 
     public void editStudent(String index, String[] info) {
