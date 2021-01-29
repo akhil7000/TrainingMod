@@ -54,7 +54,7 @@ public class StudentInfo {
         Student student = new Student();
         for (int i = 0; i < studentArL.size(); i++) {
             Student s = studentArL.get(i);
-            if (s.getId() == index||s.getName()==index) {
+            if (s.getId() == index || s.getName() == index) {
                 student.setId(info[0]);
                 student.setName(info[1]);
                 student.setAddress(info[2]);
