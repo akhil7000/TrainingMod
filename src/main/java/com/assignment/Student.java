@@ -1,15 +1,5 @@
 package com.assignment;
 
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Student {
     private String id;
     private String name;
@@ -28,6 +18,9 @@ public class Student {
     public Student() {
 
     }
+
+    /*public Student() {
+    }*/
 
     public String getId() {
         return id;

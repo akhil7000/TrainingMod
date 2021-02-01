@@ -2,7 +2,6 @@ package com.assignment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 
 public class StudentInfo {
@@ -21,43 +20,47 @@ public class StudentInfo {
         logger.info("Student information added");
     }
 
-    public int getStudentList() {
-        Student student = new Student();
-        int count = 0;
+    public String[][] getStudentList() {
+        Student student;
+        String [][] studentArray=new String[studentList.size()][5];
         if (studentList.size() != 0) {
             for (int i = 0; i < studentList.size(); i++) {
                 student = studentList.get(i);
+                studentArray[i][0]=student.getId();
+                studentArray[i][1]=student.getName();
+                studentArray[i][2]=student.getAddress();
+                studentArray[i][3]=student.getStudentClass();
+                studentArray[i][4]=student.getSchool();
                 logger.info(student.getId() + " " + student.getName() +
                         " " + student.getAddress() + " " + student.getStudentClass() +
                         " " + student.getSchool());
-                count++;
             }
         } else {
             logger.info("There is no student information");
         }
-        return count;
+        return studentArray;
     }
 
     public Student getStudentInfo(String studentDetails) {
-        Student student = new Student();
+        Student student = null;
         int count = 0;
         for (int i = 0; i < studentList.size(); i++) {
             student = studentList.get(i);
-            if (student.getId() == studentDetails || student.getName() == studentDetails
-                    || student.getAddress() == studentDetails || student.getStudentClass() == studentDetails
-                    || student.getSchool() == studentDetails) {
+            if (studentDetails.equals(student.getId()) || studentDetails.equals(student.getName()) ||
+                    studentDetails.equals(student.getAddress()) || studentDetails.equals(student.getStudentClass())
+                    || studentDetails.equals(student.getSchool())) {
                 logger.info(student.getId() + " " + student.getName() + " " + student.getAddress()
                         + " " + student.getStudentClass() + " " + student.getSchool());
+                count=0;
                 break;
+
             } else {
                 count = 1;
-                student = null;
             }
         }
         if (count == 1) {
             logger.info("No such Student");
         }
-
         return student;
     }
 

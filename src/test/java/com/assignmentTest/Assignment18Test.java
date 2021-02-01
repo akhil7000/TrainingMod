@@ -3,15 +3,15 @@ package com.assignmentTest;
 import com.assignment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 public class Assignment18Test {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     String[] infoBarrack = {"1", "Barrack Obama", "White House", "10", "PMMIWS"};
     String[] infoJoe = {"2", "Joe Biden", "New White House", "2", "MES"};
     String[] infoNewBarrack = {"1", "Barrack Obama", "Tudor House", "10", "PMMIWS"};
     String[] infoTrump = {"3", "Donald Trump", "Mar-a-lago", "3", "Elementary"};
+    String[][] stdt1={infoBarrack,infoJoe,infoTrump};
     StudentInfo studentInfo = new StudentInfo();
 
     @Test
@@ -19,8 +19,7 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
-        int arraySize = studentInfo.getListSize();
-        Assertions.assertTrue(arraySize == 3, "Arraylist is empty");
+        Assertions.assertEquals(studentInfo.getListSize(), 3, "Arraylist is empty");
     }
 
     @Test
@@ -28,8 +27,14 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
-        Assertions.assertEquals(studentInfo.getStudentList(), 3,
-                "Students info not displayed accurately");
+        String[][] stdt2= studentInfo.getStudentList();
+        for (int row = 0; row < stdt2.length; row++)
+        {
+            for (int col = 0; col < stdt2[0].length; col++)
+            {
+                Assertions.assertEquals(stdt2[row][col],stdt1[row][col],"Student Data not printed completely");
+            }
+        }
     }
 
     @Test
@@ -38,11 +43,10 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
         String id = "1";
-        Student originalInfo = studentInfo.getStudentInfo(id);
         studentInfo.editStudent(id, infoNewBarrack);
         studentInfo.getStudentList();
         Student updatedInfo = studentInfo.getStudentInfo(id);
-        Assertions.assertTrue(originalInfo.getAddress() != updatedInfo.getAddress(),
+        Assertions.assertEquals(updatedInfo.getAddress(),infoNewBarrack[2],
                 "Information not update");
     }
 
@@ -53,7 +57,7 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoTrump);
         String id = "1";
         studentInfo.getStudentInfo(id);
-        Assertions.assertTrue(studentInfo.getStudentInfo(id).getId() == infoBarrack[0],
+        Assertions.assertEquals(studentInfo.getStudentInfo(id).getId(),  infoBarrack[0],
                 "Student id doesn't match");
     }
 
