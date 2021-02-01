@@ -3,13 +3,15 @@ package com.assignmentTest;
 import com.assignment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
 public class Assignment18Test {
     String[] infoBarrack = {"1", "Barrack Obama", "White House", "10", "PMMIWS"};
     String[] infoJoe = {"2", "Joe Biden", "New White House", "2", "MES"};
     String[] infoNewBarrack = {"1", "Barrack Obama", "Tudor House", "10", "PMMIWS"};
     String[] infoTrump = {"3", "Donald Trump", "Mar-a-lago", "3", "Elementary"};
-    String[][] student = {infoBarrack, infoJoe, infoTrump};
+    String[] infoBill = {"4", "Bill Clinton", "Whitehaven", "5", "PMMIWS"};
+    String[][] studentArray = {infoBarrack, infoJoe, infoTrump};
 
     StudentInfo studentInfo = new StudentInfo();
 
@@ -19,6 +21,7 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
+
         Assertions.assertEquals(studentInfo.getListSize(), 3, "Arraylist is empty");
     }
 
@@ -28,14 +31,16 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
 
-        Student[] studentArray = studentInfo.getStudentList();
+        Student student;
+        ArrayList<Student> studentList = studentInfo.getStudentList();
 
-        for (int row = 0; row < student.length; row++) {
-            Assertions.assertEquals(studentArray[row].getId(), student[row][0], "Id mismatch");
-            Assertions.assertEquals(studentArray[row].getName(), student[row][1], "Name mismatch");
-            Assertions.assertEquals(studentArray[row].getAddress(), student[row][2], "Address mismatch");
-            Assertions.assertEquals(studentArray[row].getStudentClass(), student[row][3], "Class mismatch");
-            Assertions.assertEquals(studentArray[row].getSchool(), student[row][4], "School mismatch");
+        for (int row = 0; row < studentArray.length; row++) {
+            student = studentList.get(row);
+            Assertions.assertEquals(student.getId(), studentArray[row][0], "Id mismatch");
+            Assertions.assertEquals(student.getName(), studentArray[row][1], "Name mismatch");
+            Assertions.assertEquals(student.getAddress(), studentArray[row][2], "Address mismatch");
+            Assertions.assertEquals(student.getStudentClass(), studentArray[row][3], "Class mismatch");
+            Assertions.assertEquals(student.getSchool(), studentArray[row][4], "School mismatch");
         }
     }
 
@@ -49,9 +54,9 @@ public class Assignment18Test {
 
         studentInfo.editStudent(id, infoNewBarrack);
         studentInfo.getStudentList();
-        Student updatedInfo = studentInfo.getStudentInfo(id);
+        ArrayList<Student> updatedInfo = studentInfo.getStudentInfo(id);
 
-        Assertions.assertEquals(updatedInfo.getAddress(), infoNewBarrack[2],
+        Assertions.assertEquals(updatedInfo.get(0).getAddress(), infoNewBarrack[2],
                 "Information not updated");
     }
 
@@ -62,20 +67,20 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
-
-        studentInfo.getStudentInfo(id);
+        studentInfo.setStudentInfo(infoBill);
+        studentInfo.getStudentInfo("PMMIWS");
 
         /**
          * Test with pass condition
          */
-        Assertions.assertEquals(studentInfo.getStudentInfo(id).getId(), infoJoe[0],
+        Assertions.assertEquals(studentInfo.getStudentInfo(id).get(0).getId(), infoJoe[0],
                 "Student id doesn't match");
 
         /**
          * Test with failure condition
          */
-        Assertions.assertEquals(studentInfo.getStudentInfo(id).getId(), infoBarrack[0],
-                "Student id doesn't match");
+        Assertions.assertTrue(studentInfo.getStudentInfo("6").isEmpty(), "Student id mismatch");
+
     }
 
     @Test
