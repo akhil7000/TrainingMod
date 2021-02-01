@@ -2,6 +2,7 @@ package com.assignment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 
 public class StudentInfo {
@@ -20,17 +21,13 @@ public class StudentInfo {
         logger.info("Student information added");
     }
 
-    public String[][] getStudentList() {
+    public Student[] getStudentList() {
         Student student;
-        String[][] studentArray = new String[studentList.size()][5];
+        Student[] studentArray = new Student[studentList.size()];
         if (studentList.size() != 0) {
             for (int i = 0; i < studentList.size(); i++) {
                 student = studentList.get(i);
-                studentArray[i][0] = student.getId();
-                studentArray[i][1] = student.getName();
-                studentArray[i][2] = student.getAddress();
-                studentArray[i][3] = student.getStudentClass();
-                studentArray[i][4] = student.getSchool();
+                studentArray[i]=student;
                 logger.info(student.getId() + " " + student.getName() +
                         " " + student.getAddress() + " " + student.getStudentClass() +
                         " " + student.getSchool());
@@ -42,7 +39,7 @@ public class StudentInfo {
     }
 
     public Student getStudentInfo(String studentDetails) {
-        Student student = null;
+        Student student;
         int count = 0;
         for (int i = 0; i < studentList.size(); i++) {
             student = studentList.get(i);
@@ -51,17 +48,10 @@ public class StudentInfo {
                     || studentDetails.equals(student.getSchool())) {
                 logger.info(student.getId() + " " + student.getName() + " " + student.getAddress()
                         + " " + student.getStudentClass() + " " + student.getSchool());
-                count = 0;
-                break;
-
-            } else {
-                count = 1;
+                return student;
             }
         }
-        if (count == 1) {
-            logger.info("No such Student");
-        }
-        return student;
+        return null;
     }
 
     public void editStudent(String index, String[] info) {

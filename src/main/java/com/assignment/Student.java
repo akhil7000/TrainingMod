@@ -7,16 +7,16 @@ public class Student {
     private String studentClass;
     private String school;
 
-    public Student(String id, String name, String address, String studentClass, String school) {
+    /*public Student(String id, String name, String address, String studentClass, String school) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.studentClass = studentClass;
         this.school = school;
-    }
+    }*/
 
-    public Student() {
-    }
+    /*public Student() {
+    }*/
 
     public String getId() {
         return id;
