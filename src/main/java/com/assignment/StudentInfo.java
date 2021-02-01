@@ -21,21 +21,26 @@ public class StudentInfo {
         logger.info("Student information added");
     }
 
-    public void getStudentList() {
+    public int getStudentList() {
+        Student student = new Student();
+        int count = 0;
         if (studentList.size() != 0) {
             for (int i = 0; i < studentList.size(); i++) {
-                Student student = studentList.get(i);
+                student = studentList.get(i);
                 logger.info(student.getId() + " " + student.getName() +
                         " " + student.getAddress() + " " + student.getStudentClass() +
                         " " + student.getSchool());
+                count++;
             }
         } else {
             logger.info("There is no student information");
         }
+        return count;
     }
 
-    public String getStudentInfo(String studentDetails) {
+    public Student getStudentInfo(String studentDetails) {
         Student student = new Student();
+        int count = 0;
         for (int i = 0; i < studentList.size(); i++) {
             student = studentList.get(i);
             if (student.getId() == studentDetails || student.getName() == studentDetails
@@ -43,9 +48,17 @@ public class StudentInfo {
                     || student.getSchool() == studentDetails) {
                 logger.info(student.getId() + " " + student.getName() + " " + student.getAddress()
                         + " " + student.getStudentClass() + " " + student.getSchool());
+                break;
+            } else {
+                count = 1;
+                student = null;
             }
         }
-        return studentDetails;
+        if (count == 1) {
+            logger.info("No such Student");
+        }
+
+        return student;
     }
 
     public void editStudent(String index, String[] info) {
@@ -65,20 +78,26 @@ public class StudentInfo {
     }
 
     public void deleteStudent(String id) {
+        String returnString = null;
         if (studentList.size() == 0) {
-            logger.info("No Student Data Present");
+            returnString = ("No Student Data Present");
         } else {
             logger.info("Enter the student ID");
             for (int i = 0; i < studentList.size(); i++) {
                 Student s = studentList.get(i);
                 if (s.getId().equals(id)) {
                     studentList.remove(i);
-                    logger.info("Student successfully removed");
-
+                    returnString = ("Student successfully removed");
+                    break;
                 } else {
-                    logger.info("There is no such student, please try again");
+                    returnString = "There is no such student, please try again";
                 }
             }
         }
+        logger.info(returnString);
+    }
+
+    public int getListSize() {
+        return studentList.size();
     }
 }
