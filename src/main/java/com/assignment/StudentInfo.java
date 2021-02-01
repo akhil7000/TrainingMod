@@ -22,15 +22,15 @@ public class StudentInfo {
 
     public String[][] getStudentList() {
         Student student;
-        String [][] studentArray=new String[studentList.size()][5];
+        String[][] studentArray = new String[studentList.size()][5];
         if (studentList.size() != 0) {
             for (int i = 0; i < studentList.size(); i++) {
                 student = studentList.get(i);
-                studentArray[i][0]=student.getId();
-                studentArray[i][1]=student.getName();
-                studentArray[i][2]=student.getAddress();
-                studentArray[i][3]=student.getStudentClass();
-                studentArray[i][4]=student.getSchool();
+                studentArray[i][0] = student.getId();
+                studentArray[i][1] = student.getName();
+                studentArray[i][2] = student.getAddress();
+                studentArray[i][3] = student.getStudentClass();
+                studentArray[i][4] = student.getSchool();
                 logger.info(student.getId() + " " + student.getName() +
                         " " + student.getAddress() + " " + student.getStudentClass() +
                         " " + student.getSchool());
@@ -51,7 +51,7 @@ public class StudentInfo {
                     || studentDetails.equals(student.getSchool())) {
                 logger.info(student.getId() + " " + student.getName() + " " + student.getAddress()
                         + " " + student.getStudentClass() + " " + student.getSchool());
-                count=0;
+                count = 0;
                 break;
 
             } else {
