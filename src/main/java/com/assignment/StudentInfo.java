@@ -2,7 +2,6 @@ package com.assignment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 
 public class StudentInfo {
@@ -10,6 +9,7 @@ public class StudentInfo {
     ArrayList<Student> studentArrayList = new ArrayList<>();
 
     public void setStudentInfo(String[] info) {
+
         Student student = new Student();
 
         student.setId(info[0]);
@@ -17,11 +17,14 @@ public class StudentInfo {
         student.setAddress(info[2]);
         student.setStudentClass(info[3]);
         student.setSchool(info[4]);
+
         studentArrayList.add(student);
+
         logger.info("Student information added");
     }
 
     public ArrayList<Student> getStudentList() {
+
         Student student;
         if (!studentArrayList.isEmpty()) {
             for (int i = 0; i < studentArrayList.size(); i++) {
@@ -37,6 +40,7 @@ public class StudentInfo {
     }
 
     public ArrayList<Student> getStudentInfo(String studentKey) {
+
         Student student;
         ArrayList<Student> studentList = new ArrayList<>();
         for (int i = 0; i < studentArrayList.size(); i++) {
@@ -48,6 +52,9 @@ public class StudentInfo {
                         + " " + student.getStudentClass() + " " + student.getSchool());
                 studentList.add(student);
             }
+        }
+        if (studentList.isEmpty()) {
+            logger.info("No such student");
         }
         return studentList;
     }
@@ -70,6 +77,7 @@ public class StudentInfo {
     }
 
     public void deleteStudent(String studentId) {
+
         String returnString = null;
         if (studentArrayList.isEmpty()) {
             returnString = ("No Student Data Present");

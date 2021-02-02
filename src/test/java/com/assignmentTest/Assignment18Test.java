@@ -3,7 +3,6 @@ package com.assignmentTest;
 import com.assignment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 public class Assignment18Test {
@@ -16,9 +15,9 @@ public class Assignment18Test {
 
     StudentInfo studentInfo = new StudentInfo();
 
-
     @Test
     public void testStudentAddition() {
+
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
@@ -28,6 +27,7 @@ public class Assignment18Test {
 
     @Test
     public void testDisplayAllStudent() {
+
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
@@ -49,6 +49,7 @@ public class Assignment18Test {
 
     @Test
     public void testEditStudent() {
+
         String id = "1";
 
         studentInfo.setStudentInfo(infoBarrack);
@@ -64,6 +65,7 @@ public class Assignment18Test {
 
     @Test
     public void testSearchStudent() {
+
         String id = "New White House";
 
         studentInfo.setStudentInfo(infoBarrack);
@@ -80,11 +82,26 @@ public class Assignment18Test {
         /**
          * Test with failure condition
          */
-        Assertions.assertFalse(studentInfo.getStudentInfo("6").isEmpty(), "Student id mismatch");
+        Assertions.assertTrue(studentInfo.getStudentInfo("6").isEmpty(), "Student id mismatch");
+    }
+
+    @Test
+    public void testStudentSearchMultipleRecords() {
+
+        String id = "PMMIWS";
+
+        studentInfo.setStudentInfo(infoBarrack);
+        studentInfo.setStudentInfo(infoJoe);
+        studentInfo.setStudentInfo(infoTrump);
+        studentInfo.setStudentInfo(infoBill);
+
+        ArrayList<Student> studentRecord = studentInfo.getStudentInfo(id);
+        Assertions.assertTrue(studentRecord.size() > 1, "Only one or no record exists");
     }
 
     @Test
     public void testDeleteStudent() {
+
         String id = "1";
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
