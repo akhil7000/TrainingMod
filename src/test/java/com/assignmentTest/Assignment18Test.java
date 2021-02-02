@@ -3,6 +3,7 @@ package com.assignmentTest;
 import com.assignment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
 public class Assignment18Test {
@@ -22,7 +23,7 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
 
-        Assertions.assertEquals(studentInfo.getListSize(), 3, "Arraylist is empty");
+        Assertions.assertEquals(3, studentInfo.getListSize(), "Arraylist is empty");
     }
 
     @Test
@@ -30,6 +31,8 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoBarrack);
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
+
+        studentInfo.getStudentList();
 
         Student student;
         ArrayList<Student> studentList = studentInfo.getStudentList();
@@ -53,9 +56,8 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoTrump);
 
         studentInfo.editStudent(id, infoNewBarrack);
-        studentInfo.getStudentList();
-        ArrayList<Student> updatedInfo = studentInfo.getStudentInfo(id);
 
+        ArrayList<Student> updatedInfo = studentInfo.getStudentInfo(id);
         Assertions.assertEquals(updatedInfo.get(0).getAddress(), infoNewBarrack[2],
                 "Information not updated");
     }
@@ -68,7 +70,6 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoJoe);
         studentInfo.setStudentInfo(infoTrump);
         studentInfo.setStudentInfo(infoBill);
-        studentInfo.getStudentInfo("PMMIWS");
 
         /**
          * Test with pass condition
@@ -79,8 +80,7 @@ public class Assignment18Test {
         /**
          * Test with failure condition
          */
-        Assertions.assertTrue(studentInfo.getStudentInfo("6").isEmpty(), "Student id mismatch");
-
+        Assertions.assertFalse(studentInfo.getStudentInfo("6").isEmpty(), "Student id mismatch");
     }
 
     @Test
@@ -91,8 +91,6 @@ public class Assignment18Test {
         studentInfo.setStudentInfo(infoTrump);
 
         studentInfo.deleteStudent(id);
-        studentInfo.getStudentList();
-
-        Assertions.assertNull(studentInfo.getStudentInfo(id), "Student not deleted");
+        Assertions.assertTrue(studentInfo.getStudentInfo(id).isEmpty(), "Student not deleted");
     }
 }

@@ -23,11 +23,9 @@ public class StudentInfo {
 
     public ArrayList<Student> getStudentList() {
         Student student;
-        ArrayList<Student> studentList = new ArrayList<>();
         if (!studentArrayList.isEmpty()) {
             for (int i = 0; i < studentArrayList.size(); i++) {
                 student = studentArrayList.get(i);
-                studentList.add(student);
                 logger.info(student.getId() + " " + student.getName() +
                         " " + student.getAddress() + " " + student.getStudentClass() +
                         " " + student.getSchool());
@@ -35,17 +33,17 @@ public class StudentInfo {
         } else {
             logger.info("There is no student information");
         }
-        return studentList;
+        return studentArrayList;
     }
 
-    public ArrayList<Student> getStudentInfo(String studentDetails) {
+    public ArrayList<Student> getStudentInfo(String studentKey) {
         Student student;
         ArrayList<Student> studentList = new ArrayList<>();
         for (int i = 0; i < studentArrayList.size(); i++) {
             student = studentArrayList.get(i);
-            if (studentDetails.equals(student.getId()) || studentDetails.equals(student.getName()) ||
-                    studentDetails.equals(student.getAddress()) || studentDetails.equals(student.getStudentClass())
-                    || studentDetails.equals(student.getSchool())) {
+            if (studentKey.equals(student.getId()) || studentKey.equals(student.getName()) ||
+                    studentKey.equals(student.getAddress()) || studentKey.equals(student.getStudentClass())
+                    || studentKey.equals(student.getSchool())) {
                 logger.info(student.getId() + " " + student.getName() + " " + student.getAddress()
                         + " " + student.getStudentClass() + " " + student.getSchool());
                 studentList.add(student);
@@ -54,12 +52,12 @@ public class StudentInfo {
         return studentList;
     }
 
-    public void editStudent(String index, String[] info) {
+    public void editStudent(String studentKey, String[] info) {
 
         Student student = new Student();
         for (int i = 0; i < studentArrayList.size(); i++) {
             Student s = studentArrayList.get(i);
-            if (index.equals(s.getId()) || index.equals(s.getName())) {
+            if (studentKey.equals(s.getId()) || studentKey.equals(s.getName())) {
                 student.setId(info[0]);
                 student.setName(info[1]);
                 student.setAddress(info[2]);
@@ -71,15 +69,14 @@ public class StudentInfo {
         logger.info("Student information had been updated");
     }
 
-    public void deleteStudent(String id) {
+    public void deleteStudent(String studentId) {
         String returnString = null;
-        if (!studentArrayList.isEmpty()) {
+        if (studentArrayList.isEmpty()) {
             returnString = ("No Student Data Present");
         } else {
-            logger.info("Enter the student ID");
             for (int i = 0; i < studentArrayList.size(); i++) {
                 Student s = studentArrayList.get(i);
-                if (s.getId().equals(id)) {
+                if (s.getId().equals(studentId)) {
                     studentArrayList.remove(i);
                     returnString = ("Student successfully removed");
                     break;
