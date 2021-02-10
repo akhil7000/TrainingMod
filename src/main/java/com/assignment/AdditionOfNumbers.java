@@ -1,11 +1,11 @@
 package com.assignment;
 
-abstract class WillDoEverything {
+abstract class WillDoEverythingg {
 
     public abstract int getSum(int a);
 }
 
-public class AdditionOfNumbers extends WillDoEverything {
+public class AdditionOfNumbers extends WillDoEverythingg {
 
     public int getSum(int a) {
         return a + a + a;
