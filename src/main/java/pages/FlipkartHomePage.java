@@ -19,7 +19,7 @@ public class FlipkartHomePage {
         this.wait= new WebDriverWait(driver,30);
     }
 
-    public FlipkartHomePage popup() {
+    public FlipkartHomePage closePopup() {
 
         wait.until(ExpectedConditions.elementToBeClickable(popup));
 
@@ -27,7 +27,7 @@ public class FlipkartHomePage {
         return this;
     }
 
-    public FlipkartHomePage searchBox(String keys) {
+    public FlipkartHomePage sendKeysToSearchBox(String keys) {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
 
@@ -35,7 +35,7 @@ public class FlipkartHomePage {
         return this;
     }
 
-    public ResultPage submit() {
+    public ResultPage clickSearch() {
 
         driver.findElement(submit).click();
         return new ResultPage(driver);

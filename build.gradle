@@ -12,7 +12,6 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "${selenium_version}"
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: "${junit_jupiter_version}"
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${junit_jupiter_api_version}"
