@@ -68,6 +68,7 @@ public class FlipkartTest {
 
         //Extracting price value
         priceList.addAll(srp.getPrice(list));
+
         logger.info(String.valueOf(priceList.size()));
 
         //Switch to next page
@@ -76,6 +77,7 @@ public class FlipkartTest {
 
         //get all price from page2 to list
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(srp.loader())));
+        wait.until(ExpectedConditions.visibilityOfAllElements(srp.shoePrice()));
         List<WebElement> list2 = srp.shoePrice();
         logger.info(String.valueOf(list2.size()));
 
