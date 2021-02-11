@@ -27,7 +27,7 @@ public class FlipkartTest {
     @Test
     public void test() throws WebDriverException, InterruptedException {
         // System Property for Chrome Driver
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "package/resources/chromedriver.exe");
 
         // Instantiate a ChromeDriver class.
         ChromeOptions options = new ChromeOptions();
@@ -36,6 +36,7 @@ public class FlipkartTest {
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         WebDriver driver = new ChromeDriver(capabilities);
         WebDriverWait wait = new WebDriverWait(driver, 30);
+        ArrayList<Integer>priceList= new ArrayList<>();
 
         // Launch Website and maximise
         driver.navigate().to("https://www.flipkart.com/");
@@ -58,12 +59,16 @@ public class FlipkartTest {
         srp.low().click();
 
         //get all price from page1 to list
-        //wait.until(ExpectedConditions.invisibilityOf(srp.loader()));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(srp.loader())));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
+                "/*[name()='svg']")));
         List<WebElement> list = srp.shoePrice();
 
         logger.info(String.valueOf(list.size()));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(srp.loader())));
+
+        //Extracting price value
+        priceList.addAll(srp.getPrice(list));
+        logger.info(String.valueOf(priceList.size()));
 
         //Switch to next page
         wait.until(ExpectedConditions.elementToBeClickable(srp.next()));
@@ -74,42 +79,22 @@ public class FlipkartTest {
         List<WebElement> list2 = srp.shoePrice();
         logger.info(String.valueOf(list2.size()));
 
-        //combining two lists
-        List <WebElement> priceList= Stream.concat(list.stream(),list2.stream()).collect(Collectors.toList());
+        // Extracting price values
+        logger.info(String.valueOf(list.size()));
+        priceList.addAll(srp.getPrice(list2));
         logger.info(String.valueOf(priceList.size()));
 
-        // Extracting price value
-        Iterator itr = priceList.listIterator();
-        int j=1;
-        while (itr.hasNext()){
-            priceList.iterator();
-            logger.info(String.valueOf(itr.next())+"\n"+ String.valueOf(j));
-            j++;
-        }
-
-        for (int i=0;i<priceList.size();i++){
-            wait.until(ExpectedConditions.elementToBeClickable(priceList.get(i)));
-            logger.info(String.valueOf(priceList.get(i).getText()));
-        }
-        /*String [] price= new String[priceList.size()];
-        int i = 0;
-        while (i < priceList.size()) {
-            logger.info(priceList.get(i).getText());
-            i++;
-        }*/
-
-        //logger.info(String.valueOf(price.length));
         //Sort price arraylist
 
-        /*ArrayList<Integer> sortedPrice = (ArrayList<Integer>) price.clone();
+        ArrayList<Integer> sortedPrice = (ArrayList<Integer>) priceList.clone();
         Collections.sort(sortedPrice);
-        logger.info("Price sorted");*/
+        logger.info("Price sorted");
 
         //Validating if price is in ascending order
 
         //Assertions.assertEquals(sortedPrice,price,"Not in ascending Order");
 
         //Close Chrome
-        //driver.close();
+        driver.close();
     }
 }

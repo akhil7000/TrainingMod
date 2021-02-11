@@ -36,16 +36,12 @@ public class ShoesResultPage {
         return driver.findElement(nextPageButton);
     }
 
-    public String[] getPrice(List<WebElement> list) throws InterruptedException {
-
-        String [] price= new String[list.size()];
-        int i = 0;
-        String pricetemp;
-        while (i < list.size()) {
-            price[i]=(list.get(i).getText());
-            //price.add(Integer.parseInt(pricetemp.substring(1)));
-            i++;
+    public ArrayList<Integer> getPrice(List<WebElement> list) throws InterruptedException {
+        ArrayList<Integer> priceList=new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            String pricetemp = list.get(i).getText();
+            priceList.add(Integer.parseInt(pricetemp.substring(1)));
         }
-        return price;
+        return priceList;
     }
 }
