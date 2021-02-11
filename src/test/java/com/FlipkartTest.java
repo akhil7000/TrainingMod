@@ -2,15 +2,12 @@ package com;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.*;
@@ -40,22 +37,13 @@ public class FlipkartTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
-        // Close popup
+        // Close popup and search for shoes
         FlipkartHomePage flipkartHomePage = new FlipkartHomePage(driver);
-        flipkartHomePage.popup().click();
-
-        //Search Shoes
-        flipkartHomePage.searchBox().sendKeys("shoes");
-        flipkartHomePage.submit().click();
-
-        //Sort low to high
-        ResultPage resultPage = new ResultPage(driver);
-
-        resultPage.low().click();
+        flipkartHomePage.popup().searchBox("shoes").submit().lowToHigh();
 
         //get all price from page1 to list
+        ResultPage resultPage = new ResultPage(driver);
         List<WebElement> list = resultPage.shoePrice();
-
         logger.info(String.valueOf(list.size()));
 
         //Extracting price value
@@ -63,10 +51,10 @@ public class FlipkartTest {
         logger.info(String.valueOf(priceList.size()));
 
         //Validating if price is in ascending order
-        Assertions.assertEquals(priceList,resultPage.sort(priceList),"Price not in ascending order");
+        Assertions.assertEquals(priceList, resultPage.sort(priceList), "Price not in ascending order");
 
         //Switch to next page
-        resultPage.next().click();
+        resultPage.next();
 
         //get all price from page2 to list
         List<WebElement> list2 = resultPage.shoePrice();
@@ -79,7 +67,7 @@ public class FlipkartTest {
 
 
         //Validating if price is in ascending order
-        Assertions.assertEquals(priceList,resultPage.sort(priceList),"Price not in ascending order");
+        Assertions.assertEquals(priceList, resultPage.sort(priceList), "Price not in ascending order");
 
         //Close Chrome
         driver.close();

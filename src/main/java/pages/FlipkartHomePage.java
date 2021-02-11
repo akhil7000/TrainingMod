@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FlipkartHomePage {
     WebDriver driver;
+    WebDriverWait wait;
 
     By searchBox = By.xpath("//*[@class='_3704LK']");
     By popup = By.xpath("/html/body/div[2]/div/div/button");
@@ -15,26 +16,28 @@ public class FlipkartHomePage {
 
     public FlipkartHomePage(WebDriver driver) {
         this.driver = driver;
+        this.wait= new WebDriverWait(driver,30);
     }
 
-    public WebElement popup() {
+    public FlipkartHomePage popup() {
 
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(popup));
 
-        return driver.findElement(popup);
+        driver.findElement(popup).click();
+        return this;
     }
 
-    public WebElement searchBox() {
+    public FlipkartHomePage searchBox(String keys) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
 
-        return driver.findElement(searchBox);
+        driver.findElement(searchBox).sendKeys(keys);
+        return this;
     }
 
-    public WebElement submit() {
+    public ResultPage submit() {
 
-        return driver.findElement(submit);
+        driver.findElement(submit).click();
+        return new ResultPage(driver);
     }
 }

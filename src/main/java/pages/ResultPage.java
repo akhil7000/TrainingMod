@@ -12,10 +12,11 @@ import java.util.List;
 
 public class ResultPage {
     WebDriver driver;
-
+    WebDriverWait wait;
     public ResultPage(WebDriver driver) {
-
+        this.wait= new WebDriverWait(driver, 30);
         this.driver = driver;
+
     }
 
     By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
@@ -23,17 +24,14 @@ public class ResultPage {
     By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
     By nextPageButton = By.xpath("//*[contains(text(),'Next')]");
 
-    public WebElement low() {
-
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+    public ResultPage lowToHigh() {
 
         wait.until(ExpectedConditions.elementToBeClickable(lowToHigh));
-        return driver.findElement(lowToHigh);
+        driver.findElement(lowToHigh).click();
+        return this;
     }
 
     public List<WebElement> shoePrice() {
-
-        WebDriverWait wait = new WebDriverWait(driver, 30);
 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']")));
@@ -43,15 +41,16 @@ public class ResultPage {
         return list;
     }
 
-    public WebElement next() {
+    public ResultPage next() {
 
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
-        return driver.findElement(nextPageButton);
+        driver.findElement(nextPageButton).click();
+        return this;
     }
 
     public ArrayList<Integer> getPrice(List<WebElement> list) {
 
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
         ArrayList<Integer> priceList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
