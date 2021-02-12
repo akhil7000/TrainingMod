@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,7 +19,6 @@ public class FlipkartHomePage {
     }
 
     public FlipkartHomePage closePopup() {
-
         wait.until(ExpectedConditions.elementToBeClickable(popup));
 
         driver.findElement(popup).click();
@@ -28,7 +26,6 @@ public class FlipkartHomePage {
     }
 
     public FlipkartHomePage sendKeysToSearchBox(String keys) {
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
 
         driver.findElement(searchBox).sendKeys(keys);
@@ -36,7 +33,6 @@ public class FlipkartHomePage {
     }
 
     public ResultPage clickSearch() {
-
         driver.findElement(submit).click();
         return new ResultPage(driver);
     }
