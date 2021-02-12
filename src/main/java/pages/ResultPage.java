@@ -13,20 +13,19 @@ import java.util.List;
 
 public class ResultPage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    WebDriver driver;
-    WebDriverWait wait;
-    ArrayList<Integer> priceList = new ArrayList<>();
 
-    By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
-    By shoesPrice = By.xpath("//div[@class='_30jeq3']");
-    By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
-    By nextPageButton = By.xpath("//*[contains(text(),'Next')]");
+    private WebDriver driver;
+    private WebDriverWait wait;
+
+    private By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
+    private By shoesPrice = By.xpath("//div[@class='_30jeq3']");
+    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
+    private By nextPageButton = By.xpath("//*[contains(text(),'Next')]");
 
     public ResultPage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, 30);
         this.driver = driver;
     }
-
 
     public ResultPage sortLowToHigh() {
         wait.until(ExpectedConditions.elementToBeClickable(lowToHigh));
@@ -34,21 +33,18 @@ public class ResultPage {
         return this;
     }
 
-    public List<WebElement> getShoesPrice() {
+    public ArrayList<Integer> getPriceInteger() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']")));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
 
         List<WebElement> list = driver.findElements(shoesPrice);
-        return list;
-    }
+        logger.info("Size of list " + String.valueOf(list.size()));
 
-    public ArrayList<Integer> getPriceInteger(List<WebElement> list) {
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
         ArrayList<Integer> priceList = new ArrayList<>();
-
         for (int i = 0; i < list.size(); i++) {
             priceList.add(Integer.parseInt(list.get(i).getText().substring(1)));
         }
+        logger.info("Size of Pricelist " + String.valueOf(priceList.size()));
         return priceList;
     }
 

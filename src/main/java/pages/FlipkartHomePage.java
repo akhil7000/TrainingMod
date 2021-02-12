@@ -6,12 +6,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FlipkartHomePage {
-    WebDriver driver;
-    WebDriverWait wait;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
-    By searchBox = By.xpath("//*[@class='_3704LK']");
-    By popup = By.xpath("/html/body/div[2]/div/div/button");
-    By submit = By.xpath("//*[@class='L0Z3Pu']");
+    private By searchBox = By.xpath("//*[@class='_3704LK']");
+    private By popup = By.xpath("/html/body/div[2]/div/div/button");
+    private By submit = By.xpath("//*[@class='L0Z3Pu']");
 
     public FlipkartHomePage(WebDriver driver) {
         this.driver = driver;
