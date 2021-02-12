@@ -22,6 +22,7 @@ public class FlipkartTest {
     @Test
     public void test() throws WebDriverException, InterruptedException {
         ArrayList<Integer> priceList = new ArrayList<>();
+        int numberOfPages = 2;
 
         // System Property for Chrome Driver
         System.setProperty("webdriver.chrome.driver", "package/resources/chromedriver.exe");
@@ -40,32 +41,23 @@ public class FlipkartTest {
         // Close popup and search for shoes
         ResultPage resultPage = new FlipkartHomePage(driver).closePopup().sendKeysToSearchBox("shoes")
                 .clickSearch().sortLowToHigh();
-        //get all price from page1 to list
 
-        List<WebElement> list = resultPage.getShoesPrice();
-        logger.info(String.valueOf(list.size()));
+        //extracting price and going to next pages for 'n' pages
+        for (int page = 1; page <= numberOfPages; page++) {
 
-        //Extracting price value
-        priceList.addAll(resultPage.getPriceInteger(list));
-        logger.info(String.valueOf(priceList.size()));
+            List<WebElement> list = resultPage.getShoesPrice();
+            logger.info("Size of list" + String.valueOf(list.size()));
 
-        //Validating if price is in ascending order
-        Assertions.assertEquals(priceList, resultPage.sortPriceList(priceList),
-                "Price not in ascending order");
+            priceList.addAll(resultPage.getPriceInteger(list));
+            logger.info("Size of list" + String.valueOf(priceList.size()));
 
-        //Switch to next page
-        resultPage.clickNextPage();
+            Assertions.assertEquals(priceList,resultPage.sortPriceList(priceList),
+                    "Price not in ascending order in page number"+page);
 
-        //get all price from page2 to list
-        List<WebElement> list2 = resultPage.getShoesPrice();
-        logger.info(String.valueOf(list2.size()));
-
-        // Extracting price values
-        priceList.addAll(resultPage.getPriceInteger(list2));
-        logger.info(String.valueOf(priceList.size()));
-
-        //Validating if price is in ascending order
-        Assertions.assertEquals(priceList, resultPage.sortPriceList(priceList), "Price not in ascending order");
+            if (page != numberOfPages) {
+                resultPage.clickNextPage();
+            }
+        }
 
         //Close Chrome
         driver.close();

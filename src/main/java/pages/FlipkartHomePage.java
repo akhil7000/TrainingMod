@@ -16,7 +16,7 @@ public class FlipkartHomePage {
 
     public FlipkartHomePage(WebDriver driver) {
         this.driver = driver;
-        this.wait= new WebDriverWait(driver,30);
+        this.wait = new WebDriverWait(driver, 30);
     }
 
     public FlipkartHomePage closePopup() {

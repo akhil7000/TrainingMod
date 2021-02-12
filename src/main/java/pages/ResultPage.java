@@ -5,14 +5,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ResultPage {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     WebDriver driver;
     WebDriverWait wait;
+    ArrayList<Integer> priceList = new ArrayList<>();
 
     By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
     By shoesPrice = By.xpath("//div[@class='_30jeq3']");
@@ -21,7 +25,7 @@ public class ResultPage {
 
     public ResultPage(WebDriver driver) {
 
-        this.wait= new WebDriverWait(driver, 30);
+        this.wait = new WebDriverWait(driver, 30);
         this.driver = driver;
     }
 
@@ -37,7 +41,7 @@ public class ResultPage {
 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']")));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
+        //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
 
         List<WebElement> list = driver.findElements(shoesPrice);
         return list;
@@ -68,4 +72,5 @@ public class ResultPage {
         Collections.sort(sortedPrice);
         return sortedPrice;
     }
+
 }
