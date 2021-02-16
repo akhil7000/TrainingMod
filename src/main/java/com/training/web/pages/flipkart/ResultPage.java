@@ -20,8 +20,11 @@ public class ResultPage {
 
 
     private By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
+    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
+            "/*[name()='svg']");
     private By shoesPrice = By.xpath("//div[@class='_30jeq3']");
     private By nextPageButton = By.xpath("//*[contains(text(),'Next')]");
+    private By cart = By.xpath("//*[@class='_3SkBxJ']");
 
 
     public ResultPage(WebDriver driver) {
@@ -36,8 +39,7 @@ public class ResultPage {
     }
 
     public ArrayList<Integer> getPriceInteger() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
-                "/*[name()='svg']")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
 
         List<WebElement> list = driver.findElements(shoesPrice);
@@ -62,23 +64,21 @@ public class ResultPage {
         return sortedPrice;
     }
 
-    public void clickProduct(int itemNumber) throws InterruptedException {
-        Thread.sleep(1000);
+    public void clickProduct(int itemNumber) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
         itemNumber = itemNumber - 1;
         productList.get(itemNumber).click();
     }
 
-    public void getProductsList() throws InterruptedException {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
-                "/*[name()='svg']")));
-        //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
-        Thread.sleep(2000);
+    public void getProductsList() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
         productList = driver.findElements(shoesPrice);
     }
 
     public CartPage goToCart() {
-        driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[1]/div[1]/div[2]/div[5]/div/div")).click();
+        driver.findElement(cart).click();
         return new CartPage(driver);
     }
-
 }

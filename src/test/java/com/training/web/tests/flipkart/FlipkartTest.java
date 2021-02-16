@@ -75,7 +75,7 @@ public class FlipkartTest {
     }
 
     @Test
-    public void testCartAddition() throws InterruptedException {
+    public void testCartAddition() {
         Integer[] products = {2, 3};
 
         /**
@@ -125,9 +125,10 @@ public class FlipkartTest {
                 child_window = I1.next();
             }
             driver.switchTo().window(child_window);
+            productPage.clickSize();
             productNames.add(productPage.productName());
             priceList.add(productPage.productPrice());
-            productPage.clickSize().addToCart();
+            productPage.addToCart();
             driver.close();
             driver.switchTo().window(parentWindow);
         }
@@ -148,7 +149,7 @@ public class FlipkartTest {
                     count = 1;
                 }
             }
-            Assertions.assertEquals(count ,1, "Product not in cart");
+            Assertions.assertEquals(count, 1, "Product not in cart");
         }
 
         /**
@@ -160,6 +161,6 @@ public class FlipkartTest {
         for (int i : priceList) {
             totalprice = totalprice + i;
         }
-        Assertions.assertEquals(totalCartPrice, totalprice, "Price dont match");
+        Assertions.assertEquals(totalprice, totalCartPrice, "Price doesn't match");
     }
 }
