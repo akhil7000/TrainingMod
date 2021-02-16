@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,10 +17,13 @@ public class ResultPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    List<WebElement> productList;
+    int productNumber;
 
     private By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
     private By shoesPrice = By.xpath("//div[@class='_30jeq3']");
     private By nextPageButton = By.xpath("//*[contains(text(),'Next')]");
+
 
     public ResultPage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, 30);
@@ -41,7 +45,7 @@ public class ResultPage {
         logger.info("Size of list " + (list.size()));
 
         ArrayList<Integer> priceList = new ArrayList<>();
-        for (WebElement listElement :list) {
+        for (WebElement listElement : list) {
             priceList.add(Integer.parseInt(listElement.getText().substring(1)));
         }
         logger.info("Size of Pricelist " + (priceList.size()));
@@ -59,4 +63,25 @@ public class ResultPage {
         Collections.sort(sortedPrice);
         return sortedPrice;
     }
+
+    public ResultPage clickProduct(int itemNumber) throws InterruptedException {
+        itemNumber=itemNumber-1;
+        productList.get(itemNumber).click();
+        return this;
+    }
+
+    public ResultPage getProductsList() throws InterruptedException {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
+                "/*[name()='svg']")));
+        //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
+        Thread.sleep(2000);
+        productList = driver.findElements(shoesPrice);
+        return  this;
+    }
+
+    public CartPage goToCart() {
+        driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[1]/div[1]/div[2]/div[5]/div/div")).click();
+        return new CartPage(driver);
+    }
+
 }
