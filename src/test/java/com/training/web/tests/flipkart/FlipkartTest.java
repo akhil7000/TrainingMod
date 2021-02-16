@@ -4,11 +4,9 @@ import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -18,10 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -79,10 +75,9 @@ public class FlipkartTest {
     }
 
     @Test
-    public void cartAdditionTest() throws InterruptedException {
+    public void testCartAddition() throws InterruptedException {
         Integer[] products = {2, 3};
-        ArrayList<Integer> price = new ArrayList<>();
-        ArrayList<String> product = new ArrayList<>();
+
         /**
          * System Property for Chrome Driver
          */
@@ -95,7 +90,7 @@ public class FlipkartTest {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         WebDriver driver = new ChromeDriver(capabilities);
-        WebDriverWait wait= new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
 
 
         /**
@@ -117,11 +112,9 @@ public class FlipkartTest {
          */
         ArrayList<String> productNames = new ArrayList<>();
         ArrayList<Integer> priceList = new ArrayList<>();
-        //resultPage.getProductsList().clickProduct(2);
         ProductPage productPage = new ProductPage(driver);
         resultPage.getProductsList();
 
-        //Switch
         for (int i : products) {
             resultPage.clickProduct(i);
             Set<String> s = driver.getWindowHandles();
@@ -138,29 +131,35 @@ public class FlipkartTest {
             driver.close();
             driver.switchTo().window(parentWindow);
         }
-
         resultPage.goToCart();
 
         /**
          * Asserting for right products
          */
+        CartPage cartPage = new CartPage(driver);
+
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='_2KpZ6l _2ObVJD _3AWRsL']/span")));
-        List <WebElement>cartProducts=driver.findElements(By.xpath("//*[@class='_2Kn22P gBNbID']"));
-        for(int i=0;i<productNames.size();i++){
-            Assertions.assertTrue(productNames.get(i).contains(cartProducts.get(i).getText()),
-                    "Products not in cart");
+        ArrayList<String> cartProducts = cartPage.getProductNames();
+        int count = 0;
+        for (int i = 0; i < cartProducts.size(); i++) {
+            String p = cartProducts.get(i);
+            for (int j = 0; j < cartProducts.size(); j++) {
+                if (productNames.get(j).contains(p)) {
+                    count = 1;
+                }
+            }
+            Assertions.assertEquals(count ,1, "Product not in cart");
         }
 
         /**
          * checking price
          */
-        String x= driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[2]/div/div/div[2]/div[1]" +
-                "/div/div/div/div[4]/div/span/div/div/span")).getText();
-        int totalCartPrice= Integer.parseInt(x.substring(1));
-        int totalprice=0;
-        for(int i:priceList){
-            totalprice=totalprice+i;
+
+        int totalCartPrice = cartPage.getTotal();
+        int totalprice = 0;
+        for (int i : priceList) {
+            totalprice = totalprice + i;
         }
-        Assertions.assertEquals(totalCartPrice,totalprice,"Price dont match");
+        Assertions.assertEquals(totalCartPrice, totalprice, "Price dont match");
     }
 }

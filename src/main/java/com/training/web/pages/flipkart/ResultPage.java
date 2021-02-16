@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +17,7 @@ public class ResultPage {
     private WebDriver driver;
     private WebDriverWait wait;
     List<WebElement> productList;
-    int productNumber;
+
 
     private By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
     private By shoesPrice = By.xpath("//div[@class='_30jeq3']");
@@ -52,10 +51,9 @@ public class ResultPage {
         return priceList;
     }
 
-    public ResultPage clickNextPage() {
+    public void clickNextPage() {
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         driver.findElement(nextPageButton).click();
-        return this;
     }
 
     public ArrayList<Integer> sortPriceList(ArrayList<Integer> priceList) {
@@ -64,19 +62,18 @@ public class ResultPage {
         return sortedPrice;
     }
 
-    public ResultPage clickProduct(int itemNumber) throws InterruptedException {
-        itemNumber=itemNumber-1;
+    public void clickProduct(int itemNumber) throws InterruptedException {
+        Thread.sleep(1000);
+        itemNumber = itemNumber - 1;
         productList.get(itemNumber).click();
-        return this;
     }
 
-    public ResultPage getProductsList() throws InterruptedException {
+    public void getProductsList() throws InterruptedException {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
                 "/*[name()='svg']")));
         //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
         Thread.sleep(2000);
         productList = driver.findElements(shoesPrice);
-        return  this;
     }
 
     public CartPage goToCart() {
