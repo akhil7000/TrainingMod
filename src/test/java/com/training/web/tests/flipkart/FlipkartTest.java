@@ -4,14 +4,11 @@ import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
@@ -75,8 +72,8 @@ public class FlipkartTest {
     }
 
     @Test
-    public void testCartAddition() {
-        Integer[] products = {2, 3};
+    public void testCartAddition() throws InterruptedException {
+        Integer[] products = {7,8};
 
         /**
          * System Property for Chrome Driver
@@ -90,8 +87,6 @@ public class FlipkartTest {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         WebDriver driver = new ChromeDriver(capabilities);
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-
 
         /**
          * Launch Website and maximise
@@ -112,22 +107,21 @@ public class FlipkartTest {
          */
         ArrayList<String> productNames = new ArrayList<>();
         ArrayList<Integer> priceList = new ArrayList<>();
-        ProductPage productPage = new ProductPage(driver);
-        resultPage.getProductsList();
+        resultPage.setProductsList();
 
         for (int i : products) {
-            resultPage.clickProduct(i);
-            Set<String> s = driver.getWindowHandles();
-            String child_window = null;
+            ProductPage productPage= resultPage.clickProduct(i);
+            /*Set<String> s = driver.getWindowHandles();
+            String childWindow = null;
             Iterator<String> I1 = s.iterator();
             while (I1.hasNext()) {
                 if (I1.next() != parentWindow) ;
-                child_window = I1.next();
+                childWindow = I1.next();
             }
-            driver.switchTo().window(child_window);
+            driver.switchTo().window(childWindow);*/
             productPage.clickSize();
-            productNames.add(productPage.productName());
-            priceList.add(productPage.productPrice());
+            productNames.add(productPage.getProductName());
+            priceList.add(productPage.getProductPrice());
             productPage.addToCart();
             driver.close();
             driver.switchTo().window(parentWindow);
@@ -137,10 +131,7 @@ public class FlipkartTest {
         /**
          * Asserting for right products
          */
-        CartPage cartPage = new CartPage(driver);
-
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='_2KpZ6l _2ObVJD _3AWRsL']/span")));
-        ArrayList<String> cartProducts = cartPage.getProductNames();
+        ArrayList<String> cartProducts = new CartPage(driver).getProductNames();
         int count = 0;
         for (int i = 0; i < cartProducts.size(); i++) {
             String p = cartProducts.get(i);
@@ -156,7 +147,7 @@ public class FlipkartTest {
          * checking price
          */
 
-        int totalCartPrice = cartPage.getTotal();
+        int totalCartPrice = new CartPage(driver).getTotal();
         int totalprice = 0;
         for (int i : priceList) {
             totalprice = totalprice + i;

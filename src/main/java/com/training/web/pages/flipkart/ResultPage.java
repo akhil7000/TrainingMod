@@ -7,9 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import java.util.*;
 
 public class ResultPage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,8 +22,9 @@ public class ResultPage {
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
             "/*[name()='svg']");
     private By shoesPrice = By.xpath("//div[@class='_30jeq3']");
-    private By nextPageButton = By.xpath("//*[contains(text(),'Next')]");
-    private By cart = By.xpath("//*[@class='_3SkBxJ']");
+    //private By c=By.linkText()
+    private By nextPageButton = By.xpath("//*[text()='Next']");
+    private By cart = By.xpath("//*[text()='Cart']");
 
 
     public ResultPage(WebDriver driver) {
@@ -49,13 +49,15 @@ public class ResultPage {
         for (WebElement listElement : list) {
             priceList.add(Integer.parseInt(listElement.getText().substring(1)));
         }
+
         logger.info("Size of Pricelist " + (priceList.size()));
         return priceList;
     }
 
-    public void clickNextPage() {
+    public ResultPage clickNextPage() {
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         driver.findElement(nextPageButton).click();
+        return this;
     }
 
     public ArrayList<Integer> sortPriceList(ArrayList<Integer> priceList) {
@@ -64,17 +66,30 @@ public class ResultPage {
         return sortedPrice;
     }
 
-    public void clickProduct(int itemNumber) {
+    public ProductPage clickProduct(int itemNumber) throws InterruptedException {
+
+        String parentWindow = driver.getWindowHandle();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
-        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
+        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         itemNumber = itemNumber - 1;
-        productList.get(itemNumber).click();
+        productList.get((itemNumber)).click();
+
+        Set<String> s = driver.getWindowHandles();
+        String child_window = null;
+        Iterator<String> I1 = s.iterator();
+        while (I1.hasNext()) {
+            if (I1.next() != parentWindow) ;
+            child_window = I1.next();
+        }
+        driver.switchTo().window(child_window);
+        return new ProductPage(driver);
     }
 
-    public void getProductsList() {
+    public ResultPage setProductsList() {
+        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
-        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
         productList = driver.findElements(shoesPrice);
+        return this;
     }
 
     public CartPage goToCart() {

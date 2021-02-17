@@ -20,14 +20,12 @@ public class FlipkartHomePage {
 
     public FlipkartHomePage closePopup() {
         wait.until(ExpectedConditions.elementToBeClickable(popup));
-
         driver.findElement(popup).click();
         return this;
     }
 
     public FlipkartHomePage sendKeysToSearchBox(String keys) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
-
         driver.findElement(searchBox).sendKeys(keys);
         return this;
     }
