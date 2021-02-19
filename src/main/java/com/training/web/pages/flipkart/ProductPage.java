@@ -13,13 +13,12 @@ public class ProductPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-
     private By productName1=By.className("G6XhRU");
     private By name = By.className("B_NuCI");
     private By size=By.id("swatch-0-size");
-    private By cart = By.xpath("//*[@class='_2KpZ6l _2U9uOA _3v1-ww']");
-    private By price = By.xpath("//*[@class='_30jeq3 _16Jk6d']");
-    //private By price= By.className("_30jeq3 _16Jk6d");
+    private By cart = By.xpath("//button[contains(@class,'_2KpZ6l')]");
+    private By price= By.xpath("//div[contains(@class,'_30jeq3')]");
+    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
 
     public ProductPage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, 30);
@@ -35,7 +34,7 @@ public class ProductPage {
     public ProductPage addToCart() {
         wait.until(ExpectedConditions.elementToBeClickable(cart));
         driver.findElement(cart).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(cart));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
         logger.info("Added to cart");
         return this;
     }
@@ -52,7 +51,7 @@ public class ProductPage {
         logger.info(pPrice);
         /*int index=pPrice.indexOf("₹");
         int productPrice = Integer.parseInt(pPrice.substring(index)+1);*/
-        int productPrice = Integer.parseInt(pPrice.substring(pPrice.indexOf("₹")+1));
+        int productPrice = Integer.parseInt(pPrice.substring(1));
         logger.info(String.valueOf(productPrice));
         return productPrice;
     }

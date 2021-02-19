@@ -73,7 +73,7 @@ public class FlipkartTest {
 
     @Test
     public void testCartAddition() throws InterruptedException {
-        Integer[] products = {7,8};
+        Integer[] products = {2,3};
 
         /**
          * System Property for Chrome Driver

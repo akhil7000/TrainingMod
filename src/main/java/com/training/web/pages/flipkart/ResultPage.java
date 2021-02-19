@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.*;
 
 public class ResultPage {
@@ -17,15 +16,12 @@ public class ResultPage {
     private WebDriverWait wait;
     List<WebElement> productList;
 
-
     private By lowToHigh = By.xpath("//div[contains(text(),'Price -- Low to High')]");
-    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']" +
-            "/*[name()='svg']");
-    private By shoesPrice = By.xpath("//div[@class='_30jeq3']");
-    //private By c=By.linkText()
+    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
+    private By productResults = By.xpath("//img[contains(@class,'_2r_T1I')]");
+    private By shoesPrice = By.className("_30jeq3");
     private By nextPageButton = By.xpath("//*[text()='Next']");
     private By cart = By.xpath("//*[text()='Cart']");
-
 
     public ResultPage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, 30);
