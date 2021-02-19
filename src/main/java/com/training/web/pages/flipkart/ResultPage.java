@@ -62,7 +62,7 @@ public class ResultPage {
         return sortedPrice;
     }
 
-    public ProductPage clickProduct(int itemNumber) throws InterruptedException {
+    public ProductPage clickProduct(int itemNumber) {
 
         String parentWindow = driver.getWindowHandle();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
@@ -71,13 +71,13 @@ public class ResultPage {
         productList.get((itemNumber)).click();
 
         Set<String> s = driver.getWindowHandles();
-        String child_window = null;
+        String childWindow = null;
         Iterator<String> I1 = s.iterator();
         while (I1.hasNext()) {
             if (I1.next() != parentWindow) ;
-            child_window = I1.next();
+            childWindow = I1.next();
         }
-        driver.switchTo().window(child_window);
+        driver.switchTo().window(childWindow);
         return new ProductPage(driver);
     }
 

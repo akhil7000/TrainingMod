@@ -111,14 +111,7 @@ public class FlipkartTest {
 
         for (int i : products) {
             ProductPage productPage= resultPage.clickProduct(i);
-            /*Set<String> s = driver.getWindowHandles();
-            String childWindow = null;
-            Iterator<String> I1 = s.iterator();
-            while (I1.hasNext()) {
-                if (I1.next() != parentWindow) ;
-                childWindow = I1.next();
-            }
-            driver.switchTo().window(childWindow);*/
+
             productPage.clickSize();
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
