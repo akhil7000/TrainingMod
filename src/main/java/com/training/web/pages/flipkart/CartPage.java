@@ -14,7 +14,7 @@ public class CartPage {
     private WebDriverWait wait;
 
     private By totalPrice= By.xpath("//*[contains(@class,'_3X7Jj1')]");
-    private By name = By.xpath("//*[@class='_2Kn22P gBNbID']");
+    private By name = By.xpath("//a[contains(@class,'gBNbID')]");
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
     private By placeOrderButton=By.xpath("//*[text()='Place Order']");
 
