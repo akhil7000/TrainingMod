@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -13,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FlipkartTest {
@@ -72,9 +75,8 @@ public class FlipkartTest {
     @Test
     public void testCartAddition() {
 
-        Integer[] products = {2, 3};
-        Integer[] size = {8, 8};
-
+        Integer[] productArray = {2, 3};
+        String[] productSizeArray = {"7", "8"};
         /**
          * System Property for Chrome Driver
          */
@@ -107,10 +109,9 @@ public class FlipkartTest {
          */
         ArrayList<String> productNames = new ArrayList<>();
         ArrayList<Integer> priceList = new ArrayList<>();
-        resultPage.getProductsList();
 
-        for (int i : products) {
-            ProductPage productPage = resultPage.clickProduct(i).clickSize("7");
+        for (int index =0;index<productArray.length;index++) {
+            ProductPage productPage = resultPage.clickProduct(productArray[index]).clickSize(productSizeArray[index]);
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart(driver);
@@ -138,10 +139,10 @@ public class FlipkartTest {
          */
 
         int totalCartPrice = cartPage.getTotal();
-        int totalprice = 0;
-        for (int i : priceList) {
-            totalprice = totalprice + i;
+        int totalPrice = 0;
+        for (int price : priceList) {
+            totalPrice = totalPrice + price;
         }
-        Assertions.assertEquals(totalprice, totalCartPrice, "Price doesn't match");
+        Assertions.assertEquals(totalPrice, totalCartPrice, "Price doesn't match");
     }
 }

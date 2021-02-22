@@ -15,7 +15,6 @@ public class ResultPage {
     private WebDriver driver;
     private WebDriverWait wait;
     List<WebElement> productList;
-    ArrayList<String> windowHandles = new ArrayList<>();
 
     private By lowToHigh = By.xpath("//*[text()='Price -- Low to High']");
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
@@ -32,6 +31,7 @@ public class ResultPage {
     public ResultPage sortLowToHigh() {
         wait.until(ExpectedConditions.elementToBeClickable(lowToHigh));
         driver.findElement(lowToHigh).click();
+        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
         return this;
     }
 
@@ -64,32 +64,25 @@ public class ResultPage {
     }
 
     public ProductPage clickProduct(int itemNumber) throws NullPointerException {
-
-        String parentWindow = driver.getWindowHandle();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
-        itemNumber = itemNumber - 1;
-        productList.get((itemNumber)).click();
-
-        Set<String> s = driver.getWindowHandles();
+        wait.until(ExpectedConditions.elementToBeClickable(productResults));
         String childWindow = null;
 
-        Iterator<String> I1 = s.iterator();
-        while (I1.hasNext()) {
-            String windows = I1.next();
+        productList = driver.findElements(productResults);
+
+        String parentWindow = driver.getWindowHandle();
+        productList.get((itemNumber)-1).click();
+
+        Set<String> windowHandles = driver.getWindowHandles();
+        Iterator<String> windowIterator = windowHandles.iterator();
+        while (windowIterator.hasNext()) {
+            String windows = windowIterator.next();
             if (windows != parentWindow) {
                 childWindow = windows;
             }
         }
         driver.switchTo().window(childWindow);
         return new ProductPage(driver);
-    }
-
-    public ResultPage getProductsList() {
-        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
-        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
-        productList = driver.findElements(shoesPrice);
-        return this;
     }
 
     public CartPage goToCart(WebDriver driver) {

@@ -25,11 +25,11 @@ public class ProductPage {
         this.driver = driver;
     }
 
-    public ProductPage clickSize(String sS) {
-        String shoeSize = sS;
-        wait.until(ExpectedConditions.elementToBeClickable(size));
-        driver.findElement(By.xpath("//a[text()=" + shoeSize + "]"));
-        driver.findElement(size).click();
+    public ProductPage clickSize(String shoeSize) {
+        String shoeSizeXpath = String.format("//a[text()=%1$s]",shoeSize);;
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(shoeSizeXpath)));
+        driver.findElement(By.xpath(shoeSizeXpath));
+        driver.findElement(By.xpath(shoeSizeXpath)).click();
         return this;
     }
 

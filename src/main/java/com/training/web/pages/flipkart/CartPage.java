@@ -29,8 +29,8 @@ public class CartPage {
         wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton));
         ArrayList<String> productNames = new ArrayList<>();
         List<WebElement> cartList = driver.findElements(name);
-        for (WebElement i : cartList) {
-            productNames.add(i.getText());
+        for (WebElement index : cartList) {
+            productNames.add(index.getText());
         }
         return productNames;
     }
