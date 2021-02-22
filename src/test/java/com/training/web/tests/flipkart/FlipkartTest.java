@@ -113,7 +113,7 @@ public class FlipkartTest {
             ProductPage productPage = resultPage.clickProduct(i).clickSize("7");
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
-            productPage.addToCart();
+            productPage.addToCart(driver);
             driver.close();
             driver.switchTo().window(parentWindow);
         }

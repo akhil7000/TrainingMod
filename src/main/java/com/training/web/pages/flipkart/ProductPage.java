@@ -33,7 +33,7 @@ public class ProductPage {
         return this;
     }
 
-    public CartPage addToCart() {
+    public CartPage addToCart(WebDriver driver) {
         wait.until(ExpectedConditions.elementToBeClickable(cart));
         driver.findElement(cart).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
