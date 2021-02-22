@@ -13,11 +13,11 @@ public class ProductPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By productName1=By.className("G6XhRU");
-    private By name = By.className("B_NuCI");
-    private By size=By.id("swatch-0-size");
+    private By brandName = By.className("G6XhRU");
+    private By productName = By.className("B_NuCI");
+    private By size = By.id("swatch-0-size");
     private By cart = By.xpath("//button[contains(@class,'_2KpZ6l')]");
-    private By price= By.xpath("//div[contains(@class,'_30jeq3')]");
+    private By price = By.xpath("//div[contains(@class,'_30jeq3')]");
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
 
     public ProductPage(WebDriver driver) {
@@ -25,34 +25,30 @@ public class ProductPage {
         this.driver = driver;
     }
 
-    public ProductPage clickSize() {
+    public ProductPage clickSize(String sS) {
+        String shoeSize = sS;
         wait.until(ExpectedConditions.elementToBeClickable(size));
+        driver.findElement(By.xpath("//a[text()=" + shoeSize + "]"));
         driver.findElement(size).click();
         return this;
     }
 
-    public ProductPage addToCart() {
+    public CartPage addToCart() {
         wait.until(ExpectedConditions.elementToBeClickable(cart));
         driver.findElement(cart).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
         logger.info("Added to cart");
-        return this;
+        return new CartPage(driver);
     }
 
     public String getProductName() {
-        String productName = driver.findElement(productName1).getText()
-                + driver.findElement(name).getText();
-        logger.info(productName);
-        return productName;
+        String productFullName = driver.findElement(brandName).getText() + driver.findElement(productName).getText();
+        logger.info(productFullName);
+        return productFullName;
     }
 
-    public Integer getProductPrice()throws NumberFormatException {
-        String pPrice = driver.findElement(price).getText().trim();
-        logger.info(pPrice);
-        /*int index=pPrice.indexOf("₹");
-        int productPrice = Integer.parseInt(pPrice.substring(index)+1);*/
-        int productPrice = Integer.parseInt(pPrice.substring(1));
-        logger.info(String.valueOf(productPrice));
-        return productPrice;
+    public Integer getProductPrice() {
+        String pPrice = driver.findElement(price).getText();
+        return Integer.parseInt(pPrice.substring(1));
     }
 }

@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class FlipkartTest {
@@ -55,7 +53,7 @@ public class FlipkartTest {
          * extracting price and going to next pages for 'n' pages
          */
         for (int page = 1; page <= numberOfPages; page++) {
-            ArrayList<Integer> priceList = resultPage.getPriceInteger();
+            ArrayList<Integer> priceList = resultPage.getPrice();
 
             Assertions.assertEquals(priceList, resultPage.sortPriceList(priceList),
                     "Price not in ascending order in page number " + page);
@@ -72,8 +70,10 @@ public class FlipkartTest {
     }
 
     @Test
-    public void testCartAddition() throws InterruptedException {
-        Integer[] products = {2,3};
+    public void testCartAddition() {
+
+        Integer[] products = {2, 3};
+        Integer[] size = {8, 8};
 
         /**
          * System Property for Chrome Driver
@@ -107,29 +107,26 @@ public class FlipkartTest {
          */
         ArrayList<String> productNames = new ArrayList<>();
         ArrayList<Integer> priceList = new ArrayList<>();
-        resultPage.setProductsList();
+        resultPage.getProductsList();
 
         for (int i : products) {
-            ProductPage productPage= resultPage.clickProduct(i);
-
-            productPage.clickSize();
+            ProductPage productPage = resultPage.clickProduct(i).clickSize("7");
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart();
             driver.close();
             driver.switchTo().window(parentWindow);
         }
-        resultPage.goToCart();
+        CartPage cartPage = resultPage.goToCart(driver);
 
         /**
          * Asserting for right products
          */
-        ArrayList<String> cartProducts = new CartPage(driver).getProductNames();
+        ArrayList<String> cartProducts = cartPage.getProductNames();
         int count = 0;
-        for (int i = 0; i < cartProducts.size(); i++) {
-            String p = cartProducts.get(i);
-            for (int j = 0; j < cartProducts.size(); j++) {
-                if (productNames.get(j).contains(p)) {
+        for (String cartProductName : cartProducts) {
+            for (String productListName : productNames) {
+                if (productListName.contains(cartProductName)) {
                     count = 1;
                 }
             }
@@ -140,7 +137,7 @@ public class FlipkartTest {
          * checking price
          */
 
-        int totalCartPrice = new CartPage(driver).getTotal();
+        int totalCartPrice = cartPage.getTotal();
         int totalprice = 0;
         for (int i : priceList) {
             totalprice = totalprice + i;

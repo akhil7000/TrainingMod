@@ -13,10 +13,10 @@ public class CartPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By totalPrice= By.xpath("//*[contains(@class,'_3X7Jj1')]");
+    private By totalPrice = By.xpath("//*[contains(@class,'_3X7Jj1')]");
     private By name = By.xpath("//a[contains(@class,'gBNbID')]");
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
-    private By placeOrderButton=By.xpath("//*[text()='Place Order']");
+    private By placeOrderButton = By.xpath("//*[text()='Place Order']");
 
 
     public CartPage(WebDriver driver) {

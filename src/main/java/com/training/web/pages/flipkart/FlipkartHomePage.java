@@ -10,7 +10,7 @@ public class FlipkartHomePage {
     private WebDriverWait wait;
 
     private By searchBox = By.xpath("//input[contains(@title,'Search for products')]");
-    private By popup = By.xpath("/html/body/div[2]/div/div/button");
+    private By popup = By.xpath("//button[@class='_2KpZ6l _2doB4z']");
     private By submit = By.xpath("//button[@class='L0Z3Pu']");
 
     public FlipkartHomePage(WebDriver driver) {
