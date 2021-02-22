@@ -2,10 +2,13 @@ package com.training.web.pages.flipkart;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class ProductPage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -19,6 +22,7 @@ public class ProductPage {
     private By cart = By.xpath("//button[contains(@class,'_2KpZ6l')]");
     private By price = By.xpath("//div[contains(@class,'_30jeq3')]");
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
+    private By sizeListXPath = By.xpath("//a[contains(@class,'_1fGeJ5')]");
 
     public ProductPage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, 30);
@@ -26,10 +30,17 @@ public class ProductPage {
     }
 
     public ProductPage clickSize(String shoeSize) {
-        String shoeSizeXpath = String.format("//a[text()=%1$s]",shoeSize);;
+        String shoeSizeXpath = String.format("//a[text()=%1$s]", shoeSize);
+        ;
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(shoeSizeXpath)));
-        driver.findElement(By.xpath(shoeSizeXpath));
         driver.findElement(By.xpath(shoeSizeXpath)).click();
+        return this;
+    }
+
+    public ProductPage clickFirstAvailableSize() {
+        wait.until(ExpectedConditions.elementToBeClickable(size));
+        List<WebElement> sizeList = driver.findElements(sizeListXPath);
+        sizeList.get(0).click();
         return this;
     }
 

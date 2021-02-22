@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 public class ResultPage {
@@ -14,7 +15,6 @@ public class ResultPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    List<WebElement> productList;
 
     private By lowToHigh = By.xpath("//*[text()='Price -- Low to High']");
     private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
@@ -63,15 +63,20 @@ public class ResultPage {
         return sortedPrice;
     }
 
-    public ProductPage clickProduct(int itemNumber) throws NullPointerException {
+    public List<WebElement> getProductsList() {
+        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
+        wait.until(ExpectedConditions.elementToBeClickable(productResults));
+        List<WebElement> productList=driver.findElements(productResults);
+        return productList;
+    }
+
+    public ProductPage clickProduct(int itemNumber, List<WebElement> productList) {
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         wait.until(ExpectedConditions.elementToBeClickable(productResults));
         String childWindow = null;
 
-        productList = driver.findElements(productResults);
-
         String parentWindow = driver.getWindowHandle();
-        productList.get((itemNumber)-1).click();
+        productList.get((itemNumber) - 1).click();
 
         Set<String> windowHandles = driver.getWindowHandles();
         Iterator<String> windowIterator = windowHandles.iterator();

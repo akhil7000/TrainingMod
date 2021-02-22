@@ -76,7 +76,6 @@ public class FlipkartTest {
     public void testCartAddition() {
 
         Integer[] productArray = {2, 3};
-        String[] productSizeArray = {"7", "8"};
         /**
          * System Property for Chrome Driver
          */
@@ -110,8 +109,9 @@ public class FlipkartTest {
         ArrayList<String> productNames = new ArrayList<>();
         ArrayList<Integer> priceList = new ArrayList<>();
 
-        for (int index =0;index<productArray.length;index++) {
-            ProductPage productPage = resultPage.clickProduct(productArray[index]).clickSize(productSizeArray[index]);
+        List<WebElement> productResults = resultPage.getProductsList();
+        for (int index : productArray) {
+            ProductPage productPage = resultPage.clickProduct(index, productResults).clickFirstAvailableSize();
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart(driver);
