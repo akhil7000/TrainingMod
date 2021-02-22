@@ -137,7 +137,6 @@ public class FlipkartTest {
         /**
          * checking price
          */
-
         int totalCartPrice = cartPage.getTotal();
         int totalPrice = 0;
         for (int price : priceList) {

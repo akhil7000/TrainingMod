@@ -53,13 +53,10 @@ public class ProductPage {
     }
 
     public String getProductName() {
-        String productFullName = driver.findElement(brandName).getText() + driver.findElement(productName).getText();
-        logger.info(productFullName);
-        return productFullName;
+      return driver.findElement(brandName).getText() + driver.findElement(productName).getText();
     }
 
     public Integer getProductPrice() {
-        String pPrice = driver.findElement(price).getText();
-        return Integer.parseInt(pPrice.substring(1));
+        return Integer.parseInt((driver.findElement(price).getText()).substring(1));
     }
 }
