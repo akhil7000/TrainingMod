@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.*;
 
 public class ResultPage {
@@ -22,6 +21,7 @@ public class ResultPage {
     private By shoesPrice = By.className("_30jeq3");
     private By nextPageButton = By.xpath("//*[text()='Next']");
     private By cart = By.xpath("//*[text()='Cart']");
+    private By products = By.xpath("//div[@class='_312yBx SFzpgZ']");
 
     public ResultPage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, 30);
@@ -58,6 +58,7 @@ public class ResultPage {
     }
 
     public ArrayList<Integer> sortPriceList(ArrayList<Integer> priceList) {
+        wait.until(ExpectedConditions.elementToBeClickable(products));
         ArrayList<Integer> sortedPrice = (ArrayList<Integer>) priceList.clone();
         Collections.sort(sortedPrice);
         return sortedPrice;
@@ -66,11 +67,11 @@ public class ResultPage {
     public List<WebElement> getProductsList() {
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         wait.until(ExpectedConditions.elementToBeClickable(productResults));
-        List<WebElement> productList=driver.findElements(productResults);
+        List<WebElement> productList = driver.findElements(productResults);
         return productList;
     }
 
-    public ProductPage clickProduct(List<WebElement> productList,int itemNumber) {
+    public ProductPage clickProduct(List<WebElement> productList, int itemNumber) {
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         wait.until(ExpectedConditions.elementToBeClickable(productResults));
         String childWindow = null;

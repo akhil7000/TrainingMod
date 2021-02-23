@@ -14,10 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -126,14 +124,15 @@ public class FlipkartTest {
          * Asserting for right products
          */
         ArrayList<String> cartProducts = cartPage.getProductNames();
+        Assertions.assertEquals(cartProducts.size(), productNames.size(),
+                "Incorrect number of products in cart");
+
         Collections.sort(productNames);
         Collections.sort(cartProducts);
-        int count = 0;
-        for (String cartProductName : cartProducts) {
-            if (productNames.contains(cartProductName)) {
-                count = 1;
-            }
-            Assertions.assertEquals(count, 1, "Product not in cart"+String.valueOf(cartProductName));
+
+        for (int index = 0; index < cartProducts.size(); index++) {
+            Assertions.assertTrue(productNames.get(index).contains(cartProducts.get(index)),
+                    "Product not in cart: " + cartProducts.get(index));
         }
 
         /**
@@ -145,5 +144,10 @@ public class FlipkartTest {
             totalPrice = totalPrice + price;
         }
         Assertions.assertEquals(totalPrice, totalCartPrice, "Price doesn't match");
+
+        /**
+         * Close Window
+         */
+        driver.quit();
     }
 }
