@@ -70,7 +70,7 @@ public class ResultPage {
         return productList;
     }
 
-    public ProductPage clickProduct(int itemNumber, List<WebElement> productList) {
+    public ProductPage clickProduct(List<WebElement> productList,int itemNumber) {
         wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
         wait.until(ExpectedConditions.elementToBeClickable(productResults));
         String childWindow = null;

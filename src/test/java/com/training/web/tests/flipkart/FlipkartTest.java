@@ -16,6 +16,8 @@ import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -111,7 +113,7 @@ public class FlipkartTest {
 
         List<WebElement> productResults = resultPage.getProductsList();
         for (int index : productArray) {
-            ProductPage productPage = resultPage.clickProduct(index, productResults).clickFirstAvailableSize();
+            ProductPage productPage = resultPage.clickProduct(productResults, index).clickFirstAvailableSize();
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart(driver);
@@ -124,14 +126,14 @@ public class FlipkartTest {
          * Asserting for right products
          */
         ArrayList<String> cartProducts = cartPage.getProductNames();
+        Collections.sort(productNames);
+        Collections.sort(cartProducts);
         int count = 0;
         for (String cartProductName : cartProducts) {
-            for (String productListName : productNames) {
-                if (productListName.contains(cartProductName)) {
-                    count = 1;
-                }
+            if (productNames.contains(cartProductName)) {
+                count = 1;
             }
-            Assertions.assertEquals(count, 1, "Product not in cart");
+            Assertions.assertEquals(count, 1, "Product not in cart"+String.valueOf(cartProductName));
         }
 
         /**
