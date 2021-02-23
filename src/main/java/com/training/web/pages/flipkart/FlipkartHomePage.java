@@ -9,9 +9,9 @@ public class FlipkartHomePage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By searchBox = By.xpath("//*[@class='_3704LK']");
-    private By popup = By.xpath("/html/body/div[2]/div/div/button");
-    private By submit = By.xpath("//*[@class='L0Z3Pu']");
+    private By searchBox = By.xpath("//input[contains(@title,'Search for products')]");
+    private By popup = By.xpath("//button[@class='_2KpZ6l _2doB4z']");
+    private By submit = By.xpath("//button[@class='L0Z3Pu']");
 
     public FlipkartHomePage(WebDriver driver) {
         this.driver = driver;
@@ -20,14 +20,12 @@ public class FlipkartHomePage {
 
     public FlipkartHomePage closePopup() {
         wait.until(ExpectedConditions.elementToBeClickable(popup));
-
         driver.findElement(popup).click();
         return this;
     }
 
     public FlipkartHomePage sendKeysToSearchBox(String keys) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
-
         driver.findElement(searchBox).sendKeys(keys);
         return this;
     }
