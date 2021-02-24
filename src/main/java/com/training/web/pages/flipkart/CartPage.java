@@ -1,5 +1,6 @@
 package com.training.web.pages.flipkart;
 
+import com.training.web.basePages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,14 +9,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartPage {
+public class CartPage extends FlipkartBasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
 
     private By totalPrice = By.xpath("//*[contains(@class,'_3X7Jj1')]");
     private By name = By.xpath("//a[contains(@class,'gBNbID')]");
-    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
     private By placeOrderButton = By.xpath("//*[text()='Place Order']");
 
 
@@ -25,7 +25,7 @@ public class CartPage {
     }
 
     public ArrayList<String> getProductNames() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(getLoaderIcon()));
         wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton));
         ArrayList<String> productNames = new ArrayList<>();
         List<WebElement> cartList = driver.findElements(name);

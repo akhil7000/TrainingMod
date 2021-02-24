@@ -9,26 +9,20 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.concurrent.TimeUnit;
 
-public class FlipkartBaseTest {
+public class WebBaseTest {
     public WebDriver driver;
+
     @BeforeEach
-    public void setup(){
+    public void setup() {
         System.setProperty("webdriver.chrome.driver", "package/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions().addArguments("incognito");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(capabilities);
-
-        /**
-         * Launch Website and maximise
-         */
-        driver.navigate().to("https://www.flipkart.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
     }
 
     @AfterEach
-    void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 }

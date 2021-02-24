@@ -42,7 +42,7 @@ public class ProductPage extends FlipkartBasePage {
     public CartPage addToCart(WebDriver driver) {
         wait.until(ExpectedConditions.elementToBeClickable(cart));
         driver.findElement(cart).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(cart));
         logger.info("Added to cart");
         return new CartPage(driver);
     }

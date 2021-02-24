@@ -35,7 +35,7 @@ public class ResultPage extends FlipkartBasePage {
     }
 
     public ArrayList<Integer> getPrice() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(getLoaderIcon()));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
 
         List<WebElement> list = driver.findElements(shoesPrice);
@@ -91,7 +91,7 @@ public class ResultPage extends FlipkartBasePage {
     }
 
     public CartPage goToCart(WebDriver driver) {
-        driver.findElement(cartIcon).click();
+        driver.findElement(getCartIcon()).click();
         return new CartPage(driver);
     }
 }

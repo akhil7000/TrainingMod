@@ -1,6 +1,6 @@
 package com.training.web.tests.flipkart;
 
-import com.training.baseTest.FlipkartBaseTest;
+import com.training.baseTest.WebBaseTest;
 import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;
@@ -14,16 +14,18 @@ import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class FlipkartTest extends FlipkartBaseTest {
+public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void test() throws WebDriverException {
         int numberOfPages = 2;
-        /**
-         * Close popup and search for shoes
-         */
+        driver.navigate().to("https://www.flipkart.com/");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+
         ResultPage resultPage = new FlipkartHomePage(driver).closePopup().sendKeysToSearchBox("shoes")
                 .clickSearch().sortLowToHigh();
 
@@ -46,10 +48,10 @@ public class FlipkartTest extends FlipkartBaseTest {
     public void testCartAddition() {
 
         Integer[] productArray = {2, 3};
+        driver.navigate().to("https://www.flipkart.com/");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
-        /**
-         * Close popup and search for shoes
-         */
         String parentWindow = driver.getWindowHandle();
         ResultPage resultPage = new FlipkartHomePage(driver).closePopup().sendKeysToSearchBox("shoes")
                 .clickSearch().sortLowToHigh();
