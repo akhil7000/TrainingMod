@@ -1,21 +1,18 @@
 package com.training.web.pages.flipkart;
 
+import com.training.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class FlipkartHomePage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class FlipkartHomePage extends FlipkartBasePage {
 
     private By searchBox = By.xpath("//input[contains(@title,'Search for products')]");
     private By popup = By.xpath("//button[@class='_2KpZ6l _2doB4z']");
     private By submit = By.xpath("//button[@class='L0Z3Pu']");
 
     public FlipkartHomePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 30);
+        super(driver);
     }
 
     public FlipkartHomePage closePopup() {

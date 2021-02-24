@@ -1,5 +1,6 @@
 package com.training.web.pages.flipkart;
 
+import com.training.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,23 +8,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProductPage {
+public class ProductPage extends FlipkartBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private WebDriver driver;
-    private WebDriverWait wait;
 
     private By brandName = By.className("G6XhRU");
     private By productName = By.className("B_NuCI");
     private By size = By.id("swatch-0-size");
     private By cart = By.xpath("//button[text()='ADD TO CART']");
     private By price = By.xpath("//div[contains(@class,'_30jeq3')]");
-    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
     private By sizeList = By.xpath("//a[contains(@class,'_1fGeJ5')]");
 
     public ProductPage(WebDriver driver) {
-        this.wait = new WebDriverWait(driver, 30);
-        this.driver = driver;
+        super(driver);
     }
 
     public ProductPage clickSize(String shoeSize) {
@@ -42,7 +38,7 @@ public class ProductPage {
     public CartPage addToCart(WebDriver driver) {
         wait.until(ExpectedConditions.elementToBeClickable(cart));
         driver.findElement(cart).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+        waitForLoader();
         logger.info("Added to cart");
         return new CartPage(driver);
     }

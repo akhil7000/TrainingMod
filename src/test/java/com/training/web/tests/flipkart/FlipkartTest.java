@@ -1,15 +1,12 @@
 package com.training.web.tests.flipkart;
 
+import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
@@ -17,33 +14,16 @@ import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class FlipkartTest {
+public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void test() throws WebDriverException {
         int numberOfPages = 2;
 
-        /**
-         * System Property for Chrome Driver
-         */
-        System.setProperty("webdriver.chrome.driver", "package/resources/chromedriver.exe");
 
-        /**
-         * Instantiate a ChromeDriver class.
-         */
-        ChromeOptions options = new ChromeOptions().addArguments("incognito");
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        WebDriver driver = new ChromeDriver(capabilities);
-
-        /**
-         * Launch Website and maximise
-         */
         driver.navigate().to("https://www.flipkart.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
         /**
@@ -65,35 +45,17 @@ public class FlipkartTest {
                 resultPage.clickNextPage();
             }
         }
-
-        /**
-         * Close Chrome
-         */
-        driver.close();
     }
 
     @Test
     public void testCartAddition() {
 
         Integer[] productArray = {2, 3};
-        /**
-         * System Property for Chrome Driver
-         */
-        System.setProperty("webdriver.chrome.driver", "package/resources/chromedriver.exe");
-
-        /**
-         * Instantiate a ChromeDriver class.
-         */
-        ChromeOptions options = new ChromeOptions().addArguments("incognito");
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        WebDriver driver = new ChromeDriver(capabilities);
 
         /**
          * Launch Website and maximise
          */
         driver.navigate().to("https://www.flipkart.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         String parentWindow = driver.getWindowHandle();
 
@@ -144,10 +106,5 @@ public class FlipkartTest {
             totalPrice = totalPrice + price;
         }
         Assertions.assertTrue(totalCartPrice>=totalPrice, "Price doesn't match");
-
-        /**
-         * Close Window
-         */
-        driver.quit();
     }
 }
