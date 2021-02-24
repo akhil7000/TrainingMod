@@ -1,6 +1,6 @@
 package com.training.web.pages.flipkart;
 
-import com.training.web.basePages.FlipkartBasePage;
+import com.training.web.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 public class ResultPage extends FlipkartBasePage {
@@ -35,7 +36,7 @@ public class ResultPage extends FlipkartBasePage {
     }
 
     public ArrayList<Integer> getPrice() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(getLoaderIcon()));
+        waitForLoader();
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
 
         List<WebElement> list = driver.findElements(shoesPrice);
@@ -91,7 +92,7 @@ public class ResultPage extends FlipkartBasePage {
     }
 
     public CartPage goToCart(WebDriver driver) {
-        driver.findElement(getCartIcon()).click();
+        clickCartIcon();
         return new CartPage(driver);
     }
 }

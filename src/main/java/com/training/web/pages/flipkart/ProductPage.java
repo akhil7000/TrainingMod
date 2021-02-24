@@ -1,6 +1,6 @@
 package com.training.web.pages.flipkart;
 
-import com.training.web.basePages.FlipkartBasePage;
+import com.training.web.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;

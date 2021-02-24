@@ -1,6 +1,6 @@
 package com.training.web.tests.flipkart;
 
-import com.training.baseTest.WebBaseTest;
+import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;

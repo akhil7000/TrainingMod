@@ -1,6 +1,6 @@
 package com.training.web.pages.flipkart;
 
-import com.training.web.basePages.FlipkartBasePage;
+import com.training.web.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +25,7 @@ public class CartPage extends FlipkartBasePage {
     }
 
     public ArrayList<String> getProductNames() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(getLoaderIcon()));
+        waitForLoader();
         wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton));
         ArrayList<String> productNames = new ArrayList<>();
         List<WebElement> cartList = driver.findElements(name);
