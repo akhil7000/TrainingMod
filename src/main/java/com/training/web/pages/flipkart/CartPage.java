@@ -1,6 +1,6 @@
 package com.training.web.pages.flipkart;
 
-import com.training.web.basepages.FlipkartBasePage;
+import com.training.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,6 +20,7 @@ public class CartPage extends FlipkartBasePage {
 
 
     public CartPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 30);
     }

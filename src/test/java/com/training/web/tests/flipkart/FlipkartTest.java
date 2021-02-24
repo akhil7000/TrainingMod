@@ -14,7 +14,6 @@ import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -22,10 +21,14 @@ public class FlipkartTest extends WebBaseTest {
     @Test
     public void test() throws WebDriverException {
         int numberOfPages = 2;
+
+
         driver.navigate().to("https://www.flipkart.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
+        /**
+         * Close popup and search for shoes
+         */
         ResultPage resultPage = new FlipkartHomePage(driver).closePopup().sendKeysToSearchBox("shoes")
                 .clickSearch().sortLowToHigh();
 
@@ -48,11 +51,17 @@ public class FlipkartTest extends WebBaseTest {
     public void testCartAddition() {
 
         Integer[] productArray = {2, 3};
-        driver.navigate().to("https://www.flipkart.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
 
+        /**
+         * Launch Website and maximise
+         */
+        driver.navigate().to("https://www.flipkart.com/");
+        driver.manage().window().maximize();
         String parentWindow = driver.getWindowHandle();
+
+        /**
+         * Close popup and search for shoes
+         */
         ResultPage resultPage = new FlipkartHomePage(driver).closePopup().sendKeysToSearchBox("shoes")
                 .clickSearch().sortLowToHigh();
 
@@ -96,6 +105,6 @@ public class FlipkartTest extends WebBaseTest {
         for (int price : priceList) {
             totalPrice = totalPrice + price;
         }
-        Assertions.assertTrue(totalCartPrice >= totalPrice, "Price doesn't match");
+        Assertions.assertTrue(totalCartPrice>=totalPrice, "Price doesn't match");
     }
 }

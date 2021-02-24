@@ -1,6 +1,6 @@
 package com.training.web.pages.flipkart;
 
-import com.training.web.basepages.FlipkartBasePage;
+import com.training.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,6 +22,7 @@ public class ProductPage extends FlipkartBasePage {
     private By sizeList = By.xpath("//a[contains(@class,'_1fGeJ5')]");
 
     public ProductPage(WebDriver driver) {
+        super(driver);
         this.wait = new WebDriverWait(driver, 30);
         this.driver = driver;
     }
@@ -42,7 +43,7 @@ public class ProductPage extends FlipkartBasePage {
     public CartPage addToCart(WebDriver driver) {
         wait.until(ExpectedConditions.elementToBeClickable(cart));
         driver.findElement(cart).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(cart));
+        waitForLoader();
         logger.info("Added to cart");
         return new CartPage(driver);
     }

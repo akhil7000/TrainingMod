@@ -1,6 +1,6 @@
 package com.training.web.pages.flipkart;
 
-import com.training.web.basepages.FlipkartBasePage;
+import com.training.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.*;
 
 public class ResultPage extends FlipkartBasePage {
@@ -23,7 +22,8 @@ public class ResultPage extends FlipkartBasePage {
     private By nextPageButton = By.xpath("//*[text()='Next']");
     private By products = By.xpath("//div[@class='_312yBx SFzpgZ']");
 
-    public ResultPage(WebDriver driver) {
+    public ResultPage (WebDriver driver) {
+        super(driver);
         this.wait = new WebDriverWait(driver, 30);
         this.driver = driver;
     }

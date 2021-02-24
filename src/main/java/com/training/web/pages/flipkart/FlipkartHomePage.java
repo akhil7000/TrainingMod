@@ -6,8 +6,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FlipkartHomePage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    public WebDriver driver;
+    public WebDriverWait wait;
 
     private By searchBox = By.xpath("//input[contains(@title,'Search for products')]");
     private By popup = By.xpath("//button[@class='_2KpZ6l _2doB4z']");
