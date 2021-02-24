@@ -1,5 +1,6 @@
 package com.training.web.pages.flipkart;
 
+import com.training.web.basePages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProductPage {
+public class ProductPage extends FlipkartBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private WebDriver driver;
@@ -18,7 +19,6 @@ public class ProductPage {
     private By size = By.id("swatch-0-size");
     private By cart = By.xpath("//button[text()='ADD TO CART']");
     private By price = By.xpath("//div[contains(@class,'_30jeq3')]");
-    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
     private By sizeList = By.xpath("//a[contains(@class,'_1fGeJ5')]");
 
     public ProductPage(WebDriver driver) {

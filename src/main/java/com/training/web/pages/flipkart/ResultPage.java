@@ -1,5 +1,6 @@
 package com.training.web.pages.flipkart;
 
+import com.training.web.basePages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,18 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
 
-public class ResultPage {
+public class ResultPage extends FlipkartBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private WebDriver driver;
     private WebDriverWait wait;
 
     private By lowToHigh = By.xpath("//*[text()='Price -- Low to High']");
-    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
     private By productResults = By.xpath("//img[contains(@class,'_2r_T1I')]");
     private By shoesPrice = By.className("_30jeq3");
     private By nextPageButton = By.xpath("//*[text()='Next']");
-    private By cart = By.xpath("//*[text()='Cart']");
     private By products = By.xpath("//div[@class='_312yBx SFzpgZ']");
 
     public ResultPage(WebDriver driver) {
@@ -92,7 +91,7 @@ public class ResultPage {
     }
 
     public CartPage goToCart(WebDriver driver) {
-        driver.findElement(cart).click();
+        driver.findElement(cartIcon).click();
         return new CartPage(driver);
     }
 }
