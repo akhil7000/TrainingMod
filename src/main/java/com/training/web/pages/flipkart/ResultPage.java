@@ -13,9 +13,6 @@ import java.util.*;
 public class ResultPage extends FlipkartBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
     private By lowToHigh = By.xpath("//*[text()='Price -- Low to High']");
     private By productResults = By.xpath("//img[contains(@class,'_2r_T1I')]");
     private By shoesPrice = By.className("_30jeq3");
@@ -24,8 +21,6 @@ public class ResultPage extends FlipkartBasePage {
 
     public ResultPage (WebDriver driver) {
         super(driver);
-        this.wait = new WebDriverWait(driver, 30);
-        this.driver = driver;
     }
 
     public ResultPage sortLowToHigh() {

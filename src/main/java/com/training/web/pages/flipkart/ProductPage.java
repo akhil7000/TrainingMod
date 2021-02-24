@@ -11,9 +11,6 @@ import org.slf4j.LoggerFactory;
 public class ProductPage extends FlipkartBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
     private By brandName = By.className("G6XhRU");
     private By productName = By.className("B_NuCI");
     private By size = By.id("swatch-0-size");
@@ -23,8 +20,6 @@ public class ProductPage extends FlipkartBasePage {
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        this.wait = new WebDriverWait(driver, 30);
-        this.driver = driver;
     }
 
     public ProductPage clickSize(String shoeSize) {

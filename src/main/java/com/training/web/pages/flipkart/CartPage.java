@@ -11,18 +11,12 @@ import java.util.List;
 
 public class CartPage extends FlipkartBasePage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
     private By totalPrice = By.xpath("//*[contains(@class,'_3X7Jj1')]");
     private By name = By.xpath("//a[contains(@class,'gBNbID')]");
     private By placeOrderButton = By.xpath("//*[text()='Place Order']");
 
-
     public CartPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 30);
     }
 
     public ArrayList<String> getProductNames() {

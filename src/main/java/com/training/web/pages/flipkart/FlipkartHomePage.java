@@ -4,10 +4,8 @@ import com.training.basepages.FlipkartBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FlipkartHomePage extends FlipkartBasePage {
-
 
     private By searchBox = By.xpath("//input[contains(@title,'Search for products')]");
     private By popup = By.xpath("//button[@class='_2KpZ6l _2doB4z']");
