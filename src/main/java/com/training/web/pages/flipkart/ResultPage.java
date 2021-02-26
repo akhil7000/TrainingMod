@@ -1,44 +1,38 @@
 package com.training.web.pages.flipkart;
 
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class ResultPage extends FlipkartBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private By lowToHigh = By.xpath("//*[text()='Price -- Low to High']");
-    private By productResults = By.xpath("//img[contains(@class,'_2r_T1I')]");
-    private By shoesPrice = By.className("_30jeq3");
-    private By nextPageButton = By.xpath("//*[text()='Next']");
-    private By products = By.xpath("//div[@class='_312yBx SFzpgZ']");
-
-    public ResultPage (WebDriver driver) {
-        super(driver);
-    }
+    private SelenideElement lowToHigh = $x("//*[text()='Price -- Low to High']");
+    private ElementsCollection productResults = $$x("//img[contains(@class,'_2r_T1I')]");
+    private ElementsCollection shoesPrice = $$x("//*[@class='_30jeq3']");
+    private static SelenideElement nextPageButton = $x("//*[text()='Next']");
+    private SelenideElement products = $x("//div[@class='_312yBx SFzpgZ']");
 
     public ResultPage sortLowToHigh() {
-        wait.until(ExpectedConditions.elementToBeClickable(lowToHigh));
-        driver.findElement(lowToHigh).click();
-        wait.until(ExpectedConditions.elementToBeClickable(shoesPrice));
+        lowToHigh.shouldBe(visible);
+        lowToHigh.click();
+        waitForLoader();
         return this;
     }
 
     public ArrayList<Integer> getPrice() {
         waitForLoader();
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoesPrice));
-
-        List<WebElement> list = driver.findElements(shoesPrice);
-        logger.info("Size of list " + (list.size()));
-
+        logger.info("Size of list " + (shoesPrice.size()));
+        shoesPrice.shouldBe(CollectionCondition.size(40));
         ArrayList<Integer> priceList = new ArrayList<>();
-        for (WebElement listElement : list) {
+        for (SelenideElement listElement : shoesPrice) {
             priceList.add(Integer.parseInt(listElement.getText().substring(1)));
         }
 
@@ -47,34 +41,31 @@ public class ResultPage extends FlipkartBasePage {
     }
 
     public ResultPage clickNextPage() {
-        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
-        driver.findElement(nextPageButton).click();
+        nextPageButton.shouldBe(visible);
+        nextPageButton.click();
         return this;
     }
 
     public ArrayList<Integer> sortPriceList(ArrayList<Integer> priceList) {
-        wait.until(ExpectedConditions.elementToBeClickable(products));
+        waitForLoader();
         ArrayList<Integer> sortedPrice = (ArrayList<Integer>) priceList.clone();
         Collections.sort(sortedPrice);
         return sortedPrice;
     }
 
-    public List<WebElement> getProductsList() {
-        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
-        wait.until(ExpectedConditions.elementToBeClickable(productResults));
-        List<WebElement> productList = driver.findElements(productResults);
+    public List<SelenideElement> getProductsList() {
+        nextPageButton.shouldBe(visible);
+        List<SelenideElement> productList = productResults;
         return productList;
     }
 
-    public ProductPage clickProduct(List<WebElement> productList, int itemNumber) {
-        wait.until(ExpectedConditions.elementToBeClickable(nextPageButton));
-        wait.until(ExpectedConditions.elementToBeClickable(productResults));
+    public static ProductPage clickProduct(List<SelenideElement> productList, int itemNumber) {
+        nextPageButton.shouldBe(visible);
+        productList.get(itemNumber - 1).click();
         String childWindow = null;
+        String parentWindow = getWebDriver().getWindowHandle();
 
-        String parentWindow = driver.getWindowHandle();
-        productList.get((itemNumber) - 1).click();
-
-        Set<String> windowHandles = driver.getWindowHandles();
+        Set<String> windowHandles = getWebDriver().getWindowHandles();
         Iterator<String> windowIterator = windowHandles.iterator();
         while (windowIterator.hasNext()) {
             String windows = windowIterator.next();
@@ -82,12 +73,12 @@ public class ResultPage extends FlipkartBasePage {
                 childWindow = windows;
             }
         }
-        driver.switchTo().window(childWindow);
-        return new ProductPage(driver);
+        getWebDriver().switchTo().window(childWindow);
+        return new ProductPage();
     }
 
-    public CartPage goToCart(WebDriver driver) {
+    public CartPage goToCart() {
         clickCartIcon();
-        return new CartPage(driver);
+        return new CartPage();
     }
 }
