@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -24,13 +26,11 @@ public class FlipkartTest extends WebBaseTest {
 
         int numberOfPages = 2;
         open("https://www.flipkart.com/");
-        getWebDriver().manage().window().maximize();
 
         /**
          * Close popup and search for shoes
          */
-        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes")
-                .clickSearch().sortLowToHigh();
+        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
 
         /**
          * extracting price and going to next pages for 'n' pages
@@ -56,15 +56,13 @@ public class FlipkartTest extends WebBaseTest {
          * Launch Website and maximise
          */
         open("https://www.flipkart.com/");
-        getWebDriver().manage().window().maximize();
         String parentWindow = getWebDriver().getWindowHandle();
 
 
         /**
          * Close popup and search for shoes
          */
-        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes")
-                .clickSearch().sortLowToHigh();
+        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
 
         /**
          * Select and add to cart item 2 and 3
@@ -74,7 +72,7 @@ public class FlipkartTest extends WebBaseTest {
         List<SelenideElement> productResults = resultPage.getProductsList();
 
         for (int index : productArray) {
-            ProductPage productPage = ResultPage.clickProduct(productResults, index).clickFirstAvailableSize();
+            ProductPage productPage = resultPage.clickProduct(productResults, index).clickFirstAvailableSize();
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart();
@@ -82,6 +80,21 @@ public class FlipkartTest extends WebBaseTest {
             getWebDriver().switchTo().window(parentWindow);
         }
         CartPage cartPage = resultPage.goToCart();
+
+        /**
+         * Asserting for right products
+         */
+        ArrayList<String> cartProducts = cartPage.getProductNames();
+        Assertions.assertEquals(cartProducts.size(), productNames.size(),
+                "Incorrect number of products in cart");
+
+        Collections.sort(productNames);
+        Collections.sort(cartProducts);
+
+        for (int index = 0; index < cartProducts.size(); index++) {
+            Assertions.assertTrue(productNames.get(index).contains(cartProducts.get(index)),
+                    "Product not in cart: " + cartProducts.get(index));
+        }
 
         /**
          * checking price

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class WebBaseTest {
     public WebDriver driver;
@@ -15,12 +14,12 @@ public class WebBaseTest {
         Configuration.timeout = 6000;
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
-        options.addArguments("start-maximized");
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        Configuration.startMaximized=true;
     }
 
     @AfterEach
     public void tearDown() {
-        getWebDriver().quit();
+
     }
 }
