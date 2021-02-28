@@ -19,7 +19,7 @@ public class ProductPage extends FlipkartBasePage {
     private String shoeSizePrefix = "//a[text()=%1$s]";
 
     public ProductPage clickSize(String shoeSize) {
-        String shoeSizeXpath = String.format(shoeSize, shoeSize);
+        String shoeSizeXpath = String.format(shoeSizePrefix, shoeSize);
         $x(shoeSizeXpath).shouldBe(Condition.visible).click();
         return this;
     }
