@@ -14,7 +14,6 @@ import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 

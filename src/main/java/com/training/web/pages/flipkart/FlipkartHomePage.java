@@ -1,6 +1,5 @@
 package com.training.web.pages.flipkart;
 
-import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;

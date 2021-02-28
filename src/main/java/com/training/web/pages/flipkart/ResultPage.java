@@ -57,8 +57,7 @@ public class ResultPage extends FlipkartBasePage {
     public List<SelenideElement> getProductsList() {
 
         $x(nextPageButton).shouldBe(visible);
-        List<SelenideElement> productList = $$x(productResults);
-        return productList;
+        return $$x(productResults);
     }
 
     public ProductPage clickProduct(List<SelenideElement> productList, int itemNumber) {

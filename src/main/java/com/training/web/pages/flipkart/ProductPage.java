@@ -16,9 +16,10 @@ public class ProductPage extends FlipkartBasePage {
     private String cart = "//button[text()='ADD TO CART']";
     private String price = "//div[contains(@class,'_30jeq3')]";
     private String sizeList = "//a[contains(@class,'_1fGeJ5')]";
+    private String shoeSizePrefix = "//a[text()=%1$s]";
 
     public ProductPage clickSize(String shoeSize) {
-        String shoeSizeXpath = String.format("//a[text()=%1$s]", shoeSize);
+        String shoeSizeXpath = String.format(shoeSize, shoeSize);
         $x(shoeSizeXpath).shouldBe(Condition.visible).click();
         return this;
     }

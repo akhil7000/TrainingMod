@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
+
 public class CartPage extends FlipkartBasePage {
 
     private String totalPrice = "//*[contains(@class,'_3X7Jj1')]";
@@ -23,7 +24,7 @@ public class CartPage extends FlipkartBasePage {
     }
 
     public int getTotal() {
-
-        return Integer.parseInt($x(totalPrice).shouldBe(visible).getText().substring(1));
+        $x(totalPrice).shouldBe(visible);
+        return Integer.parseInt($x(totalPrice).getText().substring(1));
     }
 }
