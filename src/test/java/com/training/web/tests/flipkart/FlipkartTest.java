@@ -7,10 +7,12 @@ import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +23,7 @@ public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testPriceSort() throws WebDriverException {
+    public void testPriceSort() throws WebDriverException, ParseException {
 
         int numberOfPages = 2;
         open("https://www.flipkart.com/");
@@ -29,7 +31,8 @@ public class FlipkartTest extends WebBaseTest {
         /**
          * Close popup and search for shoes
          */
-        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
+        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes")
+                                .clickSearch().sortLowToHigh();
 
         /**
          * extracting price and going to next pages for 'n' pages
@@ -40,14 +43,14 @@ public class FlipkartTest extends WebBaseTest {
             Assertions.assertEquals(priceList, resultPage.sortPriceList(priceList),
                     "Price not in ascending order in page number " + page);
             if (page != numberOfPages) {
-                logger.info("Navigating to page " + String.valueOf(page + 1));
+                logger.info("Navigating to page " + (page + 1));
                 resultPage.clickNextPage();
             }
         }
     }
 
     @Test
-    public void testCartAddition() {
+    public void testCartAddition() throws ParseException {
 
         Integer[] productArray = {2, 3};
 
@@ -61,7 +64,8 @@ public class FlipkartTest extends WebBaseTest {
         /**
          * Close popup and search for shoes
          */
-        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
+        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes")
+                                .clickSearch().sortLowToHigh();
 
         /**
          * Select and add to cart item 2 and 3

@@ -2,7 +2,12 @@ package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -23,8 +28,9 @@ public class CartPage extends FlipkartBasePage {
         return productNames;
     }
 
-    public int getTotal() {
-        $x(totalPrice).shouldBe(visible);
-        return Integer.parseInt($x(totalPrice).getText().substring(1));
+    public int getTotal() throws ParseException {
+        NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
+        String total = $x(totalPrice).shouldBe(visible).getText().substring(1);
+        return nf.parse(total).intValue();
     }
 }

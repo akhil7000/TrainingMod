@@ -4,6 +4,11 @@ import com.codeborne.selenide.Condition;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -17,10 +22,11 @@ public class ProductPage extends FlipkartBasePage {
     private String price = "//div[contains(@class,'_30jeq3')]";
     private String sizeList = "//a[contains(@class,'_1fGeJ5')]";
     private String shoeSizePrefix = "//a[text()=%1$s]";
+    private String placeOrderButton = "//span[text()='Place Order']";
 
     public ProductPage clickSize(String shoeSize) {
-        String shoeSizeXpath = String.format(shoeSizePrefix, shoeSize);
-        $x(shoeSizeXpath).shouldBe(Condition.visible).click();
+
+        $x(String.format(shoeSizePrefix, shoeSize)).shouldBe(Condition.visible).click();
         return this;
     }
 
@@ -31,8 +37,10 @@ public class ProductPage extends FlipkartBasePage {
     }
 
     public CartPage addToCart() {
-        $x(cart).shouldBe(Condition.enabled).click();
+
         waitForLoader();
+        $x(cart).shouldBe(Condition.enabled).click();
+        $x(placeOrderButton).shouldBe(Condition.visible);
         logger.info("Added to cart");
         return new CartPage();
     }
@@ -41,7 +49,10 @@ public class ProductPage extends FlipkartBasePage {
         return $x(brandName).getText() + $x(productName).getText();
     }
 
-    public Integer getProductPrice() {
-        return Integer.parseInt($x(price).getText().substring(1));
+    public Integer getProductPrice() throws ParseException {
+        NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
+        String priceString = $x(price).getText().substring(1);
+        int price = nf.parse(priceString).intValue();
+        return price;
     }
 }

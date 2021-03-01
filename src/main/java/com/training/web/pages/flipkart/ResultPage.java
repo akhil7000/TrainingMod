@@ -1,10 +1,11 @@
 package com.training.web.pages.flipkart;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
@@ -17,25 +18,31 @@ public class ResultPage extends FlipkartBasePage {
     private String productResults = "//img[contains(@class,'_2r_T1I')]";
     private String shoesPrice = "//*[@class='_30jeq3']";
     private String nextPageButton = "//*[text()='Next']";
+    private String sortBy = "//*[@class='_10Ermr']";
 
     public ResultPage sortLowToHigh() {
 
-        $x(lowToHigh).shouldBe(visible).click();
         waitForLoader();
+        $x(lowToHigh).shouldBe(visible).click();
         return this;
     }
 
-    public ArrayList<Integer> getPrice() {
+    public List<SelenideElement> getPriceString(){
+        $x(sortBy).shouldBe(visible);
+        List<SelenideElement> list= $$x(shoesPrice);
+        return list;
+    }
 
-        waitForLoader();
-        logger.info("Size of list " + $$x(shoesPrice).size());
-        $$x(shoesPrice).shouldHave(CollectionCondition.sizeGreaterThan(0));
-        ArrayList<Integer> priceList = new ArrayList<>();
-        for (SelenideElement listElement : $$x(shoesPrice)) {
-            priceList.add(Integer.parseInt(listElement.getText().substring(1)));
+    public ArrayList<Integer> getPrice() throws ParseException {
+
+        $x(nextPageButton).shouldBe(visible);
+        ArrayList<Integer> priceList= new ArrayList<>();
+        logger.info("Size of list"+getPriceString().size());
+        for (SelenideElement listItem:getPriceString()){
+            NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
+            String priceString = listItem.getText().substring(1);
+            priceList.add(nf.parse(priceString).intValue());
         }
-
-        logger.info("Size of Pricelist " + (priceList.size()));
         return priceList;
     }
 
@@ -47,7 +54,6 @@ public class ResultPage extends FlipkartBasePage {
 
     public ArrayList<Integer> sortPriceList(ArrayList<Integer> priceList) {
 
-        waitForLoader();
         ArrayList<Integer> sortedPrice = (ArrayList<Integer>) priceList.clone();
         Collections.sort(sortedPrice);
         return sortedPrice;
