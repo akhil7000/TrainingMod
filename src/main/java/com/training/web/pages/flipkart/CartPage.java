@@ -1,37 +1,31 @@
 package com.training.web.pages.flipkart;
 
+import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class CartPage extends FlipkartBasePage {
 
-    private By totalPrice = By.xpath("//*[contains(@class,'_3X7Jj1')]");
-    private By name = By.xpath("//a[contains(@class,'gBNbID')]");
-    private By placeOrderButton = By.xpath("//*[text()='Place Order']");
-
-    public CartPage(WebDriver driver) {
-        super(driver);
-    }
+    private String totalPrice = "//*[contains(@class,'_3X7Jj1')]";
+    private String name = "//a[contains(@class,'gBNbID')]";
+    private String placeOrderButton = "//*[text()='Place Order']";
 
     public ArrayList<String> getProductNames() {
-        waitForLoader();
-        wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton));
+
+        $x(placeOrderButton).shouldBe(visible);
         ArrayList<String> productNames = new ArrayList<>();
-        List<WebElement> cartList = driver.findElements(name);
-        for (WebElement index : cartList) {
+        for (SelenideElement index : $$x(name)) {
             productNames.add(index.getText());
         }
         return productNames;
     }
 
-    public int getTotal() {
-        String price = driver.findElement(totalPrice).getText();
-        return Integer.parseInt(price.substring(1));
+    public int getTotal() throws ParseException {
+
+        return formatInteger($x(totalPrice).shouldBe(visible).getText().substring(1));
     }
 }

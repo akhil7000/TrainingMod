@@ -1,26 +1,26 @@
 package com.training.basepages;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class FlipkartBasePage{
-    protected WebDriver driver;
-    protected WebDriverWait wait;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
 
-    private By loaderIcon = By.xpath("//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']");
-    private By cartIcon = By.xpath("//*[text()='Cart']");
+public class FlipkartBasePage {
 
-    public FlipkartBasePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 30);
-    }
+    private String loaderIcon = "//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']";
+    private String cartIcon ="//*[text()='Cart']";
+    private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
 
     public void clickCartIcon() {
-        driver.findElement(cartIcon).click();
+        $x(cartIcon).click();
     }
 
-    public void waitForLoader(){
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderIcon));
+    public void waitForLoader() {
+        $x(loaderIcon).should(disappear);
+    }
+
+    public Integer formatInteger(String number) throws ParseException {
+        return numberFormat.parse(number).intValue();
     }
 }
