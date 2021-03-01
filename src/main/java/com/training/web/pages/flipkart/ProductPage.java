@@ -4,11 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
-
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -50,9 +46,6 @@ public class ProductPage extends FlipkartBasePage {
     }
 
     public Integer getProductPrice() throws ParseException {
-        NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
-        String priceString = $x(price).getText().substring(1);
-        int price = nf.parse(priceString).intValue();
-        return price;
+        return formatInteger($x(price).getText().substring(1));
     }
 }

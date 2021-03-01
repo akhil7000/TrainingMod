@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -27,9 +26,10 @@ public class ResultPage extends FlipkartBasePage {
         return this;
     }
 
-    public List<SelenideElement> getPriceString(){
+    public List<SelenideElement> getPriceElements() {
         $x(sortBy).shouldBe(visible);
         List<SelenideElement> list= $$x(shoesPrice);
+        logger.info("Size of list"+list.size());
         return list;
     }
 
@@ -37,11 +37,9 @@ public class ResultPage extends FlipkartBasePage {
 
         $x(nextPageButton).shouldBe(visible);
         ArrayList<Integer> priceList= new ArrayList<>();
-        logger.info("Size of list"+getPriceString().size());
-        for (SelenideElement listItem:getPriceString()){
-            NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
+        for (SelenideElement listItem:getPriceElements()){
             String priceString = listItem.getText().substring(1);
-            priceList.add(nf.parse(priceString).intValue());
+            priceList.add(formatInteger(priceString));
         }
         return priceList;
     }
