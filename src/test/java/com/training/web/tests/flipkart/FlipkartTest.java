@@ -22,7 +22,7 @@ public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testPriceSort() throws WebDriverException, ParseException {
+    public void testPriceSort() throws WebDriverException, ParseException, InterruptedException {
 
         int numberOfPages = 2;
         open("https://www.flipkart.com/");
@@ -39,8 +39,10 @@ public class FlipkartTest extends WebBaseTest {
         for (int page = 1; page <= numberOfPages; page++) {
             ArrayList<Integer> priceList = resultPage.getPrice();
 
-            Assertions.assertEquals(priceList, resultPage.sortPriceList(priceList),
-                    "Price not in ascending order in page number " + page);
+            logger.info("Assert for price");
+            softAssertions.assertThat(priceList).as("Price not in order")
+                    .isEqualTo(resultPage.sortPriceList(priceList));
+
             if (page != numberOfPages) {
                 logger.info("Navigating to page " + (page + 1));
                 resultPage.clickNextPage();
@@ -94,8 +96,8 @@ public class FlipkartTest extends WebBaseTest {
         Collections.sort(cartProducts);
 
         for (int index = 0; index < cartProducts.size(); index++) {
-            Assertions.assertTrue(productNames.get(index).contains(cartProducts.get(index)),
-                    "Product not in cart: " + cartProducts.get(index));
+            softAssertions.assertThat(productNames.get(index)).as("Product not in cart: " + cartProducts.get(index))
+                            .contains(cartProducts.get(index));
         }
 
         /**
@@ -106,6 +108,8 @@ public class FlipkartTest extends WebBaseTest {
         for (int price : priceList) {
             totalPrice = totalPrice + price;
         }
-        Assertions.assertTrue(totalCartPrice >= totalPrice, "Price doesn't match");
+        softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
+                    .isGreaterThanOrEqualTo(totalPrice);
     }
+
 }

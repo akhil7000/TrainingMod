@@ -33,8 +33,9 @@ public class ResultPage extends FlipkartBasePage {
         return list;
     }
 
-    public ArrayList<Integer> getPrice() throws ParseException {
+    public ArrayList<Integer> getPrice() throws ParseException, InterruptedException {
 
+        Thread.sleep(2000);
         $x(nextPageButton).shouldBe(visible);
         ArrayList<Integer> priceList= new ArrayList<>();
         for (SelenideElement listItem:getPriceElements()){
