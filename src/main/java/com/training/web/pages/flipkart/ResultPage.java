@@ -1,5 +1,6 @@
 package com.training.web.pages.flipkart;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
@@ -27,15 +28,15 @@ public class ResultPage extends FlipkartBasePage {
     }
 
     public List<SelenideElement> getPriceElements() {
-        $x(sortBy).shouldBe(visible);
+        $x(nextPageButton).shouldBe(exist);
         List<SelenideElement> list= $$x(shoesPrice);
         logger.info("Size of list"+list.size());
         return list;
     }
 
-    public ArrayList<Integer> getPrice() throws ParseException {
+    public ArrayList<Integer> getPrice() throws ParseException{
 
-        $x(nextPageButton).shouldBe(visible);
+        $x(nextPageButton).shouldBe(exist);
         ArrayList<Integer> priceList= new ArrayList<>();
         for (SelenideElement listItem:getPriceElements()){
             String priceString = listItem.getText().substring(1);
