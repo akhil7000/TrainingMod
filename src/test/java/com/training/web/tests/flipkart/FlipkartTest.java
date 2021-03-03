@@ -22,7 +22,7 @@ public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void testPriceSort() throws WebDriverException, ParseException, InterruptedException {
+    public void testPriceSort() throws WebDriverException, ParseException {
 
         int numberOfPages = 2;
         open("https://www.flipkart.com/");
