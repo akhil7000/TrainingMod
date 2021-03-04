@@ -34,7 +34,7 @@ public class ResultPage extends FlipkartBasePage {
         return list;
     }
 
-    public ArrayList<Integer> getPrice() throws ParseException{
+    public ArrayList<Integer> getPrice() throws ParseException {
 
         $x(nextPageButton).shouldBe(exist);
         ArrayList<Integer> priceList= new ArrayList<>();
