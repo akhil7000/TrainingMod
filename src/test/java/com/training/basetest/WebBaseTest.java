@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -29,38 +30,32 @@ public class WebBaseTest {
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.startMaximized = true;
 
-        if (System.getProperty("execution") == null) {
-            logger.info("No Excution Argument set. Running in local");
+        execution = System.getProperty("execution", "local");
+
+        if (execution.equalsIgnoreCase("remote")) {
+            final String ACCESS_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJ4cC51IjoyMTE3OTE0LCJ4cC5wIjoxLCJ4cC5tIjoxNjE0N" +
+                    "jA0MzMzMjgyLCJleHAiOjE5Mjk5NjQzMzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.wRLdRalhaKKVbzPJ5UtACgny340jIfcUvF2NlUYQKwU";
+
+            DesiredCapabilities dc = new DesiredCapabilities();
+            String urlToRemoteWD = "https://rccl.experitest.com/wd/hub";
+
+            dc.setCapability("Experitest Trial", "Quick Start Chrome Browser Demo");
+            dc.setCapability("accessKey", ACCESS_KEY);
+            dc.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+            driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
+            WebDriverRunner.setWebDriver(driver);
         } else {
-            execution = System.getProperty("execution");
-            if (execution.equalsIgnoreCase("remote")) {
-                final String ACCESS_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJ4cC51IjoyMTE3OTE0LCJ4cC5wIjoxLCJ4cC5tIjoxNjE0N" +
-                        "jA0MzMzMjgyLCJleHAiOjE5Mjk5NjQzMzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.wRLdRalhaKKVbzPJ5UtACgny340jIfcUvF2NlUYQKwU";
-
-                DesiredCapabilities dc = new DesiredCapabilities();
-                String urlToRemoteWD = "https://rccl.experitest.com/wd/hub";
-
-                dc.setCapability("Experitest Trial", "Quick Start Chrome Browser Demo");
-                dc.setCapability("accessKey", ACCESS_KEY);
-                dc.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-                driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
-                WebDriverRunner.setWebDriver(driver);
-            } else {
-                logger.info("Running in local");
-            }
+            logger.info("Running in local");
         }
     }
 
     @AfterEach
     public void tearDown() throws NullPointerException {
-        if (System.getProperty("execution") == null) {
-            softAssertions.assertAll();
-        } else {
-            if (execution.equalsIgnoreCase("remote")) {
-                logger.info("Report URL: " + driver.getCapabilities().getCapability("reportUrl"));
-                WebDriverRunner.driver().close();
-            }
-            softAssertions.assertAll();
+
+        if (execution.equalsIgnoreCase("remote")) {
+            logger.info("Report URL: " + driver.getCapabilities().getCapability("reportUrl"));
+            WebDriverRunner.driver().close();
         }
+        softAssertions.assertAll();
     }
 }
