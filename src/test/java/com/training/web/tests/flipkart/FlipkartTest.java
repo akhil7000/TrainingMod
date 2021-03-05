@@ -5,6 +5,7 @@ import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
@@ -20,22 +21,23 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    ResultPage resultPage;
+
+    @BeforeEach
+    public void startup() {
+        open("https://www.flipkart.com/");
+        resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
+    }
 
     @Test
     public void testPriceSort() throws WebDriverException, ParseException {
 
         int numberOfPages = 2;
-        open("https://www.flipkart.com/");
-
-        /**
-         * Close popup and search for shoes
-         */
-        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes")
-                                .clickSearch().sortLowToHigh();
 
         /**
          * extracting price and going to next pages for 'n' pages
          */
+
         for (int page = 1; page <= numberOfPages; page++) {
             ArrayList<Integer> priceList = resultPage.getPrice();
 
@@ -54,19 +56,7 @@ public class FlipkartTest extends WebBaseTest {
     public void testCartAddition() throws ParseException {
 
         Integer[] productArray = {2, 3};
-
-        /**
-         * Launch Website and maximise
-         */
-        open("https://www.flipkart.com/");
         String parentWindow = getWebDriver().getWindowHandle();
-
-
-        /**
-         * Close popup and search for shoes
-         */
-        ResultPage resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes")
-                                .clickSearch().sortLowToHigh();
 
         /**
          * Select and add to cart item 2 and 3
@@ -97,7 +87,7 @@ public class FlipkartTest extends WebBaseTest {
 
         for (int index = 0; index < cartProducts.size(); index++) {
             softAssertions.assertThat(productNames.get(index)).as("Product not in cart: " + cartProducts.get(index))
-                            .contains(cartProducts.get(index));
+                    .contains(cartProducts.get(index));
         }
 
         /**
@@ -109,7 +99,7 @@ public class FlipkartTest extends WebBaseTest {
             totalPrice = totalPrice + price;
         }
         softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
-                    .isGreaterThanOrEqualTo(totalPrice);
+                .isGreaterThanOrEqualTo(totalPrice);
     }
 
 }

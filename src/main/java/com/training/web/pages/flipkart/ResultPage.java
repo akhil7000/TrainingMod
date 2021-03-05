@@ -1,6 +1,5 @@
 package com.training.web.pages.flipkart;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
