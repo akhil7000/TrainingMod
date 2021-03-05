@@ -21,11 +21,12 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    ResultPage resultPage;
 
     @BeforeEach
-    public void startup(){
+    public void startup() {
         open("https://www.flipkart.com/");
-        new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
+        resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
     }
 
     @Test
@@ -36,7 +37,7 @@ public class FlipkartTest extends WebBaseTest {
         /**
          * extracting price and going to next pages for 'n' pages
          */
-        ResultPage resultPage =new ResultPage();
+
         for (int page = 1; page <= numberOfPages; page++) {
             ArrayList<Integer> priceList = resultPage.getPrice();
 
@@ -60,7 +61,6 @@ public class FlipkartTest extends WebBaseTest {
         /**
          * Select and add to cart item 2 and 3
          */
-        ResultPage resultPage =new ResultPage();
         ArrayList<String> productNames = new ArrayList<>();
         ArrayList<Integer> priceList = new ArrayList<>();
         List<SelenideElement> productResults = resultPage.getProductsList();
