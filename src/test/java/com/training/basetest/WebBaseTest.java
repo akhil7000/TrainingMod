@@ -5,6 +5,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.training.utilities.JsonReaderUtility;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,47 +15,40 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class WebBaseTest {
+public class WebBaseTest extends JsonReaderUtility {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     String execution;
-    public JsonObject jsonObject;
+    //public JsonObject jsonObject;
 
     @BeforeEach
     public void setup() throws MalformedURLException, NullPointerException {
 
-        File jsonFile = new File("src/test/java/resources/testData.json");
-        try {
-            JsonElement fileElement = JsonParser.parseReader(new FileReader(jsonFile));
-            jsonObject = fileElement.getAsJsonObject();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         softAssertions = new SoftAssertions();
-        Configuration.timeout = Integer.parseInt(jsonObject.get("timeout").getAsString());
+        Configuration.timeout = Integer.parseInt(getJson("timeout"));
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(jsonObject.get("browserMode").getAsString());
+        options.addArguments(getJson("browserMode"));
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.startMaximized = true;
 
-        execution = System.getProperty("execution", jsonObject.get("execution default").getAsString());
+        execution = System.getProperty("execution", getJson("executionDefault"));
         if (execution.equalsIgnoreCase("remote")) {
-            final String ACCESS_KEY = jsonObject.get("accessKey").getAsString();
+            final String ACCESS_KEY = getJson("accessKey");
 
             DesiredCapabilities dc = new DesiredCapabilities();
-            String urlToRemoteWD = jsonObject.get("remoteURL").getAsString();
+            String urlToRemoteWD = getJson("remoteURL");
 
-            dc.setCapability(jsonObject.get("testName").getAsString(), jsonObject.get("testDescription").getAsString());
+            dc.setCapability(getJson("testName"), getJson("testDescription"));
             dc.setCapability("accessKey", ACCESS_KEY);
-            dc.setCapability(CapabilityType.BROWSER_NAME, jsonObject.get("BROWSER_NAME").getAsString());
+            dc.setCapability(CapabilityType.BROWSER_NAME, getJson("browserName"));
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
             WebDriverRunner.setWebDriver(driver);
         } else {
