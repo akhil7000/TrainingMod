@@ -1,0 +1,14 @@
+{
+  "testUrl": "https://www.flipkart.com/",
+  "searchItem": "shoes",
+  "numberOfPages": "2",
+  "browserMode": "--incognito",
+  "testName": "Experitest Trial",
+  "testDescription": "Flipkart tests",
+  "BROWSER_NAME": "chrome",
+  "remoteURL": "https://rccl.experitest.com/wd/hub",
+  "execution default": "local",
+  "productArray": "2,3",
+  "timeout": "6000",
+  "accessKey": "eyJhbGciOiJIUzI1NiJ9.eyJ4cC51IjoyMTE3OTE0LCJ4cC5wIjoxLCJ4cC5tIjoxNjE0NjA0MzMzMjgyLCJleHAiOjE5Mjk5NjQzMzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.wRLdRalhaKKVbzPJ5UtACgny340jIfcUvF2NlUYQKwU"
+}
