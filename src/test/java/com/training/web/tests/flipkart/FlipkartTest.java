@@ -14,6 +14,7 @@ import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static com.codeborne.selenide.Selenide.open;
@@ -25,14 +26,16 @@ public class FlipkartTest extends WebBaseTest {
 
     @BeforeEach
     public void startup() {
-        open("https://www.flipkart.com/");
-        resultPage = new FlipkartHomePage().closePopup().sendKeysToSearchBox("shoes").clickSearch().sortLowToHigh();
+        open(map.get("flipkartUrl"));
+        resultPage = new FlipkartHomePage().closePopup()
+                .sendKeysToSearchBox(map.get("searchItem"))
+                .clickSearch().sortLowToHigh();
     }
 
     @Test
     public void testPriceSort() throws WebDriverException, ParseException {
 
-        int numberOfPages = 2;
+        int numberOfPages = Integer.parseInt(map.get("numberOfPages"));
 
         /**
          * extracting price and going to next pages for 'n' pages
@@ -55,7 +58,8 @@ public class FlipkartTest extends WebBaseTest {
     @Test
     public void testCartAddition() throws ParseException {
 
-        Integer[] productArray = {2, 3};
+        String[] strProductArray = map.get("productArray").split(",");
+        int[] productArray = Arrays.stream(strProductArray).mapToInt(Integer::parseInt).toArray();
         String parentWindow = getWebDriver().getWindowHandle();
 
         /**
@@ -101,5 +105,4 @@ public class FlipkartTest extends WebBaseTest {
         softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
                 .isGreaterThanOrEqualTo(totalPrice);
     }
-
 }

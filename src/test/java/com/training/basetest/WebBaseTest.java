@@ -2,6 +2,7 @@ package com.training.basetest;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import com.training.utilities.JsonReaderUtility;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,36 +12,37 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 public class WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     String execution;
+    protected Map<String, String> map = new JsonReaderUtility().getMap();
 
     @BeforeEach
     public void setup() throws MalformedURLException, NullPointerException {
+
         softAssertions = new SoftAssertions();
-        Configuration.timeout = 6000;
+        Configuration.timeout = Integer.parseInt(map.get("timeout"));
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
+        options.addArguments(map.get("browserMode"));
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.startMaximized = true;
 
-        execution = System.getProperty("execution", "local");
-
+        execution = System.getProperty("execution", map.get("executionDefault"));
         if (execution.equalsIgnoreCase("remote")) {
-            final String ACCESS_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJ4cC51IjoyMTE3OTE0LCJ4cC5wIjoxLCJ4cC5tIjoxNjE0N" +
-                    "jA0MzMzMjgyLCJleHAiOjE5Mjk5NjQzMzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.wRLdRalhaKKVbzPJ5UtACgny340jIfcUvF2NlUYQKwU";
 
             DesiredCapabilities dc = new DesiredCapabilities();
-            String urlToRemoteWD = "https://rccl.experitest.com/wd/hub";
+            String urlToRemoteWD = map.get("remoteURL");
 
-            dc.setCapability("Experitest Trial", "Quick Start Chrome Browser Demo");
-            dc.setCapability("accessKey", ACCESS_KEY);
-            dc.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+            dc.setCapability(map.get("testName"), map.get("testDescription"));
+            dc.setCapability("accessKey", map.get("accessKey"));
+            dc.setCapability(CapabilityType.BROWSER_NAME, map.get("browserName"));
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
             WebDriverRunner.setWebDriver(driver);
         } else {
