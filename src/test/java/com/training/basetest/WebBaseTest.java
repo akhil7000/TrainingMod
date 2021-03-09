@@ -38,7 +38,7 @@ public class WebBaseTest {
         if (execution.equalsIgnoreCase("remote")) {
 
             DesiredCapabilities dc = new DesiredCapabilities();
-            String urlToRemoteWD = map.get("remoteURL").toString();
+            String urlToRemoteWD = map.get("remoteURL");
 
             dc.setCapability(map.get("testName"), map.get("testDescription"));
             dc.setCapability("accessKey", map.get("accessKey"));
