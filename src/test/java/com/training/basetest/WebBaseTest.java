@@ -2,9 +2,6 @@ package com.training.basetest;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.training.utilities.JsonReaderUtility;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
@@ -16,9 +13,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -28,7 +22,7 @@ public class WebBaseTest {
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     String execution;
-    protected Map<String,String> map = new JsonReaderUtility().getMap();
+    protected Map<String, String> map = new JsonReaderUtility().getMap();
 
     @BeforeEach
     public void setup() throws MalformedURLException, NullPointerException {

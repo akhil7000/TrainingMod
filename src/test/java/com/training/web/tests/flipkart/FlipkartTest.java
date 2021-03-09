@@ -1,8 +1,6 @@
 package com.training.web.tests.flipkart;
 
 import com.codeborne.selenide.SelenideElement;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.CartPage;
 import com.training.web.pages.flipkart.ProductPage;
@@ -14,13 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.training.web.pages.flipkart.ResultPage;
 import com.training.web.pages.flipkart.FlipkartHomePage;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
