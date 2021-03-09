@@ -36,13 +36,12 @@ public class WebBaseTest {
 
         execution = System.getProperty("execution", map.get("executionDefault"));
         if (execution.equalsIgnoreCase("remote")) {
-            final String ACCESS_KEY = map.get("accessKey");
 
             DesiredCapabilities dc = new DesiredCapabilities();
             String urlToRemoteWD = map.get("remoteURL").toString();
 
-            dc.setCapability(map.get("testName").toString(), map.get("testDescription"));
-            dc.setCapability("accessKey", ACCESS_KEY);
+            dc.setCapability(map.get("testName"), map.get("testDescription"));
+            dc.setCapability("accessKey", map.get("accessKey"));
             dc.setCapability(CapabilityType.BROWSER_NAME, map.get("browserName"));
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
             WebDriverRunner.setWebDriver(driver);
