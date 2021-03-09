@@ -28,28 +28,28 @@ public class WebBaseTest {
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     String execution;
-    public Map hashMap = new JsonReaderUtility().getJsonHashMap();
+    protected Map<String,String> map = new JsonReaderUtility().getMap();
 
     @BeforeEach
     public void setup() throws MalformedURLException, NullPointerException {
 
         softAssertions = new SoftAssertions();
-        Configuration.timeout = Integer.parseInt(hashMap.get("timeout").toString());
+        Configuration.timeout = Integer.parseInt(map.get("timeout"));
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(hashMap.get("browserMode").toString());
+        options.addArguments(map.get("browserMode"));
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.startMaximized = true;
 
-        execution = System.getProperty("execution", hashMap.get("executionDefault").toString());
+        execution = System.getProperty("execution", map.get("executionDefault"));
         if (execution.equalsIgnoreCase("remote")) {
-            final String ACCESS_KEY = hashMap.get("accessKey").toString();
+            final String ACCESS_KEY = map.get("accessKey");
 
             DesiredCapabilities dc = new DesiredCapabilities();
-            String urlToRemoteWD = hashMap.get("remoteURL").toString();
+            String urlToRemoteWD = map.get("remoteURL").toString();
 
-            dc.setCapability(hashMap.get("testName").toString(), hashMap.get("testDescription").toString());
+            dc.setCapability(map.get("testName").toString(), map.get("testDescription"));
             dc.setCapability("accessKey", ACCESS_KEY);
-            dc.setCapability(CapabilityType.BROWSER_NAME, hashMap.get("browserName").toString());
+            dc.setCapability(CapabilityType.BROWSER_NAME, map.get("browserName"));
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
             WebDriverRunner.setWebDriver(driver);
         } else {

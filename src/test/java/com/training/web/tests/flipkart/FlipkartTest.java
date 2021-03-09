@@ -30,16 +30,16 @@ public class FlipkartTest extends WebBaseTest {
 
     @BeforeEach
     public void startup() {
-        open(hashMap.get("flipkartUrl").toString());
+        open(map.get("flipkartUrl"));
         resultPage = new FlipkartHomePage().closePopup()
-                .sendKeysToSearchBox(hashMap.get("searchItem").toString())
+                .sendKeysToSearchBox(map.get("searchItem"))
                 .clickSearch().sortLowToHigh();
     }
 
     @Test
     public void testPriceSort() throws WebDriverException, ParseException {
 
-        int numberOfPages = Integer.parseInt(hashMap.get("numberOfPages").toString());
+        int numberOfPages = Integer.parseInt(map.get("numberOfPages"));
 
         /**
          * extracting price and going to next pages for 'n' pages
@@ -62,7 +62,7 @@ public class FlipkartTest extends WebBaseTest {
     @Test
     public void testCartAddition() throws ParseException {
 
-        String[] strProductArray = hashMap.get("productArray").toString().split(",");
+        String[] strProductArray = map.get("productArray").split(",");
         int[] productArray = Arrays.stream(strProductArray).mapToInt(Integer::parseInt).toArray();
         String parentWindow = getWebDriver().getWindowHandle();
 
@@ -109,5 +109,4 @@ public class FlipkartTest extends WebBaseTest {
         softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
                 .isGreaterThanOrEqualTo(totalPrice);
     }
-
 }

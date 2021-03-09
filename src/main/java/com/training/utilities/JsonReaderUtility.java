@@ -12,21 +12,19 @@ import java.util.Map;
 
 public class JsonReaderUtility {
 
-    public Map getJsonHashMap() {
+    public Map<String,String> getMap() {
 
         JsonObject jsonObject = new JsonObject();
         File jsonFile = new File("src/test/java/resources/testData.json");
 
         try {
-            JsonElement fileElement = JsonParser.parseReader(new FileReader(jsonFile));
-            jsonObject = fileElement.getAsJsonObject();
-        } catch (
-                FileNotFoundException e) {
+            jsonObject = JsonParser.parseReader(new FileReader(jsonFile)).getAsJsonObject();
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        Gson gson = new Gson();
-        return gson.fromJson(jsonObject, Map.class);
+        return new Gson().fromJson(jsonObject, Map.class);
     }
 }
 
