@@ -30,16 +30,16 @@ public class FlipkartTest extends WebBaseTest {
 
     @BeforeEach
     public void startup() {
-        open(getJson("flipkartUrl"));
+        open(hashMap.get("flipkartUrl").toString());
         resultPage = new FlipkartHomePage().closePopup()
-                .sendKeysToSearchBox(getJson("searchItem"))
+                .sendKeysToSearchBox(hashMap.get("searchItem").toString())
                 .clickSearch().sortLowToHigh();
     }
 
     @Test
     public void testPriceSort() throws WebDriverException, ParseException {
 
-        int numberOfPages = Integer.parseInt(getJson("numberOfPages"));
+        int numberOfPages = Integer.parseInt(hashMap.get("numberOfPages").toString());
 
         /**
          * extracting price and going to next pages for 'n' pages
@@ -62,7 +62,7 @@ public class FlipkartTest extends WebBaseTest {
     @Test
     public void testCartAddition() throws ParseException {
 
-        String[] strProductArray = getJson("productArray").split(",");
+        String[] strProductArray = hashMap.get("productArray").toString().split(",");
         int[] productArray = Arrays.stream(strProductArray).mapToInt(Integer::parseInt).toArray();
         String parentWindow = getWebDriver().getWindowHandle();
 

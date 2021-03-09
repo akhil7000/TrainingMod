@@ -21,34 +21,35 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
-public class WebBaseTest extends JsonReaderUtility {
+public class WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     String execution;
-    //public JsonObject jsonObject;
+    public Map hashMap = new JsonReaderUtility().getJsonHashMap();
 
     @BeforeEach
     public void setup() throws MalformedURLException, NullPointerException {
 
         softAssertions = new SoftAssertions();
-        Configuration.timeout = Integer.parseInt(getJson("timeout"));
+        Configuration.timeout = Integer.parseInt(hashMap.get("timeout").toString());
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(getJson("browserMode"));
+        options.addArguments(hashMap.get("browserMode").toString());
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.startMaximized = true;
 
-        execution = System.getProperty("execution", getJson("executionDefault"));
+        execution = System.getProperty("execution", hashMap.get("executionDefault").toString());
         if (execution.equalsIgnoreCase("remote")) {
-            final String ACCESS_KEY = getJson("accessKey");
+            final String ACCESS_KEY = hashMap.get("accessKey").toString();
 
             DesiredCapabilities dc = new DesiredCapabilities();
-            String urlToRemoteWD = getJson("remoteURL");
+            String urlToRemoteWD = hashMap.get("remoteURL").toString();
 
-            dc.setCapability(getJson("testName"), getJson("testDescription"));
+            dc.setCapability(hashMap.get("testName").toString(), hashMap.get("testDescription").toString());
             dc.setCapability("accessKey", ACCESS_KEY);
-            dc.setCapability(CapabilityType.BROWSER_NAME, getJson("browserName"));
+            dc.setCapability(CapabilityType.BROWSER_NAME, hashMap.get("browserName").toString());
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
             WebDriverRunner.setWebDriver(driver);
         } else {
