@@ -3,8 +3,6 @@
   "searchItem": "shoes",
   "numberOfPages": "2",
   "browserMode": "--incognito",
-  "testName": "Experitest Trial",
-  "testDescription": "Flipkart tests",
   "browserName": "chrome",
   "remoteURL": "https://rccl.experitest.com/wd/hub",
   "executionDefault": "local",

@@ -28,15 +28,12 @@ public class WebBaseTest {
     private RemoteWebDriver driver;
     private String execution;
     protected Map<String, String> map = new JsonReaderUtility().getMap();
-    private String displayName;
-    private String methodName;
-    private String uuid;
 
     @BeforeEach
     public void setup(TestInfo testInfo) throws MalformedURLException, NullPointerException {
-        displayName = testInfo.getDisplayName();
-        methodName = testInfo.getTestMethod().orElseThrow().getName();
-        uuid = UUID.randomUUID().toString();
+        String displayName = testInfo.getDisplayName();
+        String methodName = testInfo.getTestMethod().orElseThrow().getName();
+        String uuid = UUID.randomUUID().toString();
 
         softAssertions = new SoftAssertions();
         Configuration.timeout = Integer.parseInt(map.get("timeout"));
