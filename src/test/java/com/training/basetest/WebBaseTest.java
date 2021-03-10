@@ -49,7 +49,7 @@ public class WebBaseTest {
             DesiredCapabilities dc = new DesiredCapabilities();
             String urlToRemoteWD = map.get("remoteURL");
 
-            dc.setCapability("testName",  displayName + "-" + methodName + "-" + uuid);
+            dc.setCapability("testName", displayName + "-" + methodName + "-" + uuid);
             dc.setCapability("accessKey", map.get("accessKey"));
             dc.setCapability(CapabilityType.BROWSER_NAME, map.get("browserName"));
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
