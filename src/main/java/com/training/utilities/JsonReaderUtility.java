@@ -14,7 +14,7 @@ public class JsonReaderUtility {
     public Map<String, String> getMap() {
 
         JsonObject jsonObject = new JsonObject();
-        File jsonFile = new File("src/test/java/resources/testData.json");
+        File jsonFile = new File("src/test/resources/testData.json");
 
         try {
             jsonObject = JsonParser.parseReader(new FileReader(jsonFile)).getAsJsonObject();

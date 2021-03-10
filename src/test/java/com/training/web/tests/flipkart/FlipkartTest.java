@@ -3,39 +3,46 @@ package com.training.web.tests.flipkart;
 import com.codeborne.selenide.SelenideElement;
 import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.CartPage;
+import com.training.web.pages.flipkart.FlipkartHomePage;
 import com.training.web.pages.flipkart.ProductPage;
+import com.training.web.pages.flipkart.ResultPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.training.web.pages.flipkart.ResultPage;
-import com.training.web.pages.flipkart.FlipkartHomePage;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     ResultPage resultPage;
+    FlipkartHomePage flipkartHomePage;
 
     @BeforeEach
     public void startup() {
         open(map.get("flipkartUrl"));
-        resultPage = new FlipkartHomePage().closePopup()
-                .sendKeysToSearchBox(map.get("searchItem"))
-                .clickSearch().sortLowToHigh();
+        flipkartHomePage = new FlipkartHomePage().closePopup();
     }
 
-    @Test
-    public void testPriceSort() throws WebDriverException, ParseException {
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testPriceSort.csv")
+    public void testPriceSort(String searchItem, String pages) throws WebDriverException, ParseException {
 
-        int numberOfPages = Integer.parseInt(map.get("numberOfPages"));
+        resultPage = flipkartHomePage.sendKeysToSearchBox(searchItem).clickSearch()
+                .sortLowToHigh();
+
+        int numberOfPages = Integer.parseInt(pages);
 
         /**
          * extracting price and going to next pages for 'n' pages
@@ -53,13 +60,18 @@ public class FlipkartTest extends WebBaseTest {
                 resultPage.clickNextPage();
             }
         }
+        getWebDriver().close();
     }
 
-    @Test
-    public void testCartAddition() throws ParseException {
-
-        String[] strProductArray = map.get("productArray").split(",");
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testCartAddition.csv")
+    public void testCartAddition(String search, String pary) throws ParseException {
+        resultPage = flipkartHomePage.sendKeysToSearchBox(search).clickSearch()
+                .sortLowToHigh();
+        String[] strProductArray = pary.split(",");
         int[] productArray = Arrays.stream(strProductArray).mapToInt(Integer::parseInt).toArray();
+
+
         String parentWindow = getWebDriver().getWindowHandle();
 
         /**
@@ -70,7 +82,10 @@ public class FlipkartTest extends WebBaseTest {
         List<SelenideElement> productResults = resultPage.getProductsList();
 
         for (int index : productArray) {
-            ProductPage productPage = resultPage.clickProduct(productResults, index).clickFirstAvailableSize();
+            ProductPage productPage = resultPage.clickProduct(productResults, index);
+            if (productPage.sizeAvailable()) {
+                productPage.clickFirstAvailableSize();
+            }
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart();
@@ -104,5 +119,6 @@ public class FlipkartTest extends WebBaseTest {
         }
         softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
                 .isGreaterThanOrEqualTo(totalPrice);
+        getWebDriver().close();
     }
 }

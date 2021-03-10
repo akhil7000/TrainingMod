@@ -15,6 +15,7 @@ public class ResultPage extends FlipkartBasePage {
 
     private String lowToHigh = "//*[text()='Price -- Low to High']";
     private String productResults = "//img[contains(@class,'_2r_T1I')]";
+
     private String shoesPrice = "//*[@class='_30jeq3']";
     private String nextPageButton = "//*[text()='Next']";
     private String sortBy = "//*[@class='_10Ermr']";

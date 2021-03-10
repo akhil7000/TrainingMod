@@ -4,7 +4,9 @@ import com.codeborne.selenide.Condition;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
+
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -47,5 +49,14 @@ public class ProductPage extends FlipkartBasePage {
 
     public Integer getProductPrice() throws ParseException {
         return formatInteger($x(price).getText().substring(1));
+    }
+
+    public boolean sizeAvailable() {
+        //$x(size).shouldBe(Condition.enabled);
+        if ($$x(sizeList).size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
