@@ -6,6 +6,7 @@ import com.training.utilities.JsonReaderUtility;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -13,19 +14,26 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 public class WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
-    String execution;
+    private String execution;
     protected Map<String, String> map = new JsonReaderUtility().getMap();
 
     @BeforeEach
-    public void setup() throws MalformedURLException, NullPointerException {
+    public void setup(TestInfo testInfo) throws MalformedURLException, NullPointerException {
+        String displayName = testInfo.getDisplayName();
+        String methodName = testInfo.getTestMethod().orElseThrow().getName();
+        String uuid = UUID.randomUUID().toString();
 
         softAssertions = new SoftAssertions();
         Configuration.timeout = Integer.parseInt(map.get("timeout"));
@@ -35,12 +43,13 @@ public class WebBaseTest {
         Configuration.startMaximized = true;
 
         execution = System.getProperty("execution", map.get("executionDefault"));
+
         if (execution.equalsIgnoreCase("remote")) {
 
             DesiredCapabilities dc = new DesiredCapabilities();
             String urlToRemoteWD = map.get("remoteURL");
 
-            dc.setCapability(map.get("testName"), map.get("testDescription"));
+            dc.setCapability("testName", displayName + "-" + methodName + "-" + uuid);
             dc.setCapability("accessKey", map.get("accessKey"));
             dc.setCapability(CapabilityType.BROWSER_NAME, map.get("browserName"));
             driver = new RemoteWebDriver(new URL(urlToRemoteWD), dc);
