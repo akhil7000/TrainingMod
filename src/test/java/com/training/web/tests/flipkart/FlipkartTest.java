@@ -10,7 +10,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -65,10 +69,10 @@ public class FlipkartTest extends WebBaseTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/testCartAddition.csv")
-    public void testCartAddition(String search, String pary) throws ParseException {
+    public void testCartAddition(String search, String productsList) throws ParseException {
         resultPage = flipkartHomePage.sendKeysToSearchBox(search).clickSearch()
                 .sortLowToHigh();
-        String[] strProductArray = pary.split(",");
+        String[] strProductArray = productsList.split(",");
         int[] productArray = Arrays.stream(strProductArray).mapToInt(Integer::parseInt).toArray();
 
 
@@ -82,10 +86,7 @@ public class FlipkartTest extends WebBaseTest {
         List<SelenideElement> productResults = resultPage.getProductsList();
 
         for (int index : productArray) {
-            ProductPage productPage = resultPage.clickProduct(productResults, index);
-            if (productPage.sizeAvailable()) {
-                productPage.clickFirstAvailableSize();
-            }
+            ProductPage productPage = resultPage.clickProduct(productResults, index).clickFirstAvailableSize();
             productNames.add(productPage.getProductName());
             priceList.add(productPage.getProductPrice());
             productPage.addToCart();

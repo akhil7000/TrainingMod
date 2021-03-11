@@ -1,3 +1,4 @@
+
 package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
@@ -29,8 +30,10 @@ public class ProductPage extends FlipkartBasePage {
     }
 
     public ProductPage clickFirstAvailableSize() {
-        $x(size).shouldBe(Condition.enabled);
-        $$x(sizeList).get(0).click();
+        if ($$x(sizeList).size() > 0) {
+            $x(size).shouldBe(Condition.enabled);
+            $$x(sizeList).get(0).click();
+        }
         return this;
     }
 
@@ -49,14 +52,5 @@ public class ProductPage extends FlipkartBasePage {
 
     public Integer getProductPrice() throws ParseException {
         return formatInteger($x(price).getText().substring(1));
-    }
-
-    public boolean sizeAvailable() {
-        //$x(size).shouldBe(Condition.enabled);
-        if ($$x(sizeList).size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
