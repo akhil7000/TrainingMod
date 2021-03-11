@@ -8,23 +8,16 @@ import com.training.web.pages.flipkart.ProductPage;
 import com.training.web.pages.flipkart.ResultPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
-
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -64,7 +57,6 @@ public class FlipkartTest extends WebBaseTest {
                 resultPage.clickNextPage();
             }
         }
-        getWebDriver().close();
     }
 
     @ParameterizedTest
@@ -120,6 +112,5 @@ public class FlipkartTest extends WebBaseTest {
         }
         softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
                 .isGreaterThanOrEqualTo(totalPrice);
-        getWebDriver().close();
     }
 }

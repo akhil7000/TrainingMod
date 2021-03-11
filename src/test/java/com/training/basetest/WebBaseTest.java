@@ -13,13 +13,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public class WebBaseTest {
@@ -65,6 +61,8 @@ public class WebBaseTest {
         if (execution.equalsIgnoreCase("remote")) {
             logger.info("Report URL: " + driver.getCapabilities().getCapability("reportUrl"));
             WebDriverRunner.driver().close();
+        }else{
+        WebDriverRunner.getWebDriver().close();
         }
         softAssertions.assertAll();
     }
