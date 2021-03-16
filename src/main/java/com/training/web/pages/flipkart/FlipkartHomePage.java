@@ -9,7 +9,7 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String searchBox = "//input[contains(@title,'Search for products')]";
     private String popup = "//button[@class='_2KpZ6l _2doB4z']";
     private String submit ="//button[@class='L0Z3Pu']";
-
+    private String payments = "//a[text()='Payments']";
 
     public FlipkartHomePage closePopup() {
         $x(popup).shouldBe(visible).click();
@@ -25,4 +25,11 @@ public class FlipkartHomePage extends FlipkartBasePage {
         $x(submit).shouldBe(visible).click();
         return new ResultPage();
     }
+
+    public PaymentPage clickPayments() {
+        actions.moveToElement($x(payments));
+        $x(payments).shouldBe(visible).click();
+        return new PaymentPage();
+    }
+
 }
