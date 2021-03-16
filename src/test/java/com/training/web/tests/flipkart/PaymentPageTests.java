@@ -23,18 +23,16 @@ public class PaymentPageTests extends WebBaseTest {
     @Test
     public void testPaymentPageNavigation() {
 
-        String url = paymentPage.getUrl();
         /**
          * Assertiong the test has navigated to payments page
          */
-        softAssertions.assertThat(url).as("Test didn't navigate to payment page")
+        softAssertions.assertThat(paymentPage.getUrl()).as("Test didn't navigate to payment page")
                 .isEqualTo("https://www.flipkart.com/pages/payments");
 
         /**
          * Assertion for number of questions
          */
-        int numberOfQuestion = paymentPage.getNumberOfQuestions();
         softAssertions.assertThat(14).as("Number of question are not accurate")
-                .isEqualTo(numberOfQuestion);
+                .isEqualTo(paymentPage.getNumberOfQuestions());
     }
 }
