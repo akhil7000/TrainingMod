@@ -5,13 +5,12 @@ import com.training.web.pages.flipkart.FlipkartHomePage;
 import com.training.web.pages.flipkart.PaymentPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
 
 public class PaymentPageTests extends WebBaseTest {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     PaymentPage paymentPage;
 
     @BeforeEach
@@ -34,5 +33,12 @@ public class PaymentPageTests extends WebBaseTest {
          */
         softAssertions.assertThat(14).as("Number of question are not accurate")
                 .isEqualTo(paymentPage.getNumberOfQuestions());
+    }
+
+    @Test
+    public void testEmiOptions2() {
+       int[] ind={6,8};
+       ArrayList<Integer> index = paymentPage.checkEmiSupport();
+       softAssertions.assertThat(ind).as("Index does not match").isEqualTo(index.toArray());
     }
 }
