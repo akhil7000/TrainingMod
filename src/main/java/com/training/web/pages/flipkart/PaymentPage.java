@@ -17,9 +17,9 @@ public class PaymentPage extends FlipkartBasePage {
 
     private String questions = "//h2[contains(text(),'?')]";
     private String paymentHeading = "//h2[@id='payments']";
-    private String tableHeader= "//strong[text()='Banks']";
-    //private String tableColumn1 = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
-    //private String tableColumn2 = "//table[contains(.,'Banks')]/tbody/tr/td[2]";
+    private String tableHeader = "//strong[text()='Banks']";
+    private String tableColumn1 = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
+    private String tableColumn2 = "//table[contains(.,'Banks')]/tbody/tr/td[2]";
 
     public String getUrl() {
         $x(paymentHeading).shouldBe(Condition.visible);
@@ -34,23 +34,20 @@ public class PaymentPage extends FlipkartBasePage {
         return questionList.size();
     }
 
-    public ArrayList<Integer> checkEmiSupport() {
+    public String checkEmiSupport(String bankName) {
         $x(tableHeader).shouldBe(Condition.visible);
-        ArrayList<Integer> supportIndex = new ArrayList<>();
+        actions.moveToElement($x("//table[contains(.,'Banks')]/tbody/tr[9]/td[3]"));
         ArrayList<String> names = new ArrayList<>();
-        List<SelenideElement> tablecolumn = $$x("//table[contains(.,'Banks')]/tbody/tr/td[1]");
-        List<SelenideElement> tablecolumn2 = $$x("//table[contains(.,'Banks')]/tbody/tr/td[2]");
-
+        List<SelenideElement> bankColumn = $$x(tableColumn1);
+        List<SelenideElement> supportColumn = $$x(tableColumn2);
         ArrayList<String> support = new ArrayList<>();
-        for(int i=0;i<9;i++) {
-            names.add(tablecolumn.get(i).getText());
-            support.add(tablecolumn2.get(i).getText());
+
+        for (int j = 0; j < bankColumn.size(); j++) {
+            names.add(bankColumn.get(j).getText());
+            support.add(supportColumn.get(j).getText());
         }
-        for (int i = 0; i < support.size(); i++) {
-            if (support.get(i).equalsIgnoreCase("No")) {
-                supportIndex.add(i);
-            }
-        }
-        return supportIndex;
+        String supportVariable = support.get(names.indexOf(bankName));
+        logger.info("Supports 18 & 24 months tenure: " + supportVariable);
+        return supportVariable;
     }
 }

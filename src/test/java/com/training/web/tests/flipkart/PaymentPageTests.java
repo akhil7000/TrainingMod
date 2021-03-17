@@ -3,10 +3,11 @@ package com.training.web.tests.flipkart;
 import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 import com.training.web.pages.flipkart.PaymentPage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -25,9 +26,9 @@ public class PaymentPageTests extends WebBaseTest {
         /**
          * Assertiong the test has navigated to payments page
          */
-        softAssertions.assertThat(paymentPage.getUrl()).as("Test didn't navigate to payment page")
-                .isEqualTo("https://www.flipkart.com/pages/payments");
 
+        Assertions.assertEquals(paymentPage.getUrl(), "https://www.flipkart.com/pages/payments",
+                "Test didn't navigate to payment page");
         /**
          * Assertion for number of questions
          */
@@ -35,10 +36,11 @@ public class PaymentPageTests extends WebBaseTest {
                 .isEqualTo(paymentPage.getNumberOfQuestions());
     }
 
-    @Test
-    public void testEmiOptions2() {
-       int[] ind={6,8};
-       ArrayList<Integer> index = paymentPage.checkEmiSupport();
-       softAssertions.assertThat(ind).as("Index does not match").isEqualTo(index.toArray());
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testEmiOptions.csv")
+    public void testEmiOptions(String bankName) {
+
+        softAssertions.assertThat(paymentPage.checkEmiSupport(bankName)).as("Bank details inaccurate")
+                .isEqualTo("No");
     }
 }
