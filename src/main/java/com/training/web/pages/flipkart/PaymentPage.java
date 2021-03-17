@@ -5,10 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -20,12 +18,12 @@ public class PaymentPage extends FlipkartBasePage {
     private String tableHeader = "//strong[text()='Banks']";
     private String tableColumn1 = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
     private String tableColumn2 = "//table[contains(.,'Banks')]/tbody/tr/td[2]";
+    private String lastTableElement = "//table[contains(.,'Banks')]/tbody/tr[9]/td[3]";
 
     public String getUrl() {
         $x(paymentHeading).shouldBe(Condition.visible);
-        String url = driver.getCurrentUrl();
-        logger.info(url);
-        return url;
+        return driver.getCurrentUrl();
+
     }
 
     public int getNumberOfQuestions() {
@@ -36,7 +34,7 @@ public class PaymentPage extends FlipkartBasePage {
 
     public String checkEmiSupport(String bankName) {
         $x(tableHeader).shouldBe(Condition.visible);
-        actions.moveToElement($x("//table[contains(.,'Banks')]/tbody/tr[9]/td[3]"));
+        actions.moveToElement($x(lastTableElement));
         ArrayList<String> names = new ArrayList<>();
         List<SelenideElement> bankColumn = $$x(tableColumn1);
         List<SelenideElement> supportColumn = $$x(tableColumn2);
@@ -46,8 +44,6 @@ public class PaymentPage extends FlipkartBasePage {
             names.add(bankColumn.get(j).getText());
             support.add(supportColumn.get(j).getText());
         }
-        String supportVariable = support.get(names.indexOf(bankName));
-        logger.info("Supports 18 & 24 months tenure: " + supportVariable);
-        return supportVariable;
+        return support.get(names.indexOf(bankName));
     }
 }
