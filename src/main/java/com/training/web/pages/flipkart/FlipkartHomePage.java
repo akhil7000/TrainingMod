@@ -1,4 +1,5 @@
 package com.training.web.pages.flipkart;
+
 import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
 import org.slf4j.Logger;
@@ -12,6 +13,12 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String searchBox = "//input[contains(@title,'Search for products')]";
     private String popup = "//button[@class='_2KpZ6l _2doB4z']";
     private String submit = "//button[@class='L0Z3Pu']";
+    private String facebookLink = "//a[text()='Facebook']";
+    private String twitterLink = "//a[text()='Twitter']";
+    private String youtubeLink = "//a[text()='YouTube']";
+    private String facebookIcon = "//u[text()='Facebook']";
+    private String twitterIcon = "//a[@aria-label='Twitter']";
+    private String youtubeIcon = "//paper-button[@aria-label='Subscribe']";
 
 
     public FlipkartHomePage closePopup() {
@@ -29,31 +36,32 @@ public class FlipkartHomePage extends FlipkartBasePage {
         return new ResultPage();
     }
 
-    public String clickSocialMediaPage(String media) throws InterruptedException {
+
+    public String clickSocialMediaPage(String media) {
 
         switch (media) {
             case "Facebook":
-                SelenideElement facebook = $x("//a[text()='Facebook']");
-                facebook.shouldBe(visible).scrollIntoView(true);
-                logger.info(facebook.getText());
-                facebook.click();
-                $x("//u[text()='Facebook']").shouldBe(enabled);
+                SelenideElement facebook = $x(facebookLink);
+                click(facebook);
+                $x(facebookIcon).shouldBe(enabled);
                 break;
             case "Twitter":
-                SelenideElement twitter = $x("//a[text()='Twitter']");
-                twitter.shouldBe(visible).scrollIntoView(true);
-                logger.info(twitter.getText());
-                twitter.click();
-                $x("//a[@aria-label='Twitter']").shouldBe(visible);
+                SelenideElement twitter = $x(twitterLink);
+                click(twitter);
+                $x(twitterIcon).shouldBe(visible);
                 break;
             case "YouTube":
-                SelenideElement youtube = $x("//a[text()='YouTube']").shouldBe(visible);
-                youtube.shouldBe(visible).scrollIntoView(true);
-                logger.info(youtube.getText());
-                youtube.click();
-                $x("//paper-button[@aria-label='Subscribe']").shouldBe(visible);
+                SelenideElement youtube = $x(youtubeLink).shouldBe(visible);
+                click(youtube);
+                $x(youtubeIcon).shouldBe(visible);
                 break;
         }
         return driver.getCurrentUrl();
+    }
+
+    private void click(SelenideElement mediaElement) {
+        mediaElement.shouldBe(visible).scrollIntoView(true);
+        logger.info(mediaElement.getText());
+        mediaElement.click();
     }
 }
