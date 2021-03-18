@@ -28,8 +28,7 @@ public class PaymentPage extends FlipkartBasePage {
 
     public int getNumberOfQuestions() {
         $x(paymentHeading).shouldBe(Condition.visible);
-        List<SelenideElement> questionList = $$x(questions);
-        return questionList.size();
+        return  $$x(questions).size();
     }
 
     public String checkEmiSupport(String bankName) {
