@@ -1,5 +1,8 @@
 package com.training.basepages;
 
+import com.codeborne.selenide.WebDriverRunner;
+import org.openqa.selenium.WebDriver;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -11,6 +14,7 @@ public class FlipkartBasePage {
     private String loaderIcon = "//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']";
     private String cartIcon ="//*[text()='Cart']";
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
+    public WebDriver driver = WebDriverRunner.getWebDriver();
 
     public void clickCartIcon() {
         $x(cartIcon).click();
