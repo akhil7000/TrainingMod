@@ -32,7 +32,7 @@ public class FlipkartHomePage extends FlipkartBasePage {
 
     public FlipkartHomePage clickSocialMediaPage(String media) {
 
-        $x(String.format("//a[text()='%s']",media)).shouldBe(visible).scrollIntoView(true).click();
+        $x(String.format("//a[text()='%s']",media)).shouldBe(visible).click();
 
         switch (media) {
             case "Facebook":
