@@ -1,15 +1,11 @@
 package com.training.web.pages.flipkart;
 
-import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class FlipkartHomePage extends FlipkartBasePage {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private String searchBox = "//input[contains(@title,'Search for products')]";
     private String popup = "//button[@class='_2KpZ6l _2doB4z']";
     private String submit = "//button[@class='L0Z3Pu']";
@@ -34,8 +30,9 @@ public class FlipkartHomePage extends FlipkartBasePage {
     }
 
 
-    public String clickSocialMediaPage(String media) {
-        $x("//a[text()='"+media+"']").shouldBe(visible).scrollIntoView(true).click();
+    public FlipkartHomePage clickSocialMediaPage(String media) {
+
+        $x(String.format("//a[text()='%s']",media)).shouldBe(visible).scrollIntoView(true).click();
 
         switch (media) {
             case "Facebook":
@@ -51,6 +48,6 @@ public class FlipkartHomePage extends FlipkartBasePage {
                 break;
 
         }
-        return driver.getCurrentUrl();
+        return this;
     }
 }
