@@ -1,5 +1,6 @@
 package com.training.web.tests.flipkart;
 
+import com.codeborne.selenide.WebDriverRunner;
 import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 import com.training.web.pages.flipkart.PaymentPage;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -23,17 +25,13 @@ public class PaymentPageTests extends WebBaseTest {
     @Test
     public void testPaymentPageNavigation() {
 
-        /**
-         * Assertiong the test has navigated to payments page
-         */
-
         Assertions.assertEquals(paymentPage.getUrl(), "https://www.flipkart.com/pages/payments",
                 "Test didn't navigate to payment page");
-        /**
-         * Assertion for number of questions
-         */
-        softAssertions.assertThat(14).as("Number of question are not accurate")
-                .isEqualTo(paymentPage.getNumberOfQuestions());
+
+        Assertions.assertEquals(paymentPage.getTitle(),map.get("paymentPageTitle"),"Title of Payment Page not correct");
+
+        softAssertions.assertThat(Integer.parseInt(map.get("numberOfQuestions"))).as("Number of question are not accurate")
+                                   .isEqualTo(paymentPage.getNumberOfQuestions());
     }
 
     @ParameterizedTest

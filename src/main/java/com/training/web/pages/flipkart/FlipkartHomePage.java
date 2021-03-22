@@ -27,8 +27,7 @@ public class FlipkartHomePage extends FlipkartBasePage {
     }
 
     public PaymentPage clickPayments() {
-        actions.moveToElement($x(payments));
-        $x(payments).shouldBe(visible).click();
+        $x(payments).scrollIntoView(true).shouldBe(visible).click();
         return new PaymentPage();
     }
 

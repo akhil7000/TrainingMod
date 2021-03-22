@@ -8,5 +8,7 @@
   "executionDefault": "local",
   "productArray": "2,3",
   "timeout": "6000",
-  "accessKey": "eyJhbGciOiJIUzI1NiJ9.eyJ4cC51IjoyMTE3OTE0LCJ4cC5wIjoxLCJ4cC5tIjoxNjE0NjA0MzMzMjgyLCJleHAiOjE5Mjk5NjQzMzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.wRLdRalhaKKVbzPJ5UtACgny340jIfcUvF2NlUYQKwU"
+  "accessKey": "eyJhbGciOiJIUzI1NiJ9.eyJ4cC51IjoyMTE3OTE0LCJ4cC5wIjoxLCJ4cC5tIjoxNjE0NjA0MzMzMjgyLCJleHAiOjE5Mjk5NjQzMzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.wRLdRalhaKKVbzPJ5UtACgny340jIfcUvF2NlUYQKwU",
+  "numberOfQuestions": "14",
+  "paymentPageTitle": "Payments Store Online - Buy Payments Online at Best Price in India | Flipkart.com"
 }

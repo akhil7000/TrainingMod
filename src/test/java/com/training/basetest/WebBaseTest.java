@@ -23,7 +23,7 @@ public class WebBaseTest {
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     private String execution;
-    protected Map<String, String> map = new JsonReaderUtility().getMap();
+    public Map<String, String> map = new JsonReaderUtility().getMap();
 
     @BeforeEach
     public void setup(TestInfo testInfo) throws MalformedURLException, NullPointerException {
