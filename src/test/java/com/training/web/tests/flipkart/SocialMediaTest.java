@@ -19,20 +19,24 @@ public class SocialMediaTest extends WebBaseTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/testSocialMediaPage.csv")
-    public void testSocialMediaPage(String media) throws InterruptedException {
+    public void testSocialMediaPage(String media,String expectedMediaUrl) throws InterruptedException {
 
         String mediaURL = flipkartHomePage.clickSocialMediaPage(media);
+
         switch (media) {
+
             case "Facebook":
-                Assertions.assertEquals(mediaURL, "https://www.facebook.com/flipkart",
+                Assertions.assertEquals(mediaURL, expectedMediaUrl,
                         "Test did not navigate to Facebook Page");
                 break;
+
             case "Twitter":
-                Assertions.assertEquals(mediaURL, "https://twitter.com/flipkart",
+                Assertions.assertEquals(mediaURL, expectedMediaUrl,
                         "Test did not navigate to Twitter Page");
                 break;
+
             case "YouTube":
-                Assertions.assertEquals(mediaURL, "https://www.youtube.com/flipkart",
+                Assertions.assertEquals(mediaURL, expectedMediaUrl,
                         "Test did not navigate to YouTube Page");
                 break;
         }
