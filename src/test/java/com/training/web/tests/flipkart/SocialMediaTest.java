@@ -24,7 +24,7 @@ public class SocialMediaTest extends WebBaseTest {
     public void testSocialMediaPage(String media,String expectedMediaUrl) {
 
         flipkartHomePage.clickSocialMediaPage(media);
-        String mediaURL =WebDriverRunner.url();
-        Assertions.assertEquals(mediaURL,expectedMediaUrl,String.format("Test did not navigate to %s page",media));
+        Assertions.assertEquals(WebDriverRunner.url(),expectedMediaUrl,
+                String.format("Test did not navigate to %s page",media));
     }
 }
