@@ -1,6 +1,5 @@
 package com.training.web.tests.flipkart;
 
-import com.codeborne.selenide.WebDriverRunner;
 import com.training.basetest.WebBaseTest;
 import com.training.web.pages.flipkart.FlipkartHomePage;
 import com.training.web.pages.flipkart.PaymentPage;
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.openqa.selenium.WebDriver;
-
 import static com.codeborne.selenide.Selenide.open;
 
 public class PaymentPageTests extends WebBaseTest {
@@ -25,7 +22,7 @@ public class PaymentPageTests extends WebBaseTest {
     @Test
     public void testPaymentPageNavigation() {
 
-        Assertions.assertEquals(paymentPage.getUrl(), "https://www.flipkart.com/pages/payments",
+        Assertions.assertEquals(paymentPage.getUrl(), map.get("paymentPageUrl"),
                 "Test didn't navigate to payment page");
 
         Assertions.assertEquals(paymentPage.getTitle(),map.get("paymentPageTitle"),"Title of Payment Page not correct");
@@ -38,7 +35,7 @@ public class PaymentPageTests extends WebBaseTest {
     @CsvFileSource(resources = "/testEmiOptions.csv")
     public void testEmiOptions(String bankName) {
 
-        softAssertions.assertThat(paymentPage.checkEmiSupport(bankName)).as("Bank details inaccurate")
+        softAssertions.assertThat(paymentPage.getEmiSupport(bankName)).as("Bank details inaccurate")
                 .isEqualTo("No");
     }
 }
