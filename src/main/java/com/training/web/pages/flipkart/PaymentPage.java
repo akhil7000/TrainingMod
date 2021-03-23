@@ -14,7 +14,7 @@ public class PaymentPage extends FlipkartBasePage {
     private String questions = "//h2[contains(text(),'?')]";
     private String paymentHeading = "//h2[@id='payments']";
     private String tableHeader = "//strong[text()='Banks']";
-    private String tableColumn1 = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
+    private String bankNameColumn = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
     private String banksElement = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[1]";
     private String tenureElement = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[2]";
 
@@ -30,7 +30,7 @@ public class PaymentPage extends FlipkartBasePage {
 
     public String getEmiSupport(String bankName) {
         $x(tableHeader).shouldBe(Condition.visible);
-        List<SelenideElement> bankColumn = $$x(tableColumn1);
+        List<SelenideElement> bankColumn = $$x(bankNameColumn);
 
         for (int index = 1; index <= bankColumn.size(); index++) {
             String bank = $x(String.format(banksElement, index)).getText();
