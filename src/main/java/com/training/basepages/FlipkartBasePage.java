@@ -15,7 +15,7 @@ public class FlipkartBasePage {
     private String cartIcon ="//*[text()='Cart']";
     private NumberFormat numberFormat = NumberFormat.getInstance(Locale.getDefault());
     protected WebDriver driver = WebDriverRunner.getWebDriver();
-
+  
     public void clickCartIcon() {
         $x(cartIcon).click();
     }
