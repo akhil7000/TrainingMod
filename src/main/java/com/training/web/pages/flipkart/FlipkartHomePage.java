@@ -8,11 +8,11 @@ import static com.codeborne.selenide.Selenide.$x;
 public class FlipkartHomePage extends FlipkartBasePage {
     private String searchBox = "//input[contains(@title,'Search for products')]";
     private String popup = "//button[@class='_2KpZ6l _2doB4z']";
+    private String payments = "//a[text()='Payments']";
     private String submit = "//button[@class='L0Z3Pu']";
     private String facebookIcon = "//u[text()='Facebook']";
     private String twitterIcon = "//a[@aria-label='Twitter']";
     private String youtubeIcon = "//paper-button[@aria-label='Subscribe']";
-
 
     public FlipkartHomePage closePopup() {
         $x(popup).shouldBe(visible).click();
@@ -29,6 +29,10 @@ public class FlipkartHomePage extends FlipkartBasePage {
         return new ResultPage();
     }
 
+    public PaymentPage clickPayments() {
+        $x(payments).shouldBe(visible).click();
+        return new PaymentPage();
+    }
 
     public FlipkartHomePage clickSocialMediaPage(String media) {
 
