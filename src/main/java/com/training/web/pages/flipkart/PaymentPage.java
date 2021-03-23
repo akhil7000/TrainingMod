@@ -15,12 +15,8 @@ public class PaymentPage extends FlipkartBasePage {
     private String paymentHeading = "//h2[@id='payments']";
     private String tableHeader = "//strong[text()='Banks']";
     private String tableColumn1 = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
-    private String column1Element = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[1]";
-    private String column2Element = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[2]";
-
-    SelenideElement btp = $x("//span[text()='Back to top']");
-    SelenideElement end = $x("//p[contains(text(),'Please note')]");
-
+    private String banksElement = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[1]";
+    private String tenureElement = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[2]";
 
     public String getUrl() {
         $x(paymentHeading).shouldBe(Condition.visible);
@@ -33,17 +29,16 @@ public class PaymentPage extends FlipkartBasePage {
     }
 
     public String getEmiSupport(String bankName) {
-        String tenure = null;
         $x(tableHeader).shouldBe(Condition.visible);
         List<SelenideElement> bankColumn = $$x(tableColumn1);
 
         for (int index = 1; index <= bankColumn.size(); index++) {
-            String bank = $x(String.format(column1Element, index)).getText();
+            String bank = $x(String.format(banksElement, index)).getText();
             if (bank.equalsIgnoreCase(bankName)) {
-                tenure = $x(String.format(column2Element, index)).getText();
+                return  $x(String.format(tenureElement, index)).getText();
             }
         }
-        return tenure;
+        return "";
     }
 
     public String getTitle() {
