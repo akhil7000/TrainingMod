@@ -42,12 +42,16 @@ public class PaymentPageTests extends WebBaseTest {
     @Test
     public void testBackToTopFunctionality(){
 
-        paymentPage.scrollToPageEnd().clickBackToTop();
+        paymentPage.scrollToPageEnd();
 
-        softAssertions.assertThat(paymentPage.getBackToTopIconVisibility()).as("Back to top element is still visible")
-                .isEqualTo(false);
+        Assertions.assertEquals(paymentPage.isBackToTopVisible(),true);
 
-        softAssertions.assertThat(paymentPage.getHeaderVisibility()).as("Header element is not visible")
-                .isEqualTo(true);
+        paymentPage.clickBackToTop();
+
+        softAssertions.assertThat(paymentPage.isBackToTopNotVisible()).as("Back to top element is still visible")
+                .isFalse();
+
+        softAssertions.assertThat(paymentPage.isHeaderVisible()).as("Header element is not visible")
+                .isTrue();
     }
 }

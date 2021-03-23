@@ -52,6 +52,7 @@ public class PaymentPage extends FlipkartBasePage {
 
     public PaymentPage scrollToPageEnd() {
         $x(pageEndElement).shouldBe(Condition.visible).scrollIntoView(true);
+        $x(backToTopIcon).shouldBe(Condition.visible);
         return this;
     }
 
@@ -60,27 +61,17 @@ public class PaymentPage extends FlipkartBasePage {
         return this;
     }
 
-    public boolean getBackToTopIconVisibility(){
-        $x(backToTopIcon).shouldBe(Condition.disappear);
+    public boolean isHeaderVisible() {
+        return isElementVisibile($x(header));
+    }
+
+    public boolean isBackToTopVisible() {
+       $x(backToTopIcon).shouldBe(Condition.visible);
         return $x(backToTopIcon).isDisplayed();
     }
 
-    public boolean getHeaderVisibility() {
-        SelenideElement element= $x(header);
-        WebDriver driver = element.getWrappedDriver();
-
-        return (Boolean)((JavascriptExecutor)driver).executeScript(
-                "var elem = arguments[0],                 " +
-                        "  box = elem.getBoundingClientRect(),    " +
-                        "  cx = box.left + box.width / 2,         " +
-                        "  cy = box.top + box.height / 2,         " +
-                        "  e = document.elementFromPoint(cx, cy); " +
-                        "for (; e; e = e.parentElement) {         " +
-                        "  if (e === elem)                        " +
-                        "    return true;                         " +
-                        "}                                        " +
-                        "return false;                            "
-                , element);
-
+    public boolean isBackToTopNotVisible() {
+        $x(backToTopIcon).shouldBe(Condition.disappear);
+        return $x(backToTopIcon).isDisplayed();
     }
 }
