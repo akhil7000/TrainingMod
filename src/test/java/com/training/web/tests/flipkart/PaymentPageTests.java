@@ -44,7 +44,7 @@ public class PaymentPageTests extends WebBaseTest {
 
         paymentPage.scrollToPageEnd();
 
-        Assertions.assertEquals(paymentPage.isBackToTopVisible(),true);
+        Assertions.assertTrue(paymentPage.isBackToTopVisible(),"Back to top icon not visible");
 
         paymentPage.clickBackToTop();
 
