@@ -35,9 +35,8 @@ public class PaymentPage extends FlipkartBasePage {
 
     public String getEmiSupport(String bankName) {
         $x(tableHeader).shouldBe(Condition.visible);
-        List<SelenideElement> bankColumn = $$x(bankNameColumn);
 
-        for (int index = 1; index <= bankColumn.size(); index++) {
+        for (int index = 1; index <= $$x(bankNameColumn).size(); index++) {
             String bank = $x(String.format(banksElement, index)).getText();
             if (bank.equalsIgnoreCase(bankName)) {
                 return  $x(String.format(tenureElement, index)).getText();
