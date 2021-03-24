@@ -38,4 +38,20 @@ public class PaymentPageTests extends WebBaseTest {
         softAssertions.assertThat(paymentPage.getEmiSupport(bankName)).as("Bank details inaccurate")
                 .isEqualTo("No");
     }
+
+    @Test
+    public void testBackToTopFunctionality(){
+
+        paymentPage.scrollToPageEnd();
+
+        Assertions.assertTrue(paymentPage.isBackToTopVisible(),"Back to top icon not visible");
+
+        paymentPage.clickBackToTop();
+
+        softAssertions.assertThat(paymentPage.isBackToTopNotVisible()).as("Back to top element is still visible")
+                .isFalse();
+
+        softAssertions.assertThat(paymentPage.isHeaderVisible()).as("Header element is not visible")
+                .isTrue();
+    }
 }

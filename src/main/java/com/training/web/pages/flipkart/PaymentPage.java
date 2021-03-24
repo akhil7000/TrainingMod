@@ -3,6 +3,8 @@ package com.training.web.pages.flipkart;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.training.basepages.FlipkartBasePage;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class PaymentPage extends FlipkartBasePage {
     private String bankNameColumn = "//table[contains(.,'Banks')]/tbody/tr/td[1]";
     private String banksElement = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[1]";
     private String tenureElement = "//table[contains(.,'Banks')]/tbody/tr[%s]/td[2]";
+    private static String header="//h2[@id='payments']";
+    private String backToTopIcon = "//span[text()='Back to top']";
+    private String pageEndElement = "//p[contains(text(),'Please note')]";
 
     public String getUrl() {
         $x(paymentHeading).shouldBe(Condition.visible);
@@ -43,5 +48,30 @@ public class PaymentPage extends FlipkartBasePage {
 
     public String getTitle() {
         return driver.getTitle();
+    }
+
+    public PaymentPage scrollToPageEnd() {
+        $x(pageEndElement).shouldBe(Condition.visible).scrollIntoView(true);
+        $x(backToTopIcon).shouldBe(Condition.visible);
+        return this;
+    }
+
+    public PaymentPage clickBackToTop() {
+        $x(backToTopIcon).shouldBe(Condition.visible).click();
+        return this;
+    }
+
+    public boolean isHeaderVisible() {
+        return isElementVisibile($x(header));
+    }
+
+    public boolean isBackToTopVisible() {
+       $x(backToTopIcon).shouldBe(Condition.visible);
+        return $x(backToTopIcon).isDisplayed();
+    }
+
+    public boolean isBackToTopNotVisible() {
+        $x(backToTopIcon).shouldBe(Condition.disappear);
+        return $x(backToTopIcon).isDisplayed();
     }
 }
