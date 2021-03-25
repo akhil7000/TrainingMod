@@ -1,8 +1,10 @@
 package com.training.web.pages.flipkart;
 
+import com.codeborne.selenide.Condition;
 import com.training.basepages.FlipkartBasePage;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class FlipkartHomePage extends FlipkartBasePage {
@@ -16,6 +18,9 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String moreIcon = "//*[@class='_2gTTdy']";
     private String downloadApp = "//div[text()='Download App']";
     private String hassleFreeIcon = "//span[text()='Hassle - free Returns']";
+    private String addressBox = "//div[@class='_2WErco row']";
+    private String addressList = "//div[@class='_2NKhZn _1U1qnR']";
+    private String contactUsLink = "//a[text()='Contact Us']";
 
     public FlipkartHomePage closePopup() {
         $x(popup).shouldBe(visible).click();
@@ -64,5 +69,21 @@ public class FlipkartHomePage extends FlipkartBasePage {
         $x(downloadApp).scrollTo().click();
         $x(hassleFreeIcon).shouldBe(visible);
         return new AppPage();
+
+    public ContactUsPage clickContactUs() {
+        $x(contactUsLink).shouldBe(Condition.visible).click();
+        return new ContactUsPage();
+    }
+
+    public String getMailAddress() {
+
+        $x(addressBox).shouldBe(Condition.visible);
+        return  $$x(addressList).get(0).getText().replaceAll("[, \n]","");
+    }
+
+    public String getOfficeAddress() {
+        $x(addressBox).shouldBe(Condition.visible);
+        return  $$x(addressList).get(0).getText().replaceAll("[, \n]","");
+
     }
 }
