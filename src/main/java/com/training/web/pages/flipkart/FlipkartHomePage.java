@@ -15,6 +15,9 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String facebookIcon = "//u[text()='Facebook']";
     private String twitterIcon = "//a[@aria-label='Twitter']";
     private String youtubeIcon = "//paper-button[@aria-label='Subscribe']";
+    private String addressBox = "//div[@class='_2WErco row']";
+    private String addressList = "//div[@class='_2NKhZn _1U1qnR']";
+    private String contactUsLink = "//a[text()='Contact Us']";
 
     public FlipkartHomePage closePopup() {
         $x(popup).shouldBe(visible).click();
@@ -58,18 +61,18 @@ public class FlipkartHomePage extends FlipkartBasePage {
     }
 
     public ContactUsPage clickContactUs() {
-        $x("//a[text()='Contact Us']").shouldBe(Condition.visible).click();
+        $x(contactUsLink).shouldBe(Condition.visible).click();
         return new ContactUsPage();
     }
 
     public String getMailAddress() {
 
-        $x("//div[@class='_2WErco row']").shouldBe(Condition.visible);
-        return  $$x("//div[@class='_2NKhZn _1U1qnR']").get(0).getText().replaceAll("[, \n]","");
+        $x(addressBox).shouldBe(Condition.visible);
+        return  $$x(addressList).get(0).getText().replaceAll("[, \n]","");
     }
 
     public String getOfficeAddress() {
-        $x("//div[@class='_2WErco row']").shouldBe(Condition.visible);
-        return  $$x("//div[@class='_2NKhZn _1U1qnR']").get(0).getText().replaceAll("[, \n]","");
+        $x(addressBox).shouldBe(Condition.visible);
+        return  $$x(addressList).get(0).getText().replaceAll("[, \n]","");
     }
 }

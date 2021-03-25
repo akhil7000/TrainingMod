@@ -2,12 +2,10 @@ package com.training.web.tests.flipkart;
 
 import com.codeborne.selenide.SelenideElement;
 import com.training.basetest.WebBaseTest;
-import com.training.web.pages.flipkart.CartPage;
-import com.training.web.pages.flipkart.FlipkartHomePage;
-import com.training.web.pages.flipkart.ProductPage;
-import com.training.web.pages.flipkart.ResultPage;
+import com.training.web.pages.flipkart.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriverException;
@@ -25,6 +23,7 @@ public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     ResultPage resultPage;
     FlipkartHomePage flipkartHomePage;
+    ContactUsPage contactUsPage;
 
     @BeforeEach
     public void startup() {
@@ -112,5 +111,20 @@ public class FlipkartTest extends WebBaseTest {
         }
         softAssertions.assertThat(totalCartPrice).as("Price doesn't match")
                 .isGreaterThanOrEqualTo(totalPrice);
+    }
+
+    @Test
+    public void testAddressValidation(){
+        String mailAddress = flipkartHomePage.getMailAddress();
+        String officeAddress = flipkartHomePage.getOfficeAddress();
+
+        contactUsPage = flipkartHomePage.clickContactUs().clickPostalAddress();
+
+        Assertions.assertEquals(mailAddress,contactUsPage.getPostalAddress(),
+                "Postal Addresses don't match");
+
+        Assertions.assertTrue(officeAddress.contains(contactUsPage.getCorporateAddress()),
+                "Office Addresses don't match");
+
     }
 }
