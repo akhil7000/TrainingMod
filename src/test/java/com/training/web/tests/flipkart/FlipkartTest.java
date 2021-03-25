@@ -23,7 +23,6 @@ public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     ResultPage resultPage;
     FlipkartHomePage flipkartHomePage;
-    ContactUsPage contactUsPage;
 
     @BeforeEach
     public void startup() {
@@ -118,7 +117,7 @@ public class FlipkartTest extends WebBaseTest {
         String mailAddress = flipkartHomePage.getMailAddress();
         String officeAddress = flipkartHomePage.getOfficeAddress();
 
-        contactUsPage = flipkartHomePage.clickContactUs().clickPostalAddress();
+        ContactUsPage contactUsPage = flipkartHomePage.clickContactUs().clickPostalAddress();
 
         Assertions.assertEquals(mailAddress,contactUsPage.getPostalAddress(),
                 "Postal Addresses don't match");
