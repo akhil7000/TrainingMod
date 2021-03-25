@@ -13,6 +13,9 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String facebookIcon = "//u[text()='Facebook']";
     private String twitterIcon = "//a[@aria-label='Twitter']";
     private String youtubeIcon = "//paper-button[@aria-label='Subscribe']";
+    private String moreIcon = "//*[@class='_2gTTdy']";
+    private String downloadApp = "//div[text()='Download App']";
+    private String hassleFreeIcon = "//span[text()='Hassle - free Returns']";
 
     public FlipkartHomePage closePopup() {
         $x(popup).shouldBe(visible).click();
@@ -36,7 +39,7 @@ public class FlipkartHomePage extends FlipkartBasePage {
 
     public FlipkartHomePage clickSocialMediaPage(String media) {
 
-        $x(String.format("//a[text()='%s']",media)).shouldBe(visible).click();
+        $x(String.format("//a[text()='%s']", media)).shouldBe(visible).click();
 
         switch (media) {
             case "Facebook":
@@ -53,5 +56,13 @@ public class FlipkartHomePage extends FlipkartBasePage {
 
         }
         return this;
+    }
+
+    public AppPage clickDownloadApp() {
+
+        $x(moreIcon).scrollTo().hover();
+        $x(downloadApp).scrollTo().click();
+        $x(hassleFreeIcon).shouldBe(visible);
+        return new AppPage();
     }
 }
