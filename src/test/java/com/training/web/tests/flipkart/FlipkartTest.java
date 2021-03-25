@@ -126,4 +126,12 @@ public class FlipkartTest extends WebBaseTest {
                 "Office Addresses don't match");
 
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testDownloadAppTest.csv")
+    public void testAppDownloadValidation(String os, String appStoreUrl) {
+        AppPage appPage = flipkartHomePage.clickDownloadApp();
+        Assertions.assertTrue(appPage.clickOs(os).getUrl().equalsIgnoreCase(appStoreUrl));
+    }
+
 }
