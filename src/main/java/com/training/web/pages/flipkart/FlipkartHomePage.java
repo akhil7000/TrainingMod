@@ -1,8 +1,10 @@
 package com.training.web.pages.flipkart;
 
+import com.codeborne.selenide.Condition;
 import com.training.basepages.FlipkartBasePage;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class FlipkartHomePage extends FlipkartBasePage {
@@ -53,5 +55,21 @@ public class FlipkartHomePage extends FlipkartBasePage {
 
         }
         return this;
+    }
+
+    public ContactUsPage clickContactUs() {
+        $x("//a[text()='Contact Us']").shouldBe(Condition.visible).click();
+        return new ContactUsPage();
+    }
+
+    public String getMailAddress() {
+
+        $x("//div[@class='_2WErco row']").shouldBe(Condition.visible);
+        return  $$x("//div[@class='_2NKhZn _1U1qnR']").get(0).getText().replaceAll("[, \n]","");
+    }
+
+    public String getOfficeAddress() {
+        $x("//div[@class='_2WErco row']").shouldBe(Condition.visible);
+        return  $$x("//div[@class='_2NKhZn _1U1qnR']").get(0).getText().replaceAll("[, \n]","");
     }
 }
