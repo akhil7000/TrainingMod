@@ -1,20 +1,18 @@
 package com.training.web.pages.flipkart;
 
-import java.util.Iterator;
-import java.util.Set;
-
-
+import com.training.basepages.FlipkartBasePage;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class AppPage {
-    private String parentWindow=getWebDriver().getWindowHandle();
+public class AppPage extends FlipkartBasePage {
+    private String parentWindow;
     private String androidApp = "//img[contains(@src,'Play-Store')]";
     private String iosApp= "//img[contains(@src,'App-Store')]";
     private String hassleFreeIcon = "//span[text()='Hassle - free Returns']";
 
     public AppPage clickOs(String os) {
+        parentWindow = getWebDriver().getWindowHandle();
         $x(hassleFreeIcon).shouldBe(visible);
         if(os.equalsIgnoreCase("Android")){
             $x(androidApp).click();
@@ -26,18 +24,7 @@ public class AppPage {
     }
 
     public String getUrl(){
-        String childWindow = null;
-
-        Set<String> windowHandles = getWebDriver().getWindowHandles();
-        Iterator<String> windowIterator = windowHandles.iterator();
-        while (windowIterator.hasNext()) {
-            String windows = windowIterator.next();
-            if (windows != parentWindow) {
-                childWindow = windows;
-
-            }
-        }
-        getWebDriver().switchTo().window(childWindow);
+        switchToChildWindow(parentWindow);
         return getWebDriver().getCurrentUrl();
     }
 }

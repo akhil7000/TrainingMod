@@ -133,5 +133,4 @@ public class FlipkartTest extends WebBaseTest {
         AppPage appPage = flipkartHomePage.clickDownloadApp();
         Assertions.assertTrue(appPage.clickOs(os).getUrl().equalsIgnoreCase(appStoreUrl));
     }
-
 }

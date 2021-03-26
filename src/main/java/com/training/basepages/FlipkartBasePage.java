@@ -7,9 +7,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class FlipkartBasePage {
 
@@ -47,5 +51,19 @@ public class FlipkartBasePage {
                         "return false;                            "
                 , element);
 
+    }
+
+    public void switchToChildWindow(String parentWindow){
+        String childWindow = null;
+
+        Set<String> windowHandles = getWebDriver().getWindowHandles();
+        Iterator<String> windowIterator = windowHandles.iterator();
+        while (windowIterator.hasNext()) {
+            String windows = windowIterator.next();
+            if (windows != parentWindow) {
+                childWindow = windows;
+            }
+        }
+        getWebDriver().switchTo().window(childWindow);
     }
 }
