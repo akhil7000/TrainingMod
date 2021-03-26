@@ -60,9 +60,9 @@ public class WebBaseTest {
 
         if (execution.equalsIgnoreCase("remote")) {
             logger.info("Report URL: " + driver.getCapabilities().getCapability("reportUrl"));
-            WebDriverRunner.driver().close();
+            WebDriverRunner.closeWebDriver();
         } else {
-            WebDriverRunner.getWebDriver().close();
+            WebDriverRunner.closeWebDriver();
         }
         softAssertions.assertAll();
     }
