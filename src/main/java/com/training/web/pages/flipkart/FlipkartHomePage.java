@@ -18,6 +18,8 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String addressBox = "//div[@class='_2WErco row']";
     private String addressList = "//div[@class='_2NKhZn _1U1qnR']";
     private String contactUsLink = "//a[text()='Contact Us']";
+    private String moreIcon = "//*[@class='_2gTTdy']";
+    private String downloadApp = "//div[text()='Download App']";
 
     public FlipkartHomePage closePopup() {
         $x(popup).shouldBe(visible).click();
@@ -41,7 +43,7 @@ public class FlipkartHomePage extends FlipkartBasePage {
 
     public FlipkartHomePage clickSocialMediaPage(String media) {
 
-        $x(String.format("//a[text()='%s']",media)).shouldBe(visible).click();
+        $x(String.format("//a[text()='%s']", media)).shouldBe(visible).click();
 
         switch (media) {
             case "Facebook":
@@ -74,5 +76,13 @@ public class FlipkartHomePage extends FlipkartBasePage {
     public String getOfficeAddress() {
         $x(addressBox).shouldBe(Condition.visible);
         return  $$x(addressList).get(0).getText().replaceAll("[, \n]","");
+    }
+
+    public AppPage clickDownloadApp() {
+
+        $x(moreIcon).shouldBe(enabled).scrollIntoView(true).scrollTo().hover();
+        $x(downloadApp).scrollTo().click();
+        return new AppPage();
+
     }
 }

@@ -67,18 +67,8 @@ public class ResultPage extends FlipkartBasePage {
 
         $x(nextPageButton).shouldBe(visible);
         productList.get(itemNumber - 1).click();
-        String childWindow = null;
         String parentWindow = getWebDriver().getWindowHandle();
-
-        Set<String> windowHandles = getWebDriver().getWindowHandles();
-        Iterator<String> windowIterator = windowHandles.iterator();
-        while (windowIterator.hasNext()) {
-            String windows = windowIterator.next();
-            if (windows != parentWindow) {
-                childWindow = windows;
-            }
-        }
-        getWebDriver().switchTo().window(childWindow);
+        switchToChildWindow(parentWindow);
         return new ProductPage();
     }
 
