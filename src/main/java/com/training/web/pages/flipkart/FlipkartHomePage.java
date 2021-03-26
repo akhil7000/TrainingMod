@@ -83,5 +83,6 @@ public class FlipkartHomePage extends FlipkartBasePage {
         $x(moreIcon).shouldBe(enabled).scrollIntoView(true).scrollTo().hover();
         $x(downloadApp).scrollTo().click();
         return new AppPage();
+
     }
 }
