@@ -1,5 +1,6 @@
 package com.training.apitests;
 
+import io.restassured.common.mapper.TypeRef;
 import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
@@ -22,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -40,16 +42,21 @@ public class ApiTests {
         logger.info(response.jsonPath().getString("name"));
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/getWikipediaUrl.csv")
-    public void getWikipediaUrl(String id){
+    //@ParameterizedTest
+    //@CsvFileSource(resources = "/getWikipediaUrl.csv")
+    @Test
+    public void getWikipediaUrl(){
 
-        RestAssured.baseURI = String.format("https://api.thecatapi.com/v1/images/search?breed_ids=%s",id);
+        //RestAssured.baseURI = String.format("https://api.thecatapi.com/v1/images/search?breed_ids=%s",id);
+        RestAssured.baseURI = "https://api.thecatapi.com/v1/images/search?breed_ids=abys";
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("x-api-key","37b0987e-eb13-4193-82b1-56f33b574ac0");
         Response response = httpRequest.get();
-        logger.info(String.valueOf(response.getBody().asPrettyString()));
+        //logger.info(String.valueOf(response.getBody().asPrettyString()));
         Assertions.assertEquals(response.getStatusCode(),200);
+        //System.out.println(((response.jsonPath().getJsonObject("breeds"))).getClass().getSimpleName());
+        List<JSONObject> breeds = response.jsonPath().getJsonObject("breeds");
+        System.out.println(breeds.get(0));
 
     }
 
