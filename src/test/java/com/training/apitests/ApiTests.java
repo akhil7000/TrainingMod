@@ -1,70 +1,72 @@
 package com.training.apitests;
 
-import io.restassured.common.mapper.TypeRef;
+import com.training.utilities.ApiUtilities;
 import org.junit.jupiter.api.Test;
-import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
-import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.json.simple.JSONObject;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 public class ApiTests {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private int voteId;
-    @Test
-    public void getIdResponse() {
+    ApiUtilities apiUtilities;
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/getIdResponse.csv")
+    public void getIdResponse(String name,String id) {
         RestAssured.baseURI = "https://api.thecatapi.com/v1/breeds";
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("x-api-key", "37b0987e-eb13-4193-82b1-56f33b574ac0");
         Response response = httpRequest.get();
-        logger.info(String.valueOf(response.getBody().prettyPeek()));
+
         Assertions.assertEquals(response.getStatusCode(),200);
-        logger.info(response.body().jsonPath().getString("id"));
-        logger.info(response.jsonPath().getString("name"));
+
+        List<String> breedName = response.jsonPath().getList("name");
+        List<String> breedId = response.jsonPath().getList("id");
+        logger.info(breedId.get(breedName.indexOf(name)));
+
+        Assertions.assertEquals(breedId.get(breedName.indexOf(name)),id);
     }
 
-    //@ParameterizedTest
-    //@CsvFileSource(resources = "/getWikipediaUrl.csv")
-    @Test
-    public void getWikipediaUrl(){
-
-        //RestAssured.baseURI = String.format("https://api.thecatapi.com/v1/images/search?breed_ids=%s",id);
-        RestAssured.baseURI = "https://api.thecatapi.com/v1/images/search?breed_ids=abys";
+    @ParameterizedTest
+    @CsvFileSource(resources = "/getWikipediaUrl.csv")
+    public void getWikipediaUrl(String id, String url){
+        RestAssured.baseURI = "https://api.thecatapi.com/v1/breeds";
+        String searchUrl = String.format("https://api.thecatapi.com/v1/images/search?breed_ids=%s",id);
+        //RestAssured.baseURI = "https://api.thecatapi.com/v1/images/search?breed_ids=abys";
         RequestSpecification httpRequest = RestAssured.given();
+
         httpRequest.header("x-api-key","37b0987e-eb13-4193-82b1-56f33b574ac0");
-        Response response = httpRequest.get();
-        //logger.info(String.valueOf(response.getBody().asPrettyString()));
+        Response response = httpRequest.when().get();
+        //Response response = httpRequest.when().get("https://api.thecatapi.com/v1/images/search?breed_ids=abys");
+
         Assertions.assertEquals(response.getStatusCode(),200);
-        //System.out.println(((response.jsonPath().getJsonObject("breeds"))).getClass().getSimpleName());
-        List<JSONObject> breeds = response.jsonPath().getJsonObject("breeds");
-        System.out.println(breeds.get(0));
+        List<String> breeds = response.jsonPath().getList("id");
+        List<String> wikipediaUrl = response.jsonPath().getList("wikipedia_url");
+
+        logger.info(String.valueOf(breeds.indexOf(id)));
+        logger.info(wikipediaUrl.get(breeds.indexOf(id)));
+
+        Assertions.assertEquals(wikipediaUrl.get(breeds.indexOf(id)),url,"Wikipedia Url not found");
+        System.out.println(searchUrl);
 
     }
 
     @Test
-    public  void postVote(){
+    public  void postVote() throws IOException {
+
         JSONObject vote = new JSONObject();
         vote.put("image_id","asf2");
-        vote.put("sub_id","test31014563");
+        vote.put("sub_id","test05042021-4");
         vote.put("value",1);
 
         RestAssured.baseURI = "https://api.thecatapi.com/v1/votes";
@@ -75,14 +77,15 @@ public class ApiTests {
                 .when()
                 .post();
 
-        Assertions.assertEquals(response.getStatusCode(),200);
-
-        voteId=response.jsonPath().getInt("id");
+        Assertions.assertEquals(response.getStatusCode(),200,"Vote not posted successfully");
+        apiUtilities.writeCsv(response.jsonPath().getInt("id"));
 
     }
 
-    @Test
-    public void getVoteList(){
+    @ParameterizedTest
+    @CsvFileSource(resources = "/voteData.csv")
+    public void getVoteList(String id){
+
         RestAssured.baseURI = "https://api.thecatapi.com/v1/votes";
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("x-api-key","37b0987e-eb13-4193-82b1-56f33b574ac0");
@@ -90,8 +93,8 @@ public class ApiTests {
 
         Assertions.assertEquals(response.getStatusCode(),200);
 
-        List<Object> list = response.jsonPath().getList("id");
-        logger.info(String.valueOf(voteId));
-        Assertions.assertTrue(list.contains(voteId));
+        List<Integer> list = response.jsonPath().getList("id");
+
+        Assertions.assertTrue(list.contains(Integer.parseInt(id)),"Vote not found");
     }
 }
