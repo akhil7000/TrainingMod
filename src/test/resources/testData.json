@@ -12,7 +12,7 @@
   "numberOfQuestions": "14",
   "paymentPageTitle": "Payments Store Online - Buy Payments Online at Best Price in India | Flipkart.com",
   "paymentPageUrl": "https://www.flipkart.com/pages/payments",
-  "headerName": "x-api-key",
-  "headerValue": "37b0987e-eb13-4193-82b1-56f33b574ac0",
+  "catAuthenticationHeaderName": "x-api-key",
+  "catAuthenticationHeaderValue": "37b0987e-eb13-4193-82b1-56f33b574ac0",
   "baseUri": "https://api.thecatapi.com"
 }
