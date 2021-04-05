@@ -1,6 +1,7 @@
 package com.training.apitests;
 
 import com.training.utilities.JsonReaderUtility;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -11,24 +12,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Assertions;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class ApiTests {
+public class CatApiTests {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     protected Map<String, String> map = new JsonReaderUtility().getMap();
+    RequestSpecification httpRequest;
+
+    @BeforeEach
+    public void setup() {
+        RestAssured.baseURI = map.get("baseUri");
+        httpRequest = RestAssured.given();
+        httpRequest.header(map.get("headerName"), map.get("headerValue"));
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/getIdResponse.csv")
     public void testGetIdResponse(String name, String id) {
 
-        RestAssured.baseURI = map.get("baseUri");
-        RequestSpecification httpRequest = RestAssured.given();
-        httpRequest.header(map.get("headerName"), map.get("headerValue"));
         Response response = httpRequest.get("/v1/breeds");
 
         Assertions.assertEquals(response.getStatusCode(), 200);
@@ -43,37 +47,22 @@ public class ApiTests {
     @ParameterizedTest
     @CsvFileSource(resources = "/getWikipediaUrl.csv")
     public void testGetWikipediaUrl(String id, String url) {
-
-        RestAssured.baseURI = map.get("baseUri");
-        String searchUrl = String.format("https://api.thecatapi.com/v1/images/search?breed_ids=%s", id);
-        //RestAssured.baseURI = "https://api.thecatapi.com/v1/images/search?breed_ids=abys";
-        RequestSpecification httpRequest = RestAssured.given();
-
-        httpRequest.header(map.get("headerName"), map.get("headerValue"));
-        Response response = httpRequest.when().get("/v1/breeds");
-        //Response response = httpRequest.when().get("/v1/images/search?breed_ids=abys");
-
+        String path = String.format("/v1/images/search?breed_ids=%s", id);
+        Response response = httpRequest.when().get(path);
         Assertions.assertEquals(response.getStatusCode(), 200);
-        List<String> breeds = response.jsonPath().getList("id");
-        List<String> wikipediaUrl = response.jsonPath().getList("wikipedia_url");
 
-        logger.info(String.valueOf(breeds.indexOf(id)));
-        logger.info(wikipediaUrl.get(breeds.indexOf(id)));
-
-        Assertions.assertEquals(wikipediaUrl.get(breeds.indexOf(id)), url, "Wikipedia Url not found");
-        System.out.println(searchUrl);
-
+        String wikipediaUrl = response.jsonPath().getString("breeds[0].wikipedia_url");
+        Assertions.assertTrue(wikipediaUrl.contains(url), "Url is not correct");
     }
 
     @Test
-    public void testPostVote() throws IOException {
+    public void testPostVote() {
 
         JSONObject vote = new JSONObject();
         vote.put("image_id", "asf2");
-        vote.put("sub_id", "test05042021-7");
+        vote.put("sub_id", "test05042021-9");
         vote.put("value", 1);
 
-        RestAssured.baseURI = map.get("baseUri");
         Response response = given()
                 .contentType("application/json")
                 .header(map.get("headerName"), map.get("headerValue"))
@@ -84,16 +73,9 @@ public class ApiTests {
         Assertions.assertEquals(response.getStatusCode(), 200, "Vote not posted successfully");
 
         int id = response.jsonPath().getInt("id");
-
-        RestAssured.baseURI = map.get("baseUri");
-        RequestSpecification httpRequest = RestAssured.given();
-        httpRequest.header(map.get("headerName"), map.get("headerValue"));
         response = httpRequest.get("/v1/votes");
-
         List<Integer> list = response.jsonPath().getList("id");
 
         Assertions.assertTrue(list.contains(id));
-
     }
-
 }

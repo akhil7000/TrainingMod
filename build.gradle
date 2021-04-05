@@ -22,10 +22,6 @@ dependencies {
     testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
     implementation "com.google.code.gson:gson:${gson_version}"
     testImplementation 'io.rest-assured:rest-assured:4.3.3'
-    testImplementation 'io.rest-assured:json-path:4.3.3'
-    testImplementation 'io.rest-assured:xml-path:4.3.3'
-    testImplementation 'io.rest-assured:json-schema-validator:4.3.3'
-    testImplementation 'io.rest-assured:spring-mock-mvc:4.3.3'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile 'com.opencsv:opencsv:5.4'
 }
