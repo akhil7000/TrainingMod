@@ -1,4 +1,4 @@
-package com.training.apitests;
+package com.training.api.tests.cat;
 
 import com.training.utilities.JsonReaderUtility;
 import org.junit.jupiter.api.BeforeEach;
