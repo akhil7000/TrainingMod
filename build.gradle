@@ -23,6 +23,11 @@ dependencies {
     implementation "com.google.code.gson:gson:${gson_version}"
     testImplementation 'io.rest-assured:rest-assured:4.3.3'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 test {
