@@ -35,12 +35,11 @@ public class CatLombokApi {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/getIdResponse.csv")
-    public void x1(String name, String breedId) {
-        Map<String, Object> headerMap = new HashMap();
-        headerMap.put(map.get("catAuthenticationHeaderName"), map.get("catAuthenticationHeaderValue"));
+    public void getResponseId(String name, String breedId) {
         String id = "";
         String url = String.format("%s/v1/breeds", map.get("baseUri"));
         Response response = new RestEngine().getResponse2(url, headerMap);
+        Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
         List<com.training.api.Response> breedName = Arrays.asList(response.as(com.training.api.Response[].class));
         for (int index = 0; index < breedName.size(); index++) {
@@ -50,16 +49,16 @@ public class CatLombokApi {
             }
         }
 
-        Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
         Assertions.assertEquals(id, breedId, "Id incorrect");
     }
 
     @Test
     public void testPostVote() {
-        String url = (map.get("baseUri") + "/v1/votes");
+        String url = String.format("%s/v1/votes",map.get("baseUri"));
+
         RequestBody requestBody =new RequestBody();
         requestBody.setImage_id("asf2");
-        requestBody.setSub_id("test07042021-17");
+        requestBody.setSub_id("test07042021-18");
         requestBody.setValue(1);
         Response response = new RestEngine().postResponse(url, headerMap, new Gson().toJson(requestBody));
 
@@ -68,13 +67,13 @@ public class CatLombokApi {
 
         response = new RestEngine().getResponse2(url,headerMap);
         List<com.training.api.VoteList> voteid = Arrays.asList(response.as(com.training.api.VoteList[].class));
-        boolean b=false;
+        boolean idPresent=false;
         voteid.get(0).getId();
         for(VoteList a:voteid){
             if(a.getId().equals(id)){
-                b=true;
+                idPresent=true;
             }
         }
-        Assertions.assertEquals(true,b);
+        Assertions.assertEquals(true,idPresent);
     }
 }
