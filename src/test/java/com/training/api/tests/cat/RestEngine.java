@@ -32,11 +32,12 @@ public class RestEngine {
 
     }
 
-    public Response postResponse(String url, Map headerMap, JSONObject vote) {
+    public Response postResponse(String url, Map headerMap, String vote) {
         return  given()
                 .when()
+                .contentType("application/json")
                 .headers(headerMap)
-                .body(vote.toJSONString())
+                .body(vote)
                 .post(url)
                 .then()
                 .extract().response();

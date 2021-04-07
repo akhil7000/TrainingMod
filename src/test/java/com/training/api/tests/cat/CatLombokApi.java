@@ -1,6 +1,9 @@
 package com.training.api.tests.cat;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.training.api.RequestBody;
+import com.training.api.VoteList;
 import com.training.utilities.JsonReaderUtility;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -51,4 +54,27 @@ public class CatLombokApi {
         Assertions.assertEquals(id, breedId, "Id incorrect");
     }
 
+    @Test
+    public void testPostVote() {
+        String url = (map.get("baseUri") + "/v1/votes");
+        RequestBody requestBody =new RequestBody();
+        requestBody.setImage_id("asf2");
+        requestBody.setSub_id("test07042021-17");
+        requestBody.setValue(1);
+        Response response = new RestEngine().postResponse(url, headerMap, new Gson().toJson(requestBody));
+
+        Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
+        String id = response.as(com.training.api.VoteId.class).getId();
+
+        response = new RestEngine().getResponse2(url,headerMap);
+        List<com.training.api.VoteList> voteid = Arrays.asList(response.as(com.training.api.VoteList[].class));
+        boolean b=false;
+        voteid.get(0).getId();
+        for(VoteList a:voteid){
+            if(a.getId().equals(id)){
+                b=true;
+            }
+        }
+        Assertions.assertEquals(true,b);
+    }
 }
