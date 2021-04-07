@@ -38,7 +38,7 @@ public class CatLombokApi {
     public void getResponseId(String name, String breedId) {
         String id = "";
         String url = String.format("%s/v1/breeds", map.get("baseUri"));
-        Response response = new RestEngine().getResponse2(url, headerMap);
+        Response response = new RestEngine().getResponse(url, headerMap);
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
         List<com.training.api.Response> breedName = Arrays.asList(response.as(com.training.api.Response[].class));
@@ -50,6 +50,19 @@ public class CatLombokApi {
         }
 
         Assertions.assertEquals(id, breedId, "Id incorrect");
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/getWikipediaUrl.csv")
+    public void testGetWikipediaUrl(String id, String url) {
+        String path = String.format("/v1/images/search?breed_ids=%s", id);
+        Response response = new RestEngine().getResponse(path,headerMap);
+
+        Assertions.assertEquals( 200,response.getStatusCode(),"Request Unsuccessful");
+        List<com.training.api.BreedResponse> breed = Arrays.asList(response.as(com.training.api.BreedResponse[].class));
+
+        String wikipediaUrl= breed.get(0).getBreeds()[0].getWikipedia_url();
+        Assertions.assertEquals(url,wikipediaUrl,"Response Not Correct");
     }
 
     @Test
@@ -65,7 +78,7 @@ public class CatLombokApi {
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
         String id = response.as(com.training.api.VoteId.class).getId();
 
-        response = new RestEngine().getResponse2(url,headerMap);
+        response = new RestEngine().getResponse(url,headerMap);
         List<com.training.api.VoteList> voteid = Arrays.asList(response.as(com.training.api.VoteList[].class));
         boolean idPresent=false;
         voteid.get(0).getId();
@@ -76,4 +89,5 @@ public class CatLombokApi {
         }
         Assertions.assertEquals(true,idPresent);
     }
+
 }

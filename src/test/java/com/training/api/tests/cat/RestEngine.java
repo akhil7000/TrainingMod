@@ -11,17 +11,8 @@ import org.json.simple.JSONObject;
 import java.util.Map;
 
 public class RestEngine {
-    public Response getResponse(String baseUri) {
-        return  given()
-                .when()
 
-                .get(baseUri)
-                .then()
-                .extract()
-                .response();
-
-    }
-    public Response getResponse2(String baseUri, Map headerMap) {
+    public Response getResponse(String baseUri, Map headerMap) {
         return  given()
                 .when()
                 .headers(headerMap)
