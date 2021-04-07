@@ -1,22 +1,18 @@
-package com.training.api.tests.cat;
+package com.training.utilities;
+
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import static io.restassured.RestAssured.given;
-import io.restassured.response.ResponseBodyExtractionOptions;
-import io.restassured.specification.RequestSpecification;
-import org.json.simple.JSONObject;
-
 
 import java.util.Map;
 
 public class RestEngine {
 
-    public Response getResponse(String baseUri, Map headerMap) {
-        return  given()
+    public Response getResponse(String url, Map headerMap) {
+        return  RestAssured.given()
                 .when()
                 .headers(headerMap)
-                .get(baseUri)
+                .get(url)
                 .then()
                 .extract()
                 .response();
@@ -24,7 +20,7 @@ public class RestEngine {
     }
 
     public Response postResponse(String url, Map headerMap, String vote) {
-        return  given()
+        return  RestAssured.given()
                 .when()
                 .contentType("application/json")
                 .headers(headerMap)

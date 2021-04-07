@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.franzbecker.gradle-lombok' version '3.1.0'
 }
 
 group 'org.example'
@@ -21,11 +22,10 @@ dependencies {
     implementation group: 'com.codeborne', name: 'selenide', version: "${selenide_version}"
     testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
     implementation "com.google.code.gson:gson:${gson_version}"
-    testImplementation 'io.rest-assured:rest-assured:4.3.3'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
-
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: "${rest_assured_version}"
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }

@@ -1,11 +1,12 @@
 package com.training.api.tests.cat;
 
 import com.google.gson.Gson;
-import com.training.pojos.cat.RequestBody;
-import com.training.pojos.cat.VoteList;
 import com.training.pojos.cat.BreedResponse;
+import com.training.pojos.cat.RequestBody;
 import com.training.pojos.cat.VoteId;
+import com.training.pojos.cat.VoteList;
 import com.training.utilities.JsonReaderUtility;
+import com.training.utilities.RestEngine;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +16,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,10 +40,10 @@ public class CatApiTests {
     public void testGetResponseId(String name, String breedId) {
         String id = "";
         String url = String.format("%s/v1/breeds", map.get("baseUri"));
-        Response response = new RestEngine().getResponse(url, headerMap);
+        Response response = new RestEngine().getResponse(url,headerMap);
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
-        List<com.training.pojos.cat.Response> breedName = Arrays.asList(response.as(com.training.pojos.cat.Response[].class));
+        List<com.training.pojos.cat.ResponseId> breedName = Arrays.asList(response.as(com.training.pojos.cat.ResponseId[].class));
         for (int index = 0; index < breedName.size(); index++) {
             if (breedName.get(index).getName().equalsIgnoreCase(name)) {
                 id = breedName.get(index).getId();
