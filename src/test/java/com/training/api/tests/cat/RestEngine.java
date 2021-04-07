@@ -5,18 +5,40 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import io.restassured.response.ResponseBodyExtractionOptions;
 import io.restassured.specification.RequestSpecification;
+import org.json.simple.JSONObject;
 
 
 import java.util.Map;
 
 public class RestEngine {
-    public Response getResponsePost(String baseUri, Map header) {
+    public Response getResponse(String baseUri) {
         return  given()
-                .headers(header)
                 .when()
-                .post(baseUri)
+
+                .get(baseUri)
                 .then()
                 .extract()
                 .response();
+
+    }
+    public Response getResponse2(String baseUri, Map headerMap) {
+        return  given()
+                .when()
+                .headers(headerMap)
+                .get(baseUri)
+                .then()
+                .extract()
+                .response();
+
+    }
+
+    public Response postResponse(String url, Map headerMap, JSONObject vote) {
+        return  given()
+                .when()
+                .headers(headerMap)
+                .body(vote.toJSONString())
+                .post(url)
+                .then()
+                .extract().response();
     }
 }
