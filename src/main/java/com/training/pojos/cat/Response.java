@@ -1,10 +1,9 @@
-package com.training.api;
+package com.training.pojos.cat;
 
 import lombok.Data;
 
 @Data
 public class Response {
-    private Weight weight;
     private String id;
     private String name;
 }

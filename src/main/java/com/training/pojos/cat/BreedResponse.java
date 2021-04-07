@@ -1,9 +1,6 @@
-package com.training.api;
+package com.training.pojos.cat;
 
 import lombok.Getter;
-
-import java.lang.reflect.Array;
-import java.util.List;
 
 @Getter
 public class BreedResponse {

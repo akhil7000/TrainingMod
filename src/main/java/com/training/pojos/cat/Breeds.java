@@ -1,4 +1,4 @@
-package com.training.api;
+package com.training.pojos.cat;
 
 import lombok.Getter;
 

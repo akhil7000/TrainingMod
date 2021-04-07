@@ -1,10 +1,10 @@
-package com.training.api;
+package com.training.pojos.cat;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class VoteId {
     String id;
 }

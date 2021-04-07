@@ -1,79 +1,92 @@
 package com.training.api.tests.cat;
 
+import com.google.gson.Gson;
+import com.training.pojos.cat.RequestBody;
+import com.training.pojos.cat.VoteList;
+import com.training.pojos.cat.BreedResponse;
+import com.training.pojos.cat.VoteId;
 import com.training.utilities.JsonReaderUtility;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Assertions;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CatApiTests {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     protected Map<String, String> map = new JsonReaderUtility().getMap();
-    RequestSpecification httpRequest;
+    Map<String, Object> headerMap;
+    RequestBody requestBody = new RequestBody();
 
     @BeforeEach
     public void setup() {
         RestAssured.baseURI = map.get("baseUri");
-        httpRequest = RestAssured.given();
-        httpRequest.header(map.get("catAuthenticationHeaderName"), map.get("catAuthenticationHeaderValue"));
+        headerMap = new HashMap();
+        headerMap.put(map.get("catAuthenticationHeaderName"), map.get("catAuthenticationHeaderValue"));
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/getIdResponse.csv")
-    public void testGetIdResponse(String name, String breedId) {
+    public void testGetResponseId(String name, String breedId) {
+        String id = "";
+        String url = String.format("%s/v1/breeds", map.get("baseUri"));
+        Response response = new RestEngine().getResponse(url, headerMap);
+        Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
-        Response response = httpRequest.get("/v1/breeds");
+        List<com.training.pojos.cat.Response> breedName = Arrays.asList(response.as(com.training.pojos.cat.Response[].class));
+        for (int index = 0; index < breedName.size(); index++) {
+            if (breedName.get(index).getName().equalsIgnoreCase(name)) {
+                id = breedName.get(index).getId();
+                logger.info(id);
+            }
+        }
 
-        Assertions.assertEquals(response.getStatusCode(), 200);
-
-        List<String> breedName = response.jsonPath().getList("name");
-        int index = breedName.indexOf(name);
-        String id = response.jsonPath().getString(String.format("id[%s]",index));
-        logger.info(id);
-        Assertions.assertEquals(breedId, id,"Id incorrect");
+        Assertions.assertEquals(id, breedId, "Id incorrect");
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/getWikipediaUrl.csv")
     public void testGetWikipediaUrl(String id, String url) {
-
         String path = String.format("/v1/images/search?breed_ids=%s", id);
-        Response response = httpRequest.when().get(path);
-        Assertions.assertEquals( 200,response.getStatusCode(),"Request Unsuccessful");
+        Response response = new RestEngine().getResponse(path,headerMap);
 
-        String wikipediaUrl = response.jsonPath().getString("breeds[0].wikipedia_url");
-        Assertions.assertTrue(wikipediaUrl.contains(url), "Url is not correct");
+        Assertions.assertEquals( 200,response.getStatusCode(),"Request Unsuccessful");
+        List<BreedResponse> breed = Arrays.asList(response.as(BreedResponse[].class));
+
+        String wikipediaUrl= breed.get(0).getBreeds()[0].getWikipedia_url();
+        Assertions.assertEquals(url,wikipediaUrl,"Response Not Correct");
     }
 
     @Test
     public void testPostVote() {
+        String url = String.format("%s/v1/votes",map.get("baseUri"));
 
-        JSONObject vote = new JSONObject();
-        vote.put("image_id", "asf2");
-        vote.put("sub_id", "test05042021-9");
-        vote.put("value", 1);
+        requestBody.setImage_id("asf2");
+        requestBody.setSub_id("test07042021-19");
+        requestBody.setValue(1);
+        Response response = new RestEngine().postResponse(url, headerMap, new Gson().toJson(requestBody));
 
-        Response response = httpRequest
-                .contentType("application/json")
-                .body(vote.toJSONString())
-                .when()
-                .post("/v1/votes");
+        Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
+        String id = response.as(VoteId.class).getId();
 
-        Assertions.assertEquals(200,response.getStatusCode(), "Vote not posted successfully");
-
-        int id = response.jsonPath().getInt("id");
-        response = httpRequest.get("/v1/votes");
-        List<Integer> list = response.jsonPath().getList("id");
-
-        Assertions.assertTrue(list.contains(id),"Vote was not posted successfully");
+        response = new RestEngine().getResponse(url,headerMap);
+        List<VoteList> voteid = Arrays.asList(response.as(VoteList[].class));
+        boolean idPresent=false;
+        voteid.get(0).getId();
+        for(VoteList a:voteid){
+            if(a.getId().equals(id)){
+                idPresent=true;
+            }
+        }
+        Assertions.assertEquals(true,idPresent);
     }
+
 }
