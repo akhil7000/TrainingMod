@@ -35,8 +35,7 @@ public class CatApiTests {
     @CsvFileSource(resources = "/getIdResponse.csv")
     public void testGetBreedId(String name, String breedId) {
         String id = "";
-        String url = "/v1/breeds";
-        io.restassured.response.Response response = new RestEngine().getResponse(url,headerMap);
+        io.restassured.response.Response response = new RestEngine().getResponse("/v1/breeds",headerMap);
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
         List<com.training.pojos.cat.breeds.Response> breedName = Arrays.asList(response.as(com.training.pojos.cat.breeds.Response[].class));
@@ -57,10 +56,10 @@ public class CatApiTests {
         io.restassured.response.Response response = new RestEngine().getResponse(path,headerMap);
         Assertions.assertEquals( 200,response.getStatusCode(),"Request Unsuccessful");
 
-        List<com.training.pojos.cat.search.Response> breed =
+        List<com.training.pojos.cat.search.Response> responseList =
                 Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class));
 
-        String wikipediaUrl= breed.get(0).getBreeds()[0].getWikipedia_url();
+        String wikipediaUrl= responseList.get(0).getBreeds()[0].getWikipedia_url();
         logger.info(wikipediaUrl);
         Assertions.assertEquals(url,wikipediaUrl,"Response Not Correct");
     }
@@ -74,18 +73,19 @@ public class CatApiTests {
         request.setSub_id("test08042021-4");
         request.setValue(1);
 
-        io.restassured.response.Response response = new RestEngine().setResponse(url, headerMap, new Gson().toJson(request));
+        io.restassured.response.Response response = new RestEngine().setResponse(url, headerMap,
+                                                        new Gson().toJson(request));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
         String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
         logger.info(id);
 
         response = new RestEngine().getResponse(url,headerMap);
-        List<Response> voteId = Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class));
+        List<Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class));
 
         boolean idPresent=false;
-        voteId.get(0).getId();
-        for(Response a:voteId){
+        responseList.get(0).getId();
+        for(Response a:responseList){
             if(a.getId().equals(id)){
                 idPresent=true;
             }

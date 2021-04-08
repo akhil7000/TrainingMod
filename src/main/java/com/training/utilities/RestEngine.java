@@ -26,19 +26,19 @@ public class RestEngine {
     }
 
     /**
-     * Method to post 'vote'
+     * Method to retrieve json key-value pairs post it to the url
      *
      * @param url : url to post the response
      * @param headerMap : header with api-key
-     * @param vote : Json Body with vote details
+     * @param jsonString : Json Body with key-value pairs
      * @return
      */
-    public Response setResponse(String url, Map headerMap, String vote) {
+    public Response setResponse(String url, Map headerMap, String jsonString) {
         return  RestAssured.given()
                 .when()
                 .contentType("application/json")
                 .headers(headerMap)
-                .body(vote)
+                .body(jsonString)
                 .post(url)
                 .then()
                 .extract().response();
