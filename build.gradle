@@ -22,10 +22,10 @@ dependencies {
     implementation group: 'com.codeborne', name: 'selenide', version: "${selenide_version}"
     testCompile group: 'org.assertj', name: 'assertj-core', version: "${assertj_version}"
     implementation "com.google.code.gson:gson:${gson_version}"
-    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: "${json_version}"
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: "${rest_assured_version}"
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    implementation group: 'io.rest-assured', name: 'rest-assured', version: "${rest_assured_version}"
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }

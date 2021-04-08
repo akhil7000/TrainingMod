@@ -1,9 +1,9 @@
 package com.training.api.tests.cat;
 
 import com.google.gson.Gson;
-import com.training.pojos.cat.BreedResponse;
+import com.training.pojos.cat.BreedArray;
 import com.training.pojos.cat.RequestBody;
-import com.training.pojos.cat.VoteId;
+import com.training.pojos.cat.Vote;
 import com.training.pojos.cat.VoteList;
 import com.training.utilities.JsonReaderUtility;
 import com.training.utilities.RestEngine;
@@ -16,7 +16,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -37,13 +36,13 @@ public class CatApiTests {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/getIdResponse.csv")
-    public void testGetResponseId(String name, String breedId) {
+    public void testGetBreedId(String name, String breedId) {
         String id = "";
-        String url = String.format("%s/v1/breeds", map.get("baseUri"));
+        String url = "/v1/breeds";
         Response response = new RestEngine().getResponse(url,headerMap);
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
-        List<com.training.pojos.cat.ResponseId> breedName = Arrays.asList(response.as(com.training.pojos.cat.ResponseId[].class));
+        List<com.training.pojos.cat.Breed> breedName = Arrays.asList(response.as(com.training.pojos.cat.Breed[].class));
         for (int index = 0; index < breedName.size(); index++) {
             if (breedName.get(index).getName().equalsIgnoreCase(name)) {
                 id = breedName.get(index).getId();
@@ -61,9 +60,9 @@ public class CatApiTests {
         Response response = new RestEngine().getResponse(path,headerMap);
 
         Assertions.assertEquals( 200,response.getStatusCode(),"Request Unsuccessful");
-        List<BreedResponse> breed = Arrays.asList(response.as(BreedResponse[].class));
+        List<BreedArray> breed = Arrays.asList(response.as(BreedArray[].class));
 
-        String wikipediaUrl= breed.get(0).getBreeds()[0].getWikipedia_url();
+        String wikipediaUrl= breed.get(0).getBreedInfo()[0].getWikipedia_url();
         Assertions.assertEquals(url,wikipediaUrl,"Response Not Correct");
     }
 
@@ -77,7 +76,7 @@ public class CatApiTests {
         Response response = new RestEngine().postResponse(url, headerMap, new Gson().toJson(requestBody));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
-        String id = response.as(VoteId.class).getId();
+        String id = response.as(Vote.class).getId();
 
         response = new RestEngine().getResponse(url,headerMap);
         List<VoteList> voteid = Arrays.asList(response.as(VoteList[].class));

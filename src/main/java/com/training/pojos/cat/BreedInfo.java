@@ -3,6 +3,6 @@ package com.training.pojos.cat;
 import lombok.Getter;
 
 @Getter
-public class BreedResponse {
-    Breeds[]  breeds;
+public class BreedInfo {
+    private String wikipedia_url;
 }

@@ -3,7 +3,6 @@ package com.training.pojos.cat;
 import lombok.Data;
 
 @Data
-public class ResponseId {
+public class Vote {
     private String id;
-    private String name;
 }
