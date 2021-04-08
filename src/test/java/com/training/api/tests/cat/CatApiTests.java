@@ -73,7 +73,7 @@ public class CatApiTests {
         requestBody.setImage_id("asf2");
         requestBody.setSub_id("test07042021-19");
         requestBody.setValue(1);
-        Response response = new RestEngine().postResponse(url, headerMap, new Gson().toJson(requestBody));
+        Response response = new RestEngine().setResponse(url, headerMap, new Gson().toJson(requestBody));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
         String id = response.as(Vote.class).getId();

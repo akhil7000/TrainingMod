@@ -33,7 +33,7 @@ public class RestEngine {
      * @param vote : Json Body with vote details
      * @return
      */
-    public Response postResponse(String url, Map headerMap, String vote) {
+    public Response setResponse(String url, Map headerMap, String vote) {
         return  RestAssured.given()
                 .when()
                 .contentType("application/json")
