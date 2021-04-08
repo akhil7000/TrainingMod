@@ -1,7 +1,7 @@
 package com.training.api.tests.cat;
 
 import com.google.gson.Gson;
-import com.training.pojos.cat.vote.RequestBody;
+import com.training.pojos.cat.vote.Request;
 import com.training.pojos.cat.vote.Response;
 import com.training.utilities.JsonReaderUtility;
 import com.training.utilities.RestEngine;
@@ -68,11 +68,13 @@ public class CatApiTests {
     @Test
     public void testPostVote() {
         String url = "/v1/votes";
-        RequestBody requestBody = new RequestBody();
-        requestBody.setImage_id("asf2");
-        requestBody.setSub_id("test08042021-3");
-        requestBody.setValue(1);
-        io.restassured.response.Response response = new RestEngine().setResponse(url, headerMap, new Gson().toJson(requestBody));
+
+        Request request = new Request();
+        request.setImage_id("asf2");
+        request.setSub_id("test08042021-4");
+        request.setValue(1);
+
+        io.restassured.response.Response response = new RestEngine().setResponse(url, headerMap, new Gson().toJson(request));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
         String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
