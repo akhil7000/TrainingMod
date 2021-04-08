@@ -1,8 +1,8 @@
-package com.training.pojos.cat;
+package com.training.pojos.cat.search;
 
 import lombok.Getter;
 
 @Getter
-public class BreedInfo {
+public class Breeds {
     private String wikipedia_url;
 }

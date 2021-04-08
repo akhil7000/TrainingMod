@@ -1,9 +1,9 @@
-package com.training.pojos.cat;
+package com.training.pojos.cat.breeds;
 
 import lombok.Data;
 
 @Data
-public class Breed {
+public class Response {
     private String id;
     private String name;
 }

@@ -1,4 +1,4 @@
-package com.training.pojos.cat;
+package com.training.pojos.cat.vote;
 
 import lombok.Setter;
 
