@@ -11,16 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CatApiTests {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     protected Map<String, String> map = new JsonReaderUtility().getMap();
     Map<String, Object> headerMap;
 
@@ -35,14 +31,14 @@ public class CatApiTests {
     @CsvFileSource(resources = "/getIdResponse.csv")
     public void testGetBreedId(String name, String breedId) {
         String id = "";
-        io.restassured.response.Response response = new RestEngine().getResponse("/v1/breeds",headerMap);
+        io.restassured.response.Response response = new RestEngine().getResponse("/v1/breeds", headerMap);
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
-        List<com.training.pojos.cat.breeds.Response> breedName = Arrays.asList(response.as(com.training.pojos.cat.breeds.Response[].class));
-        for (int index = 0; index < breedName.size(); index++) {
-            if (breedName.get(index).getName().equalsIgnoreCase(name)) {
-                id = breedName.get(index).getId();
-                logger.info(id);
+        List<com.training.pojos.cat.breeds.Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.breeds.Response[].class));
+        for (int index = 0; index < responseList.size(); index++) {
+            if (responseList.get(index).getName().equalsIgnoreCase(name)) {
+                id = responseList.get(index).getId();
+                break;
             }
         }
 
@@ -52,16 +48,16 @@ public class CatApiTests {
     @ParameterizedTest
     @CsvFileSource(resources = "/getWikipediaUrl.csv")
     public void testGetWikipediaUrl(String id, String url) {
-        String path = String.format("/v1/images/search?breed_ids=%s", id);
-        io.restassured.response.Response response = new RestEngine().getResponse(path,headerMap);
-        Assertions.assertEquals( 200,response.getStatusCode(),"Request Unsuccessful");
+        io.restassured.response.Response response = new RestEngine()
+                .getResponse(String.format("/v1/images/search?breed_ids=%s", id), headerMap);
+
+        Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
         List<com.training.pojos.cat.search.Response> responseList =
                 Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class));
 
-        String wikipediaUrl= responseList.get(0).getBreeds()[0].getWikipedia_url();
-        logger.info(wikipediaUrl);
-        Assertions.assertEquals(url,wikipediaUrl,"Response Not Correct");
+        String wikipediaUrl = responseList.get(0).getBreeds()[0].getWikipedia_url();
+        Assertions.assertEquals(url, wikipediaUrl, "Response Not Correct");
     }
 
     @Test
@@ -70,26 +66,25 @@ public class CatApiTests {
 
         Request request = new Request();
         request.setImage_id("asf2");
-        request.setSub_id("test08042021-4");
+        request.setSub_id("test08042021-5");
         request.setValue(1);
 
         io.restassured.response.Response response = new RestEngine().setResponse(url, headerMap,
-                                                        new Gson().toJson(request));
+                new Gson().toJson(request));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
         String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
-        logger.info(id);
 
-        response = new RestEngine().getResponse(url,headerMap);
+        response = new RestEngine().getResponse(url, headerMap);
         List<Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class));
 
-        boolean idPresent=false;
-        responseList.get(0).getId();
-        for(Response a:responseList){
-            if(a.getId().equals(id)){
-                idPresent=true;
+        boolean idPresent = false;
+        for (Response a : responseList) {
+            if (a.getId().equals(id)) {
+                idPresent = true;
+                break;
             }
         }
-        Assertions.assertEquals(true,idPresent);
+        Assertions.assertEquals(true, idPresent, "Voting information not retrieved");
     }
 }

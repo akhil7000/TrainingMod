@@ -22,7 +22,6 @@ public class RestEngine {
                 .then()
                 .extract()
                 .response();
-
     }
 
     /**
@@ -41,6 +40,7 @@ public class RestEngine {
                 .body(jsonString)
                 .post(url)
                 .then()
-                .extract().response();
+                .extract()
+                .response();
     }
 }
