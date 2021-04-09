@@ -67,14 +67,11 @@ public class CatApiTests {
         io.restassured.response.Response response = new RestEngine().getResponse("/v1/votes", headerMap,
                 new Gson().toJson(request));
         String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
-        response = new RestEngine().getResponse("/v1/votes", headerMap);
-        List<Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class));
-
-        response = new RestEngine().getResponse("/v1/votes", headerMap);
 
         boolean idPresent = false;
         for (Response responseElement :
-                Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class))) {
+                Arrays.asList(new RestEngine().getResponse("/v1/votes", headerMap)
+                        .as(com.training.pojos.cat.vote.Response[].class))) {
             if (responseElement.getId().equals
                     (id)) {
                 idPresent = true;
