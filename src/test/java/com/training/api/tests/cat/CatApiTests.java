@@ -11,7 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CatApiTests {
     protected Map<String, String> map = new JsonReaderUtility().getMap();
@@ -61,11 +64,12 @@ public class CatApiTests {
     public void testPostVote() {
         Request request = new Request();
         request.setImage_id("asf2");
-        request.setSub_id("test09042021-4");
+        request.setSub_id("test09042021-5");
         request.setValue(1);
 
         io.restassured.response.Response response = new RestEngine().getResponse("/v1/votes", headerMap,
                 new Gson().toJson(request));
+        Assertions.assertEquals(200, response.statusCode(), "Request Unsuccessful");
         String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
 
         boolean idPresent = false;
