@@ -11,10 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class CatApiTests {
     protected Map<String, String> map = new JsonReaderUtility().getMap();
@@ -54,28 +52,29 @@ public class CatApiTests {
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
         List<com.training.pojos.cat.search.Response> responseList =
-                Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class));
+           Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class));
 
-        String wikipediaUrl = responseList.get(0).getBreeds()[0].getWikipedia_url();
-        Assertions.assertEquals(url, wikipediaUrl, "Response Not Correct");
+
+        String wikipediaUrl = responseList.get(0).getBreeds().get(0).getWikipedia_url();
+
+        Assertions.assertEquals(url, wikipediaUrl, "Wikipedia Url does not match");
     }
 
     @Test
     public void testPostVote() {
-        String url = "/v1/votes";
 
         Request request = new Request();
         request.setImage_id("asf2");
         request.setSub_id("test08042021-5");
         request.setValue(1);
 
-        io.restassured.response.Response response = new RestEngine().setResponse(url, headerMap,
+        io.restassured.response.Response response = new RestEngine().getPostResponse("/v1/votes", headerMap,
                 new Gson().toJson(request));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
         String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
 
-        response = new RestEngine().getResponse(url, headerMap);
+        response = new RestEngine().getResponse("/v1/votes", headerMap);
         List<Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class));
 
         boolean idPresent = false;
@@ -85,6 +84,6 @@ public class CatApiTests {
                 break;
             }
         }
-        Assertions.assertEquals(true, idPresent, "Voting information not retrieved");
+        Assertions.assertTrue(idPresent, "Voting information not retrieved");
     }
 }

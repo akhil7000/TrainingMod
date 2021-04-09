@@ -32,7 +32,7 @@ public class RestEngine {
      * @param jsonString : Json Body with key-value pairs
      * @return
      */
-    public Response setResponse(String url, Map headerMap, String jsonString) {
+    public Response getPostResponse(String url, Map headerMap, String jsonString) {
         return  RestAssured.given()
                 .when()
                 .contentType("application/json")
