@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-
 import java.util.*;
 
 public class CatApiTests {
@@ -52,28 +51,24 @@ public class CatApiTests {
 
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
-        List<com.training.pojos.cat.search.Response> responseList =
-                Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class));
-
-
         Assertions.assertEquals(url,
-                responseList.get(0).getBreeds().get(0).getWikipedia_url(),
+                Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class))
+                        .get(0).getBreeds().get(0).getWikipedia_url(),
                 "Wikipedia Url does not match");
     }
 
     @Test
     public void testPostVote() {
-
         Request request = new Request();
         request.setImage_id("asf2");
-        request.setSub_id("test09042021-1");
+        request.setSub_id("test09042021-4");
         request.setValue(1);
 
         io.restassured.response.Response response = new RestEngine().getResponse("/v1/votes", headerMap,
                 new Gson().toJson(request));
-
-        Assertions.assertEquals(200, response.getStatusCode(),
-                "Vote not posted successfully");
+        String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
+        response = new RestEngine().getResponse("/v1/votes", headerMap);
+        List<Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class));
 
         response = new RestEngine().getResponse("/v1/votes", headerMap);
 
@@ -81,7 +76,7 @@ public class CatApiTests {
         for (Response responseElement :
                 Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class))) {
             if (responseElement.getId().equals
-                    (response.as(com.training.pojos.cat.vote.Response.class).getId())) {
+                    (id)) {
                 idPresent = true;
                 break;
             }
