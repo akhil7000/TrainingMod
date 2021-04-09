@@ -32,12 +32,12 @@ public class RestEngine {
      * @param jsonString : Json Body with key-value pairs
      * @return
      */
-    public Response getPostResponse(String url, Map headerMap, String jsonString) {
+    public Response getResponse(String url, Map headerMap, String requestBody) {
         return  RestAssured.given()
                 .when()
                 .contentType("application/json")
                 .headers(headerMap)
-                .body(jsonString)
+                .body(requestBody)
                 .post(url)
                 .then()
                 .extract()

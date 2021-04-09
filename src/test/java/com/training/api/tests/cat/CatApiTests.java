@@ -32,10 +32,12 @@ public class CatApiTests {
         io.restassured.response.Response response = new RestEngine().getResponse("/v1/breeds", headerMap);
         Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
 
-        List<com.training.pojos.cat.breeds.Response> responseList = Arrays.asList(response.as(com.training.pojos.cat.breeds.Response[].class));
-        for (int index = 0; index < responseList.size(); index++) {
-            if (responseList.get(index).getName().equalsIgnoreCase(name)) {
-                id = responseList.get(index).getId();
+        List<com.training.pojos.cat.breeds.Response> responseList =
+                Arrays.asList(response.as(com.training.pojos.cat.breeds.Response[].class));
+
+        for(com.training.pojos.cat.breeds.Response responseElement : responseList){
+            if (responseElement.getName().equalsIgnoreCase(name)) {
+                id = responseElement.getId();
                 break;
             }
         }
@@ -65,10 +67,10 @@ public class CatApiTests {
 
         Request request = new Request();
         request.setImage_id("asf2");
-        request.setSub_id("test08042021-5");
+        request.setSub_id("test09042021-1");
         request.setValue(1);
 
-        io.restassured.response.Response response = new RestEngine().getPostResponse("/v1/votes", headerMap,
+        io.restassured.response.Response response = new RestEngine().getResponse("/v1/votes", headerMap,
                 new Gson().toJson(request));
 
         Assertions.assertEquals(200, response.getStatusCode(), "Vote not posted successfully");
