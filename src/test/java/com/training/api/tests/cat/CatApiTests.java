@@ -18,7 +18,9 @@ import java.util.Map;
 
 public class CatApiTests {
     protected Map<String, String> map = new JsonReaderUtility().getMap();
-    Map<String, Object> headerMap;
+    private Map<String, Object> headerMap;
+    private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
+    private io.restassured.response.Response response;
 
     @BeforeEach
     public void setup() {
@@ -31,8 +33,8 @@ public class CatApiTests {
     @CsvFileSource(resources = "/getIdResponse.csv")
     public void testGetBreedId(String name, String breedId) {
         String id = "";
-        io.restassured.response.Response response = new RestEngine().getResponse("/v1/breeds", headerMap);
-        Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
+        response = new RestEngine().getResponse("/v1/breeds", headerMap);
+        Assertions.assertEquals(200, response.getStatusCode(), REQUEST_UNSUCCESSFUL);
 
 
         for (com.training.pojos.cat.breeds.Response responseElement :
@@ -49,10 +51,10 @@ public class CatApiTests {
     @ParameterizedTest
     @CsvFileSource(resources = "/getWikipediaUrl.csv")
     public void testGetWikipediaUrl(String id, String url) {
-        io.restassured.response.Response response = new RestEngine()
+        response = new RestEngine()
                 .getResponse(String.format("/v1/images/search?breed_ids=%s", id), headerMap);
 
-        Assertions.assertEquals(200, response.getStatusCode(), "Request Unsuccessful");
+            Assertions.assertEquals(200, response.getStatusCode(), REQUEST_UNSUCCESSFUL);
 
         Assertions.assertEquals(url,
                 Arrays.asList(response.as(com.training.pojos.cat.search.Response[].class))
@@ -62,20 +64,25 @@ public class CatApiTests {
 
     @Test
     public void testPostVote() {
+        boolean idPresent = false;
+        String url = "/v1/votes";
+        String id="";
         Request request = new Request();
         request.setImage_id("asf2");
         request.setSub_id("test09042021-5");
         request.setValue(1);
 
-        io.restassured.response.Response response = new RestEngine().getResponse("/v1/votes", headerMap,
-                new Gson().toJson(request));
-        Assertions.assertEquals(200, response.statusCode(), "Request Unsuccessful");
-        String id = response.as(com.training.pojos.cat.vote.Response.class).getId();
 
-        boolean idPresent = false;
+        response = new RestEngine().getResponse(url, headerMap,
+                new Gson().toJson(request));
+        Assertions.assertEquals(200, response.statusCode(), REQUEST_UNSUCCESSFUL);
+        id = response.as(com.training.pojos.cat.vote.Response.class).getId();
+
+        response = new RestEngine().getResponse(url, headerMap);
+        Assertions.assertEquals(200,response.statusCode(),REQUEST_UNSUCCESSFUL);
+
         for (Response responseElement :
-                Arrays.asList(new RestEngine().getResponse("/v1/votes", headerMap)
-                        .as(com.training.pojos.cat.vote.Response[].class))) {
+                Arrays.asList(response.as(com.training.pojos.cat.vote.Response[].class))) {
             if (responseElement.getId().equals
                     (id)) {
                 idPresent = true;
