@@ -11,9 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GuestAccountTests extends ApiBaseTest {
-    String email = "email@email.com";
+    private final String email = "email@email.com";
     private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
     private static final String ERROR_PRESENT = "Error present in response";
+
     @BeforeEach
     public void startup(){
         RestAssured.baseURI = map.get("gaBaseUrl");
