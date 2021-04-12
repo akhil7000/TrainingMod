@@ -3,18 +3,20 @@ package com.training.api.tests.ga;
 import com.google.gson.Gson;
 import com.training.basetest.ApiBaseTest;
 import com.training.pojos.ga.validation.Request;
-import com.training.utilities.JsonReaderUtility;
 import com.training.utilities.RestEngine;
 import io.restassured.RestAssured;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GuestAccountTests extends ApiBaseTest {
 
+    @BeforeEach
+    public void startup(){
+        RestAssured.baseURI = map.get("gaBaseUrl");
+        headerMap.put(map.get("gaValidationAppKeyHeaderName"),map.get("gaValidationAppKeyHeaderValue"));
+        headerMap.put(map.get("gaValidationContentTypeHeaderName") ,map.get("gaValidationContentTypeHeaderValue"));
+    }
 
     @Test
     public void testLoginValidation(){
@@ -27,7 +29,6 @@ public class GuestAccountTests extends ApiBaseTest {
                 new Gson().toJson(request));
 
         com.training.pojos.ga.validation.Response responseElement = response.as(com.training.pojos.ga.validation.Response.class);
-        SoftAssertions softAssertions = new SoftAssertions();
 
         Assertions.assertEquals(200,responseElement.getStatus(),"Request Unsuccessful");
         softAssertions.assertThat(responseElement.getErrors().length).as("Error present in response")
