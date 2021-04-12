@@ -5,6 +5,7 @@ import com.training.pojos.ga.validation.Request;
 import com.training.utilities.JsonReaderUtility;
 import com.training.utilities.RestEngine;
 import io.restassured.RestAssured;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import java.util.Map;
 public class GuestAccountTests {
     protected Map<String, String> map = new JsonReaderUtility().getMap();
     private Map<String, Object> headerMap;
-    private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
     private io.restassured.response.Response response;
 
     @BeforeEach
@@ -26,7 +26,7 @@ public class GuestAccountTests {
     }
 
     @Test
-    public void test(){
+    public void testLoginValidation(){
 
         com.training.pojos.ga.validation.Request request = new Request();
         request.setPassword("password1");
@@ -36,10 +36,16 @@ public class GuestAccountTests {
                 new Gson().toJson(request));
 
         com.training.pojos.ga.validation.Response responseElement = response.as(com.training.pojos.ga.validation.Response.class);
+        SoftAssertions softAssertions = new SoftAssertions();
 
-        Assertions.assertEquals(200,responseElement.getStatus(),REQUEST_UNSUCCESSFUL);
-        Assertions.assertTrue(responseElement.getErrors().size()==0,"Error present in response");
-        Assertions.assertTrue(responseElement.getPayload().getAccessToken().length()>0,"Access Token Empty");
-        Assertions.assertEquals("email@email.com",responseElement.getPayload().getUid(), "Uid not same as body");
+        Assertions.assertEquals(200,responseElement.getStatus(),"Request Unsuccessful");
+        softAssertions.assertThat(responseElement.getErrors().length).as("Error present in response")
+                .isEqualTo(0);
+        softAssertions.assertThat(responseElement.getPayload().getAccessToken()).as("Access Token Empty")
+                .isNotNull();
+        softAssertions.assertThat(responseElement.getPayload().getUid()).as("Uid not same as body")
+                .isEqualTo("email@email.com");
+        softAssertions.assertAll();
+
     }
 }
