@@ -59,11 +59,10 @@ public class GuestAccountTests extends ApiBaseTest {
         softAssertions.assertThat(responseElement.getErrors().length).as(ERROR_PRESENT)
                 .isEqualTo(0);
 
-        Payload payload = responseElement.getPayload();
-        softAssertions.assertThat(payload.getAccountStatus()).as("Account Status mismatch")
+        softAssertions.assertThat(responseElement.getPayload().getAccountStatus()).as("Account Status mismatch")
                 .isEqualTo("EXISTS");
 
-        softAssertions.assertThat(payload.isUid()).as("Email doesn't exists")
-                .isEqualTo(true);
+        softAssertions.assertThat(responseElement.getPayload().isUid()).as("Email doesn't exists")
+                .isTrue();
     }
 }
