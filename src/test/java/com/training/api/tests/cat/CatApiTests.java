@@ -1,6 +1,7 @@
 package com.training.api.tests.cat;
 
 import com.google.gson.Gson;
+import com.training.basetest.ApiBaseTest;
 import com.training.pojos.cat.vote.Request;
 import com.training.pojos.cat.vote.Response;
 import com.training.utilities.JsonReaderUtility;
@@ -16,16 +17,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CatApiTests {
-    protected Map<String, String> map = new JsonReaderUtility().getMap();
-    private Map<String, Object> headerMap;
+public class CatApiTests extends ApiBaseTest {
     private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
-    private io.restassured.response.Response response;
 
     @BeforeEach
-    public void setup() {
+
+    public void startup() {
         RestAssured.baseURI = map.get("baseUri");
-        headerMap = new HashMap();
         headerMap.put(map.get("catAuthenticationHeaderName"), map.get("catAuthenticationHeaderValue"));
     }
 
