@@ -23,6 +23,7 @@ public class CatApiTests {
     private io.restassured.response.Response response;
 
     @BeforeEach
+
     public void setup() {
         RestAssured.baseURI = map.get("baseUri");
         headerMap = new HashMap();
