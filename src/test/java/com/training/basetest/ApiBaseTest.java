@@ -19,12 +19,12 @@ public class ApiBaseTest {
     public SoftAssertions softAssertions;
 
     @BeforeEach
-    public void setup()throws NullPointerException{
+    public void setup(){
         softAssertions = new SoftAssertions();
         headerMap = new HashMap();
     }
     @AfterEach
-    public void tearDown()throws NullPointerException{
+    public void tearDown(){
         softAssertions.assertAll();
     }
 }
