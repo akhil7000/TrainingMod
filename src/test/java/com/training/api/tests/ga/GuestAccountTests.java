@@ -38,4 +38,28 @@ public class GuestAccountTests extends ApiBaseTest {
         softAssertions.assertThat(responseElement.getPayload().getUid()).as("Uid not same as body")
                 .isEqualTo(email);
     }
+
+    @Test
+    public void testLoginAuthentication(){
+
+        com.training.pojos.ga.authentication.Request request = new com.training.pojos.ga.authentication.Request();
+        request.setEmail("email@email.com");
+
+        response = new RestEngine().getResponse("/en/al/web/v3/guestAccounts/validation",headerMap,
+                new Gson().toJson(request));
+
+        com.training.pojos.ga.authentication.Response responseElement =
+                response.as(com.training.pojos.ga.authentication.Response.class);
+
+        Assertions.assertEquals(200,responseElement.getStatus(),"Request Unsuccessful");
+
+        softAssertions.assertThat(responseElement.getErrors().length).as("Error present in response")
+                .isEqualTo(0);
+
+        softAssertions.assertThat(responseElement.getPayload().getAccountStatus()).as("Account Status mismatch")
+                .isEqualTo("EXISTS");
+
+        softAssertions.assertThat(responseElement.getPayload().isUid()).as("Email doesn't exists")
+                .isEqualTo(true);
+    }
 }
