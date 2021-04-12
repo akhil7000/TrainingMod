@@ -2,6 +2,7 @@ package com.training.api.tests.ga;
 
 import com.google.gson.Gson;
 import com.training.basetest.ApiBaseTest;
+import com.training.pojos.ga.authentication.Payload;
 import com.training.pojos.ga.validation.Request;
 import com.training.utilities.RestEngine;
 import io.restassured.RestAssured;
@@ -10,6 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GuestAccountTests extends ApiBaseTest {
+    private final String EMAIL = "email@email.com";
+    private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
+    private static final String ERROR_PRESENT = "Error present in response";
 
     @BeforeEach
     public void startup(){
@@ -20,22 +24,45 @@ public class GuestAccountTests extends ApiBaseTest {
 
     @Test
     public void testLoginValidation(){
-        String email = "email@email.com";
         com.training.pojos.ga.validation.Request request = new Request();
         request.setPassword("password1");
-        request.setUid(email);
+        request.setUid(EMAIL);
 
         response = new RestEngine().getResponse("/en/royal/web/v3/guestAccounts/authentication/login",headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.validation.Response responseElement = response.as(com.training.pojos.ga.validation.Response.class);
 
-        Assertions.assertEquals(200,responseElement.getStatus(),"Request Unsuccessful");
-        softAssertions.assertThat(responseElement.getErrors().length).as("Error present in response")
+        Assertions.assertEquals(200,responseElement.getStatus(),REQUEST_UNSUCCESSFUL);
+        softAssertions.assertThat(responseElement.getErrors().length).as(ERROR_PRESENT)
                 .isEqualTo(0);
         softAssertions.assertThat(responseElement.getPayload().getAccessToken()).as("Access Token Empty")
                 .isNotEmpty();
         softAssertions.assertThat(responseElement.getPayload().getUid()).as("Uid not same as body")
-                .isEqualTo(email);
+                .isEqualTo(EMAIL);
+    }
+
+    @Test
+    public void testLoginAuthentication(){
+
+        com.training.pojos.ga.authentication.Request request = new com.training.pojos.ga.authentication.Request();
+        request.setEmail(EMAIL);
+
+        response = new RestEngine().getResponse("/en/al/web/v3/guestAccounts/validation",headerMap,
+                new Gson().toJson(request));
+
+        com.training.pojos.ga.authentication.Response responseElement =
+                response.as(com.training.pojos.ga.authentication.Response.class);
+
+        Assertions.assertEquals(200,responseElement.getStatus(),REQUEST_UNSUCCESSFUL);
+
+        softAssertions.assertThat(responseElement.getErrors().length).as(ERROR_PRESENT)
+                .isEqualTo(0);
+
+        softAssertions.assertThat(responseElement.getPayload().getAccountStatus()).as("Account Status mismatch")
+                .isEqualTo("EXISTS");
+
+        softAssertions.assertThat(responseElement.getPayload().isUid()).as("Email doesn't exists")
+                .isTrue();
     }
 }
