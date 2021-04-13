@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Errors {
-    String errorCode;
-    String internalMessage;
-    String developerMessage;
+    private String errorCode;
+    private String internalMessage;
+    private String developerMessage;
 }

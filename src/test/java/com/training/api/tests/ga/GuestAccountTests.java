@@ -2,7 +2,6 @@ package com.training.api.tests.ga;
 
 import com.google.gson.Gson;
 import com.training.basetest.ApiBaseTest;
-import com.training.pojos.ga.authentication.Payload;
 import com.training.pojos.ga.validation.Request;
 import com.training.utilities.RestEngine;
 import io.restassured.RestAssured;
@@ -12,7 +11,8 @@ import org.junit.jupiter.api.Test;
 
 public class GuestAccountTests extends ApiBaseTest {
     private final String EMAIL = "email@email.com";
-    private final String emailValidationUrl = "/en/royal/web/v3/guestAccounts/authentication/login";
+    private final String PASSWORD = "password1";
+    private final String EMAIL_VALIDATION_URL = "/en/royal/web/v3/guestAccounts/authentication/login";
     private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
     private static final String ERROR_PRESENT = "Error present in response";
     private static final String RESPONSE_ERROR = "Response not as expected";
@@ -31,10 +31,10 @@ public class GuestAccountTests extends ApiBaseTest {
     @Test
     public void testLoginValidation(){
         com.training.pojos.ga.validation.Request request = new Request();
-        request.setPassword("password1");
+        request.setPassword(PASSWORD);
         request.setUid(EMAIL);
 
-        response = new RestEngine().getResponse(emailValidationUrl,headerMap,
+        response = new RestEngine().getResponse(EMAIL_VALIDATION_URL,headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.validation.Response responseElement = response.as(com.training.pojos.ga.validation.Response.class);
@@ -75,12 +75,12 @@ public class GuestAccountTests extends ApiBaseTest {
     @Test
     public void testNegativeLoginValidationWrongAppKey() {
         String errorCode = "COMMONS-0001";
-        headerMap.put(map.get("gaValidationAppKeyHeaderName"), "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj");
+        headerMap.put(map.get("gaValidationAppKeyHeaderName"), map.get("gaValidationAppKeyHeaderWrongValue"));
         com.training.pojos.ga.validation.Request request = new Request();
-        request.setPassword("password1");
+        request.setPassword(PASSWORD);
         request.setUid(EMAIL);
 
-        response = new RestEngine().getResponse(emailValidationUrl, headerMap,
+        response = new RestEngine().getResponse(EMAIL_VALIDATION_URL, headerMap,
                 new Gson().toJson(request));
         com.training.pojos.ga.validation.Response responseElement =
                 response.as(com.training.pojos.ga.validation.Response.class);
@@ -103,10 +103,10 @@ public class GuestAccountTests extends ApiBaseTest {
     @Test
     public void testNegativeLoginValidationWrongEmail(){
         com.training.pojos.ga.validation.Request request = new Request();
-        request.setPassword("password1");
+        request.setPassword(PASSWORD);
         request.setUid("wrongEmail@email.com");
 
-        response = new RestEngine().getResponse(emailValidationUrl,headerMap,
+        response = new RestEngine().getResponse(EMAIL_VALIDATION_URL,headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.validation.Response responseElement =
@@ -127,13 +127,11 @@ public class GuestAccountTests extends ApiBaseTest {
     @Test
     public void testNegativeLoginValidationInvalidEmail(){
         com.training.pojos.ga.validation.Request request = new Request();
-        request.setPassword("password1");
+        request.setPassword(PASSWORD);
         request.setUid("email@@email.com");
 
-        response = new RestEngine().getResponse(emailValidationUrl,headerMap,
+        response = new RestEngine().getResponse(EMAIL_VALIDATION_URL,headerMap,
                 new Gson().toJson(request));
-
-        System.out.println(response.jsonPath().toString());
 
         com.training.pojos.ga.validation.Response responseElement =
                 response.as(com.training.pojos.ga.validation.Response.class);
