@@ -12,8 +12,14 @@ import org.junit.jupiter.api.Test;
 
 public class GuestAccountTests extends ApiBaseTest {
     private final String EMAIL = "email@email.com";
+    private final String emailValidationUrl = "/en/royal/web/v3/guestAccounts/authentication/login";
     private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
     private static final String ERROR_PRESENT = "Error present in response";
+    private static final String RESPONSE_ERROR = "Response not as expected";
+    private static final String ERROR_CODE = "Wrong Error Code";
+    private static final String ERRORS_MESSAGE="Wrong Error Message";
+    private static final String DEVELOPERS_MESSAGE = "Wrong Developer Message";
+    private static final String INTERNAL_MESSAGE = "Wrong Internal Message";
 
     @BeforeEach
     public void startup(){
@@ -28,7 +34,7 @@ public class GuestAccountTests extends ApiBaseTest {
         request.setPassword("password1");
         request.setUid(EMAIL);
 
-        response = new RestEngine().getResponse("/en/royal/web/v3/guestAccounts/authentication/login",headerMap,
+        response = new RestEngine().getResponse(emailValidationUrl,headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.validation.Response responseElement = response.as(com.training.pojos.ga.validation.Response.class);
@@ -64,5 +70,83 @@ public class GuestAccountTests extends ApiBaseTest {
 
         softAssertions.assertThat(responseElement.getPayload().isUid()).as("Email doesn't exists")
                 .isTrue();
+    }
+
+    @Test
+    public void testNegativeLoginValidationWrongAppKey() {
+        String errorCode = "COMMONS-0001";
+        headerMap.put(map.get("gaValidationAppKeyHeaderName"), "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj");
+        com.training.pojos.ga.validation.Request request = new Request();
+        request.setPassword("password1");
+        request.setUid(EMAIL);
+
+        response = new RestEngine().getResponse(emailValidationUrl, headerMap,
+                new Gson().toJson(request));
+        com.training.pojos.ga.validation.Response responseElement =
+                response.as(com.training.pojos.ga.validation.Response.class);
+
+        Assertions.assertEquals(401, responseElement.getStatus(), RESPONSE_ERROR);
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getErrorCode()).as(ERROR_CODE)
+                .isEqualTo(errorCode);
+
+        softAssertions.assertThat(responseElement.getError().getErrorCode()).as(ERROR_CODE)
+                .isEqualTo(errorCode);
+
+        softAssertions.assertThat(responseElement.getError().getMessage()).as(ERRORS_MESSAGE)
+                .isNotEmpty();
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getInternalMessage()).as(ERRORS_MESSAGE)
+                .isNotEmpty();
+    }
+
+    @Test
+    public void testNegativeLoginValidationWrongEmail(){
+        com.training.pojos.ga.validation.Request request = new Request();
+        request.setPassword("password1");
+        request.setUid("wrongEmail@email.com");
+
+        response = new RestEngine().getResponse(emailValidationUrl,headerMap,
+                new Gson().toJson(request));
+
+        com.training.pojos.ga.validation.Response responseElement =
+                response.as(com.training.pojos.ga.validation.Response.class);
+
+        Assertions.assertEquals(401, responseElement.getStatus(), RESPONSE_ERROR);
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getErrorCode()).as(ERROR_CODE)
+                .isEqualTo("GA-0201");
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getDeveloperMessage()).as(DEVELOPERS_MESSAGE)
+                .isNotEmpty();
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getInternalMessage()).as(INTERNAL_MESSAGE)
+                .isNotEmpty();
+    }
+
+    @Test
+    public void testNegativeLoginValidationInvalidEmail(){
+        com.training.pojos.ga.validation.Request request = new Request();
+        request.setPassword("password1");
+        request.setUid("email@@email.com");
+
+        response = new RestEngine().getResponse(emailValidationUrl,headerMap,
+                new Gson().toJson(request));
+
+        System.out.println(response.jsonPath().toString());
+
+        com.training.pojos.ga.validation.Response responseElement =
+                response.as(com.training.pojos.ga.validation.Response.class);
+
+        Assertions.assertEquals(401, responseElement.getStatus(), RESPONSE_ERROR);
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getErrorCode()).as(ERROR_CODE)
+                .isEqualTo("GA-0201");
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getDeveloperMessage()).as(DEVELOPERS_MESSAGE)
+                .isNotEmpty();
+
+        softAssertions.assertThat(responseElement.getErrors()[0].getInternalMessage()).as(INTERNAL_MESSAGE)
+                .isNotEmpty();
     }
 }

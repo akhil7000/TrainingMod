@@ -9,4 +9,5 @@ public class Response {
     private int status;
     private Errors[] errors;
     private Payload payload;
+    private com.training.pojos.ga.validation.Error error;
 }
