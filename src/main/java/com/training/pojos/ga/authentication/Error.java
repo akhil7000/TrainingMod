@@ -3,8 +3,7 @@ package com.training.pojos.ga.authentication;
 import lombok.Data;
 
 @Data
-public class Errors {
-    private String developerMessage;
+public class Error {
     private String errorCode;
-    private String internalMessage;
+    private String message;
 }

@@ -21,12 +21,13 @@ public class GuestAccountTests extends ApiBaseTest {
     private static final String ERRORS_MESSAGE="Wrong Error Message";
     private static final String DEVELOPERS_MESSAGE = "Wrong Developer Message";
     private static final String INTERNAL_MESSAGE = "Wrong Internal Message";
+    private static final String EMAIL_AUTHENTICATION_URL = "/en/royal/web/v3/guestAccounts/authentication/login";
 
     @BeforeEach
     public void startup(){
         RestAssured.baseURI = map.get("gaBaseUrl");
-        headerMap.put(map.get("gaValidationAppKeyHeaderName"),map.get("gaValidationAppKeyHeaderValue"));
-        headerMap.put(map.get("gaValidationContentTypeHeaderName") ,map.get("gaValidationContentTypeHeaderValue"));
+        headerMap.put(map.get("gaAppKeyHeaderName"),map.get("gaAppKeyHeaderValue"));
+        headerMap.put(map.get("gaContentTypeHeaderName") ,map.get("gaContentTypeHeaderValue"));
     }
 
     @Test
@@ -52,7 +53,7 @@ public class GuestAccountTests extends ApiBaseTest {
         com.training.pojos.ga.authentication.Request request =
                 new com.training.pojos.ga.authentication.Request(email, password);
 
-        response = new RestEngine().getResponse(    "/en/royal/web/v3/guestAccounts/authentication/login",headerMap,
+        response = new RestEngine().getResponse(    EMAIL_AUTHENTICATION_URL,headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.authentication.Response responseElement =
@@ -74,8 +75,8 @@ public class GuestAccountTests extends ApiBaseTest {
     public void testNegativeLoginValidationWrongAppKey() {
         com.training.pojos.ga.validation.Request request = new Request(email);
         String errorCode = "COMMONS-0001";
-        headerMap.put(map.get("gaValidationAppKeyHeaderName"),
-                RandomStringUtils.randomAlphanumeric(map.get("gaValidationAppKeyHeaderValue").length()));
+        headerMap.put(map.get("gaAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
 
         response = new RestEngine().getResponse(EMAIL_VALIDATION_URL, headerMap,
                 new Gson().toJson(request));
@@ -143,5 +144,54 @@ public class GuestAccountTests extends ApiBaseTest {
         softAssertions.assertThat(responseElement.getErrors().get(0).getValidationErrors().get(0)
                                     .getError()).as("Email id Validated")
                                     .isEqualTo("The email is in an invalid format.");
+    }
+
+    @Test
+    public void testNegativeLoginAuthenticationWrongAppKey(){
+        com.training.pojos.ga.authentication.Request request =
+                new com.training.pojos.ga.authentication.Request(email,password);
+        String errorCode = "COMMONS-0001";
+        headerMap.put(map.get("gaAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
+
+        response = new RestEngine().getResponse(EMAIL_AUTHENTICATION_URL,headerMap,
+                new Gson().toJson(request));
+
+        com.training.pojos.ga.authentication.Response responseElement =
+                response.as(com.training.pojos.ga.authentication.Response.class);
+
+        Assertions.assertEquals(401,responseElement.getStatus(),ERROR_CODE);
+
+        softAssertions.assertThat(responseElement.getErrors().get(0).getInternalMessage().length()).as(ERRORS_MESSAGE)
+                .isGreaterThan(0);
+
+        softAssertions.assertThat(responseElement.getErrors().get(0).getErrorCode()).as(ERROR_CODE)
+                .isEqualTo(errorCode);
+        softAssertions.assertThat(responseElement .getError().getErrorCode()).as(ERROR_CODE)
+                .isEqualTo(errorCode);
+        softAssertions.assertThat(responseElement.getError().getMessage().length()).as(ERRORS_MESSAGE)
+                .isGreaterThan(0);
+    }
+
+    @Test
+    public void testNegativeLoginAuthenticationWrongEmail(){
+        com.training.pojos.ga.authentication.Request request =
+                new com.training.pojos.ga.authentication.Request("mail.email.com",password);
+
+        response = new RestEngine().getResponse(EMAIL_AUTHENTICATION_URL,headerMap,
+                new Gson().toJson(request));
+        com.training.pojos.ga.authentication.Response responseElement =
+                response.as(com.training.pojos.ga.authentication.Response.class);
+
+        Assertions.assertEquals(401,responseElement.getStatus(),ERROR_CODE);
+
+        softAssertions.assertThat(responseElement.getErrors().get(0).getInternalMessage().length()).as(ERRORS_MESSAGE)
+                .isGreaterThan(0);
+
+        softAssertions.assertThat(responseElement.getErrors().get(0).getErrorCode()).as(ERROR_CODE)
+                .isEqualTo("GA-0201");
+
+        softAssertions.assertThat(responseElement.getErrors().get(0).getDeveloperMessage().length()).as(ERRORS_MESSAGE)
+                .isGreaterThan(0);
     }
 }

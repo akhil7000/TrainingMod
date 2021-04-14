@@ -14,10 +14,10 @@
   "paymentPageUrl": "https://www.flipkart.com/pages/payments",
   "catAuthenticationHeaderName": "x-api-key",
   "catAuthenticationHeaderValue": "37b0987e-eb13-4193-82b1-56f33b574ac0",
-  "baseUri": "https://api.thecatapi.com",
+  "catBaseUrl": "https://api.thecatapi.com",
   "gaBaseUrl": "https://aws-stg1.api.rccl.com",
-  "gaValidationAppKeyHeaderName" : "Appkey",
-  "gaValidationAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
-  "gaValidationContentTypeHeaderName": "Content-Type",
-  "gaValidationContentTypeHeaderValue":"application/json"
+  "gaAppKeyHeaderName" : "Appkey",
+  "gaAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
+  "gaContentTypeHeaderName": "Content-Type",
+  "gaContentTypeHeaderValue":"application/json"
 }

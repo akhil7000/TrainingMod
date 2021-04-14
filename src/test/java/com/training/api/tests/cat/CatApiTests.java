@@ -23,7 +23,7 @@ public class CatApiTests extends ApiBaseTest {
     @BeforeEach
 
     public void startup() {
-        RestAssured.baseURI = map.get("baseUri");
+        RestAssured.baseURI = map.get("catBaseUrl");
         headerMap.put(map.get("catAuthenticationHeaderName"), map.get("catAuthenticationHeaderValue"));
     }
 

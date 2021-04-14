@@ -9,4 +9,5 @@ public class Response {
    private int status;
    private List<Errors> errors;
    private Payload payload;
+   private com.training.pojos.ga.authentication.Error error;
 }
