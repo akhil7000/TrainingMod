@@ -132,5 +132,9 @@ public class FlipkartTest extends WebBaseTest {
     public void testAppDownloadValidation(String os, String appStoreUrl) {
         AppPage appPage = flipkartHomePage.clickDownloadApp();
         Assertions.assertTrue(appPage.clickOs(os).getUrl().equalsIgnoreCase(appStoreUrl));
+        System.out.println("1");
+        System.out.println("2");
+        System.out.println("3");
+        System.out.println("4");
     }
 }
