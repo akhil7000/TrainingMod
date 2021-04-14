@@ -26,8 +26,8 @@ public class GuestAccountTests extends ApiBaseTest {
     @BeforeEach
     public void startup(){
         RestAssured.baseURI = map.get("gaBaseUrl");
-        headerMap.put(map.get("gaValidationAppKeyHeaderName"),map.get("gaValidationAppKeyHeaderValue"));
-        headerMap.put(map.get("gaValidationContentTypeHeaderName") ,map.get("gaValidationContentTypeHeaderValue"));
+        headerMap.put(map.get("gaAppKeyHeaderName"),map.get("gaAppKeyHeaderValue"));
+        headerMap.put(map.get("gaContentTypeHeaderName") ,map.get("gaContentTypeHeaderValue"));
     }
 
     @Test
@@ -75,8 +75,8 @@ public class GuestAccountTests extends ApiBaseTest {
     public void testNegativeLoginValidationWrongAppKey() {
         com.training.pojos.ga.validation.Request request = new Request(email);
         String errorCode = "COMMONS-0001";
-        headerMap.put(map.get("gaValidationAppKeyHeaderName"),
-                RandomStringUtils.randomAlphanumeric(map.get("gaValidationAppKeyHeaderValue").length()));
+        headerMap.put(map.get("gaAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
 
         response = new RestEngine().getResponse(EMAIL_VALIDATION_URL, headerMap,
                 new Gson().toJson(request));
@@ -151,8 +151,8 @@ public class GuestAccountTests extends ApiBaseTest {
         com.training.pojos.ga.authentication.Request request =
                 new com.training.pojos.ga.authentication.Request(email,password);
         String errorCode = "COMMONS-0001";
-        headerMap.put(map.get("gaValidationAppKeyHeaderName"),
-                RandomStringUtils.randomAlphanumeric(map.get("gaValidationAppKeyHeaderValue").length()));
+        headerMap.put(map.get("gaAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
 
         response = new RestEngine().getResponse(EMAIL_AUTHENTICATION_URL,headerMap,
                 new Gson().toJson(request));
