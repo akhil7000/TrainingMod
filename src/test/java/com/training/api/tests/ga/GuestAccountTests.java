@@ -66,7 +66,6 @@ public class GuestAccountTests extends ApiBaseTest {
         softAssertions.assertThat(responseElement.getErrors().size()).as(ERROR_PRESENT)
                 .isEqualTo(0);
 
-
         softAssertions.assertThat(responseElement.getPayload().getLoginStatus()).as("Login Status mismatch")
                 .isEqualTo("AUTHENTICATED");
 
@@ -103,6 +102,7 @@ public class GuestAccountTests extends ApiBaseTest {
 
     @Test
     public void testNegativeLoginValidationWrongEmail(){
+        request = new Request("mail@email.com");
 
         response = new RestEngine().getResponse(EMAIL_VALIDATION_URL,headerMap,
                 new Gson().toJson(request));
@@ -124,7 +124,7 @@ public class GuestAccountTests extends ApiBaseTest {
 
     @Test
     public void testNegativeLoginValidationInvalidEmail(){
-
+        request = new Request("email@@email.com");
         response = new RestEngine().getResponse(EMAIL_VALIDATION_URL,headerMap,
                 new Gson().toJson(request));
 
