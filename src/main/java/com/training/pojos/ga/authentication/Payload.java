@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Payload {
-    private String accountStatus;
-    private boolean isUid;
+    private String accessToken;
+    private String uid;
+    private String loginStatus;
 }

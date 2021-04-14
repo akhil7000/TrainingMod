@@ -4,6 +4,9 @@ import lombok.Setter;
 
 @Setter
 public class Request {
-    private String uid;
-    private String password;
+    private String email;
+
+    public Request(String email) {
+        setEmail(email);
+    }
 }
