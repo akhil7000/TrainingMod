@@ -18,7 +18,6 @@
   "gaBaseUrl": "https://aws-stg1.api.rccl.com",
   "gaValidationAppKeyHeaderName" : "Appkey",
   "gaValidationAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
-  "gaValidationAppKeyHeaderWrongValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj",
   "gaValidationContentTypeHeaderName": "Content-Type",
   "gaValidationContentTypeHeaderValue":"application/json"
 }
