@@ -14,7 +14,7 @@
   "paymentPageUrl": "https://www.flipkart.com/pages/payments",
   "catAuthenticationHeaderName": "x-api-key",
   "catAuthenticationHeaderValue": "37b0987e-eb13-4193-82b1-56f33b574ac0",
-  "baseUri": "https://api.thecatapi.com",
+  "catBaseUrl": "https://api.thecatapi.com",
   "gaBaseUrl": "https://aws-stg1.api.rccl.com",
   "gaAppKeyHeaderName" : "Appkey",
   "gaAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
