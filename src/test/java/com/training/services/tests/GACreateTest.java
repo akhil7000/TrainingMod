@@ -43,7 +43,7 @@ public class GACreateTest extends BaseTest {
         //termsAndCondition object
         requestBodyCreate.setAcceptDateTime("20190524T090712GMT", 2);
         requestBodyCreate.setVersion("1.8", 2);
-        requestBodyCreate.setUidType("EMAIL");
+        requestBodyCreate.setUidType("EMAIL");//commit1//commit2//commit3
     }
 
     /**
