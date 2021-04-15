@@ -1,4 +1,4 @@
-package com.training.pojos.ga.createGa;
+package com.training.pojos.ga.creation;
 
 import lombok.Data;
 import java.util.ArrayList;

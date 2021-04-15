@@ -1,9 +1,9 @@
-package com.training.pojos.ga.createGa;
+package com.training.pojos.ga.creation;
 
 import lombok.Data;
 
 @Data
-public class TermsAndConditionsAgreement {
+public class PrivacyPolicyAgreement {
     private String acceptDateTime;
     private String version;
 }

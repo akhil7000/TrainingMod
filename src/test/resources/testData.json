@@ -20,5 +20,5 @@
   "gaAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
   "gaContentTypeHeaderName": "Content-Type",
   "gaContentTypeHeaderValue": "application/json",
-  "gaCreateUrl": "https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts"
+  "gaCreateUrl": "/en/royal/web/v3/guestAccounts"
 }

@@ -198,12 +198,13 @@ public class GuestAccountTests extends ApiBaseTest {
 
     @Test
     public void testCreateGuestAccount(){
-        String id = RandomStringUtils.randomAlphanumeric(10);
         String firstName="Audrey";
         String lastName="Poole";
-        String email= String.format("%s@email.com",id);
+        String email= String.format("%s%s@email.com",
+                RandomStringUtils.randomAlphabetic(5),
+                System.currentTimeMillis());
 
-        com.training.pojos.ga.createGa.Request request = new com.training.pojos.ga.createGa.Request();
+        com.training.pojos.ga.creation.Request request = new com.training.pojos.ga.creation.Request();
         request.setBirthdate("19620802");
         request.setEmail(email);
         request.setFirstName(firstName);
@@ -222,8 +223,8 @@ public class GuestAccountTests extends ApiBaseTest {
         response = new RestEngine().getResponse(map.get("gaCreateUrl"),headerMap,
                 new Gson().toJson(request));
 
-        com.training.pojos.ga.createGa.Response responseElement =
-                response.as(com.training.pojos.ga.createGa.Response.class);
+        com.training.pojos.ga.creation.Response responseElement =
+                response.as(com.training.pojos.ga.creation.Response.class);
 
         Assertions.assertEquals(200,responseElement.getStatus(),REQUEST_UNSUCCESSFUL);
 
@@ -249,5 +250,9 @@ public class GuestAccountTests extends ApiBaseTest {
         softAssertions.assertThat(new UuidValidator().isValidUUID(responseElement.getPayload().getAccountId()))
                 .as("Account id format is invalid")
                 .isTrue();
+
+        softAssertions.assertThat(responseElement.getPayload().getAccountId())
+                .as("Account id pattern doesn't match")
+                .matches("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$");
     }
 }
