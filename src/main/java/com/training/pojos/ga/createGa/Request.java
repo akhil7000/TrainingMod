@@ -1,9 +1,9 @@
 package com.training.pojos.ga.createGa;
 
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
 public class Request {
     private String birthdate;
@@ -28,8 +28,8 @@ public class Request {
         privacyPolicyAgreement.setAcceptDateTime(dateTime);
     }
 
-    public void setPrivacyVersion(String verison){
-        privacyPolicyAgreement.setVersion(verison);
+    public void setPrivacyVersion(String version){
+        privacyPolicyAgreement.setVersion(version);
     }
 
     public void setTncAcceptDateTime(String dateTime){
@@ -51,7 +51,4 @@ public class Request {
     public void setSecurityQuestionKey(String key){
         securityQuestions.get(0).setQuestionKey(key);
     }
-
-
 }
-

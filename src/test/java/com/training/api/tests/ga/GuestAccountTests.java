@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 public class GuestAccountTests extends ApiBaseTest {
     private final String email = "email@email.com";
     private final String password = "password1";
@@ -245,7 +243,7 @@ public class GuestAccountTests extends ApiBaseTest {
                 .as("Last name doesn't match")
                 .isEqualTo(lastName);
 
-        softAssertions.assertThat(responseElement.getPayload().getUid()).as("")
+        softAssertions.assertThat(responseElement.getPayload().getUid()).as("Email id mismatch")
                 .isEqualTo(email);
 
         softAssertions.assertThat(new UuidValidator().isValidUUID(responseElement.getPayload().getAccountId()))
