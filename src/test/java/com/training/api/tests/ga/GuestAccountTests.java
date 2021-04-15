@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.training.basetest.ApiBaseTest;
 import com.training.pojos.ga.validation.Request;
 import com.training.utilities.RestEngine;
-import com.training.utilities.UuidValidator;
 import io.restassured.RestAssured;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
@@ -246,10 +245,6 @@ public class GuestAccountTests extends ApiBaseTest {
 
         softAssertions.assertThat(responseElement.getPayload().getUid()).as("Email id mismatch")
                 .isEqualTo(email);
-
-        softAssertions.assertThat(new UuidValidator().isValidUUID(responseElement.getPayload().getAccountId()))
-                .as("Account id format is invalid")
-                .isTrue();
 
         softAssertions.assertThat(responseElement.getPayload().getAccountId())
                 .as("Account id pattern doesn't match")
