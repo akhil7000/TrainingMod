@@ -219,7 +219,7 @@ public class GuestAccountTests extends ApiBaseTest {
         request.setSecurityAnswer("Answer1");
         request.setUidType("EMAIL");
 
-        response = new RestEngine().getResponse("https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts",headerMap,
+        response = new RestEngine().getResponse(map.get("gaCreateUrl"),headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.createGa.Response responseElement =
