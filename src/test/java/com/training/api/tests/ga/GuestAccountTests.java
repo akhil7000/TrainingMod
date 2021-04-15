@@ -4,11 +4,14 @@ import com.google.gson.Gson;
 import com.training.basetest.ApiBaseTest;
 import com.training.pojos.ga.validation.Request;
 import com.training.utilities.RestEngine;
+import com.training.utilities.UuidValidator;
 import io.restassured.RestAssured;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 public class GuestAccountTests extends ApiBaseTest {
     private final String email = "email@email.com";
@@ -193,5 +196,60 @@ public class GuestAccountTests extends ApiBaseTest {
 
         softAssertions.assertThat(responseElement.getErrors().get(0).getDeveloperMessage().length()).as(ERRORS_MESSAGE)
                 .isGreaterThan(0);
+    }
+
+    @Test
+    public void testCreateGuestAccount(){
+        String id = RandomStringUtils.randomAlphanumeric(10);
+        String firstName="Audrey";
+        String lastName="Poole";
+        String email= String.format("%s@email.com",id);
+
+        com.training.pojos.ga.createGa.Request request = new com.training.pojos.ga.createGa.Request();
+        request.setBirthdate("19620802");
+        request.setEmail(email);
+        request.setFirstName(firstName);
+        request.setLastName(lastName);
+        request.setMarketingCountry("USA");
+        request.setPassword("Password1");
+        request.setPrivacyAcceptDateTime("20190524T090712GMT");
+        request.setPrivacyVersion("1.11");
+        request.setTncAcceptDateTime("20190524T090712GMT");
+        request.setTncVersion("1.8");
+        request.setSecurityQuestion("What was the first concert you attended?");
+        request.setSecurityQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOU_ATTENDED");
+        request.setSecurityAnswer("Answer1");
+        request.setUidType("EMAIL");
+
+        response = new RestEngine().getResponse("https://aws-stg1.api.rccl.com/en/royal/web/v3/guestAccounts",headerMap,
+                new Gson().toJson(request));
+
+        com.training.pojos.ga.createGa.Response responseElement =
+                response.as(com.training.pojos.ga.createGa.Response.class);
+
+        Assertions.assertEquals(200,responseElement.getStatus(),REQUEST_UNSUCCESSFUL);
+
+        softAssertions.assertThat(responseElement.getPayload().getAccessToken().length())
+                .as("No access token assigned")
+                .isGreaterThan(0);
+
+        softAssertions.assertThat(responseElement.getPayload().getLoginStatus())
+                .as("Login Status is not authenticated")
+                .isEqualTo("AUTHENTICATED");
+
+        softAssertions.assertThat(responseElement.getPayload().getFirstName())
+                .as("First name doesn't match")
+                .isEqualTo(firstName);
+
+        softAssertions.assertThat(responseElement.getPayload().getLastName())
+                .as("Last name doesn't match")
+                .isEqualTo(lastName);
+
+        softAssertions.assertThat(responseElement.getPayload().getUid()).as("")
+                .isEqualTo(email);
+
+        softAssertions.assertThat(new UuidValidator().isValidUUID(responseElement.getPayload().getAccountId()))
+                .as("Account id format is invalid")
+                .isTrue();
     }
 }
