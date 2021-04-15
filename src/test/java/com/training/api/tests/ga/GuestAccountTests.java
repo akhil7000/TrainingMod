@@ -194,4 +194,60 @@ public class GuestAccountTests extends ApiBaseTest {
         softAssertions.assertThat(responseElement.getErrors().get(0).getDeveloperMessage().length()).as(ERRORS_MESSAGE)
                 .isGreaterThan(0);
     }
+
+    @Test
+    public void testCreateGuestAccount(){
+        String firstName="Audrey";
+        String lastName="Poole";
+        String email= String.format("%s%s@email.com",
+                RandomStringUtils.randomAlphabetic(5),
+                System.currentTimeMillis());
+
+        com.training.pojos.ga.creation.Request request = new com.training.pojos.ga.creation.Request();
+        request.setBirthdate("19620802");
+        request.setEmail(email);
+        request.setFirstName(firstName);
+        request.setLastName(lastName);
+        request.setMarketingCountry("USA");
+        request.setPassword("Password1");
+        request.setPrivacyAcceptDateTime("20190524T090712GMT");
+        request.setPrivacyVersion("1.11");
+        request.setTncAcceptDateTime("20190524T090712GMT");
+        request.setTncVersion("1.8");
+        request.setSecurityQuestion("What was the first concert you attended?");
+        request.setSecurityQuestionKey("WHAT_WAS_THE_FIRST_CONCERT_YOU_ATTENDED");
+        request.setSecurityAnswer("Answer1");
+        request.setUidType("EMAIL");
+
+        response = new RestEngine().getResponse(map.get("gaCreateUrl"),headerMap,
+                new Gson().toJson(request));
+
+        com.training.pojos.ga.creation.Response responseElement =
+                response.as(com.training.pojos.ga.creation.Response.class);
+
+        Assertions.assertEquals(200,responseElement.getStatus(),REQUEST_UNSUCCESSFUL);
+
+        softAssertions.assertThat(responseElement.getPayload().getAccessToken().length())
+                .as("No access token assigned")
+                .isGreaterThan(0);
+
+        softAssertions.assertThat(responseElement.getPayload().getLoginStatus())
+                .as("Login Status is not authenticated")
+                .isEqualTo("AUTHENTICATED");
+
+        softAssertions.assertThat(responseElement.getPayload().getFirstName())
+                .as("First name doesn't match")
+                .isEqualTo(firstName);
+
+        softAssertions.assertThat(responseElement.getPayload().getLastName())
+                .as("Last name doesn't match")
+                .isEqualTo(lastName);
+
+        softAssertions.assertThat(responseElement.getPayload().getUid()).as("Email id mismatch")
+                .isEqualTo(email);
+
+        softAssertions.assertThat(responseElement.getPayload().getAccountId())
+                .as("Account id pattern doesn't match")
+                .matches("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$");
+    }
 }
