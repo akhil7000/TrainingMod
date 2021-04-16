@@ -1,54 +1,26 @@
 package com.training.pojos.ga.creation;
 
+import lombok.Builder;
 import lombok.Data;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Data
+@Builder
 public class Request {
-    private String birthdate;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String marketingCountry;
-    private String password;
-    private PrivacyPolicyAgreement privacyPolicyAgreement;
-    private List<SecurityQuestion> securityQuestions;
-    private TermsAndConditionsAgreement termsAndConditionsAgreement;
-    private String uidType;
-
-    public Request(){
-        privacyPolicyAgreement = new PrivacyPolicyAgreement();
-        termsAndConditionsAgreement = new TermsAndConditionsAgreement();
-        securityQuestions = new ArrayList<>();
-        securityQuestions.add(new SecurityQuestion());
-    }
-
-    public void setPrivacyAcceptDateTime(String dateTime){
-        privacyPolicyAgreement.setAcceptDateTime(dateTime);
-    }
-
-    public void setPrivacyVersion(String version){
-        privacyPolicyAgreement.setVersion(version);
-    }
-
-    public void setTncAcceptDateTime(String dateTime){
-        termsAndConditionsAgreement.setAcceptDateTime(dateTime);
-    }
-
-    public void setTncVersion(String version){
-        termsAndConditionsAgreement.setVersion(version);
-    }
-
-    public void setSecurityQuestion(String question){
-        securityQuestions.get(0).setQuestion(question);
-    }
-
-    public void setSecurityAnswer(String answer){
-        securityQuestions.get(0).setAnswer(answer);
-    }
-
-    public void setSecurityQuestionKey(String key){
-        securityQuestions.get(0).setQuestionKey(key);
-    }
+    @Builder.Default private String birthdate="19620802";
+    @Builder.Default private String email="testemail@email.com";
+    @Builder.Default private String firstName = "Audrey";
+    @Builder.Default private String lastName="Poole";
+    @Builder.Default private String marketingCountry="USA";
+    @Builder.Default private String password="Password1";
+    @Builder.Default private PrivacyPolicyAgreement privacyPolicyAgreement
+                                                    = PrivacyPolicyAgreement.builder().build();
+    @Builder.Default private List<SecurityQuestion> securityQuestions
+                                                    = Arrays.asList(SecurityQuestion.builder().build());
+    @Builder.Default private TermsAndConditionsAgreement termsAndConditionsAgreement
+                                                    = TermsAndConditionsAgreement.builder().build();
+    @Builder.Default private String uidType="EMAIL";
 }
