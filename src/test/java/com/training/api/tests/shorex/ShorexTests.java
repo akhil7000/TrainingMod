@@ -11,7 +11,7 @@ public class ShorexTests extends ApiBaseTest {
     @BeforeEach
     public void startup(){
         headerMap.put(map.get("gaAppKeyHeaderName"),map.get("gaAppKeyHeaderValue"));
-        headerMap.put(map.get("gaContentTypeHeaderName") ,map.get("gaContentTypeHeaderValue"));
+        headerMap.put(map.get("gaContentTypeHeaderName"),map.get("gaContentTypeHeaderValue"));
     }
 
     @Test

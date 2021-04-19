@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class Response {
-    public int status;
-    public List<Errors> errors;
-    public com.training.pojos.shorex.validate.Payload payload;
+    private int status;
+    private List<Errors> errors;
+    private com.training.pojos.shorex.validate.Payload payload;
 }
