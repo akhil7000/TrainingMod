@@ -29,4 +29,20 @@ public class ShorexTests extends ApiBaseTest {
                 .as("Number of hits incorrect")
                 .isEqualTo(Integer.parseInt(map.get("numberOfShorexHits")));
     }
+
+    @Test
+    public void testValidateProductType(){
+        response = new RestEngine().getResponse(map.get("shorexUrl"),headerMap);
+        com.training.pojos.shorex.validate.Response responseElement =
+                response.as( com.training.pojos.shorex.validate.Response.class);
+
+        Assertions.assertEquals(200,responseElement.getStatus(),"REQUEST UNSUCCESSFUL");
+
+        for(int index=0;index <responseElement.getPayload().getProducts().size();index++){
+            softAssertions.assertThat(responseElement.getPayload().getProducts().get(index)
+                    .getProductType().getProductType())
+                    .as("Product Type incorrect")
+                    .isEqualTo("SHOREX");
+        }
+    }
 }

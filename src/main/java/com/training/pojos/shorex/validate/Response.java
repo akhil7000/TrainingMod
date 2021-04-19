@@ -8,5 +8,5 @@ import java.util.List;
 public class Response {
     private int status;
     private List<Errors> errors;
-    private com.training.pojos.shorex.validate.Payload payload;
+    private Payload payload;
 }
