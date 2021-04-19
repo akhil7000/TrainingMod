@@ -10,20 +10,20 @@ import org.junit.jupiter.api.Test;
 public class ShorexTests extends ApiBaseTest {
 
     @BeforeEach
-    public void startup(){
-        RestAssured.baseURI= map.get("rcclBaseUrl");
-        headerMap.put(map.get("rcclAppKeyHeaderName"),map.get("rcclAppKeyHeaderValue"));
-        headerMap.put(map.get("rcclContentTypeHeaderName"),map.get("rcclContentTypeHeaderValue"));
+    public void startup() {
+        RestAssured.baseURI = map.get("rcclBaseUrl");
+        headerMap.put(map.get("rcclAppKeyHeaderName"), map.get("rcclAppKeyHeaderValue"));
+        headerMap.put(map.get("rcclContentTypeHeaderName"), map.get("rcclContentTypeHeaderValue"));
     }
 
     @Test
-    public void testValidateNumberOfHits(){
-        response = new RestEngine().getResponse(map.get("shorexUrl"),headerMap);
+    public void testValidateNumberOfHits() {
+        response = new RestEngine().getResponse(map.get("shorexUrl"), headerMap);
 
         com.training.pojos.shorex.validate.Response responseElement =
-                response.as( com.training.pojos.shorex.validate.Response.class);
+                response.as(com.training.pojos.shorex.validate.Response.class);
 
-        Assertions.assertEquals(200,responseElement.getStatus(),"REQUEST UNSUCCESSFUL");
+        Assertions.assertEquals(200, responseElement.getStatus(), "REQUEST UNSUCCESSFUL");
 
         softAssertions.assertThat(responseElement.getPayload().getSummary().getTotalHits())
                 .as("Number of hits incorrect")
@@ -31,18 +31,37 @@ public class ShorexTests extends ApiBaseTest {
     }
 
     @Test
-    public void testValidateProductType(){
-        response = new RestEngine().getResponse(map.get("shorexUrl"),headerMap);
+    public void testValidateProductType() {
+        response = new RestEngine().getResponse(map.get("shorexUrl"), headerMap);
         com.training.pojos.shorex.validate.Response responseElement =
-                response.as( com.training.pojos.shorex.validate.Response.class);
+                response.as(com.training.pojos.shorex.validate.Response.class);
 
-        Assertions.assertEquals(200,responseElement.getStatus(),"REQUEST UNSUCCESSFUL");
+        Assertions.assertEquals(200, responseElement.getStatus(), "REQUEST UNSUCCESSFUL");
 
-        for(int index=0;index <responseElement.getPayload().getProducts().size();index++){
+        for (int index = 0; index < responseElement.getPayload().getProducts().size(); index++) {
             softAssertions.assertThat(responseElement.getPayload().getProducts().get(index)
                     .getProductType().getProductType())
                     .as("Product Type incorrect")
                     .isEqualTo("SHOREX");
+        }
+    }
+
+    @Test
+    public void testValidateProductTypeName() {
+        response = new RestEngine().getResponse(map.get("shorexUrl"), headerMap);
+        com.training.pojos.shorex.validate.Response responseElement =
+                response.as(com.training.pojos.shorex.validate.Response.class);
+
+        Assertions.assertEquals(200, responseElement.getStatus(), "REQUEST UNSUCCESSFUL");
+
+        for (int index = 0; index < responseElement.getPayload().getProducts().size(); index++) {
+            softAssertions.assertThat(responseElement.getPayload().getProducts().get(index)
+                    .getProductType().getProductTypeName())
+                    .as("Product Type Name incorrect at index: "
+                            + index
+                            + responseElement.getPayload().getProducts().get(index)
+                            .getProductID())
+                    .isEqualTo("Shore Excursion");
         }
     }
 }
