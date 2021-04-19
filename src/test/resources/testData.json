@@ -16,10 +16,11 @@
   "catAuthenticationHeaderValue": "37b0987e-eb13-4193-82b1-56f33b574ac0",
   "catBaseUrl": "https://api.thecatapi.com",
   "gaBaseUrl": "https://aws-stg1.api.rccl.com",
-  "gaAppKeyHeaderName": "Appkey",
-  "gaAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
-  "gaContentTypeHeaderName": "Content-Type",
-  "gaContentTypeHeaderValue": "application/json",
-  "gaCreateUrl": "/en/royal/web/v3/guestAccounts",
-  "shorexUrl" : "https://aws-stg1.api.rccl.com/en/royal/mobile/v3/products?sailingID=AL20200809&categoryID=shorex"
+  "rcclAppKeyHeaderName": "Appkey",
+  "rcclAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
+  "rcclContentTypeHeaderName": "Content-Type",
+  "rcclContentTypeHeaderValue": "application/json",
+  "rcclCreateUrl": "/en/royal/web/v3/guestAccounts",
+  "shorexUrl" : "https://aws-stg1.api.rccl.com/en/royal/mobile/v3/products?sailingID=AL20200809&categoryID=shorex",
+  "numberOfShorexHits": "157"
 }

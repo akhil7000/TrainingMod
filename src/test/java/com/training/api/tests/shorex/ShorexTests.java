@@ -10,8 +10,8 @@ public class ShorexTests extends ApiBaseTest {
 
     @BeforeEach
     public void startup(){
-        headerMap.put(map.get("gaAppKeyHeaderName"),map.get("gaAppKeyHeaderValue"));
-        headerMap.put(map.get("gaContentTypeHeaderName"),map.get("gaContentTypeHeaderValue"));
+        headerMap.put(map.get("rcclAppKeyHeaderName"),map.get("rcclAppKeyHeaderValue"));
+        headerMap.put(map.get("rcclContentTypeHeaderName"),map.get("rcclContentTypeHeaderValue"));
     }
 
     @Test
@@ -25,6 +25,6 @@ public class ShorexTests extends ApiBaseTest {
 
         softAssertions.assertThat(responseElement.getPayload().getSummary().getTotalHits())
                 .as("Number of hits incorrect")
-                .isEqualTo(157);
+                .isEqualTo(Integer.parseInt(map.get("numberOfShorexHits")));
     }
 }
