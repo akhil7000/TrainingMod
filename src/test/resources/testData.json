@@ -20,5 +20,6 @@
   "gaAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
   "gaContentTypeHeaderName": "Content-Type",
   "gaContentTypeHeaderValue": "application/json",
-  "gaCreateUrl": "/en/royal/web/v3/guestAccounts"
+  "gaCreateUrl": "/en/royal/web/v3/guestAccounts",
+  "shorexUrl" : "https://aws-stg1.api.rccl.com/en/royal/mobile/v3/products?sailingID=AL20200809&categoryID=shorex"
 }
