@@ -27,7 +27,7 @@ public class GuestAccountTests extends ApiBaseTest{
 
     @BeforeEach
     public void startup(){
-        RestAssured.baseURI = map.get("BaseUrl");
+        RestAssured.baseURI = map.get("rcclBaseUrl");
         headerMap.put(map.get("rcclAppKeyHeaderName"),map.get("rcclAppKeyHeaderValue"));
         headerMap.put(map.get("rcclContentTypeHeaderName") ,map.get("rcclContentTypeHeaderValue"));
     }
