@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class FlipkartBasePage {
+public class WebBasePage {
 
     private String loaderIcon = "//div[@class='_2YsvKq _3bgaUQ']/*[name()='svg']";
     private String cartIcon ="//*[text()='Cart']";

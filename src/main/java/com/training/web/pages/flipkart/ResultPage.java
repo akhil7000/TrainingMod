@@ -1,7 +1,7 @@
 package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.SelenideElement;
-import com.training.basepages.FlipkartBasePage;
+import com.training.basepages.WebBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.text.ParseException;
@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class ResultPage extends FlipkartBasePage {
+public class ResultPage extends WebBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private String lowToHigh = "//*[text()='Price -- Low to High']";

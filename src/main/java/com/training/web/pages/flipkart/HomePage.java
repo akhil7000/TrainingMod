@@ -1,13 +1,13 @@
 package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
-import com.training.basepages.FlipkartBasePage;
+import com.training.basepages.WebBasePage;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class FlipkartHomePage extends FlipkartBasePage {
+public class HomePage extends WebBasePage {
     private String searchBox = "//input[contains(@title,'Search for products')]";
     private String popup = "//button[@class='_2KpZ6l _2doB4z']";
     private String payments = "//a[text()='Payments']";
@@ -21,12 +21,12 @@ public class FlipkartHomePage extends FlipkartBasePage {
     private String moreIcon = "//*[@class='_2gTTdy']";
     private String downloadApp = "//div[text()='Download App']";
 
-    public FlipkartHomePage closePopup() {
+    public HomePage closePopup() {
         $x(popup).shouldBe(visible).click();
         return this;
     }
 
-    public FlipkartHomePage sendKeysToSearchBox(String keys) {
+    public HomePage sendKeysToSearchBox(String keys) {
         $x(searchBox).shouldBe(visible).sendKeys(keys);
         return this;
     }
@@ -41,7 +41,7 @@ public class FlipkartHomePage extends FlipkartBasePage {
         return new PaymentPage();
     }
 
-    public FlipkartHomePage clickSocialMediaPage(String media) {
+    public HomePage clickSocialMediaPage(String media) {
 
         $x(String.format("//a[text()='%s']", media)).shouldBe(visible).click();
 

@@ -2,14 +2,14 @@
 package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
-import com.training.basepages.FlipkartBasePage;
+import com.training.basepages.WebBasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.text.ParseException;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ProductPage extends FlipkartBasePage {
+public class ProductPage extends WebBasePage {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private String brandName = "//*[@class='G6XhRU']";

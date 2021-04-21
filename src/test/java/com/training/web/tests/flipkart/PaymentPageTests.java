@@ -1,7 +1,7 @@
 package com.training.web.tests.flipkart;
 
 import com.training.basetest.WebBaseTest;
-import com.training.web.pages.flipkart.FlipkartHomePage;
+import com.training.web.pages.flipkart.HomePage;
 import com.training.web.pages.flipkart.PaymentPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ public class PaymentPageTests extends WebBaseTest {
     @BeforeEach
     public void startup() {
         open("https://www.flipkart.com/");
-        paymentPage = new FlipkartHomePage().closePopup().clickPayments();
+        paymentPage = new HomePage().closePopup().clickPayments();
     }
 
     @Test

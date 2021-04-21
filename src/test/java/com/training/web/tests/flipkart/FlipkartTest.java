@@ -22,19 +22,19 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class FlipkartTest extends WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     ResultPage resultPage;
-    FlipkartHomePage flipkartHomePage;
+    HomePage homePage;
 
     @BeforeEach
     public void startup() {
         open(map.get("flipkartUrl"));
-        flipkartHomePage = new FlipkartHomePage().closePopup();
+        homePage = new HomePage().closePopup();
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/testPriceSort.csv")
     public void testPriceSort(String searchItem, String pages) throws WebDriverException, ParseException {
 
-        resultPage = flipkartHomePage.sendKeysToSearchBox(searchItem).clickSearch()
+        resultPage = homePage.sendKeysToSearchBox(searchItem).clickSearch()
                 .sortLowToHigh();
 
         int numberOfPages = Integer.parseInt(pages);
@@ -60,7 +60,7 @@ public class FlipkartTest extends WebBaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/testCartAddition.csv")
     public void testCartAddition(String search, String productsList) throws ParseException {
-        resultPage = flipkartHomePage.sendKeysToSearchBox(search).clickSearch()
+        resultPage = homePage.sendKeysToSearchBox(search).clickSearch()
                 .sortLowToHigh();
         String[] strProductArray = productsList.split(",");
         int[] productArray = Arrays.stream(strProductArray).mapToInt(Integer::parseInt).toArray();
@@ -114,10 +114,10 @@ public class FlipkartTest extends WebBaseTest {
 
     @Test
     public void testAddressValidation(){
-        String mailAddress = flipkartHomePage.getMailAddress();
-        String officeAddress = flipkartHomePage.getOfficeAddress();
+        String mailAddress = homePage.getMailAddress();
+        String officeAddress = homePage.getOfficeAddress();
 
-        ContactUsPage contactUsPage = flipkartHomePage.clickContactUs().clickPostalAddress();
+        ContactUsPage contactUsPage = homePage.clickContactUs().clickPostalAddress();
 
         Assertions.assertEquals(mailAddress,contactUsPage.getPostalAddress(),
                 "Postal Addresses don't match");
@@ -130,7 +130,7 @@ public class FlipkartTest extends WebBaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/testDownloadAppTest.csv")
     public void testAppDownloadValidation(String os, String appStoreUrl) {
-        AppPage appPage = flipkartHomePage.clickDownloadApp();
+        AppPage appPage = homePage.clickDownloadApp();
         Assertions.assertTrue(appPage.clickOs(os).getUrl().equalsIgnoreCase(appStoreUrl));
     }
 }

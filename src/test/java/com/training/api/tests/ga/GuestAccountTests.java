@@ -77,8 +77,8 @@ public class GuestAccountTests extends ApiBaseTest{
     public void testNegativeLoginValidationWrongAppKey() {
         com.training.pojos.ga.validation.Request request = new Request(EMAIL);
         String errorCode = "COMMONS-0001";
-        headerMap.put(map.get("gaAppKeyHeaderName"),
-                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
+        headerMap.put(map.get("rcclAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("rcclAppKeyHeaderValue").length()));
 
         response = new RestEngine().getResponse(EMAIL_VALIDATION_URL, headerMap,
                 new Gson().toJson(request));
@@ -154,8 +154,8 @@ public class GuestAccountTests extends ApiBaseTest{
                 new com.training.pojos.ga.authentication.Request(EMAIL, PASSWORD);
 
         String errorCode = "COMMONS-0001";
-        headerMap.put(map.get("gaAppKeyHeaderName"),
-                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
+        headerMap.put(map.get("rcclAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("rcclAppKeyHeaderValue").length()));
 
         response = new RestEngine().getResponse(EMAIL_AUTHENTICATION_URL,headerMap,
                 new Gson().toJson(request));
@@ -212,7 +212,7 @@ public class GuestAccountTests extends ApiBaseTest{
                 .email(email)
                 .build();
 
-        response = new RestEngine().getResponse(map.get("gaCreateUrl"),headerMap,
+        response = new RestEngine().getResponse(map.get("rcclCreateUrl"),headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.creation.Response responseElement =
@@ -249,8 +249,8 @@ public class GuestAccountTests extends ApiBaseTest{
     public void testNegativeGaCreationWrongAppKey() {
         String errorCode = "COMMONS-0001";
 
-        headerMap.put(map.get("gaAppKeyHeaderName"),
-                RandomStringUtils.randomAlphanumeric(map.get("gaAppKeyHeaderValue").length()));
+        headerMap.put(map.get("rcclAppKeyHeaderName"),
+                RandomStringUtils.randomAlphanumeric(map.get("rcclAppKeyHeaderValue").length()));
 
         String email = String.format("%s%s@email.com",
                 RandomStringUtils.randomAlphabetic(5),
@@ -260,7 +260,7 @@ public class GuestAccountTests extends ApiBaseTest{
                 .email(email)
                 .build();
 
-        response = new RestEngine().getResponse(map.get("gaCreateUrl"), headerMap,
+        response = new RestEngine().getResponse(map.get("rcclCreateUrl"), headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.creation.Response responseElement =
@@ -291,7 +291,7 @@ public class GuestAccountTests extends ApiBaseTest{
                 .email(email)
                 .build();
 
-        response = new RestEngine().getResponse(map.get("gaCreateUrl"), headerMap,
+        response = new RestEngine().getResponse(map.get("rcclCreateUrl"), headerMap,
                 new Gson().toJson(request));
 
         response.getBody().print();
@@ -329,7 +329,7 @@ public class GuestAccountTests extends ApiBaseTest{
                 .email(email)
                 .build();
 
-        response = new RestEngine().getResponse(map.get("gaCreateUrl"),headerMap,
+        response = new RestEngine().getResponse(map.get("rcclCreateUrl"),headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.creation.Response responseElement =
@@ -361,7 +361,7 @@ public class GuestAccountTests extends ApiBaseTest{
                 .password("passwor")
                 .build();
 
-        response = new RestEngine().getResponse(map.get("gaCreateUrl"),headerMap,
+        response = new RestEngine().getResponse(map.get("rcclCreateUrl"),headerMap,
                 new Gson().toJson(request));
 
         com.training.pojos.ga.creation.Response responseElement =

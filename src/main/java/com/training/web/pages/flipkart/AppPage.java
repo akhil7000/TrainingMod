@@ -1,11 +1,11 @@
 package com.training.web.pages.flipkart;
 
-import com.training.basepages.FlipkartBasePage;
+import com.training.basepages.WebBasePage;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class AppPage extends FlipkartBasePage {
+public class AppPage extends WebBasePage {
     private String parentWindow;
     private String androidApp = "//img[contains(@src,'Play-Store')]";
     private String iosApp= "//img[contains(@src,'App-Store')]";
