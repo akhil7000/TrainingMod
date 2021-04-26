@@ -1,17 +1,12 @@
 package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
-import com.training.basepages.FlipkartBasePage;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-
-import java.util.List;
+import com.training.basepages.WebBasePage;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class PaymentPage extends FlipkartBasePage {
+public class PaymentPage extends WebBasePage {
 
     private String questions = "//h2[contains(text(),'?')]";
     private String paymentHeading = "//h2[@id='payments']";

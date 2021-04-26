@@ -2,7 +2,7 @@ package com.training.web.tests.flipkart;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.training.basetest.WebBaseTest;
-import com.training.web.pages.flipkart.FlipkartHomePage;
+import com.training.web.pages.flipkart.HomePage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,12 +11,12 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import static com.codeborne.selenide.Selenide.open;
 
 public class SocialMediaTest extends WebBaseTest {
-    FlipkartHomePage flipkartHomePage;
+    HomePage flipkartHomePage;
 
     @BeforeEach
     public void setup() {
         open("https://www.flipkart.com/");
-        flipkartHomePage = new FlipkartHomePage().closePopup();
+        flipkartHomePage = new HomePage().closePopup();
     }
 
     @ParameterizedTest

@@ -29,7 +29,7 @@ public class RestEngine {
      *
      * @param url : url to post the response
      * @param headerMap : header with api-key
-     * @param jsonString : Json Body with key-value pairs
+     * @param requestBody : Json Body with key-value pairs
      * @return
      */
     public Response getResponse(String url, Map headerMap, String requestBody) {

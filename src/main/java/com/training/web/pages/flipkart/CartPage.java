@@ -1,14 +1,14 @@
 package com.training.web.pages.flipkart;
 
 import com.codeborne.selenide.SelenideElement;
-import com.training.basepages.FlipkartBasePage;
+import com.training.basepages.WebBasePage;
 import java.text.ParseException;
 import java.util.ArrayList;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class CartPage extends FlipkartBasePage {
+public class CartPage extends WebBasePage {
 
     private String totalPrice = "//*[contains(@class,'_3X7Jj1')]";
     private String name = "//a[contains(@class,'gBNbID')]";

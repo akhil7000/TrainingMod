@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,9 +25,12 @@ public class WebBaseTest {
     private RemoteWebDriver driver;
     private String execution;
     protected Map<String, String> map = new JsonReaderUtility().getMap();
+    protected Map<String, Object> headerMap;
+    protected io.restassured.response.Response response;
 
     @BeforeEach
     public void setup(TestInfo testInfo) throws MalformedURLException, NullPointerException {
+        headerMap = new HashMap();
         String displayName = testInfo.getDisplayName();
         String methodName = testInfo.getTestMethod().orElseThrow().getName();
         String uuid = UUID.randomUUID().toString();
@@ -60,10 +64,8 @@ public class WebBaseTest {
 
         if (execution.equalsIgnoreCase("remote")) {
             logger.info("Report URL: " + driver.getCapabilities().getCapability("reportUrl"));
-            WebDriverRunner.closeWebDriver();
-        } else {
-            WebDriverRunner.closeWebDriver();
         }
+        WebDriverRunner.closeWebDriver();
         softAssertions.assertAll();
     }
 }
