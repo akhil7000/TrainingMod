@@ -24,7 +24,6 @@ dependencies {
     implementation "com.google.code.gson:gson:${gson_version}"
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: "${json_version}"
     implementation group: 'io.rest-assured', name: 'rest-assured', version: "${rest_assured_version}"
-
 }
 
 test {

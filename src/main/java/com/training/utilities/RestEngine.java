@@ -43,4 +43,16 @@ public class RestEngine {
                 .extract()
                 .response();
     }
+
+    public Response getPutResponse(String url, Map headerMap, String toJson) {
+        return  RestAssured.given()
+                .when()
+                .contentType("application/json")
+                .headers(headerMap)
+                .body(toJson)
+                .put(url)
+                .then()
+                .extract()
+                .response();
+    }
 }

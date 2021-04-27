@@ -10,6 +10,7 @@ public class LoginPage {
     private String password = "//input[@aria-label='Password']";
     private String signIn = "//button[text()=' Sign in ']";
     private String errorMessage = "//div[@class='mat-error ng-star-inserted']";
+    private String createAccount = "//a[text()='Create an account']";
 
     public LoginPage enterEmail(String emailId) {
         $x(email).shouldBe(Condition.visible).sendKeys(emailId);
@@ -28,5 +29,10 @@ public class LoginPage {
 
     public String getErrorText() {
         return $x(errorMessage).shouldBe(Condition.visible).getText();
+    }
+
+    public CreateAccount createAccount() {
+        $x(createAccount).shouldBe(Condition.visible).click();
+        return new CreateAccount();
     }
 }
