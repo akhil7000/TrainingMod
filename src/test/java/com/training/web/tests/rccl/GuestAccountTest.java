@@ -10,31 +10,35 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.text.ParseException;
 import static com.codeborne.selenide.Selenide.open;
 
 public class GuestAccountTest extends WebBaseTest {
+
     private LoginPage loginPage;
     private HomePage homePage;
     private static final String REQUEST_UNSUCCESSFUL = "Request Unsuccessful";
     private static final String ERROR_MESSAGE = "Error message is not correct";
+    private static final String EMAIL_AUTHENTICATION_URL = "/en/royal/web/v3/guestAccounts/authentication/login";
+    private String firstName = "Audrey";
+    private String password = "password1";
+    private String incorrectPassword = "password";
+    private String email = String.format("%s%s@email.com", RandomStringUtils.randomAlphabetic(5), System.currentTimeMillis());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @BeforeEach
     public void startup() {
         RestAssured.baseURI = map.get("rcclBaseUrl");
         headerMap.put(map.get("rcclAppKeyHeaderName"), map.get("rcclAppKeyHeaderValue"));
         headerMap.put(map.get("rcclContentTypeHeaderName"), map.get("rcclContentTypeHeaderValue"));
+        open(map.get("guestAccountUrl"));
     }
 
     @Test
     public void testCreateGuestAccountAndValidatePageElements() throws NullPointerException, IllegalArgumentException {
-        String firstName = "Audrey";
-        String password = "password1";
-        String incorrectPassword = "password";
-
-        String email = String.format("%s%s@email.com",
-                RandomStringUtils.randomAlphabetic(5),
-                System.currentTimeMillis());
 
         com.training.pojos.ga.creation.Request request = com.training.pojos.ga.creation.Request.builder()
                 .firstName(firstName)
@@ -49,8 +53,6 @@ public class GuestAccountTest extends WebBaseTest {
                 response.as(com.training.pojos.ga.creation.Response.class);
 
         Assertions.assertEquals(200, responseElement.getStatus(), REQUEST_UNSUCCESSFUL);
-
-        open(map.get("guestAccountUrl"));
 
         loginPage = new LoginPage().enterEmail(email);
 
@@ -100,5 +102,44 @@ public class GuestAccountTest extends WebBaseTest {
 
         softAssertions.assertThat(homePage.isPlanNewCruiseVisible()).as("Plan new cruises button not visible")
                 .isTrue();
+    }
+
+    @Test
+    public void testAccountCreationGuiLoyaltyAddition() throws ParseException {
+
+        String countryName="United States";
+        String securityAnswer ="Abcdefg";
+        String securityQuestion = "What elementary school did you go to?";
+
+        homePage = new LoginPage().createAccount()
+                .enterName(firstName, "Poole")
+                .enterDateOfBirth("August","2","1962")
+                .selectCountry(countryName)
+                .enterSecurityQuestion(securityQuestion,securityAnswer)
+                .enterIdAndPassword(email, password)
+                .acceptTerms()
+                .clickDone();
+
+        com.training.pojos.ga.authentication.Response responseElement =
+                new RestEngine().
+                        getResponse(EMAIL_AUTHENTICATION_URL, headerMap,
+                                new Gson().toJson(new com.training.pojos.ga.authentication.Request(email, password)))
+                        .as(com.training.pojos.ga.authentication.Response.class);
+
+
+        headerMap.put(map.get("rcclAccessTokenHeaderName"), responseElement.getPayload().getAccessToken());
+
+        response = new RestEngine().getPutResponse("/v1/guestAccounts/loyalty", headerMap,
+                new Gson().toJson(com.training.pojos.ga.loyaltyUpdate.Request.builder()
+                        .vdsId(responseElement.getPayload().getAccountId())
+                        .build()));
+
+        Assertions.assertEquals("200",
+                response.as(com.training.pojos.ga.loyaltyUpdate.Response.class).getStatus(),
+                "Request unsuccessful");
+
+        refreshPageUtility.refreshPage();
+
+        Assertions.assertEquals(homePage.getLoyaltyId(),map.get("rcclLoyaltyId") , "Loyalty id is different");
     }
 }

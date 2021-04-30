@@ -11,6 +11,7 @@ public class HomePage {
     private String upComingCruises = "//span[text()='Upcoming cruises']";
     private String addCruise = "//button[text()='Add a cruise']";
     private String planCruise = "//a[text()='Plan a new cruise']";
+    private String loyaltyId="//span[@class='loyalty-meter__item-title']";
 
     public HomePage clickAccept() {
         $x(acceptButton).shouldBe(Condition.visible).click();
@@ -37,4 +38,9 @@ public class HomePage {
     public boolean isPlanNewCruiseVisible() {
         return $x(planCruise).shouldBe(Condition.visible).isDisplayed();
     }
+
+    public String getLoyaltyId() {
+        return $x(loyaltyId).shouldBe(Condition.visible).getText();
+    }
+
 }
