@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.text.ParseException;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class GuestAccountTest extends WebBaseTest {
+
 
     private LoginPage loginPage;
     private HomePage homePage;
@@ -126,19 +128,18 @@ public class GuestAccountTest extends WebBaseTest {
                                 new Gson().toJson(new com.training.pojos.ga.authentication.Request(email, password)))
                         .as(com.training.pojos.ga.authentication.Response.class);
 
-
         headerMap.put(map.get("rcclAccessTokenHeaderName"), responseElement.getPayload().getAccessToken());
 
         response = new RestEngine().getPutResponse("/v1/guestAccounts/loyalty", headerMap,
-                new Gson().toJson(com.training.pojos.ga.loyaltyUpdate.Request.builder()
+                new Gson().toJson(com.training.pojos.ga.loyalty_update.Request.builder()
                         .vdsId(responseElement.getPayload().getAccountId())
                         .build()));
 
         Assertions.assertEquals("200",
-                response.as(com.training.pojos.ga.loyaltyUpdate.Response.class).getStatus(),
+                response.as(com.training.pojos.ga.loyalty_update.Response.class).getStatus(),
                 "Request unsuccessful");
 
-        refreshPageUtility.refreshPage();
+        getWebDriver().navigate().refresh();
 
         Assertions.assertEquals(homePage.getLoyaltyId(),map.get("rcclLoyaltyId") , "Loyalty id is different");
     }

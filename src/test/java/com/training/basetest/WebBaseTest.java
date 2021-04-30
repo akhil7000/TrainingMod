@@ -3,7 +3,6 @@ package com.training.basetest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.training.utilities.JsonReaderUtility;
-import com.training.utilities.RefreshPageUtility;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +21,6 @@ import java.util.UUID;
 
 public class WebBaseTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    public RefreshPageUtility refreshPageUtility = new RefreshPageUtility();
     public SoftAssertions softAssertions;
     private RemoteWebDriver driver;
     private String execution;

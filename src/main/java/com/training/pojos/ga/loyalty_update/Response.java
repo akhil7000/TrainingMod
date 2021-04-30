@@ -1,4 +1,4 @@
-package com.training.pojos.ga.loyaltyUpdate;
+package com.training.pojos.ga.loyalty_update;
 
 import lombok.Data;
 
