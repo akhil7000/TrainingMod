@@ -20,8 +20,10 @@
   "rcclAppKeyHeaderValue": "qP2wzibM0y9rLeRc3jAZQEoBMGgtVGj7",
   "rcclContentTypeHeaderName": "Content-Type",
   "rcclContentTypeHeaderValue": "application/json",
+  "rcclAccessTokenHeaderName": "Access-Token",
   "rcclCreateUrl": "/en/royal/web/v3/guestAccounts",
   "shorexUrl" : "/en/royal/mobile/v3/products?sailingID=AL20200809&categoryID=shorex",
   "numberOfShorexHits": "157",
+  "rcclLoyaltyId": "137529822",
   "guestAccountUrl": "https://www.stage2.royalcaribbean.com/account/"
 }

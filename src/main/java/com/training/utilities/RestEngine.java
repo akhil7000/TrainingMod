@@ -43,4 +43,23 @@ public class RestEngine {
                 .extract()
                 .response();
     }
+
+    /**
+     * Methos to put values into the api url
+     * @param url : Api url to put values
+     * @param headerMap: header with api-key and access token
+     * @param requestBody: Json Body with key-value pairs
+     * @return
+     */
+    public Response getPutResponse(String url, Map headerMap, String requestBody) {
+        return  RestAssured.given()
+                .when()
+                .contentType("application/json")
+                .headers(headerMap)
+                .body(requestBody)
+                .put(url)
+                .then()
+                .extract()
+                .response();
+    }
 }
