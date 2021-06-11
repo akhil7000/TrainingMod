@@ -16,6 +16,7 @@ public class Assignment1 {
     public static float doubleToFloat(double d) {
         float f = (float) d;
         System.out.println(f);
+
         return f;
     }
 

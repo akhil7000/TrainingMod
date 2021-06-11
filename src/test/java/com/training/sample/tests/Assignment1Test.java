@@ -43,5 +43,6 @@ public class Assignment1Test {
         char[] exp ={'r','c','c','l'};
         char[] result=a1.stringToCharArray("rccl");
         Assertions.assertArrayEquals(exp,result);
+
     }
 }
