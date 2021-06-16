@@ -14,25 +14,25 @@ public class Assignment1Test {
     }
 
     @Test
-    public void doubleToInt() {
+    public void doubleToIntTest() {
         int result = assignment1.doubleToInt(200.0);
         Assertions.assertEquals(200, result);
     }
 
     @Test
-    public void doubleToFloat() {
+    public void doubleToFloatTest() {
         float result = assignment1.doubleToFloat(55.005001068115234);
         Assertions.assertEquals(55.005f, result);
     }
 
     @Test
-    public void floatToDouble() {
+    public void floatToDoubleTest() {
         double result = assignment1.floatToDouble(55.005f);
         Assertions.assertEquals(55.005001068115234, result);
     }
 
     @Test
-    public void byteToLong() {
+    public void byteToLongTest() {
         int x = -128;
         byte b = (byte) x;
         long result = assignment1.byteToLong(b);
@@ -40,13 +40,13 @@ public class Assignment1Test {
     }
 
     @Test
-    public void longToByte() {
+    public void longToByteTest() {
         byte result = assignment1.longToByte(59863248L);
         Assertions.assertEquals(-48, result);
     }
 
     @Test
-    public void stringToCharArray() {
+    public void stringToCharArrayTest() {
         char[] exp = {'r', 'c', 'c', 'l'};
         char[] result = assignment1.stringToCharArray("rccl");
         Assertions.assertArrayEquals(exp, result);

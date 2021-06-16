@@ -1,31 +1,31 @@
 package com.training.sample.pages;
 
 public class Assignment1 {
-    public static double intToDouble(int x) {
-        return (double) x;
+    public double intToDouble(int value) {
+        return (double) value;
     }
 
-    public static int doubleToInt(double d) {
-        return (int) d;
+    public int doubleToInt(double value) {
+        return (int) value;
     }
 
-    public static float doubleToFloat(double d) {
-        return (float) d;
+    public float doubleToFloat(double value) {
+        return (float) value;
     }
 
-    public static double floatToDouble(float f) {
-        return (double) f;
+    public double floatToDouble(float value) {
+        return (double) value;
     }
 
-    public static long byteToLong(byte b) {
-        return (long) b;
+    public long byteToLong(byte value) {
+        return (long) value;
     }
 
-    public static byte longToByte(long L) {
-        return (byte) L;
+    public byte longToByte(long value) {
+        return (byte) value;
     }
 
-    public static char[] stringToCharArray(String s) {
+    public char[] stringToCharArray(String s) {
         char[] characters = s.toCharArray();
         return characters;
     }
