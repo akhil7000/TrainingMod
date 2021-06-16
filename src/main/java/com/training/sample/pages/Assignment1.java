@@ -26,7 +26,6 @@ public class Assignment1 {
     }
 
     public char[] stringToCharArray(String word) {
-        char[] characters = word.toCharArray();
-        return characters;
+        return word.toCharArray();
     }
 }
