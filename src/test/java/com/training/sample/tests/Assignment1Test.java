@@ -8,47 +8,40 @@ public class Assignment1Test {
     Assignment1 assignment1 = new Assignment1();
 
     @Test
-    public void intToDoubleTest() {
-        double result = assignment1.intToDouble(200);
-        Assertions.assertEquals(200.0, result);
+    public void testintToDouble() {
+        Assertions.assertEquals(200.0, assignment1.intToDouble(200));
     }
 
     @Test
-    public void doubleToIntTest() {
-        int result = assignment1.doubleToInt(200.0);
-        Assertions.assertEquals(200, result);
+    public void testdoubleToInt() {
+        Assertions.assertEquals(200, assignment1.doubleToInt(200.0));
     }
 
     @Test
-    public void doubleToFloatTest() {
-        float result = assignment1.doubleToFloat(55.005001068115234);
-        Assertions.assertEquals(55.005f, result);
+    public void testdoubleToFloat() {
+        Assertions.assertEquals(55.005f, assignment1.doubleToFloat(55.005001068115234));
     }
 
     @Test
-    public void floatToDoubleTest() {
-        double result = assignment1.floatToDouble(55.005f);
-        Assertions.assertEquals(55.005001068115234, result);
+    public void testfloatToDouble() {
+        Assertions.assertEquals(55.005001068115234, assignment1.floatToDouble(55.005f));
     }
 
     @Test
-    public void byteToLongTest() {
+    public void testbyteToLong() {
         int x = -128;
         byte b = (byte) x;
-        long result = assignment1.byteToLong(b);
-        Assertions.assertEquals(-128, result);
+        Assertions.assertEquals(-128, assignment1.byteToLong(b));
     }
 
     @Test
-    public void longToByteTest() {
-        byte result = assignment1.longToByte(59863248L);
-        Assertions.assertEquals(-48, result);
+    public void testlongToByte() {
+        Assertions.assertEquals(-48, assignment1.longToByte(59863248L));
     }
 
     @Test
-    public void stringToCharArrayTest() {
+    public void teststringToCharArray() {
         char[] exp = {'r', 'c', 'c', 'l'};
-        char[] result = assignment1.stringToCharArray("rccl");
-        Assertions.assertArrayEquals(exp, result);
+        Assertions.assertArrayEquals(exp, assignment1.stringToCharArray("rccl"));
     }
 }
