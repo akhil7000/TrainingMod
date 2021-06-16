@@ -29,9 +29,7 @@ public class Assignment1Test {
 
     @Test
     public void testByteToLong() {
-        int x = -128;
-        byte b = (byte) x;
-        Assertions.assertEquals(-128, assignment1.byteToLong(b));
+        Assertions.assertEquals(-128, assignment1.byteToLong((byte) -128));
     }
 
     @Test
@@ -41,7 +39,7 @@ public class Assignment1Test {
 
     @Test
     public void testStringToCharArray() {
-        char[] exp = {'r', 'c', 'c', 'l'};
-        Assertions.assertArrayEquals(exp, assignment1.stringToCharArray("rccl"));
+        Assertions.assertArrayEquals(
+                new char[] {'r', 'c', 'c', 'l'}, assignment1.stringToCharArray("rccl"));
     }
 }
