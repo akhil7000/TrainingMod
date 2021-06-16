@@ -25,8 +25,8 @@ public class Assignment1 {
         return (byte) value;
     }
 
-    public char[] stringToCharArray(String s) {
-        char[] characters = s.toCharArray();
+    public char[] stringToCharArray(String word) {
+        char[] characters = word.toCharArray();
         return characters;
     }
 }
