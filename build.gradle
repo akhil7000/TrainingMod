@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.diffplug.spotless' version "${gradle_spotless_version}"
 }
 
 group 'org.example'
@@ -22,5 +23,17 @@ dependencies {
 test{
     systemProperties System.getProperties()
     useJUnitPlatform()
+}
+spotless {
+    java {
+        importOrder()
+        googleJavaFormat().aosp()
+    }
+}
+task all {
+    dependsOn 'clean'
+    dependsOn 'compileJava'
+    dependsOn 'compileTestJava'
+    compileTestJava.dependsOn 'spotlessJavaCheck'
 }
 
