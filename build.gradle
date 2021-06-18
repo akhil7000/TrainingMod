@@ -24,6 +24,18 @@ test{
     systemProperties System.getProperties()
     useJUnitPlatform()
 }
+spotless {
+    java {
+        importOrder()
+        googleJavaFormat().aosp()
+    }
+}
+task all {
+    dependsOn 'clean'
+    dependsOn 'compileJava'
+    dependsOn 'compileTestJava'
+    compileTestJava.dependsOn 'spotlessJavaCheck'
+}
 
 spotless {
     java {
