@@ -24,18 +24,21 @@ public class Assignment1 {
         System.out.println(d);
         return d;
     }
+
     public static long byteToLong(byte b) {
         long l = (long) b;
         System.out.println(l);
         return l;
     }
-    public static byte longToByte(long L){
+
+    public static byte longToByte(long L) {
         byte b = (byte) L;
         System.out.println(b);
         return b;
     }
-    public static char[] stringToCharArray(String s){
-        char[] characters=s.toCharArray();
+
+    public static char[] stringToCharArray(String s) {
+        char[] characters = s.toCharArray();
         return characters;
     }
 }
