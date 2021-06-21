@@ -9,10 +9,10 @@ public class Assignment2Test {
 
     @Test
     public void testStringReplace() {
-        Assertions.assertEquals(new String("Sam"), assignment2.stringReplace("Ram", "Sam"));
+        Assertions.assertEquals("Sam", assignment2.getStringReplace("Ram", "Sam"));
         Assertions.assertEquals(
-                new String("Sachin Masterrrr"),
-                assignment2.stringReplace("Sachin Tendulkar", "Sachin Masterrrr"));
-        Assertions.assertEquals("Depp", assignment2.stringReplace("Dell", "Depp"));
+                "Sachin Masterrrr",
+                assignment2.getStringReplace("Sachin Tendulkar", "Sachin Masterrrr"));
+        Assertions.assertEquals("Depp", assignment2.getStringReplace("Dell", "Depp"));
     }
 }

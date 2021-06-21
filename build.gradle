@@ -36,16 +36,3 @@ task all {
     dependsOn 'compileTestJava'
     compileTestJava.dependsOn 'spotlessJavaCheck'
 }
-
-spotless {
-    java {
-        importOrder()
-        googleJavaFormat().aosp()
-    }
-}
-task all {
-    dependsOn 'clean'
-    dependsOn 'compileJava'
-    dependsOn 'compileTestJava'
-    compileTestJava.dependsOn 'spotlessJavaCheck'
-}

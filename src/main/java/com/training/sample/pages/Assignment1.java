@@ -1,4 +1,3 @@
-
 package com.training.sample.pages;
 
 public class Assignment1 {
