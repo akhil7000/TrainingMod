@@ -36,3 +36,4 @@ task all {
     dependsOn 'compileTestJava'
     compileTestJava.dependsOn 'spotlessJavaCheck'
 }
+
