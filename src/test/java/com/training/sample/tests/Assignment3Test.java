@@ -9,11 +9,8 @@ public class Assignment3Test {
 
     @Test
     public void testGetIndex() {
-        String firstString = "X";
-        String secondString = "a";
-        String thirdString = "o";
-        Assertions.assertEquals(0, assignment3.getIndex("Xioami", firstString));
-        Assertions.assertEquals(3, assignment3.getIndex("Xioami", secondString));
-        Assertions.assertEquals(2, assignment3.getIndex("Xioami", thirdString));
+        Assertions.assertEquals(0, assignment3.getIndex("Xioami", "X"));
+        Assertions.assertEquals(3, assignment3.getIndex("Xioami", "a"));
+        Assertions.assertEquals(2, assignment3.getIndex("Xioami", "o"));
     }
 }
