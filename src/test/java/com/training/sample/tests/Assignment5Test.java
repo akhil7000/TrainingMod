@@ -9,12 +9,16 @@ public class Assignment5Test {
 
     @Test
     public void testGetStringIndex() {
-        Assertions.assertEquals(
-                3,
-                assignment5.getStringIndex(
-                        (new String[] {
-                            "Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"
-                        }),
-                        "Ronaldo"));
+        try {
+            Assertions.assertEquals(
+                    2,
+                    assignment5.getStringIndex(
+                            (new String[] {
+                                "Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"
+                            }),
+                            "Rot"));
+        } catch (Exception e) {
+            Assertions.fail(e);
+        }
     }
 }
