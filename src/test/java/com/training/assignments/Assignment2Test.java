@@ -10,13 +10,18 @@ class Assignment2Test {
 
     @Test
     public void string1Test() {
-        String str1="Ram";
-        String str2="Sam";
-        String str3="Navi";
+        Assertions.assertEquals("Sam",assign2.string1("Ram","Sam"));
 
-        Assertions.assertEquals("Sam",assign2.string1(str1,str2));
-        Assertions.assertNotEquals("rita",assign2.string1(str1,str3));
+    }
+    @Test
+    public void string2Test() {
+        Assertions.assertEquals("Sachin Masterrrr",assign2.string1("Sachin Tendulkar","Sachin Masterrrr"));
 
+    }
+
+    @Test
+    public void string3Test() {
+        Assertions.assertEquals("Depp",assign2.string1("Dell" ,"Depp"));
     }
 
 }
