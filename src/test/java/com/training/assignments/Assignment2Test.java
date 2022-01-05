@@ -11,16 +11,17 @@ class Assignment2Test {
     @Test
     public void string1Test() {
         Assertions.assertEquals("Sam",assign2.string1("Ram","Sam"));
-
     }
+
     @Test
-    public void string2Test() {
+    public void string2Test()
+    {
         Assertions.assertEquals("Sachin Masterrrr",assign2.string1("Sachin Tendulkar","Sachin Masterrrr"));
-
     }
 
     @Test
-    public void string3Test() {
+    public void string3Test()
+    {
         Assertions.assertEquals("Depp",assign2.string1("Dell" ,"Depp"));
     }
 

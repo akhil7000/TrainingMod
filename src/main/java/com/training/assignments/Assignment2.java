@@ -3,9 +3,9 @@ package com.training.assignments;
 
 public class Assignment2 {
 
-    public String string1 (String str1,String str2) {
+    public String string1 (String word1,String word2) {
 
-        str1=str1.replaceAll(str1,str2);
-        return str1;
+        word1=word1.replaceAll(word1,word2);
+        return word1;
     }
 }
