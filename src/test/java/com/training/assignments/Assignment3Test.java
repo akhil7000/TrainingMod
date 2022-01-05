@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Assignment3Test {
     Assignment3 assign3=new Assignment3();
+
     @Test
     public void getIndex1Test()
     {
