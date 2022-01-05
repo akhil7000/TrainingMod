@@ -3,32 +3,34 @@ package com.training.assignments;
 import java.util.Scanner;
 
 public class Assignment1 {
-    public double intToDouble(int intVal) {
-        return (double) intVal;
+    public double intToDouble(int value) {
+        return (double) value;
     }
 
-    public int doubleToInt(double dblVal) {
-        return (int) dblVal;
+    public int doubleToInt(double value) {
+        return (int) value;
     }
 
-    public float doubleToFloat(double dblVal) {
-        return (float) dblVal;
+    public float doubleToFloat(double value) {
+        return (float) value;
     }
 
-    public double floatToDouble(float fltVal) {
-        return (double) fltVal;
+    public double floatToDouble(float value)
+    {
+        return (double) value;
     }
 
-    public long byteToLong(byte bytVal) {
-        return (long) bytVal;
+    public long byteToLong(byte value) {
+        return (long) value;
     }
 
-    public byte longToByte(long lngVal) {
-        return (byte) lngVal;
+    public byte longToByte(long value) {
+        return (byte) value;
     }
 
-    public char[] stringToChar(String s) {
-        return s.toCharArray();
+    public char[] stringToChar(String word)
+    {
+        return word.toCharArray();
     }
 
 
