@@ -3,27 +3,22 @@ package com.training.assignments;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class Assignment3Test {
-    Assignment3 assign3=new Assignment3();
+    Assignment3 assignment3 = new Assignment3();
 
     @Test
-    public void getIndex1Test()
-    {
-        Assertions.assertEquals(0,assign3.getIndex("Xioami","X"));
+    public void testGetIndex1() {
+        Assertions.assertEquals(0, assignment3.getIndex("Xioami", "X"));
     }
 
     @Test
-    public void getIndex2Test()
-    {
-        Assertions.assertEquals(3,assign3.getIndex("Xioami","a"));
+    public void testGetIndex2() {
+        Assertions.assertEquals(3, assignment3.getIndex("Xioami", "a"));
     }
 
     @Test
-    public void getIndex3Test()
-    {
-        Assertions.assertEquals(2,assign3.getIndex("Xioami","o"));
+    public void testGetIndex3() {
+        Assertions.assertEquals(2, assignment3.getIndex("Xioami", "o"));
     }
 
 }
