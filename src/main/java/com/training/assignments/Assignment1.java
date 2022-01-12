@@ -1,7 +1,5 @@
 package com.training.assignments;
 
-import java.util.Scanner;
-
 public class Assignment1 {
     public double intToDouble(int value) {
         return (double) value;
@@ -15,8 +13,7 @@ public class Assignment1 {
         return (float) value;
     }
 
-    public double floatToDouble(float value)
-    {
+    public double floatToDouble(float value) {
         return (double) value;
     }
 
@@ -28,10 +25,8 @@ public class Assignment1 {
         return (byte) value;
     }
 
-    public char[] stringToChar(String word)
-    {
+    public char[] stringToChar(String word) {
         return word.toCharArray();
     }
 
-
-    }
+}
