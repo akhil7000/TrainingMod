@@ -10,16 +10,16 @@ class Assignment2Test {
 
     @Test
     public void testString1() {
-        Assertions.assertEquals("Sam", assignment2.string1("Ram", "Sam"));
+        Assertions.assertEquals("Sam", assignment2.getStringReplace("Ram", "Sam"));
     }
 
     @Test
     public void testString2() {
-        Assertions.assertEquals("Sachin Masterrrr", assignment2.string1("Sachin Tendulkar", "Sachin Masterrrr"));
+        Assertions.assertEquals("Sachin Masterrrr", assignment2.getStringReplace("Sachin Tendulkar", "Sachin Masterrrr"));
     }
 
     @Test
     public void testString3() {
-        Assertions.assertEquals("Depp", assignment2.string1("Dell", "Depp"));
+        Assertions.assertEquals("Depp", assignment2.getStringReplace("Dell", "Depp"));
     }
 }
