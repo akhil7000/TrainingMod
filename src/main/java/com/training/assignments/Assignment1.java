@@ -1,31 +1,31 @@
 package com.training.assignments;
 
 public class Assignment1 {
-    public double intToDouble(int value) {
+    public double getIntToDouble(int value) {
         return (double) value;
     }
 
-    public int doubleToInt(double value) {
+    public int getDoubleToInt(double value) {
         return (int) value;
     }
 
-    public float doubleToFloat(double value) {
+    public float getDoubleToFloat(double value) {
         return (float) value;
     }
 
-    public double floatToDouble(float value) {
+    public double getFloatToDouble(float value) {
         return (double) value;
     }
 
-    public long byteToLong(byte value) {
+    public long getByteToLong(byte value) {
         return (long) value;
     }
 
-    public byte longToByte(long value) {
+    public byte getLongToByte(long value) {
         return (byte) value;
     }
 
-    public char[] stringToChar(String word) {
+    public char[] getStringToChar(String word) {
         return word.toCharArray();
     }
 
