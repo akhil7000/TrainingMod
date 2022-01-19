@@ -8,6 +8,9 @@ class Assignment3Test {
 
     @Test
     public void testGetIndex() {
-        Assertions.assertEquals(0, assignment3.getIndex("Xioami", "X"));
+        String word="Xioami";
+        Assertions.assertEquals(0, assignment3.getIndex(word,"X"));
+        Assertions.assertEquals(3,assignment3.getIndex(word,"a"));
+        Assertions.assertEquals(2,assignment3.getIndex(word,"o"));
     }
 }
