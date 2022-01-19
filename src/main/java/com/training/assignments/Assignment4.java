@@ -1,4 +1,3 @@
-
 package com.training.assignments;
 
 public class Assignment4 {
