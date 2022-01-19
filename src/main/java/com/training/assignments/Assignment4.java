@@ -1,3 +1,4 @@
+
 package com.training.assignments;
 
 public class Assignment4 {
@@ -8,3 +9,4 @@ public class Assignment4 {
         return "invalid data";
     }
 }
+
