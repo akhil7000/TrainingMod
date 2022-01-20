@@ -1,4 +1,5 @@
 package com.training.assignments;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,5 +9,13 @@ class Assignment4Test {
     @Test
     public void testGetSubstring() {
         Assertions.assertEquals("Corporation", assignment4.getSubstring("Indian Oil Corporation Ltd", 11, 22));
+
+    }
+
+    @Test
+    public void testSubstringException() {
+
+        Exception exception = Assertions.assertThrows(RuntimeException.class, () -> assignment4.getSubstring("Indian Oil Corporation Ltd", 11, 100));
+        Assertions.assertEquals("invalid data", exception.getMessage());
     }
 }

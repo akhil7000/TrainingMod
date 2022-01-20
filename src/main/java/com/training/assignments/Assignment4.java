@@ -5,7 +5,7 @@ public class Assignment4 {
         if (endIndex <= sentence.length() && startIndex < endIndex) {
             return sentence.substring(startIndex, endIndex);
         }
-        return "invalid data";
+        throw new RuntimeException("invalid data");
     }
 }
 
