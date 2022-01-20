@@ -17,8 +17,3 @@ class Assignment6Test {
         Assertions.assertNotNull(assignment6.getCompanyName("Google"));
     }
 }
-
-
-
-
-
