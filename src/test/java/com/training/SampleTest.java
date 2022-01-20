@@ -1,6 +1,6 @@
-package com.training.sample.tests;
+package com.training;
 
-import com.training.sample.pages.SamplePage;
+import com.training.SamplePage;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
