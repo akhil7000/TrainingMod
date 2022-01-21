@@ -1,9 +1,9 @@
 package com.training.assignments;
 
 public class Assignment5 {
-    public int getIndexArray(String[] array, String word) {
-        for (int index = 0; index < array.length; index++) {
-            if (array[index].equals(word)) {
+    public int getArrayIndex(String[] name, String word) {
+        for (int index = 0; index < name.length; index++) {
+            if (name[index].equals(word)) {
                 return index;
             }
         }

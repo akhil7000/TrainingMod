@@ -9,8 +9,8 @@ class Assignment5Test {
     @Test
     public void testGetIndexArray() {
         String array[] = {"Paulo Dybala", "Federico", "Gianluigi", "Ronaldo", "Messi"};
-        Assertions.assertEquals(3, assignment5.getIndexArray(array, "Ronaldo"));
-        Assertions.assertEquals(-1, assignment5.getIndexArray(array, "Ron"));
-        Assertions.assertNotEquals(8, assignment5.getIndexArray(array, "Ronaldo"));
+        Assertions.assertEquals(3, assignment5.getArrayIndex(array, "Ronaldo"));
+        Assertions.assertEquals(-1, assignment5.getArrayIndex(array, "Ron"));
+        Assertions.assertNotEquals(8, assignment5.getArrayIndex(array, "Ronaldo"));
     }
 }
