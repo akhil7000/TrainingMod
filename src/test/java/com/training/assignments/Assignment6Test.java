@@ -10,10 +10,6 @@ class Assignment6Test {
     @Test
     public void testGetReview() {
         Assertions.assertEquals("It is a good company", assignment6.getCompanyName("Google"));
-        Assertions.assertEquals("It is a good company", assignment6.getCompanyName("Amazon"));
-        Assertions.assertEquals("It is a bad company", assignment6.getCompanyName("H20"));
-        Assertions.assertEquals("It is an average company", assignment6.getCompanyName("flipkart"));
-        Assertions.assertEquals("It is a bad company", assignment6.getCompanyName("Tartan"));
-        Assertions.assertNotNull(assignment6.getCompanyName("Google"));
+        Assertions.assertEquals("Invalid input", assignment6.getCompanyName("CapeGemini"));
     }
 }

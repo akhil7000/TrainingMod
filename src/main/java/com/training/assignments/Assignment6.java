@@ -5,19 +5,15 @@ public class Assignment6 {
 
         switch (companyName) {
             case "Google":
-                return "It is a good company";
-
             case "Amazon":
                 return "It is a good company";
 
             case "H20":
+            case "Tartan":
                 return "It is a bad company";
 
             case "flipkart":
                 return "It is an average company";
-
-            case "Tartan":
-                return "It is a bad company";
 
             default:
                 return "Invalid input";
