@@ -3,8 +3,6 @@ package com.training.assignments;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class StudentTest {
 
     @Test
@@ -22,5 +20,4 @@ class StudentTest {
         Assertions.assertEquals("CJCS",Student.getSchoolName());
 
     }
-
 }
