@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Assignment9 {
-    public List<Integer> getEvenNumber(int x, int y) {
+    public List<Integer> getEvenNumber(int startRange, int endRange) {
         List<Integer> evenList = new ArrayList<>();
-        while (x < y) {
-            if (x % 2 == 0) {
-                evenList.add(x);
+        while (startRange < endRange) {
+            if (startRange % 2 == 0) {
+                evenList.add(startRange);
             }
-            x++;
+            startRange++;
         }
         return evenList;
     }

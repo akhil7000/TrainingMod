@@ -12,9 +12,12 @@ class Assignment9Test {
     @Test
     public void testEvenNumber() {
         List<Integer> evenList = new ArrayList<>();
-        evenList.add(2);
-        evenList.add(4);
+        int startRange=1;
+        int endRange=200;
 
-        Assertions.assertEquals(evenList, assignment9.getEvenNumber(1, 5));
+        evenList=assignment9.getEvenNumber(startRange,endRange);
+        for (int evenNumber: evenList) {
+            Assertions.assertTrue(evenNumber % 2 == 0, "This number is not even");
+        }
     }
 }
