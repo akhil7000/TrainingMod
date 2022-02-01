@@ -9,15 +9,20 @@ class StudentTest {
     public void testStudent()
     {
         Student student=new Student();
-        student.setName("Naviya");
-        student.setLastName("Dayanand");
-        student.setRollNo(1);
-        Student.setSchoolName("CJCS");
+        String name="Naviya";
+        String lastName="Dayanand";
+        Integer rollNo=1;
+        String SchoolName="CJCS";
 
-        Assertions.assertEquals("Naviya",student.getName());
-        Assertions.assertEquals("Dayanand",student.getLastName());
-        Assertions.assertEquals(1,student.getRollNo());
-        Assertions.assertEquals("CJCS",Student.getSchoolName());
+        student.setName(name);
+        student.setLastName(lastName);
+        student.setRollNo(rollNo);
+        student.setSchoolName(SchoolName);
+
+        Assertions.assertEquals(name,student.getName(),"Name doesn't match");
+        Assertions.assertEquals(lastName,student.getLastName(),"Lastname don't match");
+        Assertions.assertEquals(rollNo,student.getRollNo(),"Rollno don't match");
+        Assertions.assertEquals(SchoolName,Student.getSchoolName(),"Schoolname don't match");
 
     }
 }
