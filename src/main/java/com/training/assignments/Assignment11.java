@@ -12,15 +12,8 @@ public class Assignment11 {
         sportsname.add("Tennis");
         sportsname.add("baseball");
         sportsname.add("Lawn tennis");
+        sportsname.remove(3);
 
-        for (int index = 0; index < sportsname.size(); index++) {
-            if (index == 3) {
-                sportsname.remove(index);
-            }
-        }
         return sportsname;
     }
-
 }
-
-
