@@ -9,8 +9,6 @@ import java.util.List;
 
 class Assignment11Test {
 
-    Assignment11 assignment11=new Assignment11();
-
     @Test
         public void testGetSportsName(){
         List<String> sportsname = new ArrayList<>();
@@ -19,6 +17,6 @@ class Assignment11Test {
         sportsname.add("Football");
         sportsname.add("baseball");
         sportsname.add("Lawn tennis");
-        Assertions.assertEquals(sportsname,assignment11.getSportsName());
+        Assertions.assertEquals(sportsname,new Assignment11().getSportsName(),"Incorrect sportsname");
         }
     }
