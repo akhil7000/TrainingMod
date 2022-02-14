@@ -7,7 +7,9 @@ class Assignment14Test {
 
     @Test
     public void testMovie() {
-        Assertions.assertEquals("Doing Directing", new Director().getWork(), "he is not directing");
-        Assertions.assertEquals("Doing acting", new Actor().getWork(), "no acting");
+        Actor actor=new Director();
+        Actor actor1=new Actor();
+        Assertions.assertEquals("Doing Directing", actor.getWork(), "he is not directing");
+        Assertions.assertEquals("Doing acting",actor1.getWork(),"he is not acting");
     }
 }
