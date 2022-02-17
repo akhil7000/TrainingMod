@@ -12,17 +12,17 @@ class StudentTest {
         String name="Naviya";
         String lastName="Dayanand";
         Integer rollNo=1;
-        String SchoolName="CJCS";
+        String schoolName="CJCS";
 
         student.setName(name);
         student.setLastName(lastName);
         student.setRollNo(rollNo);
-        student.setSchoolName(SchoolName);
+        student.setSchoolName(schoolName);
 
         Assertions.assertEquals(name,student.getName(),"Name doesn't match");
         Assertions.assertEquals(lastName,student.getLastName(),"Lastname don't match");
         Assertions.assertEquals(rollNo,student.getRollNo(),"Rollno don't match");
-        Assertions.assertEquals(SchoolName,Student.getSchoolName(),"Schoolname don't match");
+        Assertions.assertEquals(schoolName,student.getSchoolName(),"Schoolname don't match");
 
     }
 }
