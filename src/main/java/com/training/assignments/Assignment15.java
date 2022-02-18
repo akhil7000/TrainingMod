@@ -6,18 +6,18 @@ public class Assignment15 {
     String middleName = "NA";
 
     public String getFullName() {
-        return "NA";
+        return getFullName("NA","","");
     }
 
     public String getFullName(String firstName) {
-        return firstName;
+        return getFullName(firstName,"","");
     }
 
     public String getFullName(String firstName, String lastName) {
-        return firstName + " " + lastName;
+        return getFullName(firstName,lastName,"");
     }
 
     public String getFullName(String firstName, String lastName, String middleName) {
-        return firstName + " " + lastName + " " + middleName;
+        return (firstName + " " + lastName + " " + middleName).trim();
     }
 }
