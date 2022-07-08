@@ -5,17 +5,15 @@ public class StudentInfo {
     private String name;
     private String address;
     private int classNo;
-    private static String schoolName;
+    private String schoolName;
 
-    public StudentInfo(int id, String name, String address, int classNo) {
-        this.name=name;
-        this.id=id;
-        this.address=address;
-        this.classNo=classNo;
+    public StudentInfo(int id, String name, String address, int classNo, String schoolName) {
+        this.name = name;
+        this.id = id;
+        this.address = address;
+        this.classNo = classNo;
+        this.schoolName = schoolName;
 
-    }
-
-    public StudentInfo() {
     }
 
     public int getId() {
@@ -50,12 +48,12 @@ public class StudentInfo {
         this.classNo = classNo;
     }
 
-    public static String getSchoolName() {
+    public String getSchoolName() {
         return schoolName;
     }
 
-    public static void setSchoolName(String schoolName) {
-        StudentInfo.schoolName = schoolName;
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 
 }

@@ -1,99 +1,112 @@
 package com.training.assignments;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Scanner;
 
+
 public class UserOperations {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    StudentInfo studentInfo = new StudentInfo();
+    public int delete(List<StudentInfo> listStudent, int id) {
 
-        public void delete(List<StudentInfo> listStudent, int id) {
-
-        int index=0;
+        int index = 0;
         try {
-            for (StudentInfo std : listStudent)
-            {
-                if (std.getId() == id) {
+            for (StudentInfo studentInfo : listStudent) {
+                if (studentInfo.getId() == id) {
                     break;
                 }
                 index++;
 
             }
             listStudent.remove(index);
-        }catch (Exception e)
-        {
-            System.out.println(e);
+        } catch (Exception e) {
+            return 0;
         }
-
+        return 1;
     }
 
-    private void updateStudent(List<StudentInfo> listStudent, int id) {
-        Scanner sc=new Scanner(System.in);
-        for (StudentInfo std: listStudent) {
+    public int updateStudentById(List<StudentInfo> listStudent, int id, String newName, String newAddress, String newSchoolName) {
 
-            if(std.getId()==id) {
-                System.out.println("please enter the name to be updated");
-                String name = sc.next();
-                std.setName(name);
+        for (StudentInfo studentInfo : listStudent) {
 
-                System.out.println("please enter the address to be updated");
-                String address = sc.next();
-                std.setAddress(address);
+            if (studentInfo.getId() == id) {
+                logger.info("please enter the name to be updated");
+                studentInfo.setName(newName);
+
+                logger.info("please enter the address to be updated");
+                studentInfo.setAddress(newAddress);
+
+                logger.info("please enter the school to be updated");
+                studentInfo.setSchoolName(newSchoolName);
             }
         }
+        return 1;
     }
-    public void updateStudent(List<StudentInfo> listStudent, String name) {
-        for (StudentInfo std: listStudent) {
 
-            if(std.getName().equals(name)) {
+    public int updateStudentByName(List<StudentInfo> listStudent, String name, int newId, String newAddress, String newSchoolName) {
 
-                String address="Mumbai";
-                std.setAddress(address);
+        for (StudentInfo studentInfo : listStudent) {
+
+            if (studentInfo.getName() == name) {
+                logger.info("please enter the id to be updated");
+                studentInfo.setId(newId);
+
+                logger.info("please enter the address to be updated");
+                studentInfo.setAddress(newAddress);
+
+                logger.info("please enter the school to be updated");
+                studentInfo.setSchoolName(newSchoolName);
+
+            }
+        }
+        return 1;
+    }
+
+    public boolean searchStudentsById(List<StudentInfo> listStudent, int id) {
+        for (StudentInfo studentInfo : listStudent) {
+            if (studentInfo.getId() == id) {
+                logger.info("ID: " + studentInfo.getId() + "\t Name: " + studentInfo.getName() + "\t Address: " + studentInfo.getAddress());
+                return true;
             }
 
         }
+        return false;
     }
 
-    private void search(List<StudentInfo> listStudent, int id) {
-        for (StudentInfo std : listStudent) {
-            if (std.getId() == id) {
-                System.out.println("ID: " + std.getId() + "\t Name: " + std.getName() + "\t Address: " + std.getAddress());
-            }
+    public boolean searchStudentsByName(List<StudentInfo> listStudent, String name) {
+        for (StudentInfo studentInfo : listStudent) {
+            if (studentInfo.getName().equals(name)) {
+                logger.info("ID: " + studentInfo.getId() + "\t Name: " + studentInfo.getName() + "\t Address: " + studentInfo.getAddress());
 
+                return true;
+            }
         }
-    }
-        private void search(List<StudentInfo> listStudent, String name) {
-            for(StudentInfo std: listStudent)
-            {
-                if(std.getName().equals(name))
-                {
-                    System.out.println("ID: "+std.getId()+ "\t Name: "+std.getName()+ "\t Address: "+ std.getAddress());
-                }
-
-            }
+        return false;
     }
 
     public void displayStudents(List<StudentInfo> listStudent) {
 
-       if (listStudent.isEmpty()) {
-            System.out.println("no students");
+        if (listStudent.isEmpty()) {
+            logger.info("no students");
         } else {
-            for (StudentInfo std : listStudent) {
-                std.setSchoolName("CJCS");
+            for (StudentInfo studentInfo : listStudent) {
 
-                System.out.println("ID: "+std.getId()+ "\t Name: "+std.getName()+ "\t Address: "+ std.getAddress()+ "\t Class no :" +std.getClassNo()+
-                        "\t SchoolName :"+std.getSchoolName());
+                logger.info("ID: " + studentInfo.getId() + "\t Name: " + studentInfo.getName() + "\t Address: " + studentInfo.getAddress() + "\t Class no :" + studentInfo.getClassNo() +
+                        "\t SchoolName :" + studentInfo.getSchoolName());
             }
         }
 
     }
 
-        public void insertStudent(List<StudentInfo> listStudent) {
-            StudentInfo student = new StudentInfo();
+    public void insertStudent(List<StudentInfo> listStudent) {
 
-            listStudent.add(new StudentInfo(3,"jack","ll",2));
+        listStudent.add(new StudentInfo(3, "jack", "ll", 2, "CJCS"));
 
-            System.out.println("Student added successfully"+listStudent.toString());
-        }
+        logger.info("Student added successfully" + listStudent.toString());
     }
+}
 
