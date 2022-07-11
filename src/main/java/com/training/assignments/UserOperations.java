@@ -1,15 +1,12 @@
 package com.training.assignments;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Scanner;
-
 
 public class UserOperations {
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+   private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public int delete(List<StudentInfo> listStudent, int id) {
 
