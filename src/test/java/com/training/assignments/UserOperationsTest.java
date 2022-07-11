@@ -10,6 +10,7 @@ class UserOperationsTest {
     UserOperations userOperations = new UserOperations();
     List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
 
+
     @Test
     public void testInsertStudent() {
 
@@ -23,7 +24,6 @@ class UserOperationsTest {
 
     @Test
     public void testUpdateStudentById() {
-        List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
 
@@ -34,7 +34,7 @@ class UserOperationsTest {
 
     @Test
     public void testUpdateStudentByName() {
-        List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
 
@@ -44,7 +44,7 @@ class UserOperationsTest {
 
     @Test
     public void testDisplayStudent() {
-        List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
         userOperations.displayStudents(listStudent);
@@ -53,7 +53,7 @@ class UserOperationsTest {
 
     @Test
     public void testSearchStudentByName() {
-        List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
         Assertions.assertEquals(userOperations.searchStudentsByName(listStudent, "navi"), true);
@@ -62,7 +62,7 @@ class UserOperationsTest {
 
     @Test
     public void testSearchStudentById() {
-        List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+        //List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
 
@@ -72,7 +72,7 @@ class UserOperationsTest {
 
     @Test
     public void testDeleteStudent() {
-        List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+        //List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
         userOperations.delete(listStudent, 2);
