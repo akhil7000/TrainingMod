@@ -62,7 +62,7 @@ class UserOperationsTest {
 
     @Test
     public void testSearchStudentById() {
-        //List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
 
@@ -72,7 +72,7 @@ class UserOperationsTest {
 
     @Test
     public void testDeleteStudent() {
-        //List<StudentInfo> listStudent = new ArrayList<StudentInfo>();
+
         listStudent.add(new StudentInfo(1, "navi", "kk", 1, "CJCS"));
         listStudent.add(new StudentInfo(2, "riya", "pp", 3, "RAIT"));
         userOperations.delete(listStudent, 2);
